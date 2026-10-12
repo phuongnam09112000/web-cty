@@ -19,6 +19,10 @@ const Content1: React.FC<ContentBlockProps> = ({
   id,
 }) => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  // Only the first slide is visible on load. The other slides' images are
+  // rendered once it has loaded (or failed), so they don't compete with it.
+  const [firstSlideDone, setFirstSlideDone] = useState(false);
+  const onFirstSlideDone = () => setFirstSlideDone(true);
   return (
     <ContentWrapper id={id}>
       <Swiper
@@ -39,11 +43,15 @@ const Content1: React.FC<ContentBlockProps> = ({
       >
         {backgroundImage.map((image: string, index: number) => (
           <SwiperSlide key={index}>
-            <BackgroundImage
-              src={image}
-              alt={`Slide background ${index + 1}`}
-              loading="eager"
-            />
+            {(index === 0 || firstSlideDone) && (
+              <BackgroundImage
+                src={image}
+                alt={`Slide background ${index + 1}`}
+                loading="eager"
+                onLoad={index === 0 ? onFirstSlideDone : undefined}
+                onError={index === 0 ? onFirstSlideDone : undefined}
+              />
+            )}
             {index === activeSlideIndex && (
               <>
                 <Title>{title}</Title>

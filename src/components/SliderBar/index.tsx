@@ -55,12 +55,31 @@ const ModernSlider: React.FC<SliderProps> = ({
   const [progressKey, setProgressKey] = useState(0); // re-trigger animation
   const total = images.length;
 
-  // Preload images
+  // Preload all slide images once the slider gets close to the viewport,
+  // so slide changes stay smooth without downloading them on page load
+  const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    images.forEach((img) => {
-      const el = new Image();
-      el.src = img.src;
-    });
+    const preload = () =>
+      images.forEach((img) => {
+        const el = new Image();
+        el.src = img.src;
+      });
+    const node = containerRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") {
+      preload();
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          observer.disconnect();
+          preload();
+        }
+      },
+      { rootMargin: "800px 0px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
   }, []);
 
   const handleSlideChange = useCallback((swiper: SwiperType) => {
@@ -75,7 +94,7 @@ const ModernSlider: React.FC<SliderProps> = ({
   const pad = (n: number) => String(n).padStart(2, "0");
 
   return (
-    <SliderContainer>
+    <SliderContainer ref={containerRef}>
       {/* Google Fonts */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lora&family=DM+Mono:wght@600&display=swap');
@@ -134,7 +153,7 @@ const ModernSlider: React.FC<SliderProps> = ({
                 <SlideImage
                   src={slide.src}
                   alt={t(slide.text)}
-                  loading={index === 0 ? "eager" : "lazy"}
+                  loading="lazy"
                 />
                 <GradientOverlay />
               </SlideContent>
