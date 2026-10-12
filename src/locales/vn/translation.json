@@ -252,6 +252,10 @@
   "contact.validation.message": "Vui lòng nhập nội dung",
   "contact.modal.title.part1": "Cảm ơn",
   "contact.modal.title.em": "bạn!",
-  "contact.modal.body": "Chúng tôi đã nhận được tin nhắn của bạn và sẽ liên hệ lại trong thời gian sớm nhất."
-  
+  "contact.modal.body": "Chúng tôi đã nhận được tin nhắn của bạn và sẽ liên hệ lại trong thời gian sớm nhất.",
+  "a11y.skip_to_content": "Chuyển đến nội dung chính",
+  "a11y.main_navigation": "Điều hướng chính",
+  "a11y.menu": "Menu",
+  "a11y.close_menu": "Đóng menu",
+  "a11y.scroll_to_top": "Cuộn lên đầu trang"
 }

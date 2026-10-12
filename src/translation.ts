@@ -35,4 +35,11 @@ i18n
     defaultNS: "translations",
   });
 
+// Keep <html lang> in sync with the active language for screen readers
+const syncHtmlLang = (lng?: string) => {
+  if (lng) document.documentElement.lang = lng.split("-")[0];
+};
+syncHtmlLang(i18n.language);
+i18n.on("languageChanged", syncHtmlLang);
+
 export default i18n;

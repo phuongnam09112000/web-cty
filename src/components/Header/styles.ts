@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle, keyframes, css } from "styled-components";
 import { Link } from "react-router-dom";
 import { Menu } from "antd";
+import { theme } from "../../styles/theme";
 
 // ─── Global ───────────────────────────────────────────────────────────────────
 export const GlobalStyle = createGlobalStyle`
@@ -35,9 +36,10 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
+// Same values as before (768px / 1024px), now sourced from the shared tokens
 export const breakpoints = {
-  mobile: "768px",
-  tablet: "1024px",
+  mobile: `${theme.breakpoints.md}px`,
+  tablet: `${theme.breakpoints.lg}px`,
 };
 
 // ─── Keyframes ────────────────────────────────────────────────────────────────
@@ -187,12 +189,25 @@ export const NavItemLink = styled(Link)<{
   `}
 `;
 
-export const NavDropdown = styled.div<{
+// Native <button> reset so interactive triggers keep their previous look
+const buttonReset = css`
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  line-height: inherit;
+  text-align: inherit;
+`;
+
+export const NavDropdown = styled.button<{
   $active: boolean;
   $isHovered: boolean;
   $isAnyHovered: boolean;
   $isDropdownOpen: boolean;
 }>`
+  ${buttonReset}
   position: relative;
   padding: 0 1.05rem;
   height: 72px;
@@ -296,11 +311,12 @@ export const LanguageMenu = styled(Menu)`
 `;
 
 // ─── Language Selector ────────────────────────────────────────────────────────
-export const LanguageSelector = styled.div<{
+export const LanguageSelector = styled.button<{
   $isHovered: boolean;
   $isAnyHovered: boolean;
   $isDropdownOpen: boolean;
 }>`
+  ${buttonReset}
   margin-left: 0.75rem;
   padding: 0 0.85rem;
   height: 72px;
@@ -340,7 +356,16 @@ export const FlagIcon = styled.span`
 export const AnimatedDropdownWrapper = styled.div``;
 
 // ─── Mobile Toggle ────────────────────────────────────────────────────────────
-export const MobileNavToggle = styled.div`
+export const MobileNavToggle = styled.button`
+  /* native <button> reset — keeps the previous look */
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  line-height: 1;
+  appearance: none;
+  -webkit-appearance: none;
+
   display: none;
   cursor: pointer;
   width: 38px;
@@ -386,7 +411,11 @@ export const MobileNavContainer = styled.div<{ $isOpen: boolean }>`
   height: 100dvh;
   background: #fff;
   z-index: 1002;
-  transition: right 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  /* hidden panel is removed from the tab order once it has slid out */
+  visibility: ${p => p.$isOpen ? 'visible' : 'hidden'};
+  transition:
+    right 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear ${p => p.$isOpen ? '0s' : '0.32s'};
   box-shadow: -12px 0 48px rgba(0, 0, 0, 0.14);
   display: flex;
   flex-direction: column;
@@ -469,7 +498,11 @@ export const MobileSubMenu = styled.div<{ $isOpen: boolean }>`
   background: #f9fafd;
   max-height: ${p => p.$isOpen ? '320px' : '0'};
   overflow: hidden;
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* collapsed links leave the tab order (matches aria-expanded="false") */
+  visibility: ${p => p.$isOpen ? 'visible' : 'hidden'};
+  transition:
+    max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear ${p => p.$isOpen ? '0s' : '0.3s'};
 `;
 
 export const MobileSubMenuItem = styled(Link)`

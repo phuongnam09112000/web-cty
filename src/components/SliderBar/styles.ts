@@ -173,7 +173,9 @@ export const NavigationButton = styled.button`
     color: #fff;
   }
 
-  &:focus { outline: none; }
+  &:focus:not(:focus-visible) { outline: none; }
+  /* keyboard focus ring in the light variant for the dark panel */
+  &:focus-visible { outline-color: var(--istt-focus-ring-inverse) !important; }
 
   @media (max-width: 576px) {
     width: 40px;
