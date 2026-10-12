@@ -42,7 +42,7 @@ const Software = () => {
         title={t(coreOfferings.title)}
         solutions={coreOfferings.solutions.map((solution) => ({
           title: t(solution.title),
-          content: t(solution.content),
+          content: [t(solution.content)],
         }))}
         defaultImage="/img/background/software_2.png" 
       />

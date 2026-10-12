@@ -60,7 +60,7 @@ const Integration = () => {
         title={t(coreOfferings.title)}
         solutions={coreOfferings.solutions.map((solution) => ({
           title: t(solution.title),
-          content: t(solution.content),
+          content: [t(solution.content)],
         }))}
         defaultImage="/img/background/sy_2.jpg"
       />
