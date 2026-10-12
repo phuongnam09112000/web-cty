@@ -55,25 +55,22 @@ const ModernSlider: React.FC<SliderProps> = ({
   const [progressKey, setProgressKey] = useState(0); // re-trigger animation
   const total = images.length;
 
-  // Preload all slide images once the slider gets close to the viewport,
-  // so slide changes stay smooth without downloading them on page load
+  // Load all slide images once the slider gets close to the viewport, so
+  // slide changes stay smooth without downloading them on page load. The
+  // slides' own <img> elements do the loading, so each image is fetched once.
   const containerRef = useRef<HTMLDivElement>(null);
+  const [nearViewport, setNearViewport] = useState(false);
   useEffect(() => {
-    const preload = () =>
-      images.forEach((img) => {
-        const el = new Image();
-        el.src = img.src;
-      });
     const node = containerRef.current;
     if (!node || typeof IntersectionObserver === "undefined") {
-      preload();
+      setNearViewport(true);
       return;
     }
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
           observer.disconnect();
-          preload();
+          setNearViewport(true);
         }
       },
       { rootMargin: "800px 0px" }
@@ -150,11 +147,9 @@ const ModernSlider: React.FC<SliderProps> = ({
           {images.map((slide, index) => (
             <SwiperSlide key={index}>
               <SlideContent>
-                <SlideImage
-                  src={slide.src}
-                  alt={t(slide.text)}
-                  loading="lazy"
-                />
+                {nearViewport && (
+                  <SlideImage src={slide.src} alt={t(slide.text)} />
+                )}
                 <GradientOverlay />
               </SlideContent>
             </SwiperSlide>
