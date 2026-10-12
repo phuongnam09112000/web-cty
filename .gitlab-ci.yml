@@ -1,0 +1,32 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  FOLDER_DEPLOY: "/var/www/webct"
+  APP_USER: gitlab-runner
+  DEPLOY_USER: "rnd"
+  DEPLOY_HOST: "192.168.10.148"
+  DEPLOY_PASSWORD: "abcd456789" 
+
+cache:
+  key: "$CI_COMMIT_REF_NAME"
+  paths:
+    - node_modules/
+
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+
+deploy:
+  stage: deploy
+  tags:
+    - runner web
+  script:
+    - apt-get update -y && apt-get install -y expect || yum install -y expect
+    - chmod +x deploy.sh
+    - ./deploy.sh "$DEPLOY_USER" "$DEPLOY_HOST" "$DEPLOY_PASSWORD" "$FOLDER_DEPLOY" "$APP_USER"
+  only:
+    - main

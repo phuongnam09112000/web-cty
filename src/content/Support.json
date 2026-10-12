@@ -1,0 +1,18 @@
+{
+    "title": "Nội dung",
+    "description": "Dịch vụ hỗ trợ kỹ thuật 24/7 được thiết kế để đảm bảo độ tin cậy và thời gian hoạt động của hệ thống. Với đội ngũ hỗ trợ giàu kinh nghiệm và hiện diện chiến lược tại Việt Nam, chúng tôi cung cấp các giải pháp nhanh chóng và nhất quán.",
+    "solutions": [
+        {
+            "title": "Hỗ trợ 24/7",
+            "content": "Hỗ trợ trực tuyến và tại chỗ toàn diện."
+        },
+        {
+            "title": "Đội ngũ kỹ thuật",
+            "content": "Có mặt tại Hà Nội, TP.HCM và Đà Nẵng để phản hồi nhanh."
+        },
+        {
+            "title": "Hiệu suất Dựa trên SLA",
+            "content": "Tuân thủ nghiêm ngặt các thỏa thuận mức dịch vụ để đảm bảo độ tin cậy."
+        }
+    ]
+}

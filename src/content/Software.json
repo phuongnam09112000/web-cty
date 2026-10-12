@@ -1,0 +1,18 @@
+{
+    "title": "Nội dung",
+    "description": "Phát triển và tích hợp các giải pháp phần mềm tùy chỉnh phù hợp với yêu cầu đa dạng của khách hàng. Bằng cách tận dụng các công nghệ tiên tiến, chúng tôi giúp doanh nghiệp đạt hiệu quả cao hơn, giảm thiểu rủi ro và chi phí.",
+    "solutions": [
+        {
+            "title": "Phát triển Phần mềm Tùy chỉnh",
+            "content": "Các giải pháp phần mềm được thiết kế riêng để đáp ứng nhu cầu hoạt động cụ thể."
+        },
+        {
+            "title": "Tích hợp Hệ thống Đa Nhà cung cấp",
+            "content": "Đảm bảo khả năng tương thích và hiệu quả giữa các nền tảng và công nghệ."
+        },
+        {
+            "title": "Quản lý Rủi ro",
+            "content": "Phát hiện và giảm thiểu các thách thức trong quá trình triển khai."
+        }
+    ]
+}

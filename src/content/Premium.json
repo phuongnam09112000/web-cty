@@ -1,0 +1,77 @@
+
+{
+    "sections": [
+        {
+            "id": "ict",
+            "title": "Information CommunicationTechnology - ICT",
+            "description": "Delivers advanced ICT solutions, assisting businesses and organizations in optimizing their technology infrastructure, improving operational efficiency, and ensuring high security.",
+            "title2": "Core Offerings",
+            "solutions": [
+                {
+                    "title": "Telecommunication Network Systems",
+                    "content": "Providing STP (SS7), DSR (Diameter), SBC (SIP), MNP, SMSC-FDA, SMS Firewall, DNS, USSD Gateway."
+                },
+                {
+                    "title": "Telecom Infrastructure & Cloud",
+                    "content": "Integrating Telco Cloud, OSS & BSS, AI Automation to optimize operations."
+                },
+                {
+                    "title": "ICT Infrastructure Security",
+                    "content": "Ensuring data security and regulatory compliance."
+                }
+            ]
+        },
+        {
+            "id": "secure",
+            "title": "Secure & Defense",
+            "description": "ISTT offers security and defense solutions, safeguarding systems against sophisticated threats.",
+            "title2": "Core Offerings",
+            "solutions": [
+                {
+                    "title": "Telecommunication Security",
+                    "content": "Signaling Firewall (SS7, Diameter, SIP, GTP) protects telecommunication systems from cyber threats."
+                },
+                {
+                    "title": "Threat Prevention Systems",
+                    "content": "DDoS Protection, DNS Filtering, and Anti-Spoofing solutions to secure network infrastructure."
+                },
+                {
+                    "title": "Regulatory Compliance & Monitoring",
+                    "content": "Lawful Interception Systems for government and enterprise compliance."
+                },
+                {
+                    "title": "Defense Solutions",
+                    "content": "Anti-Drone Systems, Private Tactical Networks, Border Control Systems to enhance national and organizational security."
+                }
+            ]
+        },
+        {
+            "id": "digital",
+            "title": "Digital Transformation",
+            "description": "Supports businesses in Digital Transformation, leveraging technology to optimize operations and enhance competitiveness.",
+            "title2": "Core Offerings",
+            "solutions": [
+                {
+                    "title": "Automation & Digital Infrastructure",
+                    "content": "Integrating Telco Cloud, AI Automation, OSS & BSS to enhance operational efficiency."
+                },
+                {
+                    "title": "AI, Big Data, and IoT Applications",
+                    "content": "Implementing advanced data analytics and AI-driven solutions for business optimization."
+                },
+                {
+                    "title": "Next-Generation Digital Platforms",
+                    "content": "Developing 5G Core SA, O-RAN, and cutting-edge digital platforms"
+                },
+                {
+                    "title": "Digital Transformation for Governments",
+                    "content": "Advanced solutions for public sector modernization and enhanced governance efficiency."
+                },
+                {
+                    "title": "Data Management & Smart City",
+                    "content": "Utilizing Big Data for smart city development and efficient urban management."
+                }
+            ]
+        }
+    ]
+}
