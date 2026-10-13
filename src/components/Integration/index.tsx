@@ -49,7 +49,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({
       { root: null, rootMargin: "0px", threshold: 0.15 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => { if (sectionRef.current) observer.unobserve(sectionRef.current); };
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -78,7 +78,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({
               {t("servicespage.card.eyebrow")}
             </CardEyebrow>
 
-            <SectionTitle level={3} visible={textVisible}>
+            <SectionTitle level={2} visible={textVisible}>
               {t(sectionTitle)}
             </SectionTitle>
 

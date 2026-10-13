@@ -184,10 +184,10 @@ export const ContactInfoTexts = styled.div`
 
 export const ContactInfoLabel = styled.span`
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.28);
+  color: rgba(255,255,255,0.55); /* ≥ 4.5:1 on the navy panel */
 `;
 
 export const ContactInfoValue = styled.span`

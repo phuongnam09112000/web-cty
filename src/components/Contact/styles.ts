@@ -1,5 +1,4 @@
-import { Button, Input, Modal } from "antd";
-import { MapContainer } from "react-leaflet";
+import { Button } from "antd";
 import styled from "styled-components";
 
 // Styled Components
@@ -91,7 +90,7 @@ export const ButtonContainer = styled.div`
   }
 `;
 
-export const LocationButton = styled(Button)<{ isActive: boolean }>`
+export const LocationButton = styled(Button)<{ $isActive: boolean }>`
   font-weight: bold;
   font-size: 16px;
   padding: 0 24px;
@@ -101,14 +100,14 @@ export const LocationButton = styled(Button)<{ isActive: boolean }>`
   width: 240px;
   text-align: left;
   
-  background-color: ${props => props.isActive ? '#084B7A' : 'white'};
-  color: ${props => props.isActive ? 'white' : '#084B7A'};
-  border-color: ${props => props.isActive ? '#084B7A' : '#d9d9d9'};
+  background-color: ${props => props.$isActive ? '#084B7A' : 'white'};
+  color: ${props => props.$isActive ? 'white' : '#084B7A'};
+  border-color: ${props => props.$isActive ? '#084B7A' : '#d9d9d9'};
   
   &:hover, &:focus {
-    background-color: ${props => props.isActive ? '#0A5E96' : '#E6F0F7'};
-    color: ${props => props.isActive ? 'white' : '#084B7A'};
-    border-color: ${props => props.isActive ? '#0A5E96' : '#084B7A'};
+    background-color: ${props => props.$isActive ? '#0A5E96' : '#E6F0F7'};
+    color: ${props => props.$isActive ? 'white' : '#084B7A'};
+    border-color: ${props => props.$isActive ? '#0A5E96' : '#084B7A'};
   }
   
   @media (max-width: 1024px) {

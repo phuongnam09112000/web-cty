@@ -1,4 +1,5 @@
-import styled, { keyframes, css } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 /* ─── Keyframes ─────────────────────────────── */
 const fadeIn = keyframes`
@@ -16,10 +17,6 @@ const shimmer = keyframes`
   100% { background-position:  200% center; }
 `;
 
-const revealScale = keyframes`
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
-`;
 
 /* ─── Header ─────────────────────────────────── */
 export const HeaderContainer = styled.div`
@@ -302,6 +299,10 @@ export const CardTitle = styled.h3`
   font-family: 'Lora', 'Georgia', serif;
   font-size: 20px;
   font-weight: 700;
+  /* same letter-spacing as the global h3 rule, whichever heading level renders it */
+  letter-spacing: -0.015em;
+  @media (max-width: 768px) { letter-spacing: -0.01em; }
+  @media (max-width: 480px) { letter-spacing: -0.005em; }
   color: #0d1b2a;
   margin: 0 0 14px 0;
   text-align: center;
@@ -372,9 +373,14 @@ export const DetailsOverlay = styled.div`
     }
   }
 
+  /* Only catch clicks/taps while shown, so the card face (and its link)
+     stays usable underneath the hidden overlay. */
+  pointer-events: none;
+
   ${CardWrapper}:hover & {
     opacity: 1;
     transform: translateY(0);
+    pointer-events: auto;
   }
 
   @media (max-width: 768px) { padding: 28px 24px; }
@@ -445,4 +451,29 @@ export const TouchIndicator = styled.div`
   justify-content: center;
 
   @media (max-width: 1024px) { display: flex; }
+`;
+/* ─── "Learn more" link to the service's detail page ── */
+export const CardLink = styled(Link)<{ $onDark?: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding: 18px 0 2px;
+  min-height: 44px;
+  font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: ${({ $onDark }) => ($onDark ? '#fff' : '#0e5d95')};
+  text-decoration: none;
+
+  span { color: inherit; transition: transform 0.2s ease; }
+
+  &:hover {
+    color: ${({ $onDark }) => ($onDark ? '#fff' : '#0d3a73')};
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    span { transform: translateX(3px); }
+  }
 `;

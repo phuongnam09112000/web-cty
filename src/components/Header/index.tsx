@@ -35,6 +35,7 @@ import {
   MobileSubMenuItem,
   NavContainer,
   NavDropdown,
+  NavCta,
   NavItemLink,
   ServiceSubmenu,
 } from "./styles";
@@ -55,6 +56,23 @@ type LanguageItemType = {
 
 // Class added to each desktop dropdown's overlay so it can be found in the DOM
 const dropdownOverlayClass = (key: string) => `istt-dropdown-${key}`;
+
+// Routes whose first section is a full-bleed hero: the header starts
+// transparent over it and the fixed-header spacer is left out.
+const HERO_ROUTES = ["/", "/home"];
+
+// The page scrolls inside <body> on this site (window.scrollY stays 0), so
+// read every possible scroll container.
+const getScrollTop = () =>
+  Math.max(
+    window.scrollY || 0,
+    document.documentElement.scrollTop || 0,
+    document.body.scrollTop || 0
+  );
+
+const prefersReducedMotion = () =>
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const Header: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -77,15 +95,27 @@ const Header: React.FC = () => {
   // pulled back to its trigger after the user clicked somewhere else.
   const skipDropdownFocusReturnRef = useRef(false);
 
-  // ── Scroll listener for header shadow elevation ──────────────────────────
+  const hasHero = HERO_ROUTES.includes(location.pathname);
+
+  // ── Scroll listener for header shadow elevation / hero transparency ──────
+  // Capture phase on document also receives scroll events from <body>.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const onScroll = () => setScrolled(getScrollTop() > 20);
+    onScroll();
+    document.addEventListener("scroll", onScroll, { passive: true, capture: true });
+    return () =>
+      document.removeEventListener("scroll", onScroll, { capture: true } as EventListenerOptions);
+  }, [location.pathname]);
+
+  // Transparent only on hero routes, at the top of the page, with the mobile
+  // menu closed; every other route keeps the solid header.
+  const transparent = hasHero && !scrolled && !mobileNavOpen;
 
   // ── GSAP entrance animation ──────────────────────────────────────────────
+  // Skipped when the user asks for reduced motion (GSAP is not covered by
+  // the global reduced-motion CSS).
   useEffect(() => {
+    if (prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(
         headerRef.current,
@@ -386,9 +416,14 @@ const Header: React.FC = () => {
   return (
     <>
       <GlobalStyle />
-      <HeaderContainer ref={headerRef} $scrolled={scrolled}>
+      <HeaderContainer
+        ref={headerRef}
+        $scrolled={scrolled}
+        $transparent={transparent}
+        className={transparent ? "istt-on-dark" : undefined}
+      >
         {/* Logo */}
-        <Logo to="/" ref={logoRef}>
+        <Logo to="/" ref={logoRef} $onDark={transparent}>
           <img src="/img/icons/logo.png" alt="ISTT" />
         </Logo>
 
@@ -427,6 +462,7 @@ const Header: React.FC = () => {
                       $isHovered={isHov}
                       $isAnyHovered={isAnyHov}
                       $isDropdownOpen={isOpen}
+                      $transparent={transparent}
                       onMouseEnter={() => handleMouseEnter(item.key)}
                       onMouseLeave={handleMouseLeave}
                     >
@@ -438,14 +474,32 @@ const Header: React.FC = () => {
               );
             }
 
+            // Contact is the header's call to action (same link, button style)
+            if (item.key === "contact") {
+              return (
+                <NavCta
+                  key={item.key}
+                  to={item.path}
+                  ref={(el: HTMLAnchorElement | null) => { if (el) navItemsRef.current[i] = el as any; }}
+                  aria-current={isActive ? "page" : undefined}
+                  $active={isActive}
+                  $transparent={transparent}
+                >
+                  {t(item.labelKey)}
+                </NavCta>
+              );
+            }
+
             return (
               <NavItemLink
                 key={item.key}
                 to={item.path}
                 ref={(el) => { if (el) navItemsRef.current[i] = el as any; }}
+                aria-current={isActive ? "page" : undefined}
                 $active={isActive}
                 $isHovered={isHov}
                 $isAnyHovered={isAnyHov}
+                $transparent={transparent}
                 onMouseEnter={() => handleMouseEnter(item.key)}
                 onMouseLeave={handleMouseLeave}
               >
@@ -477,6 +531,7 @@ const Header: React.FC = () => {
                 $isHovered={hoveredItem === "language"}
                 $isAnyHovered={hoveredItem !== null}
                 $isDropdownOpen={isDropdownOpen("language")}
+                $transparent={transparent}
                 onMouseEnter={() => handleMouseEnter("language")}
                 onMouseLeave={handleMouseLeave}
               >
@@ -500,6 +555,7 @@ const Header: React.FC = () => {
           aria-label={t("a11y.menu")}
           aria-expanded={mobileNavOpen}
           aria-controls="mobile-navigation"
+          $transparent={transparent}
           onClick={() => setMobileNavOpen(!mobileNavOpen)}
           onBlur={handleMobileNavBlur}
         >
@@ -630,7 +686,8 @@ const Header: React.FC = () => {
           </MobileLanguageSelector>
         </MobileNavContainer>
       </HeaderContainer>
-      <ContentSpacer />
+      {/* Hero routes let their hero run underneath the fixed header */}
+      {!hasHero && <ContentSpacer />}
     </>
   );
 };

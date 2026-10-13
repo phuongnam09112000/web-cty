@@ -1,5 +1,6 @@
 import { useTranslation, withTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
+import ContactLink from "../../common/ContactLink";
 import {
   FooterSection,
   FooterTop,
@@ -53,8 +54,8 @@ const Footer = () => {
   const contacts = [
     { icon: "/img/icons/building.svg", text: "V2A & V3A, 2nd Floor, CT4-Vimeco Complex Building, H1 Lot, Yen Hoa Ward, Ha Noi City, Viet Nam" },
     { icon: "/img/icons/building.svg", text: "4th Floor, TSA Building, 258 Ton Dan Street, Khanh Hoi Ward, Ho Chi Minh City, Viet Nam" },
-    { icon: "/img/icons/mail.svg",     text: "contact@istt.com.vn" },
-    { icon: "/img/icons/phone.svg",    text: "(+84) 24 3766 3766" },
+    { icon: "/img/icons/mail.svg",     text: "contact@istt.com.vn", link: "mailto" as const },
+    { icon: "/img/icons/phone.svg",    text: "(+84) 24 3766 3766", link: "tel" as const },
   ];
 
   return (
@@ -109,10 +110,10 @@ const Footer = () => {
             <ContactCol>
               <ColLabel>{t("Contact")}</ColLabel>
               <ContactList>
-                {contacts.map(({ icon, text }, i) => (
+                {contacts.map(({ icon, text, link }, i) => (
                   <ContactItem key={i}>
                     <ContactIcon src={icon} alt="" />
-                    <ContactText>{t(text)}</ContactText>
+                    <ContactText>{link ? <ContactLink type={link} value={t(text)} /> : t(text)}</ContactText>
                   </ContactItem>
                 ))}
               </ContactList>

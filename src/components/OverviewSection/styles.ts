@@ -34,7 +34,9 @@ export const AboutContentWrapper = styled(Row)`
 `;
 
 /* ─── LEFT: Text column ─────────────────────── */
-export const TextColumn = styled(Col)<{ isVisible: boolean }>`
+export const TextColumn = styled(Col).withConfig({
+  shouldForwardProp: (prop: PropertyKey) => prop !== "isVisible",
+})<{ isVisible: boolean }>`
   padding-right: 60px !important;
   box-sizing: border-box;
 

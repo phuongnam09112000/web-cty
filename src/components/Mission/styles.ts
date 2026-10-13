@@ -30,10 +30,6 @@ const revealWidth = keyframes`
   to   { width: 56px; }
 `;
 
-const countUp = keyframes`
-  from { transform: translateY(8px); opacity: 0; }
-  to   { transform: translateY(0);   opacity: 1; }
-`;
 
 /* ─── Outer wrapper ──────────────────────────── */
 export const Container = styled.div<AnimatedProps>`
@@ -223,7 +219,7 @@ export const Eyebrow = styled.span<AnimatedProps>`
 `;
 
 /* ─── Title ──────────────────────────────────── */
-export const SectionTitle = styled(Title)<AnimatedProps>`
+export const SectionTitle = styled(Title).withConfig({ shouldForwardProp: (prop: PropertyKey) => prop !== "visible" })<AnimatedProps>`
   font-family: 'Lora', 'Georgia', serif !important;
   font-size: 38px !important;
   font-weight: 800 !important;

@@ -31,7 +31,7 @@ const SolutionBanner: React.FC<SolutionBannerProps> = ({
       <div className="content-wrapper">
         <BannerEyebrow className={vis}>ISTT Solutions</BannerEyebrow>
 
-        <Title className={vis}>{title}</Title>
+        <Title as="h2" className={vis}>{title}</Title>
 
         <TitleDivider className={vis} />
 

@@ -1,10 +1,8 @@
 import React, { lazy, useRef } from "react";
-import AboutBanner from "../../components/AboutBanner";
 import ServicesPage from "../../components/Integration";
 import { useTranslation } from "react-i18next";
 import CoreValuesSystem from "../../components/CoreValuesSystem";
 import ContactForm from "../../components/FormContact";
-import ContactBanner from "../../components/ContactBanner";
 import SolutionBanner from "../../components/SolutionBanner";
 
 const Container = lazy(() => import("../../common/Container"));

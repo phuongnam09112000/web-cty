@@ -219,7 +219,7 @@ export const Eyebrow = styled.span<AnimatedProps>`
 `;
 
 /* ─── Title ──────────────────────────────────── */
-export const SectionTitle = styled(Title)<AnimatedProps>`
+export const SectionTitle = styled(Title).withConfig({ shouldForwardProp: (prop: PropertyKey) => prop !== "visible" })<AnimatedProps>`
   font-family: 'Lora', 'Georgia', serif !important;
   font-size: 38px !important;
   font-weight: 800 !important;
@@ -273,7 +273,7 @@ export const TitleDivider = styled.div<AnimatedProps>`
 `;
 
 /* ─── Body text ──────────────────────────────── */
-export const VisionText = styled(Paragraph)<AnimatedProps>`
+export const VisionText = styled(Paragraph).withConfig({ shouldForwardProp: (prop: PropertyKey) => prop !== "visible" })<AnimatedProps>`
   font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif !important;
   font-size: 16px !important;
   line-height: 1.85 !important;

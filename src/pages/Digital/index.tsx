@@ -1,5 +1,4 @@
 import React, { lazy, useRef } from "react";
-import AboutBanner from "../../components/AboutBanner";
 import ServicesPage from "../../components/Integration";
 import { useTranslation } from "react-i18next";
 import CoreValuesSystem from "../../components/CoreValuesSystem";

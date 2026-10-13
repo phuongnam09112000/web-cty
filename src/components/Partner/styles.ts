@@ -40,7 +40,6 @@ export const TitleEyebrow = styled.span`
   color: ${blue};
   font-family: 'DM Mono', 'Courier New', monospace;
   margin-bottom: 3px;
-  opacity: 0.7;
 `;
 
 export const Title = styled.h2`
@@ -60,7 +59,7 @@ export const HeaderRule = styled.div`
 
 export const Subtitle = styled.p`
   font-size: 13px;
-  color: #94a3b8;
+  color: #5a7080; /* ≥ 4.5:1 on white */
   margin: 0 0 24px;
   font-style: italic;
   // font-family: Georgia, serif;
@@ -154,6 +153,11 @@ export const LogoItem = styled.img`
 
   ${SlideContainer}:hover & {
     filter: grayscale(0%) opacity(1);
+  }
+
+  /* Touch screens can't hover, so show the logos in full colour there */
+  @media (hover: none) {
+    filter: none;
   }
 
   @media (max-width: 768px) { max-height: 42px; }

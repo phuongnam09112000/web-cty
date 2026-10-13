@@ -8,23 +8,14 @@ const { Title } = Typography;
 const blue      = "#0e5d95";
 const blueDeep  = "#0d1b2a";
 const bluePale  = "rgba(14, 93, 149, 0.07)";
-const blueMid   = "rgba(14, 93, 149, 0.18)";
 
 /* ─── Keyframes ─────────────────────────────── */
-const fadeUp = keyframes`
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-`;
 
 const shimmer = keyframes`
   0%   { background-position: -200% center; }
   100% { background-position:  200% center; }
 `;
 
-const revealWidth = keyframes`
-  from { width: 0; }
-  to   { width: 56px; }
-`;
 
 /* ─── Container ──────────────────────────────── */
 export const Container = styled.div<{ backgroundColor?: string }>`

@@ -140,7 +140,7 @@ export const CardNumber = styled.span`
   font-family: 'JetBrains Mono', 'Courier New', monospace;
   font-size: 11px;
   letter-spacing: 0.15em;
-  color: #b0c4d8;
+  color: #5a7080; /* ≥ 4.5:1 on white */
   display: block;
   margin-bottom: 32px;
 `;

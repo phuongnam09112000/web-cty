@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Modal } from "antd";
 import { useTranslation } from "react-i18next";
+import ContactLink from "../../common/ContactLink";
 import {
   ContactContainer,
   InnerWrapper,
@@ -97,7 +98,7 @@ const ContactForm: React.FC = () => {
           <LeftPanel>
             <PanelTop>
               <PanelEyebrow>{t("contact.eyebrow")}</PanelEyebrow>
-              <PanelTitle>
+              <PanelTitle as="h1">
                 {t("contact.heading.part1")}&nbsp;<em>{t("contact.heading.em")}</em>
               </PanelTitle>
               <PanelDivider />
@@ -117,7 +118,7 @@ const ContactForm: React.FC = () => {
                 <ContactInfoIcon><MailIcon /></ContactInfoIcon>
                 <ContactInfoTexts>
                   <ContactInfoLabel>{t("contact.info.email.label")}</ContactInfoLabel>
-                  <ContactInfoValue>{t("contact.info.email.value")}</ContactInfoValue>
+                  <ContactInfoValue><ContactLink type="mailto" value={t("contact.info.email.value")} /></ContactInfoValue>
                 </ContactInfoTexts>
               </ContactInfoItem>
 
@@ -125,7 +126,7 @@ const ContactForm: React.FC = () => {
                 <ContactInfoIcon><PhoneIcon /></ContactInfoIcon>
                 <ContactInfoTexts>
                   <ContactInfoLabel>{t("contact.info.phone.label")}</ContactInfoLabel>
-                  <ContactInfoValue>{t("contact.info.phone.value")}</ContactInfoValue>
+                  <ContactInfoValue><ContactLink type="tel" value={t("contact.info.phone.value")} /></ContactInfoValue>
                 </ContactInfoTexts>
               </ContactInfoItem>
             </PanelBottom>
@@ -134,7 +135,7 @@ const ContactForm: React.FC = () => {
           {/* ── Right form panel ── */}
           <RightPanel>
             <FormEyebrow>{t("contact.form.eyebrow")}</FormEyebrow>
-            <FormHeading>
+            <FormHeading as="h2">
               <em>{t("contact.form.heading.em")}</em>&nbsp;{t("contact.form.heading.part2")}
             </FormHeading>
             <FormDivider />
@@ -145,14 +146,14 @@ const ContactForm: React.FC = () => {
                   name="fullname"
                   rules={[{ required: true, message: t("contact.validation.fullname") }]}
                 >
-                  <StyledInput placeholder={t("contact.form.field.fullname") + " *"} />
+                  <StyledInput placeholder={t("contact.form.field.fullname") + " *"} aria-label={t("contact.form.field.fullname")} aria-required="true" autoComplete="name" />
                 </StyledFormItem>
 
                 <StyledFormItem
                   name="phone"
                   rules={[{ required: true, message: t("contact.validation.phone") }]}
                 >
-                  <StyledInput placeholder={t("contact.form.field.phone") + " *"} />
+                  <StyledInput placeholder={t("contact.form.field.phone") + " *"} aria-label={t("contact.form.field.phone")} aria-required="true" autoComplete="tel" />
                 </StyledFormItem>
               </FieldGrid>
 
@@ -164,7 +165,7 @@ const ContactForm: React.FC = () => {
                     { type: "email",  message: t("contact.validation.email.invalid")  },
                   ]}
                 >
-                  <StyledInput placeholder={t("contact.form.field.email") + " *"} />
+                  <StyledInput placeholder={t("contact.form.field.email") + " *"} aria-label={t("contact.form.field.email")} aria-required="true" autoComplete="email" />
                 </StyledFormItem>
               </FullRow>
 
@@ -173,7 +174,7 @@ const ContactForm: React.FC = () => {
                   name="message"
                   rules={[{ required: true, message: t("contact.validation.message") }]}
                 >
-                  <ContactFormTextArea placeholder={t("contact.form.field.message")} rows={5} />
+                  <ContactFormTextArea placeholder={t("contact.form.field.message")} aria-label={t("contact.form.field.message")} aria-required="true" rows={5} />
                 </ContentFormItem>
               </FullRow>
 

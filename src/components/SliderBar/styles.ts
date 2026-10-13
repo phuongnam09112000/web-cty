@@ -64,7 +64,7 @@ export const BrandLabel = styled.span`
   font-weight: 600;
   letter-spacing: 5px;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.55); /* ≥ 4.5:1 on the dark panel */
   margin-bottom: 48px;
   display: block;
 
@@ -133,7 +133,7 @@ export const SlideCounter = styled.div`
   font-family: 'DM Mono', 'Courier New', monospace;
   font-size: 12px;
   letter-spacing: 2px;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.55); /* ≥ 4.5:1 on the dark panel */
 
   span {
     color: #fff;

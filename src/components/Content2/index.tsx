@@ -58,7 +58,7 @@ const Section: React.FC<SectionProps> = () => {
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => { if (sectionRef.current) observer.disconnect(); };
+    return () => observer.disconnect();
   }, []);
 
   const handleLearnMore = () => {
@@ -87,7 +87,7 @@ const Section: React.FC<SectionProps> = () => {
           {t("About us")}
         </SectionLabel>
 
-        <Title isVisible={isTitleVisible}>
+        <Title as="h2" isVisible={isTitleVisible}>
           {t("Information Services")}&nbsp;&amp;<br />
           <em>{t("Technology Transfer")}</em>
         </Title>

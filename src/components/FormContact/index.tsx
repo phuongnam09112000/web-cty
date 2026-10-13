@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import ContactLink from "../../common/ContactLink";
 import {
   ContactContainer,
   ContentWrapper,
@@ -71,7 +72,7 @@ const ContactForm: React.FC = () => {
       { root: null, threshold: 0.15, rootMargin: "0px" }
     );
     if (formRef.current) observer.observe(formRef.current);
-    return () => { if (formRef.current) observer.unobserve(formRef.current); };
+    return () => observer.disconnect();
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -127,14 +128,14 @@ const ContactForm: React.FC = () => {
               <InfoIcon><PhoneIcon /></InfoIcon>
               <InfoText>
                 <InfoLabel>{t("contact.info.phone.label")}</InfoLabel>
-                <InfoValue>{t("contact.info.phone.value")}</InfoValue>
+                <InfoValue><ContactLink type="tel" value={t("contact.info.phone.value")} /></InfoValue>
               </InfoText>
             </InfoItem>
             <InfoItem>
               <InfoIcon><MailIcon /></InfoIcon>
               <InfoText>
                 <InfoLabel>{t("contact.info.email.label")}</InfoLabel>
-                <InfoValue>{t("contact.info.email.value")}</InfoValue>
+                <InfoValue><ContactLink type="mailto" value={t("contact.info.email.value")} /></InfoValue>
               </InfoText>
             </InfoItem>
             <InfoItem>
@@ -159,29 +160,33 @@ const ContactForm: React.FC = () => {
             <FormField className={isVisible ? "visible-1" : ""}>
               <Input type="text" name="fullname"
                 placeholder={t("contact.form.field.fullname")}
+                aria-label={t("contact.form.field.fullname")} autoComplete="name"
                 value={formData.fullname} onChange={handleChange} required />
             </FormField>
             <FormField className={isVisible ? "visible-2" : ""}>
               <Input type="tel" name="phone"
                 placeholder={t("contact.form.field.phone")}
+                aria-label={t("contact.form.field.phone")} autoComplete="tel"
                 value={formData.phone} onChange={handleChange} required />
             </FormField>
             <FormField className={isVisible ? "visible-3" : ""}>
               <Input type="email" name="email"
                 placeholder={t("contact.form.field.email")}
+                aria-label={t("contact.form.field.email")} autoComplete="email"
                 value={formData.email} onChange={handleChange} required />
             </FormField>
             <FormField className={isVisible ? "visible-4" : ""}>
               <TextArea name="message"
                 placeholder={t("contact.form.field.message")}
+                aria-label={t("contact.form.field.message")}
                 value={formData.message} onChange={handleChange} />
             </FormField>
 
             {submitStatus === "success" && (
-              <SuccessMessage>{t("contact.status.success")}</SuccessMessage>
+              <SuccessMessage role="status">{t("contact.status.success")}</SuccessMessage>
             )}
             {submitStatus === "error" && (
-              <ErrorMessage>{t("contact.status.error")}</ErrorMessage>
+              <ErrorMessage role="alert">{t("contact.status.error")}</ErrorMessage>
             )}
 
             <SubmitButton type="submit" className={vis} disabled={isSubmitting}>

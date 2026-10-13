@@ -6,10 +6,6 @@ const fadeRight = keyframes`
   to   { opacity: 1; transform: translateX(0); }
 `;
 
-const fadeLeft = keyframes`
-  from { opacity: 0; transform: translateX(40px); }
-  to   { opacity: 1; transform: translateX(0); }
-`;
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(24px); }
@@ -356,8 +352,8 @@ export const StatNumber = styled.span`
 
 export const StatLabel = styled.span`
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #8aa3b5;
+  color: #5a7080; /* ≥ 4.5:1 on white and the light section backgrounds */
 `;

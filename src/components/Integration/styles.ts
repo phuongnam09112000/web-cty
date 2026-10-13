@@ -89,7 +89,7 @@ export const TitleEyebrow = styled.span<AnimatedProps>`
     css`animation: ${fadeUp} 0.5s ease 0.1s both;`}
 `;
 
-export const PageTitle = styled(Title)<AnimatedProps>`
+export const PageTitle = styled(Title).withConfig({ shouldForwardProp: (prop: PropertyKey) => prop !== "visible" })<AnimatedProps>`
   font-family: 'Lora', 'Georgia', serif !important;
   font-size: 48px !important;
   font-weight: 800 !important;
@@ -290,7 +290,7 @@ export const CardEyebrow = styled.span<AnimatedProps>`
     css`animation: ${fadeUp} 0.5s ease 0.5s both;`}
 `;
 
-export const SectionTitle = styled(Title)<AnimatedProps>`
+export const SectionTitle = styled(Title).withConfig({ shouldForwardProp: (prop: PropertyKey) => prop !== "visible" })<AnimatedProps>`
   font-family: 'Lora', 'Georgia', serif !important;
   font-size: 30px !important;
   font-weight: 800 !important;
@@ -333,7 +333,7 @@ export const CardDivider = styled.div<AnimatedProps>`
     `}
 `;
 
-export const ServiceText = styled(Paragraph)<AnimatedProps>`
+export const ServiceText = styled(Paragraph).withConfig({ shouldForwardProp: (prop: PropertyKey) => prop !== "visible" })<AnimatedProps>`
   font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif !important;
   font-size: 15px !important;
   line-height: 1.85 !important;

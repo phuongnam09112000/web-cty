@@ -31,6 +31,7 @@ const Support = () => {
       <AboutBanner
         backgroundImage="/img/background/our_service.jpeg"
         title={t("Professional Services")}
+        headingLevel={2}
       />
       <ServicesPage 
         pageTitle={t("Technical Support")} 

@@ -190,10 +190,10 @@ export const InfoText = styled.div`
 
 export const InfoLabel = styled.span`
   font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #8aa3b5;
+  color: #5a7080; /* ≥ 4.5:1 on white and the light section backgrounds */
 `;
 
 export const InfoValue = styled.span`

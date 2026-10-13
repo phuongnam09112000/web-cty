@@ -1,222 +1,154 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useHistory } from "react-router-dom";
-import { ArrowRightOutlined } from "@ant-design/icons";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
 
 import {
-  CardContent,
-  CardImage,
-  CardsContainer,
-  Description,
-  DescriptionContainer,
-  DesktopCardsGrid,
-  DesktopCardWrapper,
-  Divider,
-  IconWrapper,
-  LearnMoreButton,
-  SectionSubtitle,
-  SectionTitle,
-  SolutionSection,
-  StyledCard,
-  SwiperContainer,
-  Title,
+  AreaBody,
+  AreaCta,
+  AreaDescription,
+  AreaImage,
+  AreaLink,
+  AreaTitle,
+  Eyebrow,
+  Header,
+  Heading,
+  Index,
+  Inner,
+  Layout,
+  List,
+  Panel,
+  PanelCaption,
+  PanelImage,
+  Section,
 } from "./styles";
-import type { SolutionCardProps } from "./types";
+import type { BusinessArea } from "./types";
 
-/* ─── Hook ───────────────────────────────────── */
-const useIsMobile = (breakpoint = 768) => {
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= breakpoint);
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= breakpoint);
-    window.addEventListener("resize", check, { passive: true });
-    return () => window.removeEventListener("resize", check);
-  }, [breakpoint]);
-  return isMobile;
-};
+// Photographs are the ones each area's own page already uses
+const areas: BusinessArea[] = [
+  {
+    id: "ict",
+    titleKey: "solutions.card.ict.title",
+    descriptionKey: "solutions.card.ict.description",
+    link: "/information-communication-technology",
+    image: "/img/background/ict_2.jpg",
+  },
+  {
+    id: "secure",
+    titleKey: "solutions.card.secure.title",
+    descriptionKey: "solutions.card.secure.description",
+    link: "/secure-defense",
+    image: "/img/background/defense_solution.jpg",
+    imagePosition: "65% center",
+  },
+  {
+    id: "digital",
+    titleKey: "solutions.card.digital.title",
+    descriptionKey: "solutions.card.digital.description",
+    link: "/digital-transformation",
+    image: "/img/background/digital_smartcity.jpg",
+  },
+];
 
-const BRAND_MID = "#0e5d95";
+const pad = (n: number) => String(n).padStart(2, "0");
 
-/* ─── Component ──────────────────────────────── */
+/* Homepage business areas. Desktop: a list of the three areas beside one
+ * large photograph that follows the hovered / focused row. Tablet and mobile:
+ * stacked rows, each with its own photograph. Every title, description and
+ * link stays visible without hover. */
 export const SolutionCards: React.FC = () => {
-  const history = useHistory();
   const { t } = useTranslation();
-  const [expandedCard, setExpandedCard] = useState<number | null>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const cardsContainerRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const isMobile = useIsMobile(768);
+  const [active, setActive] = useState(0);
+  // Photographs are only rendered once the section is close to the viewport,
+  // so they never compete with the hero image for bandwidth on page load.
+  const sectionRef = useRef<HTMLElement>(null);
+  const [near, setNear] = useState(() => typeof IntersectionObserver === "undefined");
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (expandedCard === null || !cardsContainerRef.current) return;
-      const target = e.target as HTMLElement;
-      if (target.closest(".modern-slider") || target.closest(".swiper")) return;
-      const clickedOutside = !cardRefs.current.some(
-        (ref) => ref && ref.contains(e.target as Node)
-      );
-      if (clickedOutside) setExpandedCard(null);
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [expandedCard]);
-
-  const handleCardClick = (index: number, link: string) => {
-    if (isMobile) {
-      setExpandedCard(expandedCard === index ? null : index);
-    } else {
-      history.push(link);
-    }
-  };
-
-  // Dùng key i18n thay vì hardcode string
-  const solutions: SolutionCardProps[] = [
-    {
-      icon: "/img/icons/ict.png",
-      titleKey: "solutions.card.ict.title",
-      descriptionKey: "solutions.card.ict.description",
-      link: "/information-communication-technology",
-      image: "/img/card/ict.jpg",
-      iconBgColor: BRAND_MID,
-    },
-    {
-      icon: "/img/icons/secure.png",
-      titleKey: "solutions.card.secure.title",
-      descriptionKey: "solutions.card.secure.description",
-      link: "/secure-defense",
-      image: "/img/card/secure.jpg",
-      iconBgColor: BRAND_MID,
-    },
-    {
-      icon: "/img/icons/digital.png",
-      titleKey: "solutions.card.digital.title",
-      descriptionKey: "solutions.card.digital.description",
-      link: "/digital-transformation",
-      image: "/img/card/digital.jpg",
-      iconBgColor: BRAND_MID,
-    },
-  ];
-
-  /* ── Mobile card ── */
-  const renderMobileCard = (solution: SolutionCardProps, index: number) => {
-    const isActive = expandedCard === index;
-    return (
-      <SwiperSlide key={index}>
-        <DesktopCardWrapper
-          ref={(el) => (cardRefs.current[index] = el)}
-          $isActive={isActive}
-          onClick={() => handleCardClick(index, solution.link)}
-        >
-          <StyledCard $isActive={isActive}>
-            <CardContent>
-              <IconWrapper $bgColor={solution.iconBgColor} $isMobileActive={isActive}>
-                <img src={solution.icon} alt={t(solution.titleKey)} />
-              </IconWrapper>
-              <Title $isActive={isActive}>{t(solution.titleKey)}</Title>
-              {solution.image && (
-                <CardImage
-                  style={{
-                    backgroundImage: `url(${solution.image})`,
-                    opacity: isActive ? 0 : 1,
-                    transform: isActive
-                      ? "translateY(24px) scale(0.92)"
-                      : "translateY(0) scale(1)",
-                  }}
-                />
-              )}
-              <DescriptionContainer $isActive={isActive} onClick={(e) => e.stopPropagation()}>
-                <Divider />
-                <Description>{t(solution.descriptionKey)}</Description>
-                <LearnMoreButton
-                  $isActive={isActive}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    history.push(solution.link);
-                  }}
-                >
-                  <span>{t("solutions.card.button")}</span>
-                  <ArrowRightOutlined />
-                </LearnMoreButton>
-              </DescriptionContainer>
-            </CardContent>
-          </StyledCard>
-        </DesktopCardWrapper>
-      </SwiperSlide>
+    if (near || !sectionRef.current) return;
+    // The page scrolls inside <body> (global overflow styles); the margin only
+    // takes effect when it is set on that scroll container.
+    const bodyScrolls = getComputedStyle(document.body).overflowY !== "visible";
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setNear(true);
+      },
+      { root: bodyScrolls ? document.body : null, rootMargin: "600px 0px" }
     );
-  };
-
-  /* ── Desktop card ── */
-  const renderDesktopCard = (solution: SolutionCardProps, index: number) => {
-    const isHov = hoveredIndex === index;
-    return (
-      <DesktopCardWrapper
-        key={index}
-        $isActive={isHov}
-        onClick={() => handleCardClick(index, solution.link)}
-        onMouseEnter={() => setHoveredIndex(index)}
-        onMouseLeave={() => setHoveredIndex(null)}
-      >
-        <StyledCard $isActive={isHov}>
-          <CardContent>
-            <IconWrapper $bgColor={isHov ? "#fff" : solution.iconBgColor}>
-              <img src={solution.icon} alt={t(solution.titleKey)} />
-            </IconWrapper>
-            <Title $isActive={isHov}>{t(solution.titleKey)}</Title>
-            {solution.image && (
-              <CardImage style={{ backgroundImage: `url(${solution.image})` }} />
-            )}
-            <DescriptionContainer $isActive={isHov}>
-              <Divider />
-              <Description>{t(solution.descriptionKey)}</Description>
-              <LearnMoreButton $isActive={isHov}>
-                <span>{t("solutions.card.button")}</span>
-                <ArrowRightOutlined />
-              </LearnMoreButton>
-            </DescriptionContainer>
-          </CardContent>
-        </StyledCard>
-      </DesktopCardWrapper>
-    );
-  };
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, [near]);
 
   return (
-    <SolutionSection>
-      <SectionTitle>{t("solutions.eyebrow")}</SectionTitle>
+    <Section ref={sectionRef} aria-labelledby="business-areas-title">
+      <Inner>
+        <Header>
+          <Eyebrow>{t("solutions.eyebrow")}</Eyebrow>
+          <Heading
+            id="business-areas-title"
+            dangerouslySetInnerHTML={{
+              __html: t("solutions.subtitle", { interpolation: { escapeValue: false } }),
+            }}
+          />
+        </Header>
 
-      <SectionSubtitle
-        dangerouslySetInnerHTML={{
-          __html: t("solutions.subtitle", { interpolation: { escapeValue: false } }),
-        }}
-      />
+        <Layout>
+          <List>
+            {areas.map((area, index) => (
+              <li key={area.id}>
+                <AreaLink
+                  to={area.link}
+                  $active={index === active}
+                  aria-labelledby={`area-${area.id}-title area-${area.id}-cta`}
+                  aria-describedby={`area-${area.id}-desc`}
+                  onMouseEnter={() => setActive(index)}
+                  onFocus={() => setActive(index)}
+                >
+                  {/* Stacked layouts only; hidden on desktop */}
+                  <AreaImage>
+                    {near && (
+                      <img
+                        src={area.image}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style={{ objectPosition: area.imagePosition }}
+                      />
+                    )}
+                  </AreaImage>
+                  <AreaBody>
+                    <Index aria-hidden="true">{pad(index + 1)}</Index>
+                    <AreaTitle id={`area-${area.id}-title`}>{t(area.titleKey)}</AreaTitle>
+                    <AreaDescription id={`area-${area.id}-desc`}>
+                      {t(area.descriptionKey)}
+                    </AreaDescription>
+                    <AreaCta id={`area-${area.id}-cta`}>
+                      {t("solutions.card.button")} <span aria-hidden="true">→</span>
+                    </AreaCta>
+                  </AreaBody>
+                </AreaLink>
+              </li>
+            ))}
+          </List>
 
-      <CardsContainer ref={cardsContainerRef}>
-        {isMobile ? (
-          <SwiperContainer>
-            <Swiper
-              spaceBetween={16}
-              slidesPerView={1}
-              loop
-              pagination={{ clickable: true }}
-              autoplay={{ delay: 4000, disableOnInteraction: false }}
-              className="solution-swiper"
-              centeredSlides
-              breakpoints={{
-                480: { slidesPerView: 1.15 },
-                640: { slidesPerView: 1.4 },
-              }}
-            >
-              {solutions.map((s, i) => renderMobileCard(s, i))}
-            </Swiper>
-          </SwiperContainer>
-        ) : (
-          <DesktopCardsGrid>
-            {solutions.map((s, i) => renderDesktopCard(s, i))}
-          </DesktopCardsGrid>
-        )}
-      </CardsContainer>
-    </SolutionSection>
+          <Panel aria-hidden="true">
+            {near && areas.map((area, index) => (
+              <PanelImage
+                key={area.id}
+                src={area.image}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                $active={index === active}
+                style={{ objectPosition: area.imagePosition }}
+              />
+            ))}
+            <PanelCaption>
+              <span>{pad(active + 1)} / {pad(areas.length)}</span>
+              <strong>{t(areas[active].titleKey)}</strong>
+            </PanelCaption>
+          </Panel>
+        </Layout>
+      </Inner>
+    </Section>
   );
 };
 

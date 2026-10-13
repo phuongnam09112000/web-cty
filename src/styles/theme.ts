@@ -18,6 +18,7 @@ const colors = {
 
   /* Neutrals */
   navy: "#0d1b2a",           // headings, dark sections
+  navyDeep: "#0b1728",       // footer / hero overlays
   text: "#0d1b2a",
   textBody: "#4a6070",       // 6.6:1 on white
   textMuted: "#5a7080",      // ≥ 4.5:1 on white
@@ -39,6 +40,25 @@ const colors = {
 const fonts = {
   body: "'Be Vietnam Pro', 'Segoe UI', sans-serif",
   heading: "'Lora', 'Georgia', serif",
+  /* Redesign: large headlines use the body family (full Vietnamese support) */
+  display: "'Be Vietnam Pro', 'Segoe UI', sans-serif",
+} as const;
+
+/* Redesign type scale (homepage hero first; other sections adopt it later).
+ * Line heights stay ≥ 1.15 so stacked Vietnamese diacritics never clip. */
+const typeScale = {
+  display: { desktop: "64px", tablet: "48px", mobile: "36px", lineHeight: 1.15, weight: 700, tracking: "-0.02em" },
+  lead: { desktop: "20px", tablet: "18px", mobile: "16px", lineHeight: 1.6 },
+  label: { size: "13px", weight: 600, tracking: "0.08em" },
+} as const;
+
+/* Image overlays that keep white text legible on photography */
+const overlays = {
+  heroSide:
+    "linear-gradient(90deg, rgba(11,23,40,0.86) 0%, rgba(11,23,40,0.62) 45%, rgba(11,23,40,0.18) 100%)",
+  heroBottom:
+    "linear-gradient(0deg, rgba(11,23,40,0.92) 0%, rgba(11,23,40,0.62) 55%, rgba(11,23,40,0.30) 100%)",
+  headerScrim: "linear-gradient(180deg, rgba(11,23,40,0.55) 0%, rgba(11,23,40,0) 100%)",
 } as const;
 
 const fontSizes = {
@@ -111,6 +131,9 @@ const layout = {
   maxWidth: "1300px",
   headerHeight: "72px",
   headerHeightMobile: "64px",
+  /* Redesign content column and side margins (desktop / tablet / mobile) */
+  contentMaxWidth: "1280px",
+  pagePadding: { desktop: "48px", tablet: "32px", mobile: "20px" },
 } as const;
 
 const transitions = {
@@ -120,6 +143,8 @@ const transitions = {
 export const theme = {
   colors,
   fonts,
+  typeScale,
+  overlays,
   fontSizes,
   fontWeights,
   space,

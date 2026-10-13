@@ -143,5 +143,16 @@
   "a11y.main_navigation": "Main navigation",
   "a11y.menu": "Menu",
   "a11y.close_menu": "Close menu",
-  "a11y.scroll_to_top": "Scroll to top"
+  "a11y.scroll_to_top": "Scroll to top",
+  "notfound.title": "Page not found",
+  "notfound.text": "The page you are looking for doesn't exist or may have been moved.",
+  "notfound.home": "Back to home",
+  "notfound.contact": "Contact us",
+  "home.hero.title": "Integrated ICT, telecom and security solutions for Vietnam since 2001",
+  "home.hero.cta.solutions": "Explore our solutions",
+  "home.hero.cta.contact": "Contact us",
+  "a11y.hero.controls": "Slideshow controls",
+  "a11y.hero.slide": "Show slide {{n}} of {{total}}",
+  "a11y.hero.pause": "Pause slideshow",
+  "a11y.hero.play": "Play slideshow"
 }

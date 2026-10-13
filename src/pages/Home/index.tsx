@@ -1,5 +1,6 @@
-import { lazy, Suspense } from "react";
+import { lazy, MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components";
 // import Section from "../../components/Content2";
 // import ServiceSection from "../../components/Services";
 // import ImageSlider from "../../components/SliderBar";
@@ -13,6 +14,26 @@ const ServiceSection = lazy(() => import("../../components/OurSolutions"));
 const ImageSlider = lazy(() => import("../../components/SliderBar"));
 const PartnersSection = lazy(() => import("../../components/Partner"));
 const Section = lazy(() => import("../../components/Content2"));
+
+// Target of the hero's "Explore our solutions" button. Focus lands here so
+// keyboard and screen-reader users continue from the solutions section.
+const SolutionsAnchor = styled.div`
+  scroll-margin-top: ${({ theme }) => theme.layout.headerHeight};
+  &:focus { outline: none !important; }
+
+  ${({ theme }) => theme.media.down("md")} {
+    scroll-margin-top: ${({ theme }) => theme.layout.headerHeightMobile};
+  }
+`;
+
+const scrollToSolutions = (event: MouseEvent<HTMLAnchorElement>) => {
+  const target = document.getElementById("solutions");
+  if (!target) return; // fall back to the plain #solutions link
+  event.preventDefault();
+  const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  target.focus({ preventScroll: true });
+};
 
 const Home = () => {
   const { t } = useTranslation();
@@ -34,16 +55,25 @@ const Home = () => {
 
       <Content1
         backgroundImage={images}
-        title={t("Information Services & Technology Transfer Company Limited")}
+        eyebrow={t("Information Services & Technology Transfer Company Limited")}
+        title={t("home.hero.title")}
         descriptions={descriptions.map((desc) => t(desc))}
+        primaryAction={{
+          label: t("home.hero.cta.solutions"),
+          href: "#solutions",
+          onClick: scrollToSolutions,
+        }}
+        secondaryAction={{ label: t("home.hero.cta.contact"), to: "/contact" }}
         id="home"
       />
 
       <Section />
 
-      <LazySectionComponent>
-        <ServiceSection />
-      </LazySectionComponent>
+      <SolutionsAnchor id="solutions" tabIndex={-1}>
+        <LazySectionComponent>
+          <ServiceSection />
+        </LazySectionComponent>
+      </SolutionsAnchor>
       <LazySectionComponent>
         <ImageSlider />
       </LazySectionComponent>

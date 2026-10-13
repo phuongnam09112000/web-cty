@@ -39,7 +39,7 @@ const Opportunity: React.FC<OpportunityProps> = ({ subtitle, title, imageSrc }) 
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => { if (sectionRef.current) observer.unobserve(sectionRef.current); };
+    return () => observer.disconnect();
   }, []);
 
   const vis = isVisible ? "visible" : "";

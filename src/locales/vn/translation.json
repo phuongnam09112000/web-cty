@@ -257,5 +257,16 @@
   "a11y.main_navigation": "Điều hướng chính",
   "a11y.menu": "Menu",
   "a11y.close_menu": "Đóng menu",
-  "a11y.scroll_to_top": "Cuộn lên đầu trang"
+  "a11y.scroll_to_top": "Cuộn lên đầu trang",
+  "notfound.title": "Không tìm thấy trang",
+  "notfound.text": "Trang bạn đang tìm không tồn tại hoặc đã được chuyển đi.",
+  "notfound.home": "Về trang chủ",
+  "notfound.contact": "Liên hệ",
+  "home.hero.title": "Giải pháp tích hợp CNTT, viễn thông và an ninh cho Việt Nam từ năm 2001",
+  "home.hero.cta.solutions": "Khám phá giải pháp",
+  "home.hero.cta.contact": "Liên hệ với chúng tôi",
+  "a11y.hero.controls": "Điều khiển trình chiếu",
+  "a11y.hero.slide": "Hiển thị ảnh {{n}} trên {{total}}",
+  "a11y.hero.pause": "Tạm dừng trình chiếu",
+  "a11y.hero.play": "Phát trình chiếu"
 }

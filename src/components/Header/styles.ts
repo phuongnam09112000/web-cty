@@ -48,17 +48,19 @@ export const fadeSlideDown = keyframes`
   to   { opacity: 1; transform: translateY(0); }
 `;
 
-const shimmer = keyframes`
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-`;
 
 // ─── Header Shell ─────────────────────────────────────────────────────────────
-export const HeaderContainer = styled.header<{ $scrolled?: boolean }>`
+const { layout, colors, overlays } = theme;
+
+/* Horizontal padding that lines the logo up with the redesign's content column */
+const alignedPadding = (side: string) =>
+  `0 max(${side}, calc((100% - ${layout.contentMaxWidth}) / 2))`;
+
+export const HeaderContainer = styled.header<{ $scrolled?: boolean; $transparent?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 6rem;
+  padding: ${alignedPadding(layout.pagePadding.desktop)};
   height: 72px;
   background: var(--surface);
   backdrop-filter: saturate(180%) blur(16px);
@@ -96,11 +98,21 @@ export const HeaderContainer = styled.header<{ $scrolled?: boolean }>`
     background: rgba(255,255,255,0.99);
   `}
 
+  /* Homepage, top of page: no bar — the hero shows through, with a soft
+     dark scrim behind the white logo and links. */
+  ${p => p.$transparent && css`
+    background: ${overlays.headerScrim};
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    &::after { opacity: 0; }
+  `}
+
   @media (max-width: ${breakpoints.tablet}) {
-    padding: 0 2.5rem;
+    padding: ${alignedPadding(layout.pagePadding.tablet)};
   }
   @media (max-width: ${breakpoints.mobile}) {
-    padding: 0 1.25rem;
+    padding: ${alignedPadding(layout.pagePadding.mobile)};
     height: 64px;
   }
 `;
@@ -114,11 +126,16 @@ export const ContentSpacer = styled.div`
 `;
 
 // ─── Logo ─────────────────────────────────────────────────────────────────────
-export const Logo = styled(Link)`
+export const Logo = styled(Link)<{ $onDark?: boolean }>`
   display: flex;
   align-items: center;
   flex-shrink: 0;
   transition: opacity var(--transition), transform var(--transition);
+
+  img {
+    transition: filter var(--transition);
+    filter: ${p => p.$onDark ? 'brightness(0) invert(1)' : 'none'};
+  }
 
   &:hover {
     opacity: 0.82;
@@ -144,6 +161,13 @@ export const NavContainer = styled.nav`
   @media (max-width: ${breakpoints.tablet}) { display: none; }
 `;
 
+// Link colour for the solid (white) and transparent (over hero) header
+const navColor = (lit: boolean, transparent?: boolean) =>
+  transparent ? (lit ? '#fff' : 'rgba(255,255,255,0.9)') : (lit ? 'var(--brand)' : 'var(--text-primary)');
+
+// Siblings of the hovered item are dimmed slightly (was 0.38, too faint to read)
+const dimOthers = (isAnyHovered: boolean, lit: boolean) => (isAnyHovered ? (lit ? 1 : 0.6) : 1);
+
 // Shared underline indicator
 const underlineBar = css<{ $active?: boolean; $lit?: boolean }>`
   &::before {
@@ -153,7 +177,7 @@ const underlineBar = css<{ $active?: boolean; $lit?: boolean }>`
     transform: translateX(-50%);
     height: 2px;
     border-radius: 2px 2px 0 0;
-    background: var(--brand);
+    background: currentColor;
     width: ${p => (p.$active || p.$lit) ? '55%' : '0'};
     transition: width var(--transition);
   }
@@ -163,6 +187,7 @@ export const NavItemLink = styled(Link)<{
   $active: boolean;
   $isHovered: boolean;
   $isAnyHovered: boolean;
+  $transparent?: boolean;
 }>`
   position: relative;
   padding: 0 1.05rem;
@@ -180,8 +205,8 @@ export const NavItemLink = styled(Link)<{
     color var(--transition),
     opacity var(--transition);
 
-  color: ${p => (p.$isHovered || p.$active) ? 'var(--brand)' : 'var(--text-primary)'};
-  opacity: ${p => p.$isAnyHovered ? (p.$isHovered ? 1 : 0.38) : 1};
+  color: ${p => navColor(p.$isHovered || p.$active, p.$transparent)};
+  opacity: ${p => dimOthers(p.$isAnyHovered, p.$isHovered)};
 
   ${underlineBar}
   ${p => css`
@@ -206,6 +231,7 @@ export const NavDropdown = styled.button<{
   $isHovered: boolean;
   $isAnyHovered: boolean;
   $isDropdownOpen: boolean;
+  $transparent?: boolean;
 }>`
   ${buttonReset}
   position: relative;
@@ -226,14 +252,8 @@ export const NavDropdown = styled.button<{
     color var(--transition),
     opacity var(--transition);
 
-  color: ${p =>
-    (p.$isHovered || p.$isDropdownOpen || p.$active)
-      ? 'var(--brand)'
-      : 'var(--text-primary)'};
-  opacity: ${p =>
-    p.$isAnyHovered
-      ? (p.$isHovered || p.$isDropdownOpen) ? 1 : 0.38
-      : 1};
+  color: ${p => navColor(p.$isHovered || p.$isDropdownOpen || p.$active, p.$transparent)};
+  opacity: ${p => dimOthers(p.$isAnyHovered, p.$isHovered || p.$isDropdownOpen)};
 
   ${underlineBar}
   ${p => css`
@@ -315,6 +335,7 @@ export const LanguageSelector = styled.button<{
   $isHovered: boolean;
   $isAnyHovered: boolean;
   $isDropdownOpen: boolean;
+  $transparent?: boolean;
 }>`
   ${buttonReset}
   margin-left: 0.75rem;
@@ -324,7 +345,7 @@ export const LanguageSelector = styled.button<{
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  border-left: 1px solid var(--border);
+  border-left: 1px solid ${p => p.$transparent ? 'rgba(255,255,255,0.28)' : 'var(--border)'};
   font-family: var(--font);
   font-size: 13px;
   font-weight: 600;
@@ -333,12 +354,36 @@ export const LanguageSelector = styled.button<{
   white-space: nowrap;
   transition: color var(--transition), opacity var(--transition);
 
-  color: ${p =>
-    (p.$isHovered || p.$isDropdownOpen) ? 'var(--brand)' : 'var(--text-primary)'};
-  opacity: ${p =>
-    p.$isAnyHovered
-      ? (p.$isHovered || p.$isDropdownOpen) ? 1 : 0.38
-      : 1};
+  color: ${p => navColor(p.$isHovered || p.$isDropdownOpen, p.$transparent)};
+  opacity: ${p => dimOthers(p.$isAnyHovered, p.$isHovered || p.$isDropdownOpen)};
+`;
+
+// "Contact" shown as the header's call-to-action button (desktop)
+export const NavCta = styled(Link)<{ $transparent?: boolean; $active?: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin-left: 0.75rem;
+  padding: 0 1.25rem;
+  border-radius: 2px;
+  white-space: nowrap;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  border: 1px solid ${p => p.$transparent ? 'rgba(255,255,255,0.85)' : colors.primary};
+  background: ${p => p.$transparent ? 'transparent' : colors.primary};
+  color: #fff;
+
+  &:hover {
+    background: ${p => p.$transparent ? '#fff' : colors.primaryDark};
+    border-color: ${p => p.$transparent ? '#fff' : colors.primaryDark};
+    color: ${p => p.$transparent ? colors.navy : '#fff'};
+  }
 `;
 
 export const FlagIcon = styled.span`
@@ -356,7 +401,7 @@ export const FlagIcon = styled.span`
 export const AnimatedDropdownWrapper = styled.div``;
 
 // ─── Mobile Toggle ────────────────────────────────────────────────────────────
-export const MobileNavToggle = styled.button`
+export const MobileNavToggle = styled.button<{ $transparent?: boolean }>`
   /* native <button> reset — keeps the previous look */
   border: 0;
   padding: 0;
@@ -373,15 +418,15 @@ export const MobileNavToggle = styled.button`
   border-radius: 8px;
   align-items: center;
   justify-content: center;
-  color: var(--text-primary);
+  color: ${p => p.$transparent ? '#fff' : 'var(--text-primary)'};
   font-size: 17px;
-  background: #f4f6f9;
+  background: ${p => p.$transparent ? 'rgba(255,255,255,0.16)' : '#f4f6f9'};
   transition: background var(--transition), color var(--transition), transform var(--transition);
   flex-shrink: 0;
 
   &:hover {
-    background: var(--brand-dim);
-    color: var(--brand);
+    background: ${p => p.$transparent ? 'rgba(255,255,255,0.28)' : 'var(--brand-dim)'};
+    color: ${p => p.$transparent ? '#fff' : 'var(--brand)'};
     transform: scale(1.04);
   }
   &:active { transform: scale(0.97); }

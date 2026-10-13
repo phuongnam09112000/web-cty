@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const bg       = "#0b1728";
 const bgTop    = "#0e1e33";
 const accent   = "#3b9de0";
-const dim      = "rgba(255,255,255,0.45)";
+const dim      = "rgba(255,255,255,0.55)"; // ≥ 4.5:1 on both footer backgrounds
 const divider  = "rgba(255,255,255,0.08)";
 
 /* ── Shell ──────────────────────────────────── */
@@ -129,7 +129,8 @@ export const NavLinkList = styled.ul`
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0;
+  margin: -5px 0; /* offsets the link padding so the column keeps its rhythm */
 `;
 
 export const NavLinkItem = styled.li``;
@@ -142,6 +143,7 @@ export const NavLink = styled(Link)`
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  padding: 5px 0; /* 32px tap target; the list gap was 10px */
   /* color only — fast */
   transition: color 0.18s ease;
 
@@ -217,7 +219,7 @@ export const BottomBar = styled.div`
 
 export const Copyright = styled.p`
   font-size: 12.5px;
-  color: rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.5);
   margin: 0;
   letter-spacing: 0.3px;
 `;

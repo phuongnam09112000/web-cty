@@ -58,6 +58,12 @@ export const Styles = createGlobalStyle`
     color: ${blueDeep};
   }
 
+  /* Labels inside a button follow the button's own text colour; the rule
+     above would otherwise paint them dark navy on dark/brand-blue buttons. */
+  button span {
+    color: inherit;
+  }
+
   p {
     font-size: 15px;
     line-height: 1.8;

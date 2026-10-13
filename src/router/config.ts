@@ -54,6 +54,12 @@ const routes = [
     exact: true,
     component: "Services",
   },
+  // Must stay last: shown for any URL that no route above matches
+  {
+    path: ["*"],
+    exact: false,
+    component: "NotFound",
+  },
 ];
 
 export default routes;
