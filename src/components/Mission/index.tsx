@@ -41,7 +41,7 @@ const Mission: React.FC = () => {
       { root: null, rootMargin: "0px", threshold: 0.18 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => { if (sectionRef.current) observer.unobserve(sectionRef.current); };
+    return () => observer.disconnect();
   }, []);
 
   return (

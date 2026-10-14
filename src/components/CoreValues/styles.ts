@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { Typography } from "antd";
 
+import { type, typeImportant } from "../../styles/typography";
 const { Title, Paragraph } = Typography;
 
 const shimmer = keyframes`
@@ -37,10 +38,7 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const Eyebrow = styled.span`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.3em;
+  ${type.label}
   text-transform: uppercase;
   color: #0e5d95;
   display: flex;
@@ -58,25 +56,13 @@ export const Eyebrow = styled.span`
 `;
 
 export const SectionTitle = styled(Title)`
-  font-family: 'Lora', 'Georgia', serif !important;
-  font-size: 52px !important;
-  font-weight: 800 !important;
-  line-height: 1.1 !important;
+  ${typeImportant.h2}
   margin: 0 !important;
   color: #0d1b2a !important;
-  letter-spacing: -0.02em;
 
   em {
-    font-style: italic;
+    font-style: normal;
     color: #0e5d95;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 36px !important;
-  }
-
-  @media (max-width: 576px) {
-    font-size: 28px !important;
   }
 `;
 
@@ -137,10 +123,8 @@ export const ValueCard = styled.div`
 `;
 
 export const CardNumber = styled.span`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: #b0c4d8;
+  ${type.label}
+  color: #5a7080; /* ≥ 4.5:1 on white */
   display: block;
   margin-bottom: 32px;
 `;
@@ -185,17 +169,9 @@ export const IconImage = styled.img`
 `;
 
 export const ValueTitle = styled(Title)`
-  font-family: 'Lora', 'Georgia', serif !important;
-  font-size: 22px !important;
-  font-weight: 700 !important;
+  ${typeImportant.h3}
   color: #0d1b2a !important;
   margin-bottom: 16px !important;
-  line-height: 1.3 !important;
-  letter-spacing: -0.01em;
-
-  @media (max-width: 768px) {
-    font-size: 20px !important;
-  }
 `;
 
 export const Divider = styled.div`

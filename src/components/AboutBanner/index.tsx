@@ -14,12 +14,13 @@ const AboutBanner: React.FC<AboutBannerProps> = ({
   title,
   subtitle,
   eyebrow,
+  headingLevel = 1,
 }) => {
   return (
     <BannerContainer backgroundImage={backgroundImage}>
       <ContentWrapper>
         {eyebrow && <BannerEyebrow>{eyebrow}</BannerEyebrow>}
-        <Title>{title}</Title>
+        <Title as={headingLevel === 2 ? "h2" : "h1"}>{title}</Title>
         <TitleDivider />
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
       </ContentWrapper>

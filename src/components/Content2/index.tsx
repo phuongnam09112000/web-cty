@@ -1,120 +1,91 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { SectionProps } from "./types";
+import { ArrowLink, Eyebrow, SectionHeading, SectionInner } from "../../styles/section";
 import {
-  AboutSectionContainer,
-  Button,
-  ContentContainer,
-  Description,
-  Image,
-  ImageContainer,
-  ImageFrame,
-  CornerAccent,
-  FoundedBadge,
-  SectionLabel,
-  Title,
-  TitleDivider,
-  StatStrip,
-  StatItem,
-  StatNumber,
-  StatLabel,
+  AboutSection,
+  Badge,
+  Content,
+  Figure,
+  Layout,
+  Lead,
+  Photo,
+  Stat,
+  Stats,
 } from "./styles";
 
+// Existing figures shown on the homepage
 const stats = [
   { number: "20+", label: "Years Active" },
-  // { number: "500+", label: "Projects Done" },
   { number: "20+", label: "Partners" },
 ];
 
-const Section: React.FC<SectionProps> = () => {
-  const [isImageVisible,  setIsImageVisible]  = useState(false);
-  const [isLabelVisible,  setIsLabelVisible]  = useState(false);
-  const [isTitleVisible,  setIsTitleVisible]  = useState(false);
-  const [isDividerVisible, setIsDividerVisible] = useState(false);
-  const [isStatsVisible,  setIsStatsVisible]  = useState(false);
-  const [isDescVisible,   setIsDescVisible]   = useState(false);
-  const [isButtonVisible, setIsButtonVisible] = useState(false);
-
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
-  const navigate = useHistory();
-
+// True once the page's load event has fired, i.e. after the hero image
+const usePageLoaded = () => {
+  const [loaded, setLoaded] = useState(() => document.readyState === "complete");
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setIsImageVisible(true),  100);
-          setTimeout(() => setIsLabelVisible(true),  200);
-          setTimeout(() => setIsTitleVisible(true),  320);
-          setTimeout(() => setIsDividerVisible(true), 440);
-          setTimeout(() => setIsStatsVisible(true),  480);
-          setTimeout(() => setIsDescVisible(true),   560);
-          setTimeout(() => setIsButtonVisible(true), 700);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.2, rootMargin: "0px 0px -60px 0px" }
-    );
+    if (loaded) return;
+    const onLoad = () => setLoaded(true);
+    window.addEventListener("load", onLoad);
+    return () => window.removeEventListener("load", onLoad);
+  }, [loaded]);
+  return loaded;
+};
 
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => { if (sectionRef.current) observer.disconnect(); };
-  }, []);
-
-  const handleLearnMore = () => {
-    navigate.push("/about");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+/* Company overview: ISTT's office photograph beside the introduction. */
+const Section: React.FC = () => {
+  const { t } = useTranslation();
+  // The section sits right below the hero, so the photo waits for the hero
+  // image instead of downloading alongside it; the frame keeps its size.
+  const pageLoaded = usePageLoaded();
 
   return (
-    <AboutSectionContainer ref={sectionRef}>
-      {/* ── Left: image ── */}
-      <ImageContainer isVisible={isImageVisible}>
-        <FoundedBadge>Est. 2001</FoundedBadge>
-        <ImageFrame>
-          <Image
-            src="/img/background/istt.jpg"
-            alt="ISTT Company"
-            loading="lazy"
-          />
-        </ImageFrame>
-        <CornerAccent />
-      </ImageContainer>
+    <AboutSection aria-labelledby="about-title">
+      <SectionInner>
+        <Layout>
+          <Figure>
+            <Photo>
+              {pageLoaded && (
+                <img
+                  src="/img/background/istt.jpg"
+                  alt={t("home.about.photo")}
+                  loading="lazy"
+                  decoding="async"
+                  width={2048}
+                  height={1365}
+                />
+              )}
+            </Photo>
+            <Badge>
+              <span>{t("home.about.founded")}</span>
+              <strong>2001</strong>
+            </Badge>
+          </Figure>
 
-      {/* ── Right: content ── */}
-      <ContentContainer isVisible={true}>
-        <SectionLabel isVisible={isLabelVisible}>
-          {t("About us")}
-        </SectionLabel>
-
-        <Title isVisible={isTitleVisible}>
-          {t("Information Services")}&nbsp;&amp;<br />
-          <em>{t("Technology Transfer")}</em>
-        </Title>
-
-        <TitleDivider isVisible={isDividerVisible} />
-
-        {/* Stats row */}
-        <StatStrip isVisible={isStatsVisible}>
-          {stats.map((s) => (
-            <StatItem key={s.label}>
-              <StatNumber>{s.number}</StatNumber>
-              <StatLabel>{t(s.label)}</StatLabel>
-            </StatItem>
-          ))}
-        </StatStrip>
-
-        <Description isVisible={isDescVisible}>
-          {t(
-            "Founded in 2001, ISTT has grown into a leading provider of integrated ICT and telecommunication solutions in Vietnam. With a customer-centric approach, we connect global partners and deliver cutting-edge technology to empower businesses and communities throughout the country and region."
-          )}
-        </Description>
-
-        <Button isVisible={isButtonVisible} onClick={handleLearnMore}>
-          <span style={{ color: "#fff" }}>{t("Learn more")}</span>
-        </Button>
-      </ContentContainer>
-    </AboutSectionContainer>
+          <Content>
+            <Eyebrow>{t("About us")}</Eyebrow>
+            <SectionHeading id="about-title">
+              {t("Information Services")} &amp; <em>{t("Technology Transfer")}</em>
+            </SectionHeading>
+            <Lead>
+              {t(
+                "Founded in 2001, ISTT has grown into a leading provider of integrated ICT and telecommunication solutions in Vietnam. With a customer-centric approach, we connect global partners and deliver cutting-edge technology to empower businesses and communities throughout the country and region."
+              )}
+            </Lead>
+            <Stats>
+              {stats.map((s) => (
+                <Stat key={s.label}>
+                  <dt>{t(s.label)}</dt>
+                  <dd>{s.number}</dd>
+                </Stat>
+              ))}
+            </Stats>
+            <ArrowLink to="/about">
+              {t("home.about.cta")} <span aria-hidden="true">→</span>
+            </ArrowLink>
+          </Content>
+        </Layout>
+      </SectionInner>
+    </AboutSection>
   );
 };
 

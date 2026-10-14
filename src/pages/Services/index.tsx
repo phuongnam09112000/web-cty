@@ -1,4 +1,4 @@
-import { lazy, useRef, useEffect } from "react";
+import { lazy, useRef } from "react";
 import ScrollToTop from "../../common/ScrollToTop";
 import OurServices from "../../components/OurServices";
 import Opportunity from "../../components/Opportunity";
@@ -9,6 +9,8 @@ export interface ServiceData {
   title: string;
   description: string;
   icon: string; 
+  /** Detail page for this service */
+  path?: string;
   full_des: Partial<{
     "Telecom Solutions": string[];
     "Custom Software Development": string[];
@@ -38,6 +40,7 @@ const Services = () => {
       description:
         "ISTT is a leading company in the field of System Integration (SI), helping businesses and organizations connect different technology platforms into a unified system, optimizing operational efficiency, security, and scalability.",
       icon: "/img/icons/sys.png",
+      path: "/integration",
       full_des: {
         "Telecom Solutions": [
           "Powerhouse of telco solutions for major tier-1 communication service providers in Vietnam.",
@@ -51,6 +54,7 @@ const Services = () => {
       description:
         "Specializes in developing and integrating custom software solutions that align with diverse client requirements. By leveraging advanced technologies, we help businesses achieve greater efficiency, minimize risks, and reduce costs.",
       icon: "/img/icons/sw.png",
+      path: "/software",
       full_des: {
         "Custom Software Development": [
           "Tailored software solutions designed to meet specific operational needs.",
@@ -68,6 +72,7 @@ const Services = () => {
       description:
         "We offers 24/7 technical support services designed to ensure system reliability and uptime. With a skilled support team and strategic on-site presence across Vietnam, we provide rapid issue resolution and consistent service quality.",
       icon: "/img/icons/technical-support.png",
+      path: "/support",
       full_des: {
         "24/7 Multi-Tier Support": [
           "Comprehensive assistance available online and on-site.",

@@ -1,5 +1,6 @@
 import styled, { keyframes, css } from "styled-components";
 
+import { type } from "../../styles/typography";
 /* ─── Keyframes ─────────────────────────────── */
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(24px); }
@@ -74,10 +75,7 @@ export const InfoPanel = styled.div`
 `;
 
 export const InfoEyebrow = styled.span`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: ${blue};
   display: flex;
@@ -97,24 +95,18 @@ export const InfoEyebrow = styled.span`
 `;
 
 export const InfoHeading = styled.h2`
-  font-family: 'Lora', 'Georgia', serif;
-  font-size: 44px;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  ${type.h2}
   color: ${blueDeep};
   margin: 0 0 12px 0;
   opacity: 0;
 
   em {
-    font-style: italic;
+    font-style: normal;
     color: ${blue};
   }
 
   &.visible { animation: ${fadeUp} 0.6s ease 0.2s both; }
 
-  @media (max-width: 768px) { font-size: 32px; }
-  @media (max-width: 480px) { font-size: 26px; }
 `;
 
 export const InfoDivider = styled.div`
@@ -137,9 +129,7 @@ export const InfoDivider = styled.div`
 `;
 
 export const InfoTagline = styled.p`
-  font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
-  font-size: 15px;
-  line-height: 1.85;
+  ${type.body}
   color: #4a6070;
   margin: 0 0 40px 0;
   opacity: 0;
@@ -189,11 +179,9 @@ export const InfoText = styled.div`
 `;
 
 export const InfoLabel = styled.span`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 9px;
-  letter-spacing: 0.2em;
+  ${type.label}
   text-transform: uppercase;
-  color: #8aa3b5;
+  color: #5a7080; /* ≥ 4.5:1 on white and the light section backgrounds */
 `;
 
 export const InfoValue = styled.span`
@@ -240,10 +228,7 @@ export const FormContainer = styled.div`
 `;
 
 export const FormTitle = styled.span`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: ${blue};
   display: flex;
@@ -263,20 +248,15 @@ export const FormTitle = styled.span`
 `;
 
 export const FormHeading = styled.h3`
-  font-family: 'Lora', 'Georgia', serif;
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  ${type.h3}
   color: ${blueDeep};
   margin: 0 0 10px 0;
   opacity: 0;
 
-  em { font-style: italic; color: ${blue}; }
+  em { font-style: normal; color: ${blue}; }
 
   &.visible { animation: ${fadeUp} 0.55s ease 0.4s both; }
 
-  @media (max-width: 480px) { font-size: 22px; }
 `;
 
 export const FormDivider = styled.div`
@@ -327,7 +307,7 @@ const fieldBase = css`
 
   &::placeholder {
     color: #9ab0c2;
-    font-style: italic;
+    font-style: normal;
   }
 
   &:focus {
@@ -349,6 +329,7 @@ export const TextArea = styled.textarea`
 
 /* ─── Submit button ──────────────────────────── */
 export const SubmitButton = styled.button`
+  ${type.button}
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -358,10 +339,6 @@ export const SubmitButton = styled.button`
   color: #fff;
   border: none;
   padding: 14px 28px;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
   position: relative;
@@ -411,9 +388,7 @@ export const SubmitButton = styled.button`
 const StatusBase = styled.div`
   padding: 12px 16px;
   margin-bottom: 16px;
-  font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
-  font-size: 13px;
-  line-height: 1.5;
+  ${type.small}
   animation: ${fadeIn} 0.3s ease both;
   border-left: 3px solid;
 `;

@@ -2,6 +2,7 @@ import styled, { keyframes, css } from "styled-components";
 import { Typography } from "antd";
 import { AnimatedProps } from "./types";
 
+import { type, typeImportant } from "../../styles/typography";
 const { Title, Paragraph } = Typography;
 
 /* ─── Keyframes ─────────────────────────────── */
@@ -64,10 +65,7 @@ export const TitleBlock = styled.div`
 `;
 
 export const TitleEyebrow = styled.span<AnimatedProps>`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: #0e5d95;
   display: inline-flex;
@@ -89,18 +87,14 @@ export const TitleEyebrow = styled.span<AnimatedProps>`
     css`animation: ${fadeUp} 0.5s ease 0.1s both;`}
 `;
 
-export const PageTitle = styled(Title)<AnimatedProps>`
-  font-family: 'Lora', 'Georgia', serif !important;
-  font-size: 48px !important;
-  font-weight: 800 !important;
-  line-height: 1.15 !important;
-  letter-spacing: -0.025em !important;
+export const PageTitle = styled(Title).withConfig({ shouldForwardProp: (prop: PropertyKey) => prop !== "visible" })<AnimatedProps>`
+  ${typeImportant.h1}
   color: #0d1b2a !important;
   margin: 0 0 16px 0 !important;
   opacity: 0;
 
   em {
-    font-style: italic;
+    font-style: normal;
     color: #0e5d95;
   }
 
@@ -108,8 +102,6 @@ export const PageTitle = styled(Title)<AnimatedProps>`
     visible &&
     css`animation: ${fadeUp} 0.6s ease 0.2s both;`}
 
-  @media (max-width: 768px) { font-size: 34px !important; }
-  @media (max-width: 480px) { font-size: 26px !important; }
 `;
 
 export const PageTitleDivider = styled.div<AnimatedProps>`
@@ -265,10 +257,7 @@ export const TextContainer = styled.div<AnimatedProps & { textVisible: boolean }
 `;
 
 export const CardEyebrow = styled.span<AnimatedProps>`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: #0e5d95;
   display: flex;
@@ -290,18 +279,14 @@ export const CardEyebrow = styled.span<AnimatedProps>`
     css`animation: ${fadeUp} 0.5s ease 0.5s both;`}
 `;
 
-export const SectionTitle = styled(Title)<AnimatedProps>`
-  font-family: 'Lora', 'Georgia', serif !important;
-  font-size: 30px !important;
-  font-weight: 800 !important;
-  line-height: 1.2 !important;
-  letter-spacing: -0.02em !important;
+export const SectionTitle = styled(Title).withConfig({ shouldForwardProp: (prop: PropertyKey) => prop !== "visible" })<AnimatedProps>`
+  ${typeImportant.h2}
   color: #0d1b2a !important;
   margin: 0 0 12px 0 !important;
   opacity: 0;
 
   em {
-    font-style: italic;
+    font-style: normal;
     color: #0e5d95;
   }
 
@@ -309,7 +294,6 @@ export const SectionTitle = styled(Title)<AnimatedProps>`
     visible &&
     css`animation: ${fadeUp} 0.55s ease 0.55s both;`}
 
-  @media (max-width: 768px) { font-size: 24px !important; }
 `;
 
 export const CardDivider = styled.div<AnimatedProps>`
@@ -333,12 +317,9 @@ export const CardDivider = styled.div<AnimatedProps>`
     `}
 `;
 
-export const ServiceText = styled(Paragraph)<AnimatedProps>`
-  font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif !important;
-  font-size: 15px !important;
-  line-height: 1.85 !important;
+export const ServiceText = styled(Paragraph).withConfig({ shouldForwardProp: (prop: PropertyKey) => prop !== "visible" })<AnimatedProps>`
+  ${typeImportant.body}
   color: #4a6070 !important;
-  font-style: italic;
   margin: 0 !important;
   opacity: 0;
 

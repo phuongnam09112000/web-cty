@@ -1,291 +1,306 @@
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+import { Link } from "react-router-dom";
+import { theme } from "../../styles/theme";
 
-export const ContentWrapper = styled.div`
+const { colors, fonts, typeScale, homeScale, overlays, layout, breakpoints } = theme;
+
+const tablet = `@media (max-width: ${breakpoints.lg}px)`;
+const mobile = `@media (max-width: ${breakpoints.md}px)`;
+const small = `@media (max-width: ${breakpoints.xs}px)`;
+
+/* ─── Section ────────────────────────────────────────────────────────────── */
+// Full-bleed hero that runs underneath the (transparent) fixed header.
+export const HeroSection = styled.section`
   position: relative;
   width: 100%;
-  height: 935px;
+  height: clamp(640px, 88vh, 880px);
   overflow: hidden;
+  background: ${colors.navyDeep};
+  color: #fff;
 
-  .swiper {
-    width: 100%;
-    height: 100%;
-  }
-  .swiper-pagination {
-    bottom: 30px; /* Tăng khoảng cách xuống dưới để dễ nhìn hơn */
-  }
+  ${tablet} { height: clamp(580px, 80vh, 760px); }
+  ${mobile} { height: clamp(560px, 88vh, 720px); }
 
-  .swiper-pagination-bullet {
-    width: 12px; /* Tăng kích thước bullet */
-    height: 12px;
-    background: rgba(255, 255, 255, 0.5);
-    opacity: 1;
-    margin: 0 10px; /* Tăng khoảng cách giữa các bullet */
-    transition: all 0.3s ease;
-  }
-
-  .swiper-pagination-bullet-active {
-    background: transparent;
-    border: 2px solid white;
-    width: 18px; /* Tăng kích thước bullet active */
-    height: 18px;
-    transform: translateY(3px);
-  }
-
-  /* Tablet (768px - 1024px) */
-  @media (max-width: 1024px) {
-    height: 600px; /* Tăng chiều cao một chút để nội dung thoải mái hơn */
-    
-    .swiper-pagination {
-      bottom: 20px;
-    }
-    
-    .swiper-pagination-bullet {
-      width: 10px;
-      height: 10px;
-      margin: 0 8px;
-    }
-    
-    .swiper-pagination-bullet-active {
-      width: 14px;
-      height: 14px;
-    }
-  }
-
-  /* Mobile (dưới 768px) */
-  @media (max-width: 768px) {
-    height: 500px; /* Tăng chiều cao để nội dung không bị chật */
-    
-    .swiper-pagination {
-      bottom: 15px;
-    }
-    
-    .swiper-pagination-bullet {
-      width: 8px;
-      height: 8px;
-      margin: 0 6px;
-    }
-    
-    .swiper-pagination-bullet-active {
-      width: 12px;
-      height: 12px;
-    }
-  }
-  
-  /* Mobile nhỏ (dưới 480px) */
-  @media (max-width: 480px) {
-    height: 400px; /* Tăng từ 300px lên 400px để có thêm không gian */
-  }
+  /* Slides fill the section; Swiper's own container gets the full height */
+  .swiper { width: 100%; height: 100%; }
 `;
 
-export const BackgroundImage = styled.img`
+/* ─── Slides ─────────────────────────────────────────────────────────────── */
+export const Slides = styled.div`
+  position: absolute;
+  inset: 0;
+`;
+
+// Decorative photograph. The active slide drifts slowly (disabled for
+// reduced motion).
+export const SlideImage = styled.img<{ $active: boolean }>`
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.65); /* Giảm brightness để văn bản dễ đọc hơn */
-  transition: transform 0.5s ease;
+  object-position: center;
+  transform: scale(${p => (p.$active ? 1.06 : 1)});
+  transition: transform 7s linear;
 
-  /* Các media queries kế thừa chiều cao từ ContentWrapper */
-`;
-export const Title = styled.h1`
-  position: absolute;
-  left: 7%;
-  bottom: 220px;
-  color: white;
-  font-size: 3.25rem;
-  font-weight: 700;
-  max-width: 80%;
-  line-height: 1.2;
-  z-index: 3; /* Tăng z-index để đảm bảo Title nằm trên cùng */
-  font-family: "Lato", sans-serif;
-  text-transform: uppercase;
-  animation: fadeInSlideUp 0.7s ease-out forwards;
-  letter-spacing: 1.5px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-
-  @keyframes fadeInSlideUp {
-    0% {
-      opacity: 0;
-      transform: translateY(50px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Tablet (768px - 1024px) */
-  @media (max-width: 1024px) {
-    left: 8%;
-    bottom: 150px;
-    font-size: 2.625rem;
-    line-height: 1.2;
-    max-width: 85%;
-  }
-
-  /* Mobile (dưới 768px) */
-  @media (max-width: 768px) {
-    left: 8%;
-    bottom: 120px;
-    font-size: 2rem;
-    line-height: 1.3;
-    max-width: 85%;
-  }
-
-  /* Mobile nhỏ (dưới 480px) */
-  @media (max-width: 480px) {
-    bottom: 110px;
-    font-size: 1.5rem;
-    line-height: 1.3;
-    max-width: 90%;
-  }
-
-  /* Tỷ lệ hiển thị 125% hoặc DPI cao */
-  @media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-    left: 6%;
-    font-size: 3rem;
-    max-width: 82%;
-    letter-spacing: 1.2px;
-
-    /* Tablet */
-    @media (max-width: 1024px) {
-      font-size: 2.375rem;
-      max-width: 87%;
-    }
-
-    /* Mobile */
-    @media (max-width: 768px) {
-      font-size: 1.875rem;
-      max-width: 87%;
-    }
-
-    /* Mobile nhỏ */
-    @media (max-width: 480px) {
-      font-size: 1.375rem;
-      max-width: 88%;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    transform: none;
+    transition: none;
   }
 `;
 
-export const Description = styled.p`
+// Dark gradients that keep the white text, header and controls legible
+export const Scrim = styled.div`
   position: absolute;
-  left: 7%;
-  bottom: 100px; /* Giảm bottom để tạo khoảng cách lớn hơn với Title */
-  color: white;
-  font-size: 1.75rem; /* Chuyển sang rem, tương đương ~28px */
-  font-weight: 400;
-  max-width: 80%; /* Giảm max-width để kiểm soát nội dung dài */
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: ${overlays.headerScrim} top / 100% 180px no-repeat, ${overlays.heroSide};
+
+  ${mobile} {
+    background: ${overlays.headerScrim} top / 100% 160px no-repeat, ${overlays.heroBottom};
+  }
+`;
+
+/* ─── Text block ─────────────────────────────────────────────────────────── */
+export const Inner = styled.div`
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  max-width: ${layout.contentMaxWidth};
+  margin: 0 auto;
+  padding: ${layout.headerHeight} ${layout.pagePadding.desktop} 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  ${tablet} { padding: ${layout.headerHeight} ${layout.pagePadding.tablet} 132px; }
+  ${mobile} {
+    padding: ${layout.headerHeightMobile} ${layout.pagePadding.mobile} 120px;
+    justify-content: flex-end;
+  }
+`;
+
+export const Content = styled.div`
+  max-width: 840px;
+`;
+
+export const Eyebrow = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 20px;
+  font-family: ${fonts.display};
+  font-size: ${typeScale.label.size};
+  font-weight: ${typeScale.label.weight};
+  letter-spacing: ${typeScale.label.tracking};
   line-height: 1.5;
-  z-index: 2; /* Đảm bảo Description dưới Title */
-  font-family: "Lato", sans-serif;
-  animation: fadeInSlideUp 0.7s ease-out forwards;
-  animation-delay: 0.2s;
-  opacity: 0;
-  letter-spacing: 1px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-  overflow-wrap: break-word; /* Đảm bảo nội dung dài xuống dòng hợp lý */
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
 
   &::before {
     content: "";
-    position: absolute;
-    top: -20px; /* Giảm top để gần Description hơn, tránh chồng lấn Title */
-    left: 0;
-    width: 180px;
-    height: 3px;
-    background: white;
-    transition: width 0.3s ease;
-    z-index: 1; /* Đảm bảo ::before dưới Title và Description */
+    flex: 0 0 32px;
+    height: 2px;
+    background: ${colors.secondary};
   }
 
-  /* Tablet (768px - 1024px) */
-  @media (max-width: 1024px) {
-    left: 8%;
-    bottom: 60px;
-    font-size: 1.5rem; /* ~24px */
-    line-height: 1.4;
-    max-width: 82%;
+  ${small} { font-size: 12px; }
+`;
 
-    &::before {
-      top: -15px;
-      width: 100px;
-      height: 2px;
+export const Title = styled.h1`
+  margin: 0 0 24px;
+  font-family: ${fonts.display};
+  font-size: ${homeScale.hero.desktop};
+  font-weight: ${typeScale.display.weight};
+  line-height: ${typeScale.display.lineHeight};
+  letter-spacing: ${typeScale.display.tracking};
+  color: #fff;
+  text-transform: none;
+  overflow-wrap: break-word;
+  /* Even line lengths; Vietnamese headlines run ~10% longer than English */
+  text-wrap: balance;
+
+  ${tablet} { font-size: ${homeScale.hero.tablet}; }
+  ${mobile} { font-size: ${homeScale.hero.mobile}; margin-bottom: 16px; }
+`;
+
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+`;
+
+// Supporting line: the existing tagline of the current slide
+export const Tagline = styled.p`
+  min-height: calc(2 * ${typeScale.lead.lineHeight}em);
+  max-width: 620px;
+  margin: 0 0 40px;
+  font-family: ${fonts.display};
+  font-size: ${typeScale.lead.desktop};
+  font-weight: 400;
+  line-height: ${typeScale.lead.lineHeight};
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.9);
+  animation: ${fadeIn} 0.5s ease both;
+
+  ${tablet} { font-size: ${typeScale.lead.tablet}; }
+  ${mobile} { font-size: ${typeScale.lead.mobile}; margin-bottom: 28px; }
+`;
+
+/* ─── Calls to action ────────────────────────────────────────────────────── */
+export const Actions = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  ${small} {
+    flex-direction: column;
+    align-items: stretch;
+  }
+`;
+
+const actionBase = css<{ $variant: "primary" | "secondary" }>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 2px;
+  font-family: ${fonts.display};
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+  ${p =>
+    p.$variant === "primary"
+      ? css`
+          background: ${colors.primary};
+          border: 1px solid ${colors.primary};
+          color: #fff;
+          &:hover { background: ${colors.primaryDark}; border-color: ${colors.primaryDark}; color: #fff; }
+        `
+      : css`
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.85);
+          color: #fff;
+          &:hover { background: #fff; border-color: #fff; color: ${colors.navy}; }
+        `}
+
+  span[aria-hidden] { transition: transform 0.2s ease; }
+  &:hover span[aria-hidden] { transform: translateX(3px); }
+
+  ${mobile} { min-height: 48px; padding: 0 22px; font-size: 14px; }
+`;
+
+export const ActionLink = styled(Link)<{ $variant: "primary" | "secondary" }>`
+  ${actionBase}
+`;
+
+export const ActionAnchor = styled.a<{ $variant: "primary" | "secondary" }>`
+  ${actionBase}
+`;
+
+/* ─── Slideshow controls ─────────────────────────────────────────────────── */
+export const Controls = styled.div`
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  max-width: ${layout.contentMaxWidth};
+  margin: 0 auto;
+  padding: 0 ${layout.pagePadding.desktop};
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #fff;
+
+  ${tablet} { padding: 0 ${layout.pagePadding.tablet}; }
+  ${mobile} { padding: 0 ${layout.pagePadding.mobile}; bottom: 28px; gap: 14px; }
+`;
+
+export const Counter = styled.p`
+  margin: 0;
+  min-width: 64px;
+  font-family: ${fonts.display};
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.75);
+  font-variant-numeric: tabular-nums;
+
+  strong { color: #fff; font-weight: 700; }
+`;
+
+export const Segments = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
+const fill = keyframes`
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+`;
+
+// Each segment is a 44×32 hit area around a 2px progress line
+export const Segment = styled.button<{ $active: boolean; $running: boolean; $duration: number }>`
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 15px 0;
+  width: 44px;
+  background: none;
+  cursor: pointer;
+
+  ${mobile} { width: 32px; }
+
+  span {
+    position: relative;
+    display: block;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.35);
+    overflow: hidden;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      transform-origin: left center;
+      transform: scaleX(${p => (p.$active ? 1 : 0)});
+      ${p =>
+        p.$active &&
+        p.$running &&
+        css`
+          animation: ${fill} ${p.$duration}ms linear both;
+        `}
     }
   }
 
-  /* Mobile (dưới 768px) */
-  @media (max-width: 768px) {
-    left: 8%;
-    bottom: 40px;
-    font-size: 1.125rem; /* ~18px */
-    line-height: 1.4;
-    max-width: 82%;
+  &:hover span { background: rgba(255, 255, 255, 0.6); }
+`;
 
-    &::before {
-      top: -12px;
-      width: 70px;
-      height: 2px;
-    }
-  }
+export const PauseButton = styled.button`
+  appearance: none;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+  background: rgba(11, 23, 40, 0.25);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
 
-  /* Mobile nhỏ (dưới 480px) */
-  @media (max-width: 480px) {
-    bottom: 30px;
-    font-size: 1rem; /* ~16px */
-    line-height: 1.4;
-    max-width: 85%;
+  &:hover { background: rgba(255, 255, 255, 0.16); border-color: #fff; }
 
-    &::before {
-      top: -10px;
-      width: 50px;
-    }
-  }
-
-  /* Tỷ lệ hiển thị 125% hoặc DPI cao */
-  @media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-    font-size: 1.625rem; /* ~26px */
-    max-width: 78%; /* Giảm max-width để tránh tràn */
-    letter-spacing: 0.8px;
-    left: 6%;
-
-    &::before {
-      top: -18px;
-      width: 160px;
-    }
-
-    /* Tablet */
-    @media (max-width: 1024px) {
-      font-size: 1.375rem; /* ~22px */
-      max-width: 80%;
-      bottom: 55px;
-
-      &::before {
-        top: -14px;
-        width: 90px;
-      }
-    }
-
-    /* Mobile */
-    @media (max-width: 768px) {
-      font-size: 1rem; /* ~16px */
-      max-width: 80%;
-      bottom: 35px;
-
-      &::before {
-        top: -10px;
-        width: 60px;
-      }
-    }
-
-    /* Mobile nhỏ */
-    @media (max-width: 480px) {
-      font-size: 0.875rem; /* ~14px */
-      max-width: 88%;
-      bottom: 25px;
-
-      &::before {
-        top: -8px;
-        width: 45px;
-      }
-    }
-  }
+  svg { width: 14px; height: 14px; fill: currentColor; }
 `;

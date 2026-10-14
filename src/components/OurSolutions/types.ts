@@ -1,25 +1,12 @@
-export interface SolutionCardProps {
-  icon: string;
-  // i18n keys thay vì hardcode string
+export interface BusinessArea {
+  /** Short id, used for element ids */
+  id: string;
   titleKey: string;
   descriptionKey: string;
+  /** Route of the area's solution page */
   link: string;
-  image?: string;
-  iconBgColor?: string;
-  // giữ backward compat nếu cần
-  title?: string;
-  description?: string;
-}
-
-export interface CardWrapperProps {
-  $isActive?: boolean;
-}
-
-export interface StyledProps {
-  visible?: boolean;
-}
-
-export interface IconWrapperProps {
-  $bgColor?: string;
-  $isMobileActive?: boolean;
+  /** Large photograph (also used on the area's own page) */
+  image: string;
+  /** CSS object-position, keeps the subject in frame when cropped */
+  imagePosition?: string;
 }

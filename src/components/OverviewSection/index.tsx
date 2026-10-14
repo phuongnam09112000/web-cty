@@ -60,7 +60,7 @@ const OverviewSection: React.FC<TMAAboutProps> = ({ images }) => {
       { root: null, rootMargin: "0px", threshold: 0.15 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => { if (sectionRef.current) observer.unobserve(sectionRef.current); };
+    return () => observer.disconnect();
   }, []);
 
   const introItems: IntroItemType[] = [
@@ -111,7 +111,12 @@ const OverviewSection: React.FC<TMAAboutProps> = ({ images }) => {
         </TextColumn>
 
         {/* RIGHT: Images */}
-        <Col xs={24} md={12} lg={13} style={{ padding: 0 }}>
+        <Col
+          xs={24}
+          md={12}
+          lg={13}
+          style={{ paddingTop: 0, paddingRight: 0, paddingBottom: 0, paddingLeft: 0 }}
+        >
           <ImagesContainer isVisible={isVisible}>
             <AccentBlock />
             {visibleImages.map((src, index) => (

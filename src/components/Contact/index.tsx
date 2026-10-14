@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 import { EnvironmentOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { BannerContainer, BannerImage, ButtonContainer, LocationButton, MapIframeStyled, MapOverlayContainer } from './styles';
@@ -76,7 +75,7 @@ const MapBanner = () => {
         
         <ButtonContainer>
           <LocationButton 
-            isActive={currentMapUrl === GOOGLE_MAPS_EMBED_URL_1}
+            $isActive={currentMapUrl === GOOGLE_MAPS_EMBED_URL_1}
             onClick={showLocation1}
             icon={<EnvironmentOutlined />}
           >
@@ -84,7 +83,7 @@ const MapBanner = () => {
           </LocationButton>
           
           <LocationButton 
-            isActive={currentMapUrl === GOOGLE_MAPS_EMBED_URL_2}
+            $isActive={currentMapUrl === GOOGLE_MAPS_EMBED_URL_2}
             onClick={showLocation2}
             icon={<EnvironmentOutlined />}
           >
@@ -95,7 +94,7 @@ const MapBanner = () => {
 
       {/* Thank You Modal */}
       <Modal
-        visible={isModalVisible}
+        open={isModalVisible}
         onCancel={handleModalClose}
         footer={null}
         centered

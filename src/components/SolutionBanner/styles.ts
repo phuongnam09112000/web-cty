@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
+import { type } from "../../styles/typography";
 /* ─── Keyframes ─────────────────────────────── */
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(28px); }
@@ -81,10 +82,7 @@ export const BannerContainer = styled.div<{ backgroundImage: string }>`
 
 /* ─── Eyebrow above title ────────────────────── */
 export const BannerEyebrow = styled.span`
-  font-family: "JetBrains Mono", "Courier New", monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.6);
   display: flex;
@@ -109,16 +107,13 @@ export const BannerEyebrow = styled.span`
 
 /* ─── Title ──────────────────────────────────── */
 export const Title = styled.h1`
-  font-family: "Be Vietnam Pro", "Segoe UI", sans-serif;
-  font-size: 60px;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  ${type.h1}
   color: #fff;
   margin: 0 0 10px 0;
   opacity: 0;
 
   em {
-    font-style: italic;
+    font-style: normal;
     background: linear-gradient(90deg, #7ec8f4, #fff, #7ec8f4);
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -129,16 +124,6 @@ export const Title = styled.h1`
 
   &.visible {
     animation: ${fadeUp} 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.35s both;
-  }
-
-  @media (max-width: 1024px) {
-    font-size: 46px;
-  }
-  @media (max-width: 768px) {
-    font-size: 34px;
-  }
-  @media (max-width: 480px) {
-    font-size: 26px;
   }
 `;
 
@@ -176,6 +161,8 @@ export const Subtitle = styled.p`
   max-width: 700px;
   margin: 0 0 36px 0;
   opacity: 0;
+  /* Keep the last word from sitting alone on its own line ("số.") */
+  text-wrap: pretty;
 
   &.visible {
     animation: ${fadeUp} 0.7s ease 0.55s both;
@@ -189,6 +176,7 @@ export const Subtitle = styled.p`
 
 /* ─── Button ─────────────────────────────────── */
 export const Button = styled.button`
+  ${type.button}
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -196,10 +184,6 @@ export const Button = styled.button`
   border: 1.5px solid rgba(255, 255, 255, 0.55);
   color: #fff;
   padding: 14px 32px;
-  font-family: "JetBrains Mono", "Courier New", monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
   position: relative;
@@ -249,6 +233,5 @@ export const Button = styled.button`
 
   @media (max-width: 768px) {
     padding: 12px 24px;
-    font-size: 10px;
   }
 `;

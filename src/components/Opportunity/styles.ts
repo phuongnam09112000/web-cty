@@ -1,15 +1,13 @@
-import styled, { keyframes, css } from "styled-components";
+import styled, { keyframes } from "styled-components";
 
+import { type } from "../../styles/typography";
+import { theme } from "../../styles/theme";
 /* ─── Keyframes ─────────────────────────────── */
 const fadeRight = keyframes`
   from { opacity: 0; transform: translateX(-40px); }
   to   { opacity: 1; transform: translateX(0); }
 `;
 
-const fadeLeft = keyframes`
-  from { opacity: 0; transform: translateX(40px); }
-  to   { opacity: 1; transform: translateX(0); }
-`;
 
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(20px); }
@@ -115,10 +113,7 @@ export const ContentWrapper = styled.div`
 `;
 
 export const Subtitle = styled.div`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: #0e5d95;
   display: flex;
@@ -142,17 +137,13 @@ export const Subtitle = styled.div`
 `;
 
 export const Title = styled.h2`
-  font-family: 'Lora', 'Georgia', serif;
-  font-size: 40px;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  ${type.h2}
   color: #0d1b2a;
   margin: 0 0 12px 0;
   opacity: 0;
 
   em {
-    font-style: italic;
+    font-style: normal;
     color: #0e5d95;
   }
 
@@ -160,9 +151,6 @@ export const Title = styled.h2`
     animation: ${fadeUp} 0.6s ease 0.32s both;
   }
 
-  @media (max-width: 1024px) { font-size: 36px; }
-  @media (max-width: 768px)  { font-size: 28px; }
-  @media (max-width: 480px)  { font-size: 24px; }
 `;
 
 export const TitleDivider = styled.div`
@@ -223,21 +211,21 @@ export const StatItem = styled.div`
   gap: 4px;
 `;
 
+// Deliberately larger than body text: a figure, not a heading
 export const StatNumber = styled.span`
-  font-family: 'Lora', 'Georgia', serif;
-  font-size: 26px;
-  font-weight: 800;
+  font-family: ${theme.fonts.body};
+  font-size: 28px;
+  font-weight: 700;
   color: #0e5d95;
   line-height: 1;
   letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
 `;
 
 export const StatLabel = styled.span`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 9px;
-  letter-spacing: 0.2em;
+  ${type.label}
   text-transform: uppercase;
-  color: #8aa3b5;
+  color: #5a7080; /* ≥ 4.5:1 on white and the light section backgrounds */
 `;
 
 export const Bold = styled.span`

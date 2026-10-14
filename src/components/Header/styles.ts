@@ -1,11 +1,11 @@
 import styled, { createGlobalStyle, keyframes, css } from "styled-components";
 import { Link } from "react-router-dom";
 import { Menu } from "antd";
+import { theme } from "../../styles/theme";
 
+import { type } from "../../styles/typography";
 // ─── Global ───────────────────────────────────────────────────────────────────
 export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,800;1,700&family=DM+Mono:wght@500&family=Source+Serif+4&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -29,15 +29,17 @@ export const GlobalStyle = createGlobalStyle`
     --shadow-md: 0 4px 20px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05);
     --shadow-lg: 0 10px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
     --radius: 10px;
-    --font: 'DM Sans', -apple-system, sans-serif;
-    --font-mono: 'DM Mono', monospace;
+    /* site-wide family (styles/theme.ts); DM Sans was never loaded */
+    --font: ${theme.fonts.body};
+    --font-mono: ${theme.fonts.body};
     --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   }
 `;
 
+// Same values as before (768px / 1024px), now sourced from the shared tokens
 export const breakpoints = {
-  mobile: "768px",
-  tablet: "1024px",
+  mobile: `${theme.breakpoints.md}px`,
+  tablet: `${theme.breakpoints.lg}px`,
 };
 
 // ─── Keyframes ────────────────────────────────────────────────────────────────
@@ -46,17 +48,19 @@ export const fadeSlideDown = keyframes`
   to   { opacity: 1; transform: translateY(0); }
 `;
 
-const shimmer = keyframes`
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-`;
 
 // ─── Header Shell ─────────────────────────────────────────────────────────────
-export const HeaderContainer = styled.header<{ $scrolled?: boolean }>`
+const { layout, colors, overlays } = theme;
+
+/* Horizontal padding that lines the logo up with the redesign's content column */
+const alignedPadding = (side: string) =>
+  `0 max(${side}, calc((100% - ${layout.contentMaxWidth}) / 2))`;
+
+export const HeaderContainer = styled.header<{ $scrolled?: boolean; $transparent?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 6rem;
+  padding: ${alignedPadding(layout.pagePadding.desktop)};
   height: 72px;
   background: var(--surface);
   backdrop-filter: saturate(180%) blur(16px);
@@ -94,11 +98,21 @@ export const HeaderContainer = styled.header<{ $scrolled?: boolean }>`
     background: rgba(255,255,255,0.99);
   `}
 
+  /* Homepage, top of page: no bar — the hero shows through, with a soft
+     dark scrim behind the white logo and links. */
+  ${p => p.$transparent && css`
+    background: ${overlays.headerScrim};
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    &::after { opacity: 0; }
+  `}
+
   @media (max-width: ${breakpoints.tablet}) {
-    padding: 0 2.5rem;
+    padding: ${alignedPadding(layout.pagePadding.tablet)};
   }
   @media (max-width: ${breakpoints.mobile}) {
-    padding: 0 1.25rem;
+    padding: ${alignedPadding(layout.pagePadding.mobile)};
     height: 64px;
   }
 `;
@@ -112,11 +126,16 @@ export const ContentSpacer = styled.div`
 `;
 
 // ─── Logo ─────────────────────────────────────────────────────────────────────
-export const Logo = styled(Link)`
+export const Logo = styled(Link)<{ $onDark?: boolean }>`
   display: flex;
   align-items: center;
   flex-shrink: 0;
   transition: opacity var(--transition), transform var(--transition);
+
+  img {
+    transition: filter var(--transition);
+    filter: ${p => p.$onDark ? 'brightness(0) invert(1)' : 'none'};
+  }
 
   &:hover {
     opacity: 0.82;
@@ -142,6 +161,13 @@ export const NavContainer = styled.nav`
   @media (max-width: ${breakpoints.tablet}) { display: none; }
 `;
 
+// Link colour for the solid (white) and transparent (over hero) header
+const navColor = (lit: boolean, transparent?: boolean) =>
+  transparent ? (lit ? '#fff' : 'rgba(255,255,255,0.9)') : (lit ? 'var(--brand)' : 'var(--text-primary)');
+
+// Siblings of the hovered item are dimmed slightly (was 0.38, too faint to read)
+const dimOthers = (isAnyHovered: boolean, lit: boolean) => (isAnyHovered ? (lit ? 1 : 0.6) : 1);
+
 // Shared underline indicator
 const underlineBar = css<{ $active?: boolean; $lit?: boolean }>`
   &::before {
@@ -151,7 +177,7 @@ const underlineBar = css<{ $active?: boolean; $lit?: boolean }>`
     transform: translateX(-50%);
     height: 2px;
     border-radius: 2px 2px 0 0;
-    background: var(--brand);
+    background: currentColor;
     width: ${p => (p.$active || p.$lit) ? '55%' : '0'};
     transition: width var(--transition);
   }
@@ -161,7 +187,9 @@ export const NavItemLink = styled(Link)<{
   $active: boolean;
   $isHovered: boolean;
   $isAnyHovered: boolean;
+  $transparent?: boolean;
 }>`
+  ${type.nav}
   position: relative;
   padding: 0 1.05rem;
   height: 72px;
@@ -169,17 +197,13 @@ export const NavItemLink = styled(Link)<{
   align-items: center;
   text-decoration: none;
   white-space: nowrap;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--font);
-  letter-spacing: 0.05em;
   text-transform: uppercase;
   transition:
     color var(--transition),
     opacity var(--transition);
 
-  color: ${p => (p.$isHovered || p.$active) ? 'var(--brand)' : 'var(--text-primary)'};
-  opacity: ${p => p.$isAnyHovered ? (p.$isHovered ? 1 : 0.38) : 1};
+  color: ${p => navColor(p.$isHovered || p.$active, p.$transparent)};
+  opacity: ${p => dimOthers(p.$isAnyHovered, p.$isHovered)};
 
   ${underlineBar}
   ${p => css`
@@ -187,12 +211,27 @@ export const NavItemLink = styled(Link)<{
   `}
 `;
 
-export const NavDropdown = styled.div<{
+// Native <button> reset so interactive triggers keep their previous look
+const buttonReset = css`
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  line-height: inherit;
+  text-align: inherit;
+`;
+
+export const NavDropdown = styled.button<{
   $active: boolean;
   $isHovered: boolean;
   $isAnyHovered: boolean;
   $isDropdownOpen: boolean;
+  $transparent?: boolean;
 }>`
+  ${buttonReset}
+  ${type.nav}
   position: relative;
   padding: 0 1.05rem;
   height: 72px;
@@ -200,10 +239,6 @@ export const NavDropdown = styled.div<{
   align-items: center;
   gap: 5px;
   white-space: nowrap;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--font);
-  letter-spacing: 0.05em;
   text-transform: uppercase;
   cursor: pointer;
   user-select: none;
@@ -211,14 +246,8 @@ export const NavDropdown = styled.div<{
     color var(--transition),
     opacity var(--transition);
 
-  color: ${p =>
-    (p.$isHovered || p.$isDropdownOpen || p.$active)
-      ? 'var(--brand)'
-      : 'var(--text-primary)'};
-  opacity: ${p =>
-    p.$isAnyHovered
-      ? (p.$isHovered || p.$isDropdownOpen) ? 1 : 0.38
-      : 1};
+  color: ${p => navColor(p.$isHovered || p.$isDropdownOpen || p.$active, p.$transparent)};
+  opacity: ${p => dimOthers(p.$isAnyHovered, p.$isHovered || p.$isDropdownOpen)};
 
   ${underlineBar}
   ${p => css`
@@ -296,11 +325,14 @@ export const LanguageMenu = styled(Menu)`
 `;
 
 // ─── Language Selector ────────────────────────────────────────────────────────
-export const LanguageSelector = styled.div<{
+export const LanguageSelector = styled.button<{
   $isHovered: boolean;
   $isAnyHovered: boolean;
   $isDropdownOpen: boolean;
+  $transparent?: boolean;
 }>`
+  ${buttonReset}
+  ${type.nav}
   margin-left: 0.75rem;
   padding: 0 0.85rem;
   height: 72px;
@@ -308,21 +340,38 @@ export const LanguageSelector = styled.div<{
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  border-left: 1px solid var(--border);
-  font-family: var(--font);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  border-left: 1px solid ${p => p.$transparent ? 'rgba(255,255,255,0.28)' : 'var(--border)'};
   text-transform: uppercase;
   white-space: nowrap;
   transition: color var(--transition), opacity var(--transition);
 
-  color: ${p =>
-    (p.$isHovered || p.$isDropdownOpen) ? 'var(--brand)' : 'var(--text-primary)'};
-  opacity: ${p =>
-    p.$isAnyHovered
-      ? (p.$isHovered || p.$isDropdownOpen) ? 1 : 0.38
-      : 1};
+  color: ${p => navColor(p.$isHovered || p.$isDropdownOpen, p.$transparent)};
+  opacity: ${p => dimOthers(p.$isAnyHovered, p.$isHovered || p.$isDropdownOpen)};
+`;
+
+// "Contact" shown as the header's call-to-action button (desktop)
+export const NavCta = styled(Link)<{ $transparent?: boolean; $active?: boolean }>`
+  ${type.nav}
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin-left: 0.75rem;
+  padding: 0 1.25rem;
+  border-radius: 2px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  border: 1px solid ${p => p.$transparent ? 'rgba(255,255,255,0.85)' : colors.primary};
+  background: ${p => p.$transparent ? 'transparent' : colors.primary};
+  color: #fff;
+
+  &:hover {
+    background: ${p => p.$transparent ? '#fff' : colors.primaryDark};
+    border-color: ${p => p.$transparent ? '#fff' : colors.primaryDark};
+    color: ${p => p.$transparent ? colors.navy : '#fff'};
+  }
 `;
 
 export const FlagIcon = styled.span`
@@ -340,7 +389,16 @@ export const FlagIcon = styled.span`
 export const AnimatedDropdownWrapper = styled.div``;
 
 // ─── Mobile Toggle ────────────────────────────────────────────────────────────
-export const MobileNavToggle = styled.div`
+export const MobileNavToggle = styled.button<{ $transparent?: boolean }>`
+  /* native <button> reset — keeps the previous look */
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  line-height: 1;
+  appearance: none;
+  -webkit-appearance: none;
+
   display: none;
   cursor: pointer;
   width: 38px;
@@ -348,15 +406,15 @@ export const MobileNavToggle = styled.div`
   border-radius: 8px;
   align-items: center;
   justify-content: center;
-  color: var(--text-primary);
+  color: ${p => p.$transparent ? '#fff' : 'var(--text-primary)'};
   font-size: 17px;
-  background: #f4f6f9;
+  background: ${p => p.$transparent ? 'rgba(255,255,255,0.16)' : '#f4f6f9'};
   transition: background var(--transition), color var(--transition), transform var(--transition);
   flex-shrink: 0;
 
   &:hover {
-    background: var(--brand-dim);
-    color: var(--brand);
+    background: ${p => p.$transparent ? 'rgba(255,255,255,0.28)' : 'var(--brand-dim)'};
+    color: ${p => p.$transparent ? '#fff' : 'var(--brand)'};
     transform: scale(1.04);
   }
   &:active { transform: scale(0.97); }
@@ -386,7 +444,11 @@ export const MobileNavContainer = styled.div<{ $isOpen: boolean }>`
   height: 100dvh;
   background: #fff;
   z-index: 1002;
-  transition: right 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  /* hidden panel is removed from the tab order once it has slid out */
+  visibility: ${p => p.$isOpen ? 'visible' : 'hidden'};
+  transition:
+    right 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear ${p => p.$isOpen ? '0s' : '0.32s'};
   box-shadow: -12px 0 48px rgba(0, 0, 0, 0.14);
   display: flex;
   flex-direction: column;
@@ -423,14 +485,11 @@ export const MobileNavItem = styled.div`
 `;
 
 export const MobileNavLink = styled(Link)`
+  ${type.nav}
   display: flex;
   align-items: center;
   padding: 0 1.25rem;
   height: 52px;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--font);
-  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-primary);
   text-decoration: none;
@@ -444,15 +503,12 @@ export const MobileNavLink = styled(Link)`
 `;
 
 export const MobileNavDropdown = styled.div`
+  ${type.nav}
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1.25rem;
   height: 52px;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--font);
-  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-primary);
   cursor: pointer;
@@ -469,17 +525,19 @@ export const MobileSubMenu = styled.div<{ $isOpen: boolean }>`
   background: #f9fafd;
   max-height: ${p => p.$isOpen ? '320px' : '0'};
   overflow: hidden;
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* collapsed links leave the tab order (matches aria-expanded="false") */
+  visibility: ${p => p.$isOpen ? 'visible' : 'hidden'};
+  transition:
+    max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear ${p => p.$isOpen ? '0s' : '0.3s'};
 `;
 
 export const MobileSubMenuItem = styled(Link)`
+  ${type.small}
   display: flex;
   align-items: center;
   padding: 0 1.25rem 0 2.25rem;
   height: 46px;
-  font-size: 12.5px;
-  font-weight: 500;
-  font-family: var(--font);
   color: var(--text-secondary);
   text-decoration: none;
   position: relative;
@@ -516,11 +574,8 @@ export const MobileLanguageSelector = styled.div`
 `;
 
 export const MobileLanguageHeader = styled.div`
-  font-size: 11px;
-  font-weight: 700;
-  font-family: var(--font);
+  ${type.label}
   color: var(--text-muted);
-  letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
   display: flex;
@@ -534,16 +589,13 @@ export const MobileLanguageOptions = styled.div`
 `;
 
 export const MobileLanguageOption = styled.div<{ $active: boolean }>`
+  ${type.nav}
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 0.55rem 1rem;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--font);
-  letter-spacing: 0.01em;
   transition: all var(--transition);
   flex: 1;
   justify-content: center;

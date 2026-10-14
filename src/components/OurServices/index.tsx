@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { ServiceData } from '../../pages/Services';
 import {
@@ -22,6 +22,7 @@ import {
   DetailItem,
   DetailCategory,
   TouchIndicator,
+  CardLink,
 } from './styles';
 
 interface CardsSectionProps  { services: ServiceData[]; }
@@ -77,8 +78,13 @@ const OurServices: React.FC<OurServicesProps> = ({ services, onButtonClick }) =>
                 <ImageContainer>
                   <CardIcon src={service.icon} alt={t(service.title)} />
                 </ImageContainer>
-                <CardTitle>{t(service.title)}</CardTitle>
+                <CardTitle as="h2">{t(service.title)}</CardTitle>
                 <CardDescription>{t(service.description)}</CardDescription>
+                {service.path && (
+                  <CardLink to={service.path}>
+                    {t('Learn more')} <span aria-hidden="true">→</span>
+                  </CardLink>
+                )}
               </CardContent>
 
               {/* Hover overlay */}
@@ -96,6 +102,11 @@ const OurServices: React.FC<OurServicesProps> = ({ services, onButtonClick }) =>
                       </DetailCategory>
                     ))}
                   </DetailsList>
+                  {service.path && (
+                    <CardLink to={service.path} $onDark tabIndex={-1}>
+                      {t('Learn more')} <span aria-hidden="true">→</span>
+                    </CardLink>
+                  )}
                   {(isTouchDevice || windowWidth <= 1024) && (
                     <TouchIndicator>i</TouchIndicator>
                   )}

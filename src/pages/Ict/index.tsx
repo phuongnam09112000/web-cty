@@ -1,10 +1,8 @@
 import React, { lazy, useRef } from "react";
-import AboutBanner from "../../components/AboutBanner";
 import ServicesPage from "../../components/Integration";
 import { useTranslation } from "react-i18next";
 import CoreValuesSystem from "../../components/CoreValuesSystem";
 import ContactForm from "../../components/FormContact";
-import ContactBanner from "../../components/ContactBanner";
 import SolutionBanner from "../../components/SolutionBanner";
 
 const Container = lazy(() => import("../../common/Container"));
@@ -67,7 +65,7 @@ const IctComponent = () => {
   return (
     <Container>
       <SolutionBanner
-        backgroundImage="/img/background/our_service.jpeg"
+        backgroundImage="/img/banners/ict.svg"
         title={t("Premium Solutions")}
         subtitle={t(
           "We design high-end technology solutions that are flexible, robust, and ready for the digital future."

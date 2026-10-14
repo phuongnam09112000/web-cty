@@ -43,7 +43,19 @@ interface CardProps {
 
 const SolutionCardItem = memo(
   ({ solution, index, isSelected, iconEl, onSelect, t }: CardProps) => (
-    <SolutionCard isSelected={isSelected} onClick={() => onSelect(index)}>
+    <SolutionCard
+      isSelected={isSelected}
+      onClick={() => onSelect(index)}
+      onKeyDown={(e: React.KeyboardEvent) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onSelect(index);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-pressed={isSelected}
+    >
       <IconContainer isActive={isSelected}>{iconEl}</IconContainer>
       <SolutionContent>
         <SolutionTitle level={3}>{t(solution.title)}</SolutionTitle>
@@ -128,8 +140,8 @@ const CoreValuesSystem: React.FC<CoreValuesSystemProps> = ({
     <Container backgroundColor={backgroundColor}>
       {/* ── Title ── */}
       <TitleBlock>
-        <TitleEyebrow>Our Solutions</TitleEyebrow>
-        <PageTitle level={1}>{t(title)}</PageTitle>
+        <TitleEyebrow>{t("OUR SOLUTIONS")}</TitleEyebrow>
+        <PageTitle level={2}>{t(title)}</PageTitle>
         <TitleDivider />
       </TitleBlock>
 

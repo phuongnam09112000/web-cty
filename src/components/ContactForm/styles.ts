@@ -1,6 +1,7 @@
 import styled, { keyframes, css } from "styled-components";
 import { Form, Input, Button } from "antd";
 
+import { type, typeImportant } from "../../styles/typography";
 /* ─── Tokens ─────────────────────────────────── */
 const blue      = "#0e5d95";
 const blueDeep  = "#0d1b2a";
@@ -88,10 +89,7 @@ export const PanelTop = styled.div`
 `;
 
 export const PanelEyebrow = styled.span`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: ${blueAccent};
   display: flex;
@@ -109,18 +107,12 @@ export const PanelEyebrow = styled.span`
 `;
 
 export const PanelTitle = styled.h2`
-  font-family: 'Lora', 'Georgia', serif;
-  font-size: 34px;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  ${type.h2}
   color: #fff;
   margin: 0 0 10px 0;
 
-  em { font-style: italic; color: ${blueAccent}; }
+  em { font-style: normal; color: ${blueAccent}; }
 
-  @media (max-width: 1100px) { font-size: 26px; }
-  @media (max-width: 480px)  { font-size: 22px; }
 `;
 
 export const PanelDivider = styled.div`
@@ -133,9 +125,7 @@ export const PanelDivider = styled.div`
 `;
 
 export const PanelDesc = styled.p`
-  font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
-  font-size: 14px;
-  line-height: 1.85;
+  ${type.body}
   color: rgba(255,255,255,0.48);
   margin: 0;
 `;
@@ -183,17 +173,13 @@ export const ContactInfoTexts = styled.div`
 `;
 
 export const ContactInfoLabel = styled.span`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 9px;
-  letter-spacing: 0.2em;
+  ${type.label}
   text-transform: uppercase;
-  color: rgba(255,255,255,0.28);
+  color: rgba(255,255,255,0.55); /* ≥ 4.5:1 on the navy panel */
 `;
 
 export const ContactInfoValue = styled.span`
-  font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
-  font-size: 13px;
-  line-height: 1.55;
+  ${type.small}
   color: rgba(255,255,255,0.62);
 `;
 
@@ -220,10 +206,7 @@ export const RightPanel = styled.div`
 `;
 
 export const FormEyebrow = styled.span`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: ${blue};
   display: flex;
@@ -240,17 +223,12 @@ export const FormEyebrow = styled.span`
 `;
 
 export const FormHeading = styled.h3`
-  font-family: 'Lora', 'Georgia', serif;
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  ${type.h3}
   color: ${blueDeep};
   margin: 0 0 8px 0;
 
-  em { font-style: italic; color: ${blue}; }
+  em { font-style: normal; color: ${blue}; }
 
-  @media (max-width: 480px) { font-size: 22px; }
 `;
 
 export const FormDivider = styled.div`
@@ -301,7 +279,7 @@ const fieldBase = css`
   box-shadow: none !important;
   transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease !important;
 
-  &::placeholder { color: #9ab0c2 !important; font-style: italic; }
+  &::placeholder { color: #9ab0c2 !important; font-style: normal; }
 
   &:hover { border-color: #94b8d4 !important; background: #fff !important; }
 
@@ -335,13 +313,10 @@ export const SubmitButtonContainer = styled.div`
 `;
 
 export const SubmitButton = styled(Button)`
+  ${typeImportant.button}
   height: 48px !important;
   padding: 0 40px !important;
   border-radius: 0 !important;
-  font-family: 'JetBrains Mono', 'Courier New', monospace !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.18em !important;
   text-transform: uppercase !important;
   background: ${blueDeep} !important;
   border-color: ${blueDeep} !important;
@@ -388,20 +363,15 @@ export const ModalContainer = styled.div`
 `;
 
 export const ThankYouTitle = styled.h3`
-  font-family: 'Lora', 'Georgia', serif;
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  ${type.h3}
   color: ${blueDeep};
   margin: 0 0 12px 0;
 
-  em { font-style: italic; color: ${blue}; }
+  em { font-style: normal; color: ${blue}; }
 `;
 
 export const ThankYouText = styled.p`
-  font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
-  font-size: 15px;
-  line-height: 1.75;
+  ${type.body}
   color: #5a7080;
   margin: 0;
 `;

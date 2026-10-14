@@ -1,5 +1,4 @@
 import React, { lazy, useRef } from "react";
-import AboutBanner from "../../components/AboutBanner";
 import ServicesPage from "../../components/Integration";
 import { useTranslation } from "react-i18next";
 import CoreValuesSystem from "../../components/CoreValuesSystem";
@@ -37,7 +36,7 @@ const Integration = () => {
   return (
     <Container>
       <SolutionBanner
-        backgroundImage="/img/background/our_service.jpeg"
+        backgroundImage="/img/banners/integration.svg"
         title={t("Premium Solutions")}
         subtitle={t(
           "We design high-end technology solutions that are flexible, robust, and ready for the digital future."
@@ -60,7 +59,7 @@ const Integration = () => {
         title={t(coreOfferings.title)}
         solutions={coreOfferings.solutions.map((solution) => ({
           title: t(solution.title),
-          content: t(solution.content),
+          content: [t(solution.content)],
         }))}
         defaultImage="/img/background/sy_2.jpg"
       />

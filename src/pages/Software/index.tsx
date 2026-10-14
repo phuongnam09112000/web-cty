@@ -29,8 +29,9 @@ const Software = () => {
   return (
     <Container>
       <AboutBanner
-        backgroundImage="/img/background/our_service.jpeg"
+        backgroundImage="/img/banners/software.svg"
         title={t("Professional Services")}
+        headingLevel={2}
       />
       <ServicesPage 
         pageTitle={t("Software Development")}
@@ -42,7 +43,7 @@ const Software = () => {
         title={t(coreOfferings.title)}
         solutions={coreOfferings.solutions.map((solution) => ({
           title: t(solution.title),
-          content: t(solution.content),
+          content: [t(solution.content)],
         }))}
         defaultImage="/img/background/software_2.png" 
       />
