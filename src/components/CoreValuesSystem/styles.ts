@@ -2,6 +2,7 @@ import styled, { keyframes, css } from "styled-components";
 import { Typography } from "antd";
 import { IconContainerProps, ProgressDotProps } from "./types";
 
+import { type, typeImportant } from "../../styles/typography";
 const { Title } = Typography;
 
 /* ─── Tokens ─────────────────────────────────── */
@@ -38,10 +39,7 @@ export const TitleBlock = styled.div`
 `;
 
 export const TitleEyebrow = styled.span`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: ${blue};
   display: inline-flex;
@@ -59,21 +57,15 @@ export const TitleEyebrow = styled.span`
 `;
 
 export const PageTitle = styled(Title)`
-  font-family: 'Lora', 'Georgia', serif !important;
-  font-size: 44px !important;
-  font-weight: 800 !important;
-  line-height: 1.15 !important;
-  letter-spacing: -0.025em !important;
+  ${typeImportant.h1}
   color: ${blueDeep} !important;
   margin: 0 0 14px 0 !important;
 
   em {
-    font-style: italic;
+    font-style: normal;
     color: ${blue};
   }
 
-  @media (max-width: 768px) { font-size: 32px !important; }
-  @media (max-width: 480px) { font-size: 26px !important; }
 `;
 
 export const TitleDivider = styled.div`
@@ -278,15 +270,10 @@ export const SolutionContent = styled.div`
 `;
 
 export const SolutionTitle = styled(Title)`
-  font-family: 'Lora', 'Georgia', serif !important;
-  font-size: 16px !important;
-  font-weight: 700 !important;
+  ${typeImportant.h4}
   margin-bottom: 8px !important;
   color: ${blueDeep} !important;
-  line-height: 1.3 !important;
-  letter-spacing: -0.01em;
 
-  @media (max-width: 480px) { font-size: 15px !important; }
 `;
 
 export const ContentList = styled.ul`
@@ -298,11 +285,9 @@ export const ContentList = styled.ul`
 `;
 
 export const ContentItem = styled.li`
-  font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
+  ${type.small}
   position: relative;
   padding-left: 14px;
-  font-size: 13px;
-  line-height: 1.7;
   color: #5a7080;
 
   &::before {
@@ -314,7 +299,6 @@ export const ContentItem = styled.li`
     opacity: 0.6;
   }
 
-  @media (max-width: 480px) { font-size: 12px; }
 `;
 
 /* ─── Legacy exports ─────────────────────────── */

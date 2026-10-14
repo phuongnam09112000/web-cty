@@ -154,5 +154,14 @@
   "a11y.hero.controls": "Slideshow controls",
   "a11y.hero.slide": "Show slide {{n}} of {{total}}",
   "a11y.hero.pause": "Pause slideshow",
-  "a11y.hero.play": "Play slideshow"
+  "a11y.hero.play": "Play slideshow",
+  "home.about.founded": "Founded",
+  "home.about.photo": "ISTT office",
+  "home.about.cta": "More about ISTT",
+  "home.services.all": "View all services",
+  "Bộ Quốc phòng": "Ministry of National Defence",
+  "Bộ Công An": "Ministry of Public Security",
+  "Ministry of education and training": "Ministry of Education and Training",
+  "home.partners.viewAll": "View all {{count}} partners",
+  "home.partners.showFewer": "Show fewer partners"
 }

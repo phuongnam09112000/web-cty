@@ -1,61 +1,50 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { theme } from "../../styles/theme";
+import { SectionInner, stackedMedia, mobileMedia } from "../../styles/section";
+
+const { colors, fonts, typeScale } = theme;
 
 /* ── Tokens ─────────────────────────────────── */
-const bg       = "#0b1728";
-const bgTop    = "#0e1e33";
-const accent   = "#3b9de0";
-const dim      = "rgba(255,255,255,0.55)"; // ≥ 4.5:1 on both footer backgrounds
-const divider  = "rgba(255,255,255,0.08)";
+const dim = "rgba(255,255,255,0.72)";    // body text, ≥ 7:1 on the footer navy
+const faint = "rgba(255,255,255,0.6)";   // copyright, ≥ 5:1
+const divider = "rgba(255,255,255,0.12)";
 
 /* ── Shell ──────────────────────────────────── */
 export const FooterSection = styled.footer`
-  background: ${bg};
+  background: ${colors.navyDeep};
   width: 100%;
-  font-family: 'DM Sans', sans-serif;
+  font-family: ${fonts.display};
 `;
 
-/* Top band with slightly lighter bg */
 export const FooterTop = styled.div`
-  background: ${bgTop};
+  padding: 72px 0 56px;
   border-bottom: 1px solid ${divider};
-  padding: 56px 0 48px;
 
-  @media (max-width: 768px) { padding: 40px 0 32px; }
+  ${mobileMedia} { padding: 48px 0 36px; }
 `;
 
 export const FooterBottom = styled.div`
-  padding: 20px 0;
+  padding: 24px 0;
 `;
 
-export const Inner = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 40px;
-
-  @media (max-width: 768px) { padding: 0 24px; }
-  @media (max-width: 480px) { padding: 0 16px; }
-`;
+// Same content column as the page sections above
+export const Inner = SectionInner;
 
 /* ── Top grid ───────────────────────────────── */
 export const TopGrid = styled.div`
   display: grid;
-  grid-template-columns: 220px 1fr 1fr 1.6fr;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 4fr);
   gap: 48px;
   align-items: start;
 
-  @media (max-width: 1024px) {
-    grid-template-columns: 180px 1fr 1fr 1.4fr;
-    gap: 32px;
+  ${stackedMedia} {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px 32px;
   }
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 36px 24px;
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
+  ${mobileMedia} {
+    grid-template-columns: minmax(0, 1fr);
     gap: 32px;
   }
 `;
@@ -66,101 +55,74 @@ export const LogoSection = styled.div`
   flex-direction: column;
   gap: 20px;
 
-  @media (max-width: 768px) {
-    grid-column: 1 / -1;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid ${divider};
-  }
+  ${stackedMedia} { grid-column: 1 / -1; }
 `;
 
 export const LogoLink = styled(Link)`
   display: inline-block;
+  align-self: flex-start;
 `;
 
 export const Logo = styled.img`
-  height: 72px;
-  width: auto;
-  /* brightness to adapt logo on dark bg */
-  filter: brightness(0) invert(1);
-  opacity: 0.92;
   display: block;
-  /* opacity only — GPU composited */
-  transition: opacity 0.2s ease;
+  height: 64px;
+  width: auto;
+  /* white logo on the dark footer */
+  filter: brightness(0) invert(1);
 
-  &:hover { opacity: 1; }
-
-  @media (max-width: 768px) { height: 48px; }
+  ${mobileMedia} { height: 52px; }
 `;
 
 export const Tagline = styled.p`
-  font-size: 12px;
-  line-height: 1.7;
-  color: ${dim};
   margin: 0;
-  letter-spacing: 0.2px;
-
-  @media (max-width: 768px) { display: none; }
+  font-family: ${fonts.display};
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: 0;
+  color: ${dim};
 `;
 
 /* ── Nav columns ────────────────────────────── */
-export const NavCol = styled.div`
+export const NavCol = styled.nav`
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 `;
 
-export const ColLabel = styled.span`
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 3px;
+export const ColLabel = styled.h2`
+  margin: 0 0 4px;
+  font-family: ${fonts.display};
+  font-size: ${typeScale.label.size};
+  font-weight: ${typeScale.label.weight};
+  line-height: 1.5;
+  letter-spacing: ${typeScale.label.tracking};
   text-transform: uppercase;
-  color: ${accent};
-  margin-bottom: 4px;
-  display: block;
-  font-family: 'DM Mono', monospace;
+  color: ${colors.secondaryLight};
 `;
 
 export const NavLinkList = styled.ul`
   list-style: none;
   padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin: -5px 0; /* offsets the link padding so the column keeps its rhythm */
+  margin: -6px 0; /* offsets the link padding so the column keeps its rhythm */
 `;
 
 export const NavLinkItem = styled.li``;
 
 export const NavLink = styled(Link)`
-  font-size: 14px;
+  display: inline-block;
+  padding: 6px 0; /* 32px tap target */
+  font-family: ${fonts.display};
+  font-size: 15px;
   font-weight: 500;
+  line-height: 20px;
   color: ${dim};
   text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 0; /* 32px tap target; the list gap was 10px */
-  /* color only — fast */
   transition: color 0.18s ease;
 
-  &::before {
-    content: "";
-    width: 0;
-    height: 1px;
-    background: ${accent};
-    display: inline-block;
-    transition: width 0.2s ease;
-    flex-shrink: 0;
-  }
-
   &:hover {
-    color: #fff;
-
-    &::before { width: 12px; }
+    color: ${colors.white};
+    text-decoration: underline;
+    text-underline-offset: 4px;
   }
 `;
 
@@ -168,9 +130,7 @@ export const NavLink = styled(Link)`
 export const ContactCol = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 14px;
-
-  @media (max-width: 768px) { grid-column: 1 / -1; }
+  gap: 12px;
 `;
 
 export const ContactList = styled.ul`
@@ -179,27 +139,28 @@ export const ContactList = styled.ul`
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 `;
 
 export const ContactItem = styled.li`
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
 `;
 
 export const ContactIcon = styled.img`
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
   margin-top: 3px;
   filter: brightness(0) invert(1);
-  opacity: 0.4;
+  opacity: 0.6;
 `;
 
 export const ContactText = styled.span`
-  font-size: 13.5px;
-  line-height: 1.65;
+  font-family: ${fonts.display};
+  font-size: 15px;
+  line-height: 1.6;
   color: ${dim};
 `;
 
@@ -210,77 +171,46 @@ export const BottomBar = styled.div`
   justify-content: space-between;
   gap: 16px;
 
-  @media (max-width: 480px) {
-    flex-direction: column;
+  ${mobileMedia} {
+    flex-direction: column-reverse;
     align-items: flex-start;
-    gap: 12px;
   }
 `;
 
 export const Copyright = styled.p`
-  font-size: 12.5px;
-  color: rgba(255,255,255,0.5);
   margin: 0;
-  letter-spacing: 0.3px;
+  font-family: ${fonts.display};
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: ${faint};
 `;
 
 export const SocialRow = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
 `;
 
 export const SocialIcon = styled.a`
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  border: 1px solid ${divider};
   display: flex;
   align-items: center;
   justify-content: center;
-  /* opacity + border-color only */
-  transition: opacity 0.2s ease, border-color 0.2s ease;
-  opacity: 0.55;
+  width: 44px;
+  height: 44px;
+  border: 1px solid ${divider};
+  border-radius: 2px;
+  color: ${dim};
+  transition: color 0.2s ease, border-color 0.2s ease;
 
   &:hover {
-    opacity: 1;
-    border-color: rgba(255,255,255,0.25);
+    color: ${colors.white};
+    border-color: rgba(255,255,255,0.4);
   }
 
-  img {
-    width: 17px;
-    height: 17px;
-    object-fit: contain;
-    /* static white filter on dark bg */
-    filter: brightness(0) invert(1);
+  svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
   }
 `;
-
-/* ── Keep old exports so existing index.tsx import doesn't break ── */
-export const FooterContainer        = styled.div`display:none;`;
-export const LogoSection2           = LogoSection;
-export const NavSection             = styled.div``;
-export const NavLinksWrapper        = styled.div``;
-export const LinksColumn            = styled.div``;
-export const LinksList              = NavLinkList;
-export const LinkItem               = NavLinkItem;
-export const DesktopSocialSection   = styled.div`display:none;`;
-export const DesktopSocialIcon      = SocialIcon;
-export const ContactSection         = styled.div`display:none;`;
-export const MobileFooter           = styled.div`display:none;`;
-export const MobileLogoSection      = styled.div`display:none;`;
-export const MobileLogo             = styled.img``;
-export const MobileNavSection       = styled.div`display:none;`;
-export const MobileLinksColumn      = styled.div``;
-export const MobileLinksList        = styled.ul``;
-export const MobileLinkItem         = styled.li``;
-export const MobileNavLink          = NavLink;
-export const MobileContactSection   = styled.div`display:none;`;
-export const MobileContactList      = styled.ul``;
-export const MobileContactItem      = styled.li``;
-export const MobileContactIcon      = ContactIcon;
-export const MobileContactText      = ContactText;
-export const MobileFooterBottom     = styled.div`display:none;`;
-export const MobileSocialSection    = styled.div``;
-export const MobileSocialIcon       = SocialIcon;
-export const MobileCopyright        = styled.p``;

@@ -2,6 +2,7 @@ import styled, { keyframes, css } from "styled-components";
 import { Typography } from "antd";
 import { AnimatedProps, TextContainerProps } from "./types";
 
+import { type, typeImportant } from "../../styles/typography";
 const { Title, Paragraph } = Typography;
 
 /* ─── Keyframes ─────────────────────────────── */
@@ -191,10 +192,7 @@ export const TextContainer = styled.div<TextContainerProps>`
 
 /* ─── Eyebrow ────────────────────────────────── */
 export const Eyebrow = styled.span<AnimatedProps>`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: #0e5d95;
   display: flex;
@@ -220,17 +218,13 @@ export const Eyebrow = styled.span<AnimatedProps>`
 
 /* ─── Title ──────────────────────────────────── */
 export const SectionTitle = styled(Title).withConfig({ shouldForwardProp: (prop: PropertyKey) => prop !== "visible" })<AnimatedProps>`
-  font-family: 'Lora', 'Georgia', serif !important;
-  font-size: 38px !important;
-  font-weight: 800 !important;
-  line-height: 1.15 !important;
-  letter-spacing: -0.025em !important;
+  ${typeImportant.h2}
   color: #0d1b2a !important;
   margin: 0 0 12px 0 !important;
   opacity: 0;
 
   em {
-    font-style: italic;
+    font-style: normal;
     color: #0e5d95;
   }
 
@@ -239,14 +233,6 @@ export const SectionTitle = styled(Title).withConfig({ shouldForwardProp: (prop:
     css`
       animation: ${fadeUp} 0.55s ease 0.55s both;
     `}
-
-  @media (max-width: 992px) {
-    font-size: 30px !important;
-  }
-
-  @media (max-width: 576px) {
-    font-size: 24px !important;
-  }
 `;
 
 export const TitleDivider = styled.div<AnimatedProps>`

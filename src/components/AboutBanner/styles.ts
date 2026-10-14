@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
+import { type } from "../../styles/typography";
 /* ─── Keyframes ─────────────────────────────── */
 const fadeUp = keyframes`
   from { opacity: 0; transform: translateY(24px); }
@@ -72,10 +73,7 @@ export const ContentWrapper = styled.div`
 
 /* eyebrow breadcrumb line above title */
 export const BannerEyebrow = styled.span`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.55);
   display: flex;
@@ -94,17 +92,13 @@ export const BannerEyebrow = styled.span`
 `;
 
 export const Title = styled.h1`
-  font-family: 'Lora', 'Georgia', serif;
-  font-size: 52px;
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  ${type.h1}
   color: #fff;
   margin: 0 0 16px 0;
   animation: ${fadeUp} 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.32s both;
 
   em {
-    font-style: italic;
+    font-style: normal;
     background: linear-gradient(90deg, #7ec8f4, #fff, #7ec8f4);
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -113,9 +107,6 @@ export const Title = styled.h1`
     animation: ${shimmer} 4s linear 1s infinite;
   }
 
-  @media (max-width: 1024px) { font-size: 40px; }
-  @media (max-width: 768px)  { font-size: 30px; }
-  @media (max-width: 480px)  { font-size: 24px; }
 `;
 
 /* thin shimmer line under title */

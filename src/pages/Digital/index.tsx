@@ -74,7 +74,7 @@ const Digital = () => {
   return (
     <Container>
       <SolutionBanner
-        backgroundImage="/img/background/our_service.jpeg"
+        backgroundImage="/img/banners/digital.svg"
         title={t("Premium Solutions")}
         subtitle={t(
           "We design high-end technology solutions that are flexible, robust, and ready for the digital future."
@@ -98,7 +98,7 @@ const Digital = () => {
           content: item.content.map((text) => t(text)),
           icon: item.icon,
         }))}
-        defaultImage="/img/background/digital_2.jpg"
+        defaultImage="/img/background/digital_automation.jpg"
         images={solutionImages}
       />
       <div ref={contactFormRef}>

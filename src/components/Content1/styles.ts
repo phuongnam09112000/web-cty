@@ -2,7 +2,7 @@ import styled, { css, keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import { theme } from "../../styles/theme";
 
-const { colors, fonts, typeScale, overlays, layout, breakpoints } = theme;
+const { colors, fonts, typeScale, homeScale, overlays, layout, breakpoints } = theme;
 
 const tablet = `@media (max-width: ${breakpoints.lg}px)`;
 const mobile = `@media (max-width: ${breakpoints.md}px)`;
@@ -110,7 +110,7 @@ export const Eyebrow = styled.p`
 export const Title = styled.h1`
   margin: 0 0 24px;
   font-family: ${fonts.display};
-  font-size: ${typeScale.display.desktop};
+  font-size: ${homeScale.hero.desktop};
   font-weight: ${typeScale.display.weight};
   line-height: ${typeScale.display.lineHeight};
   letter-spacing: ${typeScale.display.tracking};
@@ -120,8 +120,8 @@ export const Title = styled.h1`
   /* Even line lengths; Vietnamese headlines run ~10% longer than English */
   text-wrap: balance;
 
-  ${tablet} { font-size: ${typeScale.display.tablet}; }
-  ${mobile} { font-size: ${typeScale.display.mobile}; margin-bottom: 16px; }
+  ${tablet} { font-size: ${homeScale.hero.tablet}; }
+  ${mobile} { font-size: ${homeScale.hero.mobile}; margin-bottom: 16px; }
 `;
 
 const fadeIn = keyframes`

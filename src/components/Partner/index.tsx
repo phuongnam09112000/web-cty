@@ -1,118 +1,121 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
+import useNearViewport from "../../common/utils/useNearViewport";
+import { Eyebrow, SectionHeading, SectionInner } from "../../styles/section";
 import { partnersData, customersData } from "./data";
+import Logo from "./Logo";
 import {
-  PageWrapper,
-  SectionContainer,
-  SectionHeader,
-  TitleBlock,
-  TitleEyebrow,
-  Title,
-  HeaderRule,
-  Subtitle,
-  SwiperWrapper,
-  SlideContainer,
-  LogoItem,
-  SectionDivider,
+  CustomerCell,
+  CustomerLogo,
+  CustomerName,
+  CustomerPanel,
+  CustomersHeader,
+  CustomersSection,
+  Intro,
+  LogoCell,
+  LogoGrid,
+  PartnersAside,
+  PartnersLayout,
+  PartnersSection,
+  Toggle,
+  ToggleRow,
 } from "./styles";
 
-const breakpoints = {
-  0:    { slidesPerView: 2, spaceBetween: 10 },
-  480:  { slidesPerView: 3, spaceBetween: 12 },
-  768:  { slidesPerView: 4, spaceBetween: 14 },
-  1024: { slidesPerView: 5, spaceBetween: 16 },
-  1280: { slidesPerView: 6, spaceBetween: 16 },
-};
+// Partners shown before "View all": the first ones in the existing data
+// order (no ranking implied).
+const INITIAL_PARTNERS = 8;
 
+const Chevron = () => (
+  <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+    <path d="M2 4l4 4 4-4" />
+  </svg>
+);
+
+/* Partners: a compact grid of the first logos with a disclosure button that
+ * reveals the rest in place. Customers: every logo, named, in one balanced
+ * panel. Nothing moves on its own; logos load as the sections approach. */
 const PartnersAndCustomersSection = () => {
   const { t } = useTranslation();
+  const ref = useRef<HTMLDivElement>(null);
+  const near = useNearViewport(ref);
+  const [showAll, setShowAll] = useState(false);
+
+  const toggle = (
+    <Toggle
+      type="button"
+      aria-expanded={showAll}
+      aria-controls="partner-logos"
+      onClick={() => setShowAll((v) => !v)}
+    >
+      {showAll
+        ? t("home.partners.showFewer")
+        : t("home.partners.viewAll", { count: partnersData.length })}
+      <Chevron />
+    </Toggle>
+  );
 
   return (
-    <PageWrapper>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@700&display=swap');
-      `}</style>
+    <div ref={ref}>
+      <PartnersSection aria-labelledby="partners-title">
+        <SectionInner>
+          <PartnersLayout>
+            <PartnersAside>
+              <Eyebrow>{t("Ecosystem")}</Eyebrow>
+              <SectionHeading id="partners-title">{t("Our Partners")}</SectionHeading>
+              <Intro>{t("United in vision, stronger in execution.")}</Intro>
+              {toggle}
+            </PartnersAside>
 
-      {/* ── Partners ── */}
-      <SectionContainer>
-        <SectionHeader>
-          <TitleBlock>
-            <TitleEyebrow>{t("Ecosystem")}</TitleEyebrow>
-            <Title>{t("Our Partners")}</Title>
-          </TitleBlock>
-          <HeaderRule />
-        </SectionHeader>
-        <Subtitle>{t("United in vision, stronger in execution.")}</Subtitle>
+            <div>
+              <LogoGrid id="partner-logos">
+                {partnersData.map((partner, index) => (
+                  <LogoCell key={partner.name} hidden={!showAll && index >= INITIAL_PARTNERS}>
+                    <Logo
+                      src={partner.logo}
+                      alt={partner.name}
+                      area={3600}
+                      maxWidth={150}
+                      maxHeight={64}
+                      load={near && (showAll || index < INITIAL_PARTNERS)}
+                    />
+                  </LogoCell>
+                ))}
+              </LogoGrid>
+              <ToggleRow>{toggle}</ToggleRow>
+            </div>
+          </PartnersLayout>
+        </SectionInner>
+      </PartnersSection>
 
-        <SwiperWrapper>
-          <Swiper
-            modules={[Autoplay, Navigation]}
-            loop={true}
-            speed={700}
-            navigation={{
-              prevEl: ".swiper-button-prev",
-              nextEl: ".swiper-button-next",
-            }}
-            autoplay={{ delay: 3200, disableOnInteraction: false }}
-            breakpoints={breakpoints}
-            spaceBetween={16}
-          >
-            {partnersData.map((p, i) => (
-              <SwiperSlide key={i}>
-                <SlideContainer>
-                  <LogoItem src={p.logo} alt={p.name} loading={i < 6 ? "eager" : "lazy"} />
-                </SlideContainer>
-              </SwiperSlide>
+      <CustomersSection aria-labelledby="customers-title">
+        <SectionInner>
+          <CustomersHeader>
+            <Eyebrow>{t("Trust")}</Eyebrow>
+            <SectionHeading id="customers-title">{t("Our Customers")}</SectionHeading>
+            <Intro $center>{t("Trusted by leading businesses.")}</Intro>
+          </CustomersHeader>
+
+          <CustomerPanel>
+            {customersData.map((customer) => (
+              <CustomerCell key={customer.name}>
+                <CustomerLogo>
+                  <Logo
+                    src={customer.logo}
+                    alt={t(customer.name)}
+                    area={2600}
+                    maxWidth={128}
+                    maxHeight={60}
+                    load={near}
+                    decorative
+                  />
+                </CustomerLogo>
+                <CustomerName>{t(customer.name)}</CustomerName>
+              </CustomerCell>
             ))}
-            <div className="swiper-button-prev" />
-            <div className="swiper-button-next" />
-          </Swiper>
-        </SwiperWrapper>
-      </SectionContainer>
-
-      <SectionDivider />
-
-      {/* ── Customers ── */}
-      <SectionContainer>
-        <SectionHeader>
-          <TitleBlock>
-            <TitleEyebrow>{t("Trust")}</TitleEyebrow>
-            <Title>{t("Our Customers")}</Title>
-          </TitleBlock>
-          <HeaderRule />
-        </SectionHeader>
-        <Subtitle>{t("Trusted by leading businesses.")}</Subtitle>
-
-        <SwiperWrapper>
-          <Swiper
-            modules={[Autoplay, Navigation]}
-            loop={true}
-            speed={700}
-            navigation={{
-              prevEl: ".swiper-button-prev",
-              nextEl: ".swiper-button-next",
-            }}
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
-            breakpoints={breakpoints}
-            spaceBetween={16}
-          >
-            {customersData.map((c, i) => (
-              <SwiperSlide key={i}>
-                <SlideContainer>
-                  <LogoItem src={c.logo} alt={c.name} loading={i < 6 ? "eager" : "lazy"} />
-                </SlideContainer>
-              </SwiperSlide>
-            ))}
-            <div className="swiper-button-prev" />
-            <div className="swiper-button-next" />
-          </Swiper>
-        </SwiperWrapper>
-      </SectionContainer>
-    </PageWrapper>
+          </CustomerPanel>
+        </SectionInner>
+      </CustomersSection>
+    </div>
   );
 };
 

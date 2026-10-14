@@ -1,19 +1,17 @@
 import { lazy, MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-// import Section from "../../components/Content2";
-// import ServiceSection from "../../components/Services";
-// import ImageSlider from "../../components/SliderBar";
-// import PartnersSection from "../../components/Partner";
 import ScrollToTop from "../../common/ScrollToTop";
 import LazySectionComponent from "../Lazy";
 
 const Content1 = lazy(() => import("../../components/Content1"));
 const Container = lazy(() => import("../../common/Container"));
-const ServiceSection = lazy(() => import("../../components/OurSolutions"));
-const ImageSlider = lazy(() => import("../../components/SliderBar"));
+const AboutSection = lazy(() => import("../../components/Content2"));
+const BusinessAreas = lazy(() => import("../../components/OurSolutions"));
+const ServicesSection = lazy(() => import("../../components/HomeServices"));
+const ValuesSection = lazy(() => import("../../components/HomeValues"));
 const PartnersSection = lazy(() => import("../../components/Partner"));
-const Section = lazy(() => import("../../components/Content2"));
+const ContactSection = lazy(() => import("../../components/HomeContact"));
 
 // Target of the hero's "Explore our solutions" button. Focus lands here so
 // keyboard and screen-reader users continue from the solutions section.
@@ -67,18 +65,24 @@ const Home = () => {
         id="home"
       />
 
-      <Section />
+      {/* Light and dark surfaces alternate down the page */}
+      <AboutSection />
 
       <SolutionsAnchor id="solutions" tabIndex={-1}>
         <LazySectionComponent>
-          <ServiceSection />
+          <BusinessAreas />
         </LazySectionComponent>
       </SolutionsAnchor>
       <LazySectionComponent>
-        <ImageSlider />
+        <ServicesSection />
       </LazySectionComponent>
-
-      <PartnersSection />
+      <LazySectionComponent>
+        <ValuesSection />
+      </LazySectionComponent>
+      <LazySectionComponent>
+        <PartnersSection />
+      </LazySectionComponent>
+      <ContactSection />
     </Container>
   );
 };

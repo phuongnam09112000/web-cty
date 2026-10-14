@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { type } from "../../styles/typography";
 /* ─── Keyframes ─────────────────────────────── */
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(24px); }
@@ -68,10 +69,7 @@ export const HeaderContent = styled.div`
 `;
 
 export const Subtitle = styled.p`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
   display: flex;
@@ -96,17 +94,13 @@ export const Subtitle = styled.p`
 `;
 
 export const Title = styled.h1`
-  font-family: 'Lora', 'Georgia', serif;
-  font-size: 62px;
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  ${type.h1}
   color: #fff;
   margin: 0 0 32px 0;
   opacity: 0;
 
   em {
-    font-style: italic;
+    font-style: normal;
     background: linear-gradient(90deg, #7ec8f4, #fff, #7ec8f4);
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -119,12 +113,12 @@ export const Title = styled.h1`
     animation: ${fadeUp} 0.7s ease 0.65s both;
   }
 
-  @media (max-width: 1024px) { font-size: 48px; }
-  @media (max-width: 768px)  { font-size: 36px; margin-bottom: 24px; }
-  @media (max-width: 480px)  { font-size: 28px; margin-bottom: 20px; }
+  @media (max-width: 768px)  { margin-bottom: 24px; }
+  @media (max-width: 480px)  { margin-bottom: 20px; }
 `;
 
 export const Button = styled.button`
+  ${type.button}
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -132,10 +126,6 @@ export const Button = styled.button`
   border: 1.5px solid rgba(255, 255, 255, 0.55);
   color: #fff;
   padding: 14px 32px;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
   position: relative;
@@ -175,7 +165,6 @@ export const Button = styled.button`
 
   @media (max-width: 768px) {
     padding: 12px 24px;
-    font-size: 10px;
   }
 `;
 
@@ -296,13 +285,8 @@ export const CardIcon = styled.img`
 `;
 
 export const CardTitle = styled.h3`
-  font-family: 'Lora', 'Georgia', serif;
-  font-size: 20px;
-  font-weight: 700;
+  ${type.h3}
   /* same letter-spacing as the global h3 rule, whichever heading level renders it */
-  letter-spacing: -0.015em;
-  @media (max-width: 768px) { letter-spacing: -0.01em; }
-  @media (max-width: 480px) { letter-spacing: -0.005em; }
   color: #0d1b2a;
   margin: 0 0 14px 0;
   text-align: center;
@@ -324,7 +308,6 @@ export const CardTitle = styled.h3`
     &::after { width: 56px; background: #0e5d95; }
   }
 
-  @media (max-width: 768px) { font-size: 18px; }
 `;
 
 export const CardDescription = styled.p`
@@ -356,9 +339,7 @@ export const DetailsOverlay = styled.div`
 
   /* card title inside overlay */
   > h3 {
-    font-family: 'Lora', 'Georgia', serif;
-    font-size: 20px;
-    font-weight: 700;
+    ${type.h3}
     color: #fff;
     margin: 0 0 6px 0;
     padding-bottom: 14px;
@@ -407,19 +388,14 @@ export const DetailCategory = styled.div`
 `;
 
 export const CategoryTitle = styled.h4`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  ${type.label}
   text-transform: uppercase;
   color: #4da3e0;
   margin: 0 0 8px 0;
 `;
 
 export const DetailItem = styled.li`
-  font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
-  font-size: 13px;
-  line-height: 1.65;
+  ${type.small}
   color: rgba(255, 255, 255, 0.78);
   padding-left: 14px;
   position: relative;
@@ -445,8 +421,7 @@ export const TouchIndicator = styled.div`
   border-radius: 50%;
   border: 1.5px solid rgba(255,255,255,0.4);
   color: rgba(255,255,255,0.7);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  ${type.caption}
   align-items: center;
   justify-content: center;
 

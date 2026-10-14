@@ -37,19 +37,46 @@ const colors = {
   focusRingInverse: "#7ec8f4", // on dark backgrounds (9.5:1 on navy)
 } as const;
 
+/* One family for the whole site. Be Vietnam Pro covers Vietnamese stacked
+ * diacritics; the fallbacks (Segoe UI, Roboto, Arial) also support Vietnamese
+ * if the web font is slow or blocked. `heading` and `display` are kept as
+ * aliases so existing code keeps working. */
+const fontStack = "'Be Vietnam Pro', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
+
 const fonts = {
-  body: "'Be Vietnam Pro', 'Segoe UI', sans-serif",
-  heading: "'Lora', 'Georgia', serif",
-  /* Redesign: large headlines use the body family (full Vietnamese support) */
-  display: "'Be Vietnam Pro', 'Segoe UI', sans-serif",
+  body: fontStack,
+  heading: fontStack,
+  display: fontStack,
 } as const;
 
-/* Redesign type scale (homepage hero first; other sections adopt it later).
- * Line heights stay ≥ 1.15 so stacked Vietnamese diacritics never clip. */
+/* Site-wide type scale: one entry per text role, with desktop / tablet
+ * (≤ 1024px) / mobile (≤ 768px) sizes. Heading line heights stay ≥ 1.2 so
+ * stacked Vietnamese diacritics (ệ, ổ, ữ…) never clip or collide. An optional
+ * `xs` size applies on phones ≤ 480px. Applied through the `type` mixins in
+ * styles/typography.ts. */
 const typeScale = {
-  display: { desktop: "64px", tablet: "48px", mobile: "36px", lineHeight: 1.15, weight: 700, tracking: "-0.02em" },
-  lead: { desktop: "20px", tablet: "18px", mobile: "16px", lineHeight: 1.6 },
-  label: { size: "13px", weight: 600, tracking: "0.08em" },
+  display: { desktop: "56px", tablet: "46px", mobile: "34px", lineHeight: 1.18, weight: 700, tracking: "-0.02em" },
+  h1:      { desktop: "44px", tablet: "38px", mobile: "30px", xs: "26px", lineHeight: 1.2, weight: 700, tracking: "-0.02em" },
+  h2:      { desktop: "34px", tablet: "30px", mobile: "26px", lineHeight: 1.25, weight: 700, tracking: "-0.015em" },
+  h3:      { desktop: "22px", tablet: "20px", mobile: "19px", lineHeight: 1.35, weight: 600, tracking: "-0.005em" },
+  h4:      { desktop: "18px", tablet: "17px", mobile: "16px", lineHeight: 1.4,  weight: 600, tracking: "0" },
+  lead:    { desktop: "20px", tablet: "18px", mobile: "17px", lineHeight: 1.65, weight: 400, tracking: "0" },
+  body:    { desktop: "16px", tablet: "16px", mobile: "16px", lineHeight: 1.7,  weight: 400, tracking: "0" },
+  small:   { desktop: "14px", tablet: "14px", mobile: "14px", lineHeight: 1.6,  weight: 400, tracking: "0" },
+  caption: { desktop: "13px", tablet: "13px", mobile: "13px", lineHeight: 1.5,  weight: 400, tracking: "0.01em" },
+  label:   { desktop: "13px", tablet: "13px", mobile: "12px", lineHeight: 1.5,  weight: 600, tracking: "0.08em", size: "13px" },
+  nav:     { desktop: "14px", tablet: "14px", mobile: "14px", lineHeight: 1.4,  weight: 600, tracking: "0.04em" },
+  button:  { desktop: "15px", tablet: "15px", mobile: "15px", xs: "14px", lineHeight: 1.3, weight: 600, tracking: "0.02em" },
+} as const;
+
+export type TypeRole = keyof typeof typeScale;
+
+/* Homepage-only heading sizes (the approved homepage hierarchy). Line height,
+ * weight and tracking still come from the display and h2 roles above; only
+ * the sizes are larger, so the rest of the site keeps the shared scale. */
+const homeScale = {
+  hero:    { desktop: "64px", tablet: "48px", mobile: "36px" },
+  section: { desktop: "48px", tablet: "36px", mobile: "28px" },
 } as const;
 
 /* Image overlays that keep white text legible on photography */
@@ -144,6 +171,7 @@ export const theme = {
   colors,
   fonts,
   typeScale,
+  homeScale,
   overlays,
   fontSizes,
   fontWeights,

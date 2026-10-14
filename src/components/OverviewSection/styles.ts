@@ -1,6 +1,7 @@
 import styled, { keyframes, css } from "styled-components";
 import { Typography, Row, Col } from "antd";
 
+import { type, typeImportant } from "../../styles/typography";
 const { Title, Paragraph } = Typography;
 
 const fadeUp = keyframes`
@@ -49,10 +50,7 @@ export const TextColumn = styled(Col).withConfig({
 `;
 
 export const Eyebrow = styled.span`
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+  ${type.label}
   text-transform: uppercase;
   color: #0e5d95;
   display: flex;
@@ -69,21 +67,17 @@ export const Eyebrow = styled.span`
 `;
 
 export const IntroTitle = styled(Title)`
-  font-family: 'Lora', 'Georgia', serif !important;
-  font-size: 44px !important;
-  font-weight: 800 !important;
-  line-height: 1.15 !important;
-  letter-spacing: -0.025em !important;
+  ${typeImportant.h2}
   color: #0d1b2a !important;
   margin-bottom: 48px !important;
 
   em {
-    font-style: italic;
+    font-style: normal;
     color: #0e5d95;
   }
 
-  @media (max-width: 991px) { font-size: 34px !important; margin-bottom: 36px !important; }
-  @media (max-width: 767px)  { font-size: 26px !important; margin-bottom: 28px !important; }
+  @media (max-width: 991px) { margin-bottom: 36px !important; }
+  @media (max-width: 767px)  { margin-bottom: 28px !important; }
 `;
 
 /* ─── Timeline list ──────────────────────────── */
@@ -240,15 +234,13 @@ export const AccentBlock = styled.div`
 `;
 
 export const YearBadge = styled.div`
+  ${type.label}
   position: absolute;
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
   background: #0e5d95;
   color: #fff;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 11px;
-  letter-spacing: 0.2em;
   padding: 8px 18px;
   white-space: nowrap;
   z-index: 3;

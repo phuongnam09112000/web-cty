@@ -268,5 +268,16 @@
   "a11y.hero.controls": "Điều khiển trình chiếu",
   "a11y.hero.slide": "Hiển thị ảnh {{n}} trên {{total}}",
   "a11y.hero.pause": "Tạm dừng trình chiếu",
-  "a11y.hero.play": "Phát trình chiếu"
+  "a11y.hero.play": "Phát trình chiếu",
+  "Information Services": "Dịch vụ Thông tin",
+  "Technology Transfer": "Chuyển giao Công nghệ",
+  "home.about.founded": "Thành lập",
+  "home.about.photo": "Văn phòng ISTT",
+  "home.about.cta": "Tìm hiểu thêm về ISTT",
+  "home.services.all": "Xem tất cả dịch vụ",
+  "Ministry of education and training": "Bộ Giáo dục và Đào tạo",
+  "Bộ Quốc phòng": "Bộ Quốc phòng",
+  "Bộ Công An": "Bộ Công An",
+  "home.partners.viewAll": "Xem tất cả {{count}} đối tác",
+  "home.partners.showFewer": "Thu gọn danh sách đối tác"
 }

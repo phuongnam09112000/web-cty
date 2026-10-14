@@ -1,5 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import useNearViewport from "../../common/utils/useNearViewport";
+import { Eyebrow, SectionHeading as Heading, SectionInner as Inner } from "../../styles/section";
 
 import {
   AreaBody,
@@ -8,11 +10,8 @@ import {
   AreaImage,
   AreaLink,
   AreaTitle,
-  Eyebrow,
   Header,
-  Heading,
   Index,
-  Inner,
   Layout,
   List,
   Panel,
@@ -60,22 +59,7 @@ export const SolutionCards: React.FC = () => {
   // Photographs are only rendered once the section is close to the viewport,
   // so they never compete with the hero image for bandwidth on page load.
   const sectionRef = useRef<HTMLElement>(null);
-  const [near, setNear] = useState(() => typeof IntersectionObserver === "undefined");
-
-  useEffect(() => {
-    if (near || !sectionRef.current) return;
-    // The page scrolls inside <body> (global overflow styles); the margin only
-    // takes effect when it is set on that scroll container.
-    const bodyScrolls = getComputedStyle(document.body).overflowY !== "visible";
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setNear(true);
-      },
-      { root: bodyScrolls ? document.body : null, rootMargin: "600px 0px" }
-    );
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, [near]);
+  const near = useNearViewport(sectionRef);
 
   return (
     <Section ref={sectionRef} aria-labelledby="business-areas-title">

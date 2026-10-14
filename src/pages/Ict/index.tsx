@@ -65,7 +65,7 @@ const IctComponent = () => {
   return (
     <Container>
       <SolutionBanner
-        backgroundImage="/img/background/our_service.jpeg"
+        backgroundImage="/img/banners/ict.svg"
         title={t("Premium Solutions")}
         subtitle={t(
           "We design high-end technology solutions that are flexible, robust, and ready for the digital future."

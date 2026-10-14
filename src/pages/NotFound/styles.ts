@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import { type } from "../../styles/typography";
 export const Section = styled.section`
   min-height: 60vh;
   display: flex;
@@ -20,14 +21,11 @@ export const Inner = styled.div`
 `;
 
 export const Eyebrow = styled.p`
+  ${type.label}
   display: inline-flex;
   align-items: center;
   gap: 10px;
   margin: 0 0 16px;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.35em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.primary};
 

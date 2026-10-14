@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { theme } from "./theme";
+import { type } from "./typography";
 
 /* ─── Tokens ─────────────────────────────────── */
 const { colors, fonts, breakpoints, radii, shadows, space, layout } = theme;
@@ -53,9 +54,16 @@ export const Styles = createGlobalStyle`
   }
 
   /* ─── Base typography ────────────────────── */
-  body, html, a, p, span, li, td, th, label, input, textarea, button {
-    font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
+  /* One family everywhere, including form controls (which do not inherit
+     fonts by default) and antd components, which inherit from these. */
+  body, html, a, p, span, li, td, th, label, input, textarea, button, select {
+    font-family: ${fonts.body};
     color: ${blueDeep};
+  }
+
+  body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
 
   /* Labels inside a button follow the button's own text colour; the rule
@@ -65,76 +73,27 @@ export const Styles = createGlobalStyle`
   }
 
   p {
-    font-size: 15px;
-    line-height: 1.8;
-    color: #4a6070;
+    ${type.body}
+    color: ${colors.textBody};
     margin: 0 0 1em;
-    letter-spacing: 0.01em;
   }
 
-  /* ─── Headings — shared ──────────────────── */
+  /* ─── Headings (site-wide type scale, styles/typography.ts) ─── */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Lora', 'Georgia', serif;
     color: ${blueDeep};
-    line-height: 1.15;
     margin: 0 0 0.5em;
-    font-weight: 700;
   }
 
-  /* ─── h1 ─────────────────────────────────── */
-  h1 {
-    font-size: 56px;
-    font-weight: 800;
-    letter-spacing: -0.03em;
+  h1 { ${type.h1} }
+  h2 { ${type.h2} }
+  h3 { ${type.h3} }
+  h4 { ${type.h4} }
+  h5 { ${type.h4} font-size: 16px; }
+  h6 { ${type.h4} font-size: 14px; }
 
-    @media (max-width: ${breakpoints.lg}px) { font-size: 48px; letter-spacing: -0.025em; }
-    @media (max-width: ${breakpoints.md}px)  { font-size: 38px; letter-spacing: -0.02em;  }
-    @media (max-width: ${breakpoints.xs}px)  { font-size: 30px; letter-spacing: -0.015em; }
-  }
-
-  /* ─── h2 ─────────────────────────────────── */
-  h2 {
-    font-size: 40px;
-    font-weight: 800;
-    letter-spacing: -0.025em;
-
-    @media (max-width: ${breakpoints.lg}px) { font-size: 34px; letter-spacing: -0.02em;  }
-    @media (max-width: ${breakpoints.md}px)  { font-size: 28px; letter-spacing: -0.015em; }
-    @media (max-width: ${breakpoints.xs}px)  { font-size: 24px; letter-spacing: -0.01em;  }
-  }
-
-  /* ─── h3 ─────────────────────────────────── */
-  h3 {
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-
-    @media (max-width: ${breakpoints.md}px) { font-size: 22px; letter-spacing: -0.01em;  }
-    @media (max-width: ${breakpoints.xs}px) { font-size: 19px; letter-spacing: -0.005em; }
-  }
-
-  /* ─── h4 ─────────────────────────────────── */
-  h4 {
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-
-    @media (max-width: ${breakpoints.md}px) { font-size: 17px; }
-  }
-
-  /* ─── h5 ─────────────────────────────────── */
-  h5 {
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-  }
-
-  /* ─── h6 ─────────────────────────────────── */
-  h6 {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0;
-  }
+  /* Emphasis inside headings is shown with the brand colour, not italics:
+     Be Vietnam Pro is loaded without italic styles (no faux slant). */
+  h1 em, h2 em, h3 em, h4 em { font-style: normal; }
 
   /* ─── Links ──────────────────────────────── */
   a {
@@ -150,7 +109,7 @@ export const Styles = createGlobalStyle`
     border-radius: 0;
     border: 1px solid #d8e8f2;
     background: #f5f9fc;
-    font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
+    font-family: ${fonts.body};
     font-size: 14px;
     letter-spacing: 0.01em;
     transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
@@ -160,7 +119,7 @@ export const Styles = createGlobalStyle`
 
     &::placeholder {
       color: ${colors.textMuted};
-      font-style: italic;
+      font-style: normal;
       letter-spacing: 0.02em;
     }
 
@@ -285,7 +244,7 @@ export const Styles = createGlobalStyle`
     flex-direction: column;
     text-align: left;
     padding-top: 1.5rem;
-    font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
+    font-family: ${fonts.body};
   }
 
   .ant-drawer-content-wrapper {

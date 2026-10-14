@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { type } from "../../styles/typography";
 export const ContainerContent = styled.div`
   max-width: 1040px;
   margin: 0 auto;
@@ -56,22 +57,17 @@ export const Title = styled.h2`
 `;
 
 export const Description = styled.p`
-  font-size: 18px;
+  ${type.lead}
   color: #333;
-  font-weight: 400;
-  line-height: 1.6;
-  font-family: "Open Sans", sans-serif;
   margin-bottom: 35px;
 
   /* Tablet */
   @media (max-width: 768px) {
-    font-size: 16px; 
     margin-bottom: 25px;
   }
 
   /* Mobile */
   @media (max-width: 480px) {
-    font-size: 14px;
     margin-bottom: 20px;
   }
 `;

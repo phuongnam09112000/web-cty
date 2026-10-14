@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { Menu } from "antd";
 import { theme } from "../../styles/theme";
 
+import { type } from "../../styles/typography";
 // ─── Global ───────────────────────────────────────────────────────────────────
 export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,800;1,700&family=DM+Mono:wght@500&family=Source+Serif+4&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -30,8 +29,9 @@ export const GlobalStyle = createGlobalStyle`
     --shadow-md: 0 4px 20px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05);
     --shadow-lg: 0 10px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
     --radius: 10px;
-    --font: 'DM Sans', -apple-system, sans-serif;
-    --font-mono: 'DM Mono', monospace;
+    /* site-wide family (styles/theme.ts); DM Sans was never loaded */
+    --font: ${theme.fonts.body};
+    --font-mono: ${theme.fonts.body};
     --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   }
 `;
@@ -189,6 +189,7 @@ export const NavItemLink = styled(Link)<{
   $isAnyHovered: boolean;
   $transparent?: boolean;
 }>`
+  ${type.nav}
   position: relative;
   padding: 0 1.05rem;
   height: 72px;
@@ -196,10 +197,6 @@ export const NavItemLink = styled(Link)<{
   align-items: center;
   text-decoration: none;
   white-space: nowrap;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--font);
-  letter-spacing: 0.05em;
   text-transform: uppercase;
   transition:
     color var(--transition),
@@ -234,6 +231,7 @@ export const NavDropdown = styled.button<{
   $transparent?: boolean;
 }>`
   ${buttonReset}
+  ${type.nav}
   position: relative;
   padding: 0 1.05rem;
   height: 72px;
@@ -241,10 +239,6 @@ export const NavDropdown = styled.button<{
   align-items: center;
   gap: 5px;
   white-space: nowrap;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--font);
-  letter-spacing: 0.05em;
   text-transform: uppercase;
   cursor: pointer;
   user-select: none;
@@ -338,6 +332,7 @@ export const LanguageSelector = styled.button<{
   $transparent?: boolean;
 }>`
   ${buttonReset}
+  ${type.nav}
   margin-left: 0.75rem;
   padding: 0 0.85rem;
   height: 72px;
@@ -346,10 +341,6 @@ export const LanguageSelector = styled.button<{
   gap: 6px;
   cursor: pointer;
   border-left: 1px solid ${p => p.$transparent ? 'rgba(255,255,255,0.28)' : 'var(--border)'};
-  font-family: var(--font);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
   text-transform: uppercase;
   white-space: nowrap;
   transition: color var(--transition), opacity var(--transition);
@@ -360,6 +351,7 @@ export const LanguageSelector = styled.button<{
 
 // "Contact" shown as the header's call-to-action button (desktop)
 export const NavCta = styled(Link)<{ $transparent?: boolean; $active?: boolean }>`
+  ${type.nav}
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -368,10 +360,6 @@ export const NavCta = styled(Link)<{ $transparent?: boolean; $active?: boolean }
   padding: 0 1.25rem;
   border-radius: 2px;
   white-space: nowrap;
-  font-family: var(--font);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
   text-transform: uppercase;
   text-decoration: none;
   transition: background var(--transition), color var(--transition), border-color var(--transition);
@@ -497,14 +485,11 @@ export const MobileNavItem = styled.div`
 `;
 
 export const MobileNavLink = styled(Link)`
+  ${type.nav}
   display: flex;
   align-items: center;
   padding: 0 1.25rem;
   height: 52px;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--font);
-  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-primary);
   text-decoration: none;
@@ -518,15 +503,12 @@ export const MobileNavLink = styled(Link)`
 `;
 
 export const MobileNavDropdown = styled.div`
+  ${type.nav}
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1.25rem;
   height: 52px;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--font);
-  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-primary);
   cursor: pointer;
@@ -551,13 +533,11 @@ export const MobileSubMenu = styled.div<{ $isOpen: boolean }>`
 `;
 
 export const MobileSubMenuItem = styled(Link)`
+  ${type.small}
   display: flex;
   align-items: center;
   padding: 0 1.25rem 0 2.25rem;
   height: 46px;
-  font-size: 12.5px;
-  font-weight: 500;
-  font-family: var(--font);
   color: var(--text-secondary);
   text-decoration: none;
   position: relative;
@@ -594,11 +574,8 @@ export const MobileLanguageSelector = styled.div`
 `;
 
 export const MobileLanguageHeader = styled.div`
-  font-size: 11px;
-  font-weight: 700;
-  font-family: var(--font);
+  ${type.label}
   color: var(--text-muted);
-  letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
   display: flex;
@@ -612,16 +589,13 @@ export const MobileLanguageOptions = styled.div`
 `;
 
 export const MobileLanguageOption = styled.div<{ $active: boolean }>`
+  ${type.nav}
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 0.55rem 1rem;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: var(--font);
-  letter-spacing: 0.01em;
   transition: all var(--transition);
   flex: 1;
   justify-content: center;

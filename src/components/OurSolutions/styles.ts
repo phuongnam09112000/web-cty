@@ -1,78 +1,27 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { theme } from "../../styles/theme";
+import { sectionPadding, stackedMedia, mobileMedia } from "../../styles/section";
 
-const { colors, fonts, typeScale, layout, breakpoints } = theme;
+import { type } from "../../styles/typography";
+const { colors, fonts, typeScale } = theme;
 
 // Split panel above this width; stacked rows at and below it
-const stacked = `@media (max-width: ${breakpoints.lg}px)`;
-const mobile = `@media (max-width: ${breakpoints.md}px)`;
+const stacked = stackedMedia;
+const mobile = mobileMedia;
 
 /* ─── Section ────────────────────────────────────────────────────────────── */
-// Light surface between the dark hero and the dark partner slider
+// Light surface between the white company overview and the dark services
 export const Section = styled.section`
+  ${sectionPadding}
   background: ${colors.surfaceSubtle};
-  padding: 104px 0;
-
-  ${stacked} { padding: 88px 0; }
-  ${mobile} { padding: 64px 0; }
 `;
 
-export const Inner = styled.div`
-  max-width: ${layout.contentMaxWidth};
-  margin: 0 auto;
-  padding: 0 ${layout.pagePadding.desktop};
-
-  ${stacked} { padding: 0 ${layout.pagePadding.tablet}; }
-  ${mobile} { padding: 0 ${layout.pagePadding.mobile}; }
-`;
-
-/* ─── Heading ────────────────────────────────────────────────────────────── */
 export const Header = styled.div`
   max-width: 760px;
   margin-bottom: 48px;
 
   ${mobile} { margin-bottom: 36px; }
-`;
-
-export const Eyebrow = styled.p`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 0 0 16px;
-  font-family: ${fonts.display};
-  font-size: ${typeScale.label.size};
-  font-weight: ${typeScale.label.weight};
-  letter-spacing: ${typeScale.label.tracking};
-  line-height: 1.5;
-  text-transform: uppercase;
-  color: ${colors.primary};
-
-  &::before {
-    content: "";
-    flex: 0 0 32px;
-    height: 2px;
-    background: ${colors.primary};
-  }
-`;
-
-export const Heading = styled.h2`
-  margin: 0;
-  font-family: ${fonts.display};
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: ${colors.navy};
-  text-wrap: balance;
-
-  em {
-    font-style: normal;
-    color: ${colors.primary};
-  }
-
-  ${stacked} { font-size: 36px; }
-  ${mobile} { font-size: 28px; }
 `;
 
 /* ─── Layout ─────────────────────────────────────────────────────────────── */
@@ -193,28 +142,19 @@ export const Index = styled.span`
 `;
 
 export const AreaTitle = styled.h3`
+  ${type.h3}
   margin: 0 0 12px;
-  font-family: ${fonts.display};
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
   color: ${colors.navy};
 
-  ${mobile} { font-size: 21px; }
 `;
 
 export const AreaDescription = styled.p`
+  ${type.body}
   max-width: 46ch;
   margin: 0 0 16px;
-  font-family: ${fonts.display};
-  font-size: 16px;
-  line-height: 1.7;
-  letter-spacing: 0;
   color: ${colors.textBody};
 
   ${stacked} { max-width: none; }
-  ${mobile} { font-size: 15px; }
 `;
 
 export const AreaCta = styled.span`
