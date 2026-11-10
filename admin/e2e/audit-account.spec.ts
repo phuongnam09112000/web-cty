@@ -67,6 +67,26 @@ test("nhật ký hiện dòng Tạo người dùng với người thực hiện 
   await expect(row.getByText(vietnamTime(log.createdAt))).toBeVisible();
 });
 
+async function filtered(page: Page, params: Record<string, string>, interact: () => Promise<void>) {
+  const response = page.waitForResponse((r) => {
+    if (!r.url().includes("/api/admin/audit-logs") || r.request().method() !== "GET") return false;
+    const query = new URL(r.url()).searchParams;
+    return Object.entries(params).every(([key, value]) => query.get(key) === value);
+  });
+  await interact();
+  const result = await response;
+  expect(result.ok()).toBe(true);
+  return (await result.json()) as { items: AuditItem[]; total: number };
+}
+
+async function expectAbsent(page: Page, email: string, body: { items: AuditItem[] }) {
+  expect(body.items.some((entry) => entry.metadata?.email === email)).toBe(false);
+  await expect(page.locator(".ant-table-wrapper .ant-spin-spinning")).toHaveCount(0);
+  if (body.items.length === 0) await expect(page.locator(".ant-table-wrapper .ant-empty")).toBeVisible();
+  else await expect(page.locator("tbody tr.ant-table-row").first()).toBeVisible();
+  await expect(page.getByRole("row", { name: new RegExp(email) })).toHaveCount(0);
+}
+
 test("lọc theo hành động và khoảng ngày thu hẹp kết quả", async ({ page, seeder }) => {
   const user = await seeder.seedUser();
   await openAudit(page);
@@ -74,22 +94,33 @@ test("lọc theo hành động và khoảng ngày thu hẹp kết quả", async 
   const row = page.getByRole("row", { name: new RegExp(user.email) });
   await expect(row).toBeVisible();
 
-  await selectAction(page, "Đăng nhập thất bại");
-  await expect(page.getByRole("row", { name: new RegExp(user.email) })).toHaveCount(0);
+  const failed = await filtered(page, { action: "auth.login_failed" }, () => selectAction(page, "Đăng nhập thất bại"));
+  expect(failed.items.every((entry) => entry.action === "auth.login_failed")).toBe(true);
+  await expectAbsent(page, user.email, failed);
 
-  await selectAction(page, "Tạo người dùng");
+  await filtered(page, { action: "user.create" }, () => selectAction(page, "Tạo người dùng"));
   await expect(row).toBeVisible();
 
-  await page.getByLabel("Từ ngày").fill(utcDay(1));
-  await expect(page.getByRole("row", { name: new RegExp(user.email) })).toHaveCount(0);
+  const future = await filtered(page, { action: "user.create", from: utcDay(1) }, () =>
+    page.getByLabel("Từ ngày").fill(utcDay(1)),
+  );
+  await expectAbsent(page, user.email, future);
+  await expect(page.locator(".ant-table-wrapper .ant-empty")).toBeVisible();
 
-  await page.getByLabel("Từ ngày").fill(utcDay(-1));
-  await page.getByLabel("Đến ngày").fill(utcDay(1));
+  await filtered(page, { action: "user.create", from: utcDay(-1) }, () => page.getByLabel("Từ ngày").fill(utcDay(-1)));
+  await filtered(page, { action: "user.create", from: utcDay(-1), to: utcDay(1) }, () =>
+    page.getByLabel("Đến ngày").fill(utcDay(1)),
+  );
   await expect(row).toBeVisible();
 
-  await page.getByLabel("Từ ngày").fill(utcDay(-3));
-  await page.getByLabel("Đến ngày").fill(utcDay(-2));
-  await expect(page.getByRole("row", { name: new RegExp(user.email) })).toHaveCount(0);
+  await filtered(page, { action: "user.create", from: utcDay(-1), to: utcDay(-2) }, () =>
+    page.getByLabel("Đến ngày").fill(utcDay(-2)),
+  );
+  const past = await filtered(page, { action: "user.create", from: utcDay(-3), to: utcDay(-2) }, () =>
+    page.getByLabel("Từ ngày").fill(utcDay(-3)),
+  );
+  await expectAbsent(page, user.email, past);
+  await expect(page.locator(".ant-table-wrapper .ant-empty")).toBeVisible();
 });
 
 test("tài khoản của tôi: đổi họ tên cập nhật góc phải; đổi mật khẩu báo lỗi rồi thành công", async ({
