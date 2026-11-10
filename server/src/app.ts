@@ -8,6 +8,7 @@ import { requestId } from "./http/request-id.js";
 import type { Logger } from "./logger.js";
 import { requireAuth } from "./modules/auth/auth.middleware.js";
 import { authRouter, loginRouter } from "./modules/auth/auth.routes.js";
+import { usersRouter } from "./modules/users/users.routes.js";
 
 export type AppDeps = {
   prisma: PrismaClient;
@@ -57,6 +58,7 @@ export function createApp(deps: AppDeps): express.Express {
   adminRouter.use(loginRouter(deps));
   adminRouter.use(requireAuth(deps));
   adminRouter.use(authRouter(deps));
+  adminRouter.use(usersRouter(deps));
   adminRouter.use(() => {
     throw notFound();
   });
