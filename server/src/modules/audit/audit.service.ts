@@ -1,20 +1,24 @@
 import type { Prisma } from "../../generated/prisma/client.js";
 import type { PrismaClient } from "../../db.js";
+import { toPage, type Page } from "../../http/pagination.js";
 
-export type AuditAction =
-  | "auth.login"
-  | "auth.login_failed"
-  | "auth.logout"
-  | "auth.password_change"
-  | "user.create"
-  | "user.update"
-  | "user.deactivate"
-  | "user.activate"
-  | "user.password_reset"
-  | "role.create"
-  | "role.update"
-  | "role.delete"
-  | "role.permissions_update";
+export const AUDIT_ACTIONS = [
+  "auth.login",
+  "auth.login_failed",
+  "auth.logout",
+  "auth.password_change",
+  "user.create",
+  "user.update",
+  "user.deactivate",
+  "user.activate",
+  "user.password_reset",
+  "role.create",
+  "role.update",
+  "role.delete",
+  "role.permissions_update",
+] as const;
+
+export type AuditAction = (typeof AUDIT_ACTIONS)[number];
 
 export type AuditEntry = {
   actorUserId: bigint | null;
@@ -59,4 +63,64 @@ export async function recordAudit(
       ip: entry.ip,
     },
   });
+}
+
+export type AuditLogDto = {
+  id: number;
+  action: AuditAction;
+  actor: { id: number; email: string; fullName: string } | null;
+  targetType: string | null;
+  targetId: string | null;
+  metadata: unknown;
+  ip: string;
+  createdAt: string;
+};
+
+export type AuditLogQuery = {
+  page: number;
+  pageSize: number;
+  actorUserId?: number;
+  action?: AuditAction;
+  from?: Date;
+  to?: Date;
+};
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+export async function listAuditLogs(
+  prisma: PrismaClient,
+  query: AuditLogQuery,
+): Promise<Page<AuditLogDto>> {
+  const where: Prisma.AuditLogWhereInput = {};
+  if (query.actorUserId !== undefined) where.actorUserId = BigInt(query.actorUserId);
+  if (query.action !== undefined) where.action = query.action;
+  if (query.from || query.to) {
+    where.createdAt = {
+      ...(query.from ? { gte: query.from } : {}),
+      ...(query.to ? { lt: new Date(query.to.getTime() + DAY_MS) } : {}),
+    };
+  }
+  const [total, rows] = await Promise.all([
+    prisma.auditLog.count({ where }),
+    prisma.auditLog.findMany({
+      where,
+      include: { actor: true },
+      orderBy: { id: "desc" },
+      skip: (query.page - 1) * query.pageSize,
+      take: query.pageSize,
+    }),
+  ]);
+  const items = rows.map((row) => ({
+    id: Number(row.id),
+    action: row.action as AuditAction,
+    actor: row.actor
+      ? { id: Number(row.actor.id), email: row.actor.email, fullName: row.actor.fullName }
+      : null,
+    targetType: row.targetType,
+    targetId: row.targetId,
+    metadata: row.metadata,
+    ip: row.ip,
+    createdAt: row.createdAt.toISOString(),
+  }));
+  return toPage(items, total, query.page, query.pageSize);
 }

@@ -1,6 +1,7 @@
 import { randomInt } from "node:crypto";
 import type { PrismaClient } from "../../db.js";
 import { AppError } from "../../http/errors.js";
+import { isPrismaError } from "../../http/prisma-errors.js";
 import { toPage, type Page } from "../../http/pagination.js";
 import { Prisma, type Role, type User } from "../../generated/prisma/client.js";
 import { recordAudit, type AuditAction } from "../audit/audit.service.js";
@@ -53,15 +54,11 @@ const unknownRole = () =>
 const duplicateEmail = () =>
   new AppError(409, "CONFLICT", "Email đã được sử dụng", { email: "Email đã được sử dụng" });
 
-function isEmailConflict(err: unknown): boolean {
-  return err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002";
-}
-
 async function withEmailConflict<T>(run: () => Promise<T>): Promise<T> {
   try {
     return await run();
   } catch (err) {
-    if (isEmailConflict(err)) throw duplicateEmail();
+    if (isPrismaError(err, "P2002")) throw duplicateEmail();
     throw err;
   }
 }

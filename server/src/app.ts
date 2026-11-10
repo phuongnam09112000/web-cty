@@ -6,8 +6,11 @@ import { errorHandler, AppError } from "./http/errors.js";
 import { adminGateway, originCheck } from "./http/guards.js";
 import { requestId } from "./http/request-id.js";
 import type { Logger } from "./logger.js";
+import { auditRouter } from "./modules/audit/audit.routes.js";
 import { requireAuth } from "./modules/auth/auth.middleware.js";
 import { authRouter, loginRouter } from "./modules/auth/auth.routes.js";
+import { permissionsRouter } from "./modules/permissions/permissions.routes.js";
+import { rolesRouter } from "./modules/roles/roles.routes.js";
 import { usersRouter } from "./modules/users/users.routes.js";
 
 export type AppDeps = {
@@ -59,6 +62,9 @@ export function createApp(deps: AppDeps): express.Express {
   adminRouter.use(requireAuth(deps));
   adminRouter.use(authRouter(deps));
   adminRouter.use(usersRouter(deps));
+  adminRouter.use(rolesRouter(deps));
+  adminRouter.use(permissionsRouter());
+  adminRouter.use(auditRouter(deps));
   adminRouter.use(() => {
     throw notFound();
   });

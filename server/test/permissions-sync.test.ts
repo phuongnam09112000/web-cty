@@ -25,6 +25,7 @@ beforeEach(async () => {
 
 describe("seed roles", () => {
   it("has exactly two roles and only the administrator is a system role", async () => {
+    await resetDb(prisma);
     const roles = await prisma.role.findMany({ orderBy: { id: "asc" } });
     expect(roles.map((role) => role.name)).toEqual([SYSTEM_ROLE_NAME, EDITOR_ROLE_NAME]);
     expect(roles.map((role) => role.isSystem)).toEqual([true, false]);
