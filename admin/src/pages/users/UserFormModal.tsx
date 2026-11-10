@@ -73,7 +73,7 @@ export function UserFormModal({ open, user, roles, onClose, onCreated }: Props) 
           <Input />
         </Form.Item>
         <Form.Item name="roleId" label="Vai trò" rules={[{ required: true, message: "Vui lòng chọn vai trò" }]}>
-          <Select options={roles.map((role) => ({ value: role.id, label: role.name }))} />
+          <Select virtual={false} options={roles.map((role) => ({ value: role.id, label: role.name }))} />
         </Form.Item>
       </Form>
     </Modal>

@@ -36,3 +36,7 @@ export type RoleDto = {
   userCount: number;
   permissions: PermissionKey[];
 };
+
+export type PermissionModule = { module: string; permissions: { key: PermissionKey; label: string }[] };
+
+export type PermissionCatalog = { modules: PermissionModule[] };

@@ -5,6 +5,8 @@ import { ChangePasswordPage } from "./pages/change-password/ChangePasswordPage";
 import { DashboardPage } from "./pages/dashboard/DashboardPage";
 import { ForbiddenPage } from "./pages/forbidden/ForbiddenPage";
 import { LoginPage } from "./pages/login/LoginPage";
+import { RoleDetailPage } from "./pages/roles/RoleDetailPage";
+import { RolesPage } from "./pages/roles/RolesPage";
 import { UsersPage } from "./pages/users/UsersPage";
 import { RequirePermission } from "./auth/RequirePermission";
 
@@ -32,7 +34,15 @@ export function App() {
             path="roles"
             element={
               <RequirePermission anyOf={["roles.manage"]}>
-                <Placeholder title="Vai trò & quyền" />
+                <RolesPage />
+              </RequirePermission>
+            }
+          />
+          <Route
+            path="roles/:id"
+            element={
+              <RequirePermission anyOf={["roles.manage"]}>
+                <RoleDetailPage />
               </RequirePermission>
             }
           />

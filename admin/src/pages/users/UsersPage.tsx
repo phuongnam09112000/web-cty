@@ -82,6 +82,7 @@ export function UsersPage() {
             }}
           />
           <Select
+            virtual={false}
             data-testid="role-filter"
             allowClear
             placeholder="Tất cả vai trò"
@@ -94,6 +95,7 @@ export function UsersPage() {
             }}
           />
           <Select
+            virtual={false}
             data-testid="status-filter"
             allowClear
             placeholder="Tất cả trạng thái"
