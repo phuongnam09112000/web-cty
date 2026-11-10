@@ -1,9 +1,11 @@
 import type { Express } from "express";
+import argon2 from "argon2";
 import pino from "pino";
 import request from "supertest";
 import { createApp } from "../src/app.js";
 import type { Config } from "../src/config.js";
 import { createPrisma, type PrismaClient } from "../src/db.js";
+import type { User } from "../src/generated/prisma/client.js";
 import { EDITOR_ROLE_NAME, SYSTEM_ROLE_NAME } from "../src/modules/permissions/catalog.js";
 import { syncPermissions } from "../src/modules/permissions/sync.js";
 
@@ -58,4 +60,47 @@ export function adminRequest(app: Express) {
     .agent(app)
     .set("X-Admin-Gateway", TEST_GATEWAY_SECRET)
     .set("Origin", TEST_ADMIN_ORIGIN);
+}
+
+export const DEFAULT_TEST_PASSWORD = "Matkhau@12345";
+
+let defaultHash: Promise<string> | undefined;
+
+async function hashFor(password: string): Promise<string> {
+  if (password !== DEFAULT_TEST_PASSWORD) return argon2.hash(password, { type: argon2.argon2id });
+  defaultHash ??= argon2.hash(password, { type: argon2.argon2id });
+  return defaultHash;
+}
+
+export async function createUser(
+  prisma: PrismaClient,
+  options: {
+    email: string;
+    fullName?: string;
+    password?: string;
+    roleName?: string;
+    isActive?: boolean;
+    mustChangePassword?: boolean;
+  },
+): Promise<User> {
+  const role = await prisma.role.findUniqueOrThrow({
+    where: { name: options.roleName ?? SYSTEM_ROLE_NAME },
+  });
+  return prisma.user.create({
+    data: {
+      email: options.email.trim().toLowerCase(),
+      fullName: options.fullName ?? "Người dùng thử",
+      passwordHash: await hashFor(options.password ?? DEFAULT_TEST_PASSWORD),
+      roleId: role.id,
+      isActive: options.isActive ?? true,
+      mustChangePassword: options.mustChangePassword ?? false,
+    },
+  });
+}
+
+export async function loginAs(app: Express, email: string, password: string = DEFAULT_TEST_PASSWORD) {
+  const agent = adminRequest(app);
+  const res = await agent.post("/api/admin/auth/login").send({ email, password });
+  if (res.status !== 200) throw new Error(`loginAs failed with status ${res.status}`);
+  return agent;
 }

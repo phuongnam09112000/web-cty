@@ -1,3 +1,4 @@
+import cookieParser from "cookie-parser";
 import express from "express";
 import type { Config } from "./config.js";
 import type { PrismaClient } from "./db.js";
@@ -5,6 +6,8 @@ import { errorHandler, AppError } from "./http/errors.js";
 import { adminGateway, originCheck } from "./http/guards.js";
 import { requestId } from "./http/request-id.js";
 import type { Logger } from "./logger.js";
+import { requireAuth } from "./modules/auth/auth.middleware.js";
+import { authRouter, loginRouter } from "./modules/auth/auth.routes.js";
 
 export type AppDeps = {
   prisma: PrismaClient;
@@ -50,6 +53,10 @@ export function createApp(deps: AppDeps): express.Express {
   });
 
   const adminRouter = express.Router();
+  adminRouter.use(cookieParser());
+  adminRouter.use(loginRouter(deps));
+  adminRouter.use(requireAuth(deps));
+  adminRouter.use(authRouter(deps));
   adminRouter.use(() => {
     throw notFound();
   });

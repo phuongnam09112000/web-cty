@@ -1,18 +1,30 @@
 import express from "express";
 import pino from "pino";
 import request from "supertest";
-import { afterAll, describe, expect, it } from "vitest";
+import { afterAll, beforeEach, describe, expect, it } from "vitest";
 import { createApp } from "../src/app.js";
 import { createPrisma } from "../src/db.js";
 import { AppError, errorHandler } from "../src/http/errors.js";
 import { parseId } from "../src/http/params.js";
 import { paginationSchema, toPage } from "../src/http/pagination.js";
-import { TEST_GATEWAY_SECRET, adminRequest, makeTestApp, makeTestConfig } from "./helpers.js";
+import {
+  TEST_GATEWAY_SECRET,
+  adminRequest,
+  createUser,
+  loginAs,
+  makeTestApp,
+  makeTestConfig,
+  resetDb,
+} from "./helpers.js";
 
 const { app, prisma } = makeTestApp();
 
 afterAll(async () => {
   await prisma.$disconnect();
+});
+
+beforeEach(async () => {
+  await resetDb(prisma);
 });
 
 describe("health", () => {
@@ -72,14 +84,22 @@ describe("admin guards", () => {
     const res = await request(app)
       .get("/api/admin/anything")
       .set("X-Admin-Gateway", TEST_GATEWAY_SECRET);
-    expect(res.status).toBe(404);
+    expect(res.status).toBe(401);
   });
 
-  it("returns 404 in the common format for unknown admin paths", async () => {
-    const res = await adminRequest(app).get("/api/admin/anything");
+  it("returns 404 in the common format for unknown admin paths when authenticated", async () => {
+    await createUser(prisma, { email: "admin@istt.vn" });
+    const agent = await loginAs(app, "admin@istt.vn");
+    const res = await agent.get("/api/admin/anything");
     expect(res.status).toBe(404);
     expect(res.body.error.code).toBe("NOT_FOUND");
     expect(res.body.error.requestId).toBe(res.headers["x-request-id"]);
+  });
+
+  it("returns 401 for unknown admin paths without a session", async () => {
+    const res = await adminRequest(app).get("/api/admin/anything");
+    expect(res.status).toBe(401);
+    expect(res.body.error.code).toBe("UNAUTHENTICATED");
   });
 
   it("returns 400 VALIDATION_ERROR for malformed JSON", async () => {
