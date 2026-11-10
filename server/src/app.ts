@@ -1,0 +1,66 @@
+import express from "express";
+import type { Config } from "./config.js";
+import type { PrismaClient } from "./db.js";
+import { errorHandler, AppError } from "./http/errors.js";
+import { adminGateway, originCheck } from "./http/guards.js";
+import { requestId } from "./http/request-id.js";
+import type { Logger } from "./logger.js";
+
+export type AppDeps = {
+  prisma: PrismaClient;
+  config: Config;
+  logger: Logger;
+  clock: () => Date;
+};
+
+const notFound = () => new AppError(404, "NOT_FOUND", "Không tìm thấy");
+
+export function createApp(deps: AppDeps): express.Express {
+  const { prisma, config, logger } = deps;
+  const app = express();
+  app.disable("x-powered-by");
+  app.set("trust proxy", "loopback");
+
+  app.use(requestId);
+  app.use((req, res, next) => {
+    const start = process.hrtime.bigint();
+    res.on("finish", () => {
+      logger.info({
+        requestId: req.id,
+        method: req.method,
+        url: req.originalUrl.split("?")[0],
+        status: res.statusCode,
+        durationMs: Number(process.hrtime.bigint() - start) / 1e6,
+      });
+    });
+    next();
+  });
+
+  const publicRouter = express.Router();
+  publicRouter.get("/health", async (_req, res) => {
+    try {
+      await prisma.$queryRaw`SELECT 1`;
+      res.json({ status: "ok" });
+    } catch {
+      res.status(503).json({ status: "error" });
+    }
+  });
+  publicRouter.use(() => {
+    throw notFound();
+  });
+
+  const adminRouter = express.Router();
+  adminRouter.use(() => {
+    throw notFound();
+  });
+
+  app.use("/api/public", express.json(), publicRouter);
+  app.use("/api/admin", adminGateway(config), originCheck(config), express.json(), adminRouter);
+
+  app.use(() => {
+    throw notFound();
+  });
+  app.use(errorHandler(logger));
+
+  return app;
+}
