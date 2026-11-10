@@ -7,12 +7,13 @@ export const NEW_PASSWORD = "MatKhauMoi@2026";
 
 const ORIGIN = "http://localhost:5173";
 
-export type SeededUser = { id: number; email: string; password: string };
+export type SeededUser = { id: number; roleId: number; email: string; password: string };
 
 export type Seeder = {
   api: APIRequestContext;
   seedUser: (options?: { roleName?: string; permissions?: string[] }) => Promise<SeededUser>;
   deactivate: (userId: number) => Promise<void>;
+  setRolePermissions: (roleId: number, permissions: string[]) => Promise<void>;
 };
 
 async function expectOk(response: { ok(): boolean; status(): number; text(): Promise<string> }) {
@@ -54,14 +55,18 @@ export const test = base.extend<{ seeder: Seeder }>({
       });
       await expectOk(created);
       const body = (await created.json()) as { user: { id: number }; temporaryPassword: string };
-      return { id: body.user.id, email, password: body.temporaryPassword };
+      return { id: body.user.id, roleId, email, password: body.temporaryPassword };
     };
 
     const deactivate: Seeder["deactivate"] = async (userId) => {
       await expectOk(await api.patch(`/api/admin/users/${userId}`, { data: { isActive: false } }));
     };
 
-    await use({ api, seedUser, deactivate });
+    const setRolePermissions: Seeder["setRolePermissions"] = async (roleId, permissions) => {
+      await expectOk(await api.put(`/api/admin/roles/${roleId}/permissions`, { data: { permissions } }));
+    };
+
+    await use({ api, seedUser, deactivate, setRolePermissions });
     await api.dispose();
   },
 });

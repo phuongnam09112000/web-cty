@@ -6,6 +6,7 @@ import { ApiError, apiFetch } from "../../api/client";
 import type { Page, RoleDto, UserDto } from "../../api/types";
 import { useAuth } from "../../auth/AuthProvider";
 import { formatDateTime } from "../../format/date";
+import { ListError } from "../ListError";
 import { TemporaryPasswordModal } from "./TemporaryPasswordModal";
 import { UserFormModal } from "./UserFormModal";
 
@@ -106,6 +107,7 @@ export function UsersPage() {
           </Button>
         )}
       </Space>
+      {users.isError && <ListError error={users.error} onRetry={() => void users.refetch()} />}
       <Table<UserDto>
         rowKey="id"
         loading={users.isLoading}

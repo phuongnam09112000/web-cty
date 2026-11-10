@@ -24,6 +24,12 @@ export function setUnauthorizedHandler(handler: (() => void) | null) {
   unauthorizedHandler = handler;
 }
 
+let forbiddenHandler: (() => void) | null = null;
+
+export function setForbiddenHandler(handler: (() => void) | null) {
+  forbiddenHandler = handler;
+}
+
 function buildUrl(path: string, query?: Query) {
   const params = new URLSearchParams();
   if (query) {
@@ -59,9 +65,17 @@ export async function apiFetch<T>(path: string, init: FetchInit = {}): Promise<T
   if (!response.ok) {
     const body = data as ApiErrorBody | undefined;
     if (response.status === 401 && path !== "/auth/login") unauthorizedHandler?.();
+    const code = body?.error?.code ?? "UNKNOWN";
+    if (
+      response.status === 403 &&
+      path !== "/auth/me" &&
+      (code === "FORBIDDEN" || code === "PASSWORD_CHANGE_REQUIRED")
+    ) {
+      forbiddenHandler?.();
+    }
     throw new ApiError(
       response.status,
-      body?.error?.code ?? "UNKNOWN",
+      code,
       body?.error?.message ?? "Đã xảy ra lỗi, vui lòng thử lại",
       body?.error?.fields,
     );

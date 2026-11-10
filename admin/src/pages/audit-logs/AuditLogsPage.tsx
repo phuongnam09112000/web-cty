@@ -5,6 +5,7 @@ import { apiFetch } from "../../api/client";
 import type { AuditLogDto, Page, UserDto } from "../../api/types";
 import { useAuth } from "../../auth/AuthProvider";
 import { formatDateTime } from "../../format/date";
+import { ListError } from "../ListError";
 
 const ACTION_LABELS: Record<string, string> = {
   "auth.login": "Đăng nhập",
@@ -105,6 +106,7 @@ export function AuditLogsPage() {
       <Typography.Text type="secondary">
         Bộ lọc ngày tính theo ngày UTC; thời gian hiển thị theo giờ Việt Nam (UTC+7).
       </Typography.Text>
+      {logs.isError && <ListError error={logs.error} onRetry={() => void logs.refetch()} />}
       <Table<AuditLogDto>
         rowKey="id"
         loading={logs.isLoading}

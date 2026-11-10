@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-import { ApiError, apiFetch, setUnauthorizedHandler } from "../api/client";
+import { apiFetch, setForbiddenHandler, setUnauthorizedHandler } from "../api/client";
 import type { Me, PermissionKey } from "../api/types";
 
 type AuthContextValue = {
@@ -40,13 +40,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const refresh = useCallback(async () => {
     try {
       setUser(await apiFetch<Me>("/auth/me"));
-    } catch (error) {
-      if (error instanceof ApiError && error.status === 403 && error.code === "PASSWORD_CHANGE_REQUIRED") {
-        return;
-      }
-      setUser(null);
+    } catch {
+      return;
     }
   }, []);
+
+  useEffect(() => {
+    setForbiddenHandler(() => {
+      void refresh();
+    });
+    return () => setForbiddenHandler(null);
+  }, [refresh]);
 
   useEffect(() => {
     void refresh().finally(() => setLoading(false));

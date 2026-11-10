@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ApiError, apiFetch } from "../../api/client";
 import type { RoleDto } from "../../api/types";
+import { ListError } from "../ListError";
 import { RoleFormModal } from "./RoleFormModal";
 
 export function RolesPage() {
@@ -36,6 +37,7 @@ export function RolesPage() {
           Thêm vai trò
         </Button>
       </Space>
+      {roles.isError && <ListError error={roles.error} onRetry={() => void roles.refetch()} />}
       <Table<RoleDto>
         rowKey="id"
         loading={roles.isLoading}

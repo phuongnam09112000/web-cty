@@ -33,6 +33,11 @@ test("người dùng mustChangePassword bị đưa tới /change-password rồi 
   await login(page, user.email, user.password);
   await expect(page).toHaveURL(/\/change-password$/);
   await page.getByLabel("Mật khẩu hiện tại").fill(user.password);
+  await page.getByLabel("Mật khẩu mới", { exact: true }).fill(user.password);
+  await page.getByLabel("Nhập lại mật khẩu mới").fill(user.password);
+  await page.getByRole("button", { name: "Đổi mật khẩu" }).click();
+  await expect(page.getByText("Mật khẩu mới phải khác mật khẩu hiện tại")).toBeVisible();
+  await expect(page).toHaveURL(/\/change-password$/);
   await page.getByLabel("Mật khẩu mới", { exact: true }).fill(NEW_PASSWORD);
   await page.getByLabel("Nhập lại mật khẩu mới").fill(NEW_PASSWORD);
   await page.getByRole("button", { name: "Đổi mật khẩu" }).click();
@@ -82,4 +87,21 @@ test("đăng xuất về /login và nút Back không mở lại trang quản tr�
   await expect(page).toHaveURL(/\/login$/);
   await expect(page.getByRole("button", { name: "Đăng nhập" })).toBeVisible();
   await expect(page.getByRole("menu")).toHaveCount(0);
+});
+
+test("quyền bị thu hồi khi đang mở trang thì thao tác tiếp theo hiện trang không có quyền", async ({ page, seeder }) => {
+  const user = await seeder.seedUser({ roleName: "Quản lý người dùng", permissions: ["users.view"] });
+  await login(page, user.email, user.password);
+  await page.getByLabel("Mật khẩu hiện tại").fill(user.password);
+  await page.getByLabel("Mật khẩu mới", { exact: true }).fill(NEW_PASSWORD);
+  await page.getByLabel("Nhập lại mật khẩu mới").fill(NEW_PASSWORD);
+  await page.getByRole("button", { name: "Đổi mật khẩu" }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await page.getByRole("menu").getByText("Người dùng", { exact: true }).click();
+  await expect(page.getByRole("button", { name: "Thêm người dùng" })).toHaveCount(0);
+  await expect(page.getByText("Họ tên", { exact: true })).toBeVisible();
+  await seeder.setRolePermissions(user.roleId, []);
+  await page.getByTestId("status-filter").click();
+  await page.locator(".ant-select-dropdown:visible").getByText("Đang hoạt động", { exact: true }).click();
+  await expect(page.getByText("Bạn không có quyền truy cập")).toBeVisible();
 });
