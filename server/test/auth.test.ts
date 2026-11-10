@@ -111,6 +111,22 @@ describe("login", () => {
     expect(after.lockedUntil).toBeNull();
   });
 
+  it("caps guesses under concurrent attempts", async () => {
+    const user = await createUser(prisma, { email: "admin@istt.vn" });
+    const results = await Promise.all(
+      Array.from({ length: 10 }, () => login(app, "admin@istt.vn", "sai-mat-khau-1")),
+    );
+    for (const res of results) expect(res.status).toBe(401);
+    const locked = await prisma.user.findUniqueOrThrow({ where: { id: user.id } });
+    expect(locked.failedLoginCount).toBe(0);
+    expect(locked.lockedUntil?.getTime()).toBe(clock().getTime() + 15 * 60_000);
+    const right = await login(app, "admin@istt.vn");
+    expect(right.status).toBe(401);
+    expect(right.body.error.code).toBe("INVALID_CREDENTIALS");
+    clock.advance(15 * 60_000);
+    expect((await login(app, "admin@istt.vn")).status).toBe(200);
+  });
+
   it("resets the counter after a success", async () => {
     const user = await createUser(prisma, { email: "admin@istt.vn" });
     for (let i = 0; i < 4; i++) await login(app, "admin@istt.vn", "sai-mat-khau-1");

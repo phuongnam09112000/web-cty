@@ -49,28 +49,30 @@ export function loginRouter(deps: AppDeps): express.Router {
       return fail(user?.id ?? null);
     }
 
+    const available = { OR: [{ lockedUntil: null }, { lockedUntil: { lte: now } }] };
+    const claimed = await prisma.user.updateMany({
+      where: {
+        id: user.id,
+        AND: [available, { failedLoginCount: { lt: LOCK_AFTER_FAILURES } }],
+      },
+      data: { failedLoginCount: { increment: 1 } },
+    });
     const valid = await verifyPassword(user.passwordHash, input.password);
-    const locked = user.lockedUntil !== null && user.lockedUntil.getTime() > now.getTime();
-    if (locked) return fail(user.id);
+    if (claimed.count === 0) return fail(user.id);
 
     if (!valid) {
-      const updated = await prisma.user.update({
-        where: { id: user.id },
-        data: { failedLoginCount: { increment: 1 } },
+      await prisma.user.updateMany({
+        where: { id: user.id, failedLoginCount: { gte: LOCK_AFTER_FAILURES } },
+        data: { failedLoginCount: 0, lockedUntil: new Date(now.getTime() + LOCK_MS) },
       });
-      if (updated.failedLoginCount >= LOCK_AFTER_FAILURES) {
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { failedLoginCount: 0, lockedUntil: new Date(now.getTime() + LOCK_MS) },
-        });
-      }
       return fail(user.id);
     }
 
-    await prisma.user.update({
-      where: { id: user.id },
+    const cleared = await prisma.user.updateMany({
+      where: { id: user.id, ...available },
       data: { failedLoginCount: 0, lockedUntil: null, lastLoginAt: now },
     });
+    if (cleared.count === 0) return fail(user.id);
     const token = await createSession(
       prisma,
       user.id,
