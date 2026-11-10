@@ -5,6 +5,7 @@ import { ChangePasswordPage } from "./pages/change-password/ChangePasswordPage";
 import { DashboardPage } from "./pages/dashboard/DashboardPage";
 import { ForbiddenPage } from "./pages/forbidden/ForbiddenPage";
 import { LoginPage } from "./pages/login/LoginPage";
+import { UsersPage } from "./pages/users/UsersPage";
 import { RequirePermission } from "./auth/RequirePermission";
 
 function Placeholder({ title }: { title: string }) {
@@ -23,7 +24,7 @@ export function App() {
             path="users"
             element={
               <RequirePermission anyOf={["users.view"]}>
-                <Placeholder title="Người dùng" />
+                <UsersPage />
               </RequirePermission>
             }
           />
