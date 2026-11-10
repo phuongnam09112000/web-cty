@@ -16,7 +16,8 @@
     "db:migrate": "prisma migrate deploy",
     "db:generate": "prisma generate",
     "postinstall": "prisma generate",
-    "create-admin": "tsx src/cli/create-admin.ts"
+    "create-admin": "tsx src/cli/create-admin.ts",
+    "e2e:seed": "tsx test/e2e-seed.ts"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "7.10.1",
