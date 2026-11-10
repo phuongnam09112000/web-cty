@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model User {
+  id                 BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  email              String    @unique @db.VarChar(191)
+  fullName           String    @map("full_name") @db.VarChar(191)
+  passwordHash       String    @map("password_hash") @db.VarChar(255)
+  roleId             BigInt    @map("role_id") @db.UnsignedBigInt
+  isActive           Boolean   @default(true) @map("is_active")
+  mustChangePassword Boolean   @default(false) @map("must_change_password")
+  failedLoginCount   Int       @default(0) @map("failed_login_count")
+  lockedUntil        DateTime? @map("locked_until") @db.DateTime(3)
+  lastLoginAt        DateTime? @map("last_login_at") @db.DateTime(3)
+  createdAt          DateTime  @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt          DateTime  @updatedAt @map("updated_at") @db.DateTime(3)
+  role               Role      @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  sessions           Session[]
+  auditLogs          AuditLog[]
+
+  @@index([roleId])
+  @@map("users")
+}
+
+model Role {
+  id          BigInt           @id @default(autoincrement()) @db.UnsignedBigInt
+  name        String           @unique @db.VarChar(100)
+  description String?          @db.VarChar(255)
+  isSystem    Boolean          @default(false) @map("is_system")
+  createdAt   DateTime         @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt   DateTime         @updatedAt @map("updated_at") @db.DateTime(3)
+  users       User[]
+  permissions RolePermission[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id     BigInt           @id @default(autoincrement()) @db.UnsignedBigInt
+  key    String           @unique @db.VarChar(100)
+  module String           @db.VarChar(50)
+  label  String           @db.VarChar(191)
+  roles  RolePermission[]
+
+  @@map("permissions")
+}
+
+model RolePermission {
+  roleId       BigInt     @map("role_id") @db.UnsignedBigInt
+  permissionId BigInt     @map("permission_id") @db.UnsignedBigInt
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@index([permissionId])
+  @@map("role_permissions")
+}
+
+model Session {
+  id         String   @id @db.Char(64)
+  userId     BigInt   @map("user_id") @db.UnsignedBigInt
+  createdAt  DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  lastSeenAt DateTime @map("last_seen_at") @db.DateTime(3)
+  expiresAt  DateTime @map("expires_at") @db.DateTime(3)
+  ip         String   @db.VarChar(45)
+  userAgent  String   @map("user_agent") @db.VarChar(255)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+model AuditLog {
+  id          BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  actorUserId BigInt?  @map("actor_user_id") @db.UnsignedBigInt
+  action      String   @db.VarChar(100)
+  targetType  String?  @map("target_type") @db.VarChar(50)
+  targetId    String?  @map("target_id") @db.VarChar(64)
+  metadata    Json?
+  ip          String   @db.VarChar(45)
+  createdAt   DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  actor       User?    @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([actorUserId, createdAt])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
