@@ -126,14 +126,13 @@ COOKIE_SECURE=false
 ENV
 chmod 600 .env
 chown istt:istt .env
-echo "$SECRET"
 ```
 
 Lưu ý:
 
 - Thay `MAT_KHAU_APP` bằng mật khẩu ở bước 4. Nếu mật khẩu có ký tự đặc biệt thì phải mã hóa URL; lệnh `openssl rand -base64 24 | tr -d '/+='` ở bước 4 đã tránh được vấn đề này.
 - `ADMIN_ORIGIN` phải đúng từng ký tự với địa chỉ người dùng gõ vào trình duyệt, gồm giao thức và cổng (ví dụ `http://192.168.10.148:8080`). API từ chối các request thay đổi dữ liệu có `Origin` khác giá trị này.
-- `ADMIN_GATEWAY_SECRET` tối thiểu 32 ký tự. Giá trị này cũng được dán vào Nginx ở bước 8, nên hãy giữ lại dòng in ra của `echo`.
+- `ADMIN_GATEWAY_SECRET` tối thiểu 32 ký tự. Giá trị này cũng được dán vào Nginx ở bước 8; lệnh ở bước 8 đọc lại giá trị này từ `.env`, không cần in ra màn hình.
 - `COOKIE_SECURE=true` chỉ khi truy cập qua HTTPS; trên HTTP nội bộ để `false`, nếu không trình duyệt sẽ không gửi cookie phiên.
 - Biến thiếu hoặc sai khiến API từ chối khởi động.
 
@@ -263,6 +262,17 @@ Kết quả mong đợi:
 1. và 2. `{"status":"ok"}`.
 3. `403`: truy cập thẳng API mà không qua Nginx bị từ chối vì thiếu `X-Admin-Gateway`.
 4. `401`: đi qua Nginx thì header được chấp nhận, chỉ thiếu phiên đăng nhập. Nếu nhận `403` thì giá trị secret trong Nginx khác `.env`.
+
+Kiểm tra API vẫn kết nối được MySQL sau khi MySQL khởi động lại:
+
+```bash
+systemctl restart mysql
+systemctl restart istt-api
+sleep 3
+curl -s http://127.0.0.1:4000/api/public/health
+```
+
+Kết quả mong đợi: `{"status":"ok"}`. Nếu nhận `{"status":"error"}`, xem `journalctl -u istt-api -n 50`.
 
 Sau đó, từ một máy trong mạng nội bộ, mở `http://<IP máy chủ>:8080` và đăng nhập bằng quản trị viên vừa tạo. Từ máy ngoài dải nội bộ, cổng 8080 phải trả `403`.
 
