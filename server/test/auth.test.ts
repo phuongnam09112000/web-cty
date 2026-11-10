@@ -263,6 +263,30 @@ describe("change password", () => {
     expect(res.body.error.fields.newPassword).toBeTruthy();
   });
 
+  it("rejects reusing the current password", async () => {
+    await createUser(prisma, { email: "admin@istt.vn" });
+    const agent = await loginAs(app, "admin@istt.vn");
+    const res = await agent
+      .post("/api/admin/auth/change-password")
+      .send({ currentPassword: DEFAULT_TEST_PASSWORD, newPassword: DEFAULT_TEST_PASSWORD });
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe("VALIDATION_ERROR");
+    expect(res.body.error.fields.newPassword).toBe("Mật khẩu mới phải khác mật khẩu hiện tại");
+    expect(await prisma.auditLog.count({ where: { action: "auth.password_change" } })).toBe(0);
+  });
+
+  it("rejects reusing the current password on a forced change and keeps the flag", async () => {
+    const user = await createUser(prisma, { email: "new@istt.vn", mustChangePassword: true });
+    const agent = await loginAs(app, "new@istt.vn");
+    const res = await agent
+      .post("/api/admin/auth/change-password")
+      .send({ currentPassword: DEFAULT_TEST_PASSWORD, newPassword: DEFAULT_TEST_PASSWORD });
+    expect(res.status).toBe(400);
+    expect(res.body.error.fields.newPassword).toBe("Mật khẩu mới phải khác mật khẩu hiện tại");
+    const row = await prisma.user.findUniqueOrThrow({ where: { id: user.id } });
+    expect(row.mustChangePassword).toBe(true);
+  });
+
   it("changes the password, clears the flag and keeps only the current session", async () => {
     const user = await createUser(prisma, { email: "new@istt.vn", mustChangePassword: true });
     const other = await login(app, "new@istt.vn");

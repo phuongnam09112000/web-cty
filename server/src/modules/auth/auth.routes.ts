@@ -135,6 +135,11 @@ export function authRouter(deps: AppDeps): express.Router {
         currentPassword: "Mật khẩu hiện tại không đúng",
       });
     }
+    if (await verifyPassword(auth.user.passwordHash, input.newPassword)) {
+      throw new AppError(400, "VALIDATION_ERROR", "Dữ liệu không hợp lệ", {
+        newPassword: "Mật khẩu mới phải khác mật khẩu hiện tại",
+      });
+    }
     const passwordHash = await hashPassword(input.newPassword);
     await prisma.$transaction(async (tx) => {
       await tx.user.update({
