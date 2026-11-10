@@ -46,6 +46,7 @@ Mỗi dự án con có đặc tả, kế hoạch và đợt triển khai riêng,
 - `server/` và `admin/` có `package.json`, `package-lock.json`, `tsconfig.json` riêng. `package.json` và lockfile ở thư mục gốc không bị thay đổi.
 - `tsconfig.json` gốc chỉ `include` thư mục `src`, nên hai thư mục mới không ảnh hưởng tới build website.
 - Trang quản trị là ứng dụng tách riêng khỏi website, để chặn truy cập ở tầng Nginx và để bản build website công khai không chứa mã quản trị.
+- Website, `server/` và `admin/` nằm chung một repo nhưng độc lập hoàn toàn: không import mã chéo giữa các thư mục, mỗi thư mục có cấu hình, lệnh build và lệnh test riêng. Nhờ vậy về sau mỗi phần có pipeline CI/CD riêng, chạy theo thư mục có thay đổi (`rules: changes`), và có thể tách sang repo riêng mà vẫn giữ lịch sử commit.
 
 ### 4.2. Công nghệ
 
