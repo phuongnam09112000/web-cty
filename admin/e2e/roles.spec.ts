@@ -21,6 +21,15 @@ async function createRole(seeder: Seeder, name: string, description?: string) {
   return ((await created.json()) as RoleItem).id;
 }
 
+async function savePermissions(page: Page) {
+  const saved = page.waitForResponse(
+    (response) =>
+      /\/roles\/\d+\/permissions$/.test(response.url()) && response.request().method() === "PUT" && response.ok(),
+  );
+  await page.getByRole("button", { name: "Lưu" }).click();
+  await saved;
+}
+
 function roleRow(page: Page, name: string) {
   return page.getByRole("row", { name: new RegExp(name) });
 }
@@ -65,8 +74,8 @@ test("tạo vai trò, tick quyền theo nhóm, lưu và tải lại vẫn giữ"
   const box = page.getByRole("checkbox", { name: "Xem danh sách người dùng" });
   await expect(box).not.toBeChecked();
   await box.check();
-  await page.getByRole("button", { name: "Lưu" }).click();
-  await expect(page.locator(".ant-message-success")).toBeVisible();
+  await savePermissions(page);
+  await expect(page.locator(".ant-message-success").last()).toBeVisible();
   await page.reload();
   await expect(page.getByRole("checkbox", { name: "Xem danh sách người dùng" })).toBeChecked();
   await expect(page.getByRole("checkbox", { name: "Xem nhật ký hoạt động" })).not.toBeChecked();
@@ -93,15 +102,14 @@ test("quyền của người dùng khác đổi ngay ở lần tải tiếp theo
   await loginAdmin(page);
   await page.goto(`/roles/${roleId}`);
   await page.getByRole("checkbox", { name: "Xem danh sách người dùng" }).check();
-  await page.getByRole("button", { name: "Lưu" }).click();
-  await expect(page.locator(".ant-message-success")).toBeVisible();
+  await savePermissions(page);
+  await expect(page.locator(".ant-message-success").last()).toBeVisible();
 
   await other.reload();
   await expect(other.getByRole("menu").getByText("Người dùng", { exact: true })).toBeVisible();
 
   await page.getByRole("checkbox", { name: "Xem danh sách người dùng" }).uncheck();
-  await page.getByRole("button", { name: "Lưu" }).click();
-  await expect(page.locator(".ant-message-success").last()).toBeVisible();
+  await savePermissions(page);
 
   await other.goto("/users");
   await expect(other.getByText("Bạn không có quyền truy cập")).toBeVisible();
