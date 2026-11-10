@@ -23,7 +23,8 @@ export function usersRouter(deps: AppDeps): express.Router {
 
   router.post("/users", manage, async (req, res) => {
     const input = createUserSchema.parse(req.body);
-    const result = await createUser(prisma, input, getAuth(res).user.id, req.ip ?? "");
+    const { user } = getAuth(res);
+    const result = await createUser(prisma, input, user.id, user.role.isSystem, req.ip ?? "");
     res.status(201).json(result);
   });
 
@@ -34,12 +35,20 @@ export function usersRouter(deps: AppDeps): express.Router {
   router.patch("/users/:id", manage, async (req, res) => {
     const id = parseId(String(req.params.id));
     const input = updateUserSchema.parse(req.body);
-    res.json(await updateUser(prisma, id, input, getAuth(res).user.id, req.ip ?? ""));
+    const { user } = getAuth(res);
+    res.json(await updateUser(prisma, id, input, user.id, user.role.isSystem, req.ip ?? ""));
   });
 
   router.post("/users/:id/reset-password", manage, async (req, res) => {
     const id = parseId(String(req.params.id));
-    const temporaryPassword = await resetPassword(prisma, id, getAuth(res).user.id, req.ip ?? "");
+    const { user } = getAuth(res);
+    const temporaryPassword = await resetPassword(
+      prisma,
+      id,
+      user.id,
+      user.role.isSystem,
+      req.ip ?? "",
+    );
     res.json({ temporaryPassword });
   });
 

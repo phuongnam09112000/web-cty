@@ -45,6 +45,8 @@ export function generateTemporaryPassword(): string {
   return out;
 }
 
+const adminOnly = () =>
+  new AppError(403, "FORBIDDEN", "Chỉ quản trị viên mới được thực hiện thao tác này");
 const notFound = () => new AppError(404, "NOT_FOUND", "Không tìm thấy người dùng");
 const unknownRole = () =>
   new AppError(400, "VALIDATION_ERROR", "Dữ liệu không hợp lệ", { roleId: "Vai trò không tồn tại" });
@@ -97,6 +99,7 @@ export async function createUser(
   prisma: PrismaClient,
   input: CreateUserInput,
   actorUserId: bigint,
+  actorIsSystem: boolean,
   ip: string,
 ): Promise<{ user: UserDto; temporaryPassword: string }> {
   const temporaryPassword = generateTemporaryPassword();
@@ -105,6 +108,7 @@ export async function createUser(
     prisma.$transaction(async (tx) => {
       const role = await tx.role.findUnique({ where: { id: BigInt(input.roleId) } });
       if (!role) throw unknownRole();
+      if (role.isSystem && !actorIsSystem) throw adminOnly();
       const created = await tx.user.create({
         data: {
           email: input.email,
@@ -143,6 +147,7 @@ export async function updateUser(
   id: bigint,
   input: UpdateUserInput,
   actorUserId: bigint,
+  actorIsSystem: boolean,
   ip: string,
 ): Promise<UserDto> {
   const sensitive = input.roleId !== undefined || input.isActive === false;
@@ -151,11 +156,13 @@ export async function updateUser(
       const activeAdmins = sensitive ? await lockActiveAdmins(tx) : [];
       const current = await tx.user.findUnique({ where: { id }, include: { role: true } });
       if (!current) throw notFound();
+      if (current.role.isSystem && !actorIsSystem) throw adminOnly();
 
       let roleChanged = false;
       if (input.roleId !== undefined) {
         const role = await tx.role.findUnique({ where: { id: BigInt(input.roleId) } });
         if (!role) throw unknownRole();
+        if (role.isSystem && !actorIsSystem) throw adminOnly();
         roleChanged = role.id !== current.roleId;
       }
       const deactivating = input.isActive === false && current.isActive;
@@ -233,13 +240,15 @@ export async function resetPassword(
   prisma: PrismaClient,
   id: bigint,
   actorUserId: bigint,
+  actorIsSystem: boolean,
   ip: string,
 ): Promise<string> {
   const temporaryPassword = generateTemporaryPassword();
   const passwordHash = await hashPassword(temporaryPassword);
   await prisma.$transaction(async (tx) => {
-    const current = await tx.user.findUnique({ where: { id } });
+    const current = await tx.user.findUnique({ where: { id }, include: { role: true } });
     if (!current) throw notFound();
+    if (current.role.isSystem && !actorIsSystem) throw adminOnly();
     await tx.user.update({
       where: { id },
       data: { passwordHash, mustChangePassword: true, failedLoginCount: 0, lockedUntil: null },

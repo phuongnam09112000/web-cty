@@ -326,35 +326,91 @@ describe("protections", () => {
     );
   });
 
-  it("protects the last active admin", async () => {
-    await createUser(prisma, { email: "admin@istt.vn" });
-    await roleWith("Quản lý", ["users.manage"]);
-    await createUser(prisma, { email: "mgr@istt.vn", roleName: "Quản lý" });
-    const lone = await prisma.user.findUniqueOrThrow({ where: { email: "admin@istt.vn" } });
-    const agent = await loginAs(app, "mgr@istt.vn");
-    const off = await agent.patch(`/api/admin/users/${lone.id}`).send({ isActive: false });
-    expect(off.status).toBe(409);
-    const role = await agent
-      .patch(`/api/admin/users/${lone.id}`)
-      .send({ roleId: await roleId(EDITOR_ROLE_NAME) });
-    expect(role.status).toBe(409);
-    const row = await prisma.user.findUniqueOrThrow({ where: { id: lone.id } });
-    expect(row.isActive).toBe(true);
-    expect(row.roleId).toBe((await prisma.role.findUniqueOrThrow({ where: { name: SYSTEM_ROLE_NAME } })).id);
+  it("protects the last active admin when admins act on each other concurrently", async () => {
+    const a = await createUser(prisma, { email: "a@istt.vn" });
+    const b = await createUser(prisma, { email: "b@istt.vn" });
+    const agentA = await loginAs(app, "a@istt.vn");
+    const agentB = await loginAs(app, "b@istt.vn");
+    const editorId = await roleId(EDITOR_ROLE_NAME);
+    const results = await Promise.all([
+      agentA.patch(`/api/admin/users/${b.id}`).send({ roleId: editorId }),
+      agentB.patch(`/api/admin/users/${a.id}`).send({ roleId: editorId }),
+    ]);
+    expect(results.map((r) => r.status).sort()).toEqual([200, 409]);
+    const systemRole = await prisma.role.findUniqueOrThrow({ where: { name: SYSTEM_ROLE_NAME } });
+    expect(await prisma.user.count({ where: { roleId: systemRole.id, isActive: true } })).toBe(1);
   });
 
   it("never lets concurrent deactivations remove every admin", async () => {
     const a = await createUser(prisma, { email: "a@istt.vn" });
     const b = await createUser(prisma, { email: "b@istt.vn" });
-    await roleWith("Quản lý", ["users.manage"]);
-    await createUser(prisma, { email: "c@istt.vn", roleName: "Quản lý" });
-    const agent = await loginAs(app, "c@istt.vn");
+    const agentA = await loginAs(app, "a@istt.vn");
+    const agentB = await loginAs(app, "b@istt.vn");
     const results = await Promise.all([
-      agent.patch(`/api/admin/users/${a.id}`).send({ isActive: false }),
-      agent.patch(`/api/admin/users/${b.id}`).send({ isActive: false }),
+      agentA.patch(`/api/admin/users/${b.id}`).send({ isActive: false }),
+      agentB.patch(`/api/admin/users/${a.id}`).send({ isActive: false }),
     ]);
     expect(results.map((r) => r.status).sort()).toEqual([200, 409]);
     const systemRole = await prisma.role.findUniqueOrThrow({ where: { name: SYSTEM_ROLE_NAME } });
     expect(await prisma.user.count({ where: { roleId: systemRole.id, isActive: true } })).toBe(1);
+  });
+});
+
+describe("administrator accounts are restricted to administrators", () => {
+  async function setup() {
+    const admin = await createUser(prisma, { email: "admin@istt.vn" });
+    await roleWith("Quản lý", ["users.manage"]);
+    await createUser(prisma, { email: "mgr@istt.vn", roleName: "Quản lý" });
+    const editor = await createUser(prisma, { email: "ed@istt.vn", roleName: EDITOR_ROLE_NAME });
+    const adminAgentSession = await loginAs(app, "admin@istt.vn");
+    const manager = await loginAs(app, "mgr@istt.vn");
+    return { admin, editor, manager, adminAgentSession };
+  }
+
+  it("forbids a manager from assigning the system role", async () => {
+    const { editor, manager } = await setup();
+    const systemId = await roleId(SYSTEM_ROLE_NAME);
+    const created = await manager
+      .post("/api/admin/users")
+      .send({ email: "new@istt.vn", fullName: "Mới", roleId: systemId });
+    expect(created.status).toBe(403);
+    expect(created.body.error.code).toBe("FORBIDDEN");
+    expect(await prisma.user.count({ where: { email: "new@istt.vn" } })).toBe(0);
+    const moved = await manager.patch(`/api/admin/users/${editor.id}`).send({ roleId: systemId });
+    expect(moved.status).toBe(403);
+    const row = await prisma.user.findUniqueOrThrow({ where: { id: editor.id } });
+    expect(row.roleId).toBe((await prisma.role.findUniqueOrThrow({ where: { name: EDITOR_ROLE_NAME } })).id);
+  });
+
+  it("forbids a manager from changing, deactivating or resetting an administrator", async () => {
+    const { admin, manager, adminAgentSession } = await setup();
+    const before = await prisma.user.findUniqueOrThrow({ where: { id: admin.id } });
+    const patch = await manager.patch(`/api/admin/users/${admin.id}`).send({ fullName: "Hack" });
+    const off = await manager.patch(`/api/admin/users/${admin.id}`).send({ isActive: false });
+    const on = await manager.patch(`/api/admin/users/${admin.id}`).send({ isActive: true });
+    const reset = await manager.post(`/api/admin/users/${admin.id}/reset-password`);
+    for (const res of [patch, off, on, reset]) {
+      expect(res.status).toBe(403);
+      expect(res.body.error.code).toBe("FORBIDDEN");
+    }
+    const after = await prisma.user.findUniqueOrThrow({ where: { id: admin.id } });
+    expect(after.passwordHash).toBe(before.passwordHash);
+    expect(after.fullName).toBe(before.fullName);
+    expect(after.isActive).toBe(true);
+    expect((await adminAgentSession.get("/api/admin/auth/me")).status).toBe(200);
+  });
+
+  it("still lets an administrator manage administrators", async () => {
+    const { admin, editor, adminAgentSession } = await setup();
+    const other = await createUser(prisma, { email: "admin2@istt.vn" });
+    const moved = await adminAgentSession
+      .patch(`/api/admin/users/${editor.id}`)
+      .send({ roleId: await roleId(SYSTEM_ROLE_NAME) });
+    expect(moved.status).toBe(200);
+    const reset = await adminAgentSession.post(`/api/admin/users/${other.id}/reset-password`);
+    expect(reset.status).toBe(200);
+    const off = await adminAgentSession.patch(`/api/admin/users/${other.id}`).send({ isActive: false });
+    expect(off.status).toBe(200);
+    expect(admin.id).not.toBe(other.id);
   });
 });
