@@ -151,9 +151,11 @@ test("người chỉ có users.view thấy bảng nhưng không thấy nút thao
   await expect(page).toHaveURL(/\/$/);
   await page.getByRole("menu").getByText("Người dùng", { exact: true }).click();
   await expect(page.getByRole("columnheader", { name: "Họ tên" })).toBeVisible();
-  await expect(page.getByRole("row", { name: new RegExp(viewer.email) })).toBeVisible();
+  await search(page, viewer.email);
+  const row = page.getByRole("row", { name: new RegExp(viewer.email) });
+  await expect(row).toBeVisible();
   await expect(page.getByRole("button", { name: "Thêm người dùng" })).toHaveCount(0);
-  await expect(page.getByRole("button", { name: "Sửa" })).toHaveCount(0);
-  await expect(page.getByRole("button", { name: "Vô hiệu hóa" })).toHaveCount(0);
-  await expect(page.getByRole("button", { name: "Đặt lại mật khẩu" })).toHaveCount(0);
+  await expect(row.getByRole("button", { name: "Sửa" })).toHaveCount(0);
+  await expect(row.getByRole("button", { name: "Vô hiệu hóa" })).toHaveCount(0);
+  await expect(row.getByRole("button", { name: "Đặt lại mật khẩu" })).toHaveCount(0);
 });
