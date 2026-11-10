@@ -1,0 +1,21 @@
+[Unit]
+Description=ISTT API
+After=network.target mysql.service
+Wants=mysql.service
+
+[Service]
+Type=simple
+User=istt
+Group=istt
+WorkingDirectory=/opt/istt/web-cty/server
+EnvironmentFile=/opt/istt/web-cty/server/.env
+ExecStart=/usr/bin/node dist/main.js
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
