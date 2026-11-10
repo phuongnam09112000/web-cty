@@ -36,7 +36,7 @@ describe("health", () => {
   });
 
   it("returns 503 when the database is unreachable", async () => {
-    const dead = createPrisma("mysql://root:x@127.0.0.1:1/none");
+    const dead = createPrisma("mysql://root:x@127.0.0.1:1/none", { connectTimeoutMs: 1000 });
     const deadApp = createApp({
       prisma: dead,
       config: makeTestConfig(),

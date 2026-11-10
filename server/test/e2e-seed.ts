@@ -16,6 +16,7 @@ async function seed(): Promise<void> {
     port: Number(parsed.port || 3306),
     user: decodeURIComponent(parsed.username),
     password: decodeURIComponent(parsed.password),
+    allowPublicKeyRetrieval: true,
   });
   try {
     await connection.query(`DROP DATABASE IF EXISTS \`${dbName}\``);

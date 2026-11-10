@@ -3,8 +3,12 @@ import { PrismaClient } from "./generated/prisma/client.js";
 
 export type { PrismaClient };
 
-export function createPrisma(databaseUrl: string): PrismaClient {
+export function createPrisma(
+  databaseUrl: string,
+  options?: { connectTimeoutMs?: number },
+): PrismaClient {
   const url = new URL(databaseUrl);
+  const timeout = options?.connectTimeoutMs ?? 10000;
   const adapter = new PrismaMariaDb({
     host: url.hostname,
     port: Number(url.port || 3306),
@@ -12,8 +16,9 @@ export function createPrisma(databaseUrl: string): PrismaClient {
     password: decodeURIComponent(url.password),
     database: decodeURIComponent(url.pathname.replace(/^\//, "")),
     connectionLimit: 10,
-    connectTimeout: 2000,
-    acquireTimeout: 2000,
+    connectTimeout: timeout,
+    acquireTimeout: timeout,
+    allowPublicKeyRetrieval: true,
   });
   return new PrismaClient({ adapter });
 }

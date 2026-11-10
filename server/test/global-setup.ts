@@ -14,6 +14,7 @@ export default async function setup() {
     port: Number(parsed.port || 3306),
     user: decodeURIComponent(parsed.username),
     password: decodeURIComponent(parsed.password),
+    allowPublicKeyRetrieval: true,
   });
   await connection.query(
     `CREATE DATABASE \`${dbName}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`,
