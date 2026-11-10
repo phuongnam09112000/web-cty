@@ -40,3 +40,14 @@ export type RoleDto = {
 export type PermissionModule = { module: string; permissions: { key: PermissionKey; label: string }[] };
 
 export type PermissionCatalog = { modules: PermissionModule[] };
+
+export type AuditLogDto = {
+  id: number;
+  action: string;
+  actor: { id: number; email: string; fullName: string } | null;
+  targetType: string | null;
+  targetId: string | null;
+  metadata: Record<string, unknown> | null;
+  ip: string | null;
+  createdAt: string;
+};

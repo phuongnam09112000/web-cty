@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import { RequireAuth } from "./auth/RequireAuth";
 import { AppLayout } from "./layout/AppLayout";
+import { AccountPage } from "./pages/account/AccountPage";
+import { AuditLogsPage } from "./pages/audit-logs/AuditLogsPage";
 import { ChangePasswordPage } from "./pages/change-password/ChangePasswordPage";
 import { DashboardPage } from "./pages/dashboard/DashboardPage";
 import { ForbiddenPage } from "./pages/forbidden/ForbiddenPage";
@@ -9,10 +11,6 @@ import { RoleDetailPage } from "./pages/roles/RoleDetailPage";
 import { RolesPage } from "./pages/roles/RolesPage";
 import { UsersPage } from "./pages/users/UsersPage";
 import { RequirePermission } from "./auth/RequirePermission";
-
-function Placeholder({ title }: { title: string }) {
-  return <h2>{title}</h2>;
-}
 
 export function App() {
   return (
@@ -50,11 +48,11 @@ export function App() {
             path="audit-logs"
             element={
               <RequirePermission anyOf={["audit.view"]}>
-                <Placeholder title="Nhật ký hoạt động" />
+                <AuditLogsPage />
               </RequirePermission>
             }
           />
-          <Route path="account" element={<Placeholder title="Tài khoản của tôi" />} />
+          <Route path="account" element={<AccountPage />} />
           <Route path="*" element={<ForbiddenPage />} />
         </Route>
       </Route>
