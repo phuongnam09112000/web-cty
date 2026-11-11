@@ -9,6 +9,7 @@ import type { Logger } from "./logger.js";
 import { auditRouter } from "./modules/audit/audit.routes.js";
 import { requireAuth } from "./modules/auth/auth.middleware.js";
 import { authRouter, loginRouter } from "./modules/auth/auth.routes.js";
+import { createPagesRouter, type PagesHooks } from "./modules/content/pages.routes.js";
 import { mediaRouter } from "./modules/media/media.routes.js";
 import { permissionsRouter } from "./modules/permissions/permissions.routes.js";
 import { rolesRouter } from "./modules/roles/roles.routes.js";
@@ -23,7 +24,7 @@ export type AppDeps = {
 
 const notFound = () => new AppError(404, "NOT_FOUND", "Không tìm thấy");
 
-export function createApp(deps: AppDeps): express.Express {
+export function createApp(deps: AppDeps, hooks: PagesHooks = { onPublished: () => undefined }): express.Express {
   const { prisma, config, logger } = deps;
   const app = express();
   app.disable("x-powered-by");
@@ -67,12 +68,13 @@ export function createApp(deps: AppDeps): express.Express {
   adminRouter.use(permissionsRouter());
   adminRouter.use(auditRouter(deps));
   adminRouter.use(mediaRouter(deps));
+  adminRouter.use(createPagesRouter(deps, hooks));
   adminRouter.use(() => {
     throw notFound();
   });
 
   app.use("/api/public", express.json(), publicRouter);
-  app.use("/api/admin", adminGateway(config), originCheck(config), express.json(), adminRouter);
+  app.use("/api/admin", adminGateway(config), originCheck(config), express.json({ limit: "1200kb" }), adminRouter);
 
   if (config.nodeEnv !== "production") {
     app.use("/media", express.static(config.mediaDir, { immutable: true, maxAge: "1y" }));
