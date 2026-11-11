@@ -7,7 +7,7 @@ import { createPrisma, type PrismaClient } from "../db.js";
 import { recordAudit } from "../modules/audit/audit.service.js";
 import { pageContentSchema } from "../modules/content/blocks/index.js";
 import { normalizePath } from "../modules/content/public.routes.js";
-import { storeMedia, type MediaDto } from "../modules/media/media.service.js";
+import { storeMedia, validateMediaBuffer, type MediaDto } from "../modules/media/media.service.js";
 
 export type ImportDeps = { prisma: PrismaClient; config: Pick<Config, "mediaDir"> };
 
@@ -115,6 +115,12 @@ export async function importContent(
       } catch {
         throw new Error(`${page.file}: không tìm thấy ảnh ${src} (${full})`);
       }
+      try {
+        await validateMediaBuffer(buffers.get(src) as Buffer);
+      } catch (error) {
+        const reason = error instanceof Error ? error.message : String(error);
+        throw new Error(`${page.file}: ảnh ${src} không hợp lệ: ${reason}`, { cause: error });
+      }
     }
     const probe = mapRefs(page.content, () => ({ mediaId: PLACEHOLDER_MEDIA_ID }));
     const parsed = pageContentSchema.safeParse(probe);
@@ -173,7 +179,7 @@ export async function importContent(
         ip: "",
       });
     }
-  });
+  }, { timeout: 120_000, maxWait: 10_000 });
 
   const fallback = Object.fromEntries(
     [...prepared].sort((a, b) => (a.page.path < b.page.path ? -1 : 1)).map((p) => [p.page.path, sortKeys(p.fallback)]),

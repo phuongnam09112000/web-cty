@@ -132,6 +132,27 @@ function measure(data: Buffer, isSvg: boolean): { width: number | null; height: 
   return { width: null, height: null };
 }
 
+export type ValidatedMedia = {
+  mime: string;
+  ext: string;
+  data: Buffer;
+  width: number | null;
+  height: number | null;
+};
+
+export async function validateMediaBuffer(buffer: Buffer): Promise<ValidatedMedia> {
+  if (buffer.length > MAX_MEDIA_BYTES) throw tooLarge();
+  const detected = await detect(buffer);
+  if (detected.data.length > MAX_MEDIA_BYTES) throw tooLarge();
+  const { width, height } = measure(detected.data, detected.ext === "svg");
+  if ((width ?? 0) > MAX_DIMENSION || (height ?? 0) > MAX_DIMENSION) {
+    throw new AppError(400, "VALIDATION_ERROR", "Kích thước ảnh tối đa 8000 × 8000", {
+      file: "Kích thước ảnh tối đa 8000 × 8000",
+    });
+  }
+  return { ...detected, width, height };
+}
+
 export async function storeMedia(
   prisma: PrismaClient,
   config: Pick<Config, "mediaDir">,
@@ -140,15 +161,8 @@ export async function storeMedia(
   sourcePath?: string,
   ip = "",
 ): Promise<MediaDto> {
-  if (file.buffer.length > MAX_MEDIA_BYTES) throw tooLarge();
-  const detected = await detect(file.buffer);
-  if (detected.data.length > MAX_MEDIA_BYTES) throw tooLarge();
-  const { width, height } = measure(detected.data, detected.ext === "svg");
-  if ((width ?? 0) > MAX_DIMENSION || (height ?? 0) > MAX_DIMENSION) {
-    throw new AppError(400, "VALIDATION_ERROR", "Kích thước ảnh tối đa 8000 × 8000", {
-      file: "Kích thước ảnh tối đa 8000 × 8000",
-    });
-  }
+  const detected = await validateMediaBuffer(file.buffer);
+  const { width, height } = detected;
   const sha256 = createHash("sha256").update(detected.data).digest("hex");
   const existing = await prisma.media.findUnique({ where: { sha256 } });
   if (existing) return toMediaDto(existing);

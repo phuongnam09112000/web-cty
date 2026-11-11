@@ -1,4 +1,4 @@
-import { cpSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { cpSync, mkdtempSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
@@ -21,10 +21,18 @@ beforeEach(async () => {
 function setup(seedDir = SEED, force = false) {
   const config = makeTestConfig();
   const fallbackOut = join(mkdtempSync(join(tmpdir(), "istt-fallback-")), "cms-fallback.json");
-  const run = (overrides: Partial<{ seedDir: string; force: boolean }> = {}) =>
+  const run = (overrides: Partial<{ seedDir: string; force: boolean; publicDirOverride: string }> = {}) =>
     importContent(
       { prisma, config },
-      { seedDir, publicDir: PUBLIC, fallbackOut, force, actorUserId: null, ...overrides },
+      {
+        seedDir,
+        publicDir: overrides.publicDirOverride ?? PUBLIC,
+        fallbackOut,
+        force,
+        actorUserId: null,
+        ...(overrides.seedDir ? { seedDir: overrides.seedDir } : {}),
+        ...(overrides.force !== undefined ? { force: overrides.force } : {}),
+      },
     );
   return { config, fallbackOut, run };
 }
@@ -35,6 +43,11 @@ async function snapshot() {
     drafts: await prisma.pageDraft.count(),
     versions: await prisma.pageVersion.count(),
   };
+}
+
+function edit(dir: string, name: string, from: string, to: string) {
+  const file = join(dir, name);
+  writeFileSync(file, readFileSync(file, "utf8").replace(from, to));
 }
 
 function copySeed(mutate: (dir: string) => void): string {
@@ -119,17 +132,42 @@ describe("importContent", () => {
     expect(await snapshot()).toEqual({ pages: 0, drafts: 0, versions: 0 });
   });
 
-  it("rejects non-normalized paths and image sources escaping the public dir", async () => {
-    const badPath = copySeed((d) => {
-      const file = join(d, "mini-a.json");
-      writeFileSync(file, readFileSync(file, "utf8").replace('"/mini-a"', '"/Mini-A/"'));
-    });
-    await expect(setup(badPath).run()).rejects.toThrow("mini-a.json");
-    const escape = copySeed((d) => {
-      const file = join(d, "mini-a.json");
-      writeFileSync(file, readFileSync(file, "utf8").replace('"/img/a.png"', '"/../seed-mini.json"'));
-    });
-    await expect(setup(escape).run()).rejects.toThrow("mini-a.json");
+  it("rejects a non-normalized path", async () => {
+    const dir = copySeed((d) => edit(d, "mini-a.json", '"/mini-a"', '"/Mini-A/"'));
+    await expect(setup(dir).run()).rejects.toThrow(/mini-a\.json.*không hợp lệ hoặc chưa chuẩn hóa/);
     expect(await snapshot()).toEqual({ pages: 0, drafts: 0, versions: 0 });
+  });
+
+  it("rejects an image source outside the public dir", async () => {
+    const dir = copySeed((d) => edit(d, "mini-a.json", '"/img/a.png"', '"/../seed-mini.json"'));
+    await expect(setup(dir).run()).rejects.toThrow(/mini-a\.json.*nằm ngoài thư mục public/);
+    expect(await snapshot()).toEqual({ pages: 0, drafts: 0, versions: 0 });
+  });
+
+  it("rejects a src not starting with a slash", async () => {
+    const dir = copySeed((d) => edit(d, "mini-a.json", '"/img/a.png"', '"img/a.png"'));
+    await expect(setup(dir).run()).rejects.toThrow(/mini-a\.json.*phải bắt đầu bằng "\/"/);
+  });
+
+  it("rejects duplicate paths", async () => {
+    const dir = copySeed((d) => edit(d, "mini-b.json", '"/mini-b"', '"/mini-a"'));
+    await expect(setup(dir).run()).rejects.toThrow(/mini-b\.json.*bị trùng/);
+    expect(await snapshot()).toEqual({ pages: 0, drafts: 0, versions: 0 });
+  });
+
+  it("ignores non-json files in the seed dir", async () => {
+    const dir = copySeed((d) => writeFileSync(join(d, "notes.txt"), "not json"));
+    expect(await setup(dir).run()).toEqual({ pages: 2, media: 2 });
+  });
+
+  it("validates every image before writing anything", async () => {
+    const dir = copySeed((d) => writeFileSync(join(d, "public/img/b.png"), "this is not an image"));
+    const { run, config } = setup(dir);
+    const filesBefore = readdirSync(config.mediaDir).length;
+    await expect(run({ seedDir: dir, publicDirOverride: join(dir, "public") })).rejects.toThrow(/\/img\/b\.png.*không hợp lệ/);
+    expect(await snapshot()).toEqual({ pages: 0, drafts: 0, versions: 0 });
+    expect(await prisma.media.count()).toBe(0);
+    expect(await prisma.auditLog.count()).toBe(0);
+    expect(readdirSync(config.mediaDir)).toHaveLength(filesBefore);
   });
 });
