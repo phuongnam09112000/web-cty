@@ -62,6 +62,12 @@ export function errorHandler(logger?: Logger): ErrorRequestHandler {
       res.status(400).json(body("VALIDATION_ERROR", "Dữ liệu không hợp lệ", requestId, fields));
       return;
     }
+    if (isBodyParserError(err) && (err as { type: string }).type === "entity.too.large") {
+      res
+        .status(413)
+        .json(body("PAYLOAD_TOO_LARGE", "Nội dung vượt quá giới hạn cho phép", requestId));
+      return;
+    }
     if (isBodyParserError(err)) {
       res.status(400).json(body("VALIDATION_ERROR", "Dữ liệu không hợp lệ", requestId));
       return;

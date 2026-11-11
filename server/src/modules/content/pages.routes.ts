@@ -7,7 +7,7 @@ import { getPage, listPages, publishPage, saveDraft } from "./pages.service.js";
 import { publishSchema, saveDraftSchema } from "./pages.schemas.js";
 import { getVersion, listVersions, restoreVersion } from "./versions.service.js";
 
-export type PagesHooks = { onPublished: (path: string) => void };
+export type PagesHooks = { onPublished: (path: string) => void | Promise<void> };
 
 function parseVersionNumber(value: string): number {
   if (/^[1-9][0-9]{0,8}$/.test(value)) return Number(value);
@@ -39,7 +39,14 @@ export function createPagesRouter(deps: AppDeps, hooks: PagesHooks): express.Rou
     const id = parseId(String(req.params.id));
     const input = publishSchema.parse(req.body ?? {});
     const result = await publishPage(prisma, id, input.note, getAuth(res).user.id, req.ip ?? "");
-    hooks.onPublished(result.path);
+    try {
+      const outcome: unknown = hooks.onPublished(result.path);
+      if (outcome instanceof Promise) {
+        outcome.catch((err: unknown) => deps.logger.error({ err }, "onPublished hook failed"));
+      }
+    } catch (err) {
+      deps.logger.error({ err }, "onPublished hook failed");
+    }
     res.json({ number: result.number });
   });
 

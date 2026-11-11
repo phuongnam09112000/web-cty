@@ -225,7 +225,7 @@ describe("publish and list", () => {
     const { makeTestConfig } = await import("./helpers.js");
     const hooked = createApp(
       { prisma, config: makeTestConfig(), logger: (await import("pino")).default({ level: "silent" }), clock: () => new Date() },
-      { onPublished: (p) => paths.push(p) },
+      { onPublished: (p) => { paths.push(p); } },
     );
     const { content } = await heroContent();
     const id = await makePage("/hooked", content);
@@ -235,6 +235,40 @@ describe("publish and list", () => {
     expect(paths).toEqual([]);
     await agent.post(`/api/admin/pages/${id}/publish`).send({});
     expect(paths).toEqual(["/hooked"]);
+  });
+
+  it("still succeeds when the onPublished hook throws or rejects", async () => {
+    const { createApp } = await import("../src/app.js");
+    const { makeTestConfig } = await import("./helpers.js");
+    const logger = (await import("pino")).default({ level: "silent" });
+    const deps = { prisma, config: makeTestConfig(), logger, clock: () => new Date() };
+    await createUser(prisma, { email: "t@istt.vn" });
+    const { content } = await heroContent();
+    const id = await makePage("/throws", content);
+    const throwing = await loginAs(
+      createApp(deps, { onPublished: () => { throw new Error("boom"); } }),
+      "t@istt.vn",
+    );
+    const first = await throwing.post(`/api/admin/pages/${id}/publish`).send({});
+    expect(first.status).toBe(200);
+    expect(first.body).toEqual({ number: 1 });
+    const rejecting = await loginAs(
+      createApp(deps, { onPublished: () => Promise.reject(new Error("boom")) }),
+      "t@istt.vn",
+    );
+    const second = await rejecting.post(`/api/admin/pages/${id}/publish`).send({});
+    expect(second.status).toBe(200);
+    expect(await prisma.pageVersion.count()).toBe(2);
+  });
+
+  it("returns 413 when the request body exceeds the parser limit", async () => {
+    const { content } = await heroContent();
+    const id = await makePage("/p", content);
+    const agent = await editor();
+    const huge = { ...content, padding: "x".repeat(1300 * 1024) };
+    const res = await agent.put(`/api/admin/pages/${id}/draft`).send({ content: huge, revision: 1 });
+    expect(res.status).toBe(413);
+    expect(res.body.error.code).toBe("PAYLOAD_TOO_LARGE");
   });
 
   it("rejects a 501 character note", async () => {
