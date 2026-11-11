@@ -10,6 +10,7 @@ import { auditRouter } from "./modules/audit/audit.routes.js";
 import { requireAuth } from "./modules/auth/auth.middleware.js";
 import { authRouter, loginRouter } from "./modules/auth/auth.routes.js";
 import { createPagesRouter, type PagesHooks } from "./modules/content/pages.routes.js";
+import { createPublicContentRouter } from "./modules/content/public.routes.js";
 import { mediaRouter } from "./modules/media/media.routes.js";
 import { permissionsRouter } from "./modules/permissions/permissions.routes.js";
 import { rolesRouter } from "./modules/roles/roles.routes.js";
@@ -54,6 +55,7 @@ export function createApp(deps: AppDeps, hooks: PagesHooks = { onPublished: () =
       res.status(503).json({ status: "error" });
     }
   });
+  publicRouter.use(createPublicContentRouter(deps));
   publicRouter.use(() => {
     throw notFound();
   });

@@ -4,6 +4,7 @@ import { loadConfig } from "../src/config.js";
 const valid = {
   DATABASE_URL: "mysql://u:p@127.0.0.1:3307/db",
   ADMIN_ORIGIN: "http://localhost:5173",
+  PUBLIC_SITE_ORIGIN: "http://localhost:3000",
   ADMIN_GATEWAY_SECRET: "x".repeat(32),
   MEDIA_DIR: "/tmp/media",
 };
@@ -38,5 +39,13 @@ describe("loadConfig", () => {
       /ADMIN_ORIGIN/,
     );
     expect(() => loadConfig({ ...valid, ADMIN_ORIGIN: "not a url" })).toThrow(/ADMIN_ORIGIN/);
+  });
+
+  it("requires PUBLIC_SITE_ORIGIN to be an http(s) origin", () => {
+    expect(loadConfig(valid).publicSiteOrigin).toBe("http://localhost:3000");
+    const without: Record<string, string> = { ...valid };
+    delete without.PUBLIC_SITE_ORIGIN;
+    expect(() => loadConfig(without)).toThrow(/PUBLIC_SITE_ORIGIN/);
+    expect(() => loadConfig({ ...valid, PUBLIC_SITE_ORIGIN: "ftp://x.test" })).toThrow(/PUBLIC_SITE_ORIGIN/);
   });
 });

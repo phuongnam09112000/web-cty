@@ -3,6 +3,7 @@ import type { AppDeps } from "../../app.js";
 import { AppError } from "../../http/errors.js";
 import { parseId } from "../../http/params.js";
 import { getAuth, requirePermission } from "../auth/auth.middleware.js";
+import { createPreviewUrl } from "./preview.service.js";
 import { getPage, listPages, publishPage, saveDraft } from "./pages.service.js";
 import { publishSchema, saveDraftSchema } from "./pages.schemas.js";
 import { getVersion, listVersions, restoreVersion } from "./versions.service.js";
@@ -33,6 +34,11 @@ export function createPagesRouter(deps: AppDeps, hooks: PagesHooks): express.Rou
     const id = parseId(String(req.params.id));
     const input = saveDraftSchema.parse(req.body);
     res.json(await saveDraft(prisma, id, input, getAuth(res).user.id, req.ip ?? ""));
+  });
+
+  router.post("/pages/:id/preview", view, async (req, res) => {
+    const id = parseId(String(req.params.id));
+    res.json({ url: await createPreviewUrl(prisma, deps.config.publicSiteOrigin, id, getAuth(res).user.id, deps.clock()) });
   });
 
   router.post("/pages/:id/publish", publish, async (req, res) => {

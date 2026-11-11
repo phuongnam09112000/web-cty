@@ -4,6 +4,7 @@ export type Config = {
   databaseUrl: string;
   port: number;
   adminOrigin: string;
+  publicSiteOrigin: string;
   adminGatewaySecret: string;
   cookieSecure: boolean;
   mediaDir: string;
@@ -25,6 +26,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string().min(1),
   PORT: z.coerce.number().int().min(1).max(65535).default(4000),
   ADMIN_ORIGIN: httpUrl,
+  PUBLIC_SITE_ORIGIN: httpUrl,
   ADMIN_GATEWAY_SECRET: z.string().min(32),
   COOKIE_SECURE: z.string().optional(),
   MEDIA_DIR: z.string().min(1),
@@ -42,6 +44,7 @@ export function loadConfig(env: NodeJS.ProcessEnv): Config {
     databaseUrl: data.DATABASE_URL,
     port: data.PORT,
     adminOrigin: data.ADMIN_ORIGIN,
+    publicSiteOrigin: data.PUBLIC_SITE_ORIGIN.replace(/\/+$/, ""),
     adminGatewaySecret: data.ADMIN_GATEWAY_SECRET,
     cookieSecure: data.COOKIE_SECURE === "true",
     mediaDir: data.MEDIA_DIR,

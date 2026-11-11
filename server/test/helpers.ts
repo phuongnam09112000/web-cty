@@ -46,6 +46,7 @@ export function makeTestConfig(): Config {
     databaseUrl: process.env.DATABASE_URL as string,
     port: 0,
     adminOrigin: TEST_ADMIN_ORIGIN,
+    publicSiteOrigin: "http://site.test",
     adminGatewaySecret: TEST_GATEWAY_SECRET,
     cookieSecure: false,
     mediaDir: mkdtempSync(join(tmpdir(), "istt-media-")),

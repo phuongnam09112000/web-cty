@@ -4,6 +4,7 @@ import { loadConfig, type Config } from "./config.js";
 import { createPrisma } from "./db.js";
 import { createLogger } from "./logger.js";
 import { deleteExpiredSessions } from "./modules/auth/session.service.js";
+import { deleteExpiredPreviewTokens } from "./modules/content/preview.service.js";
 import { syncPermissions } from "./modules/permissions/sync.js";
 
 const CLEANUP_INTERVAL_MS = 3600_000;
@@ -22,6 +23,9 @@ async function main(config: Config): Promise<void> {
     deleteExpiredSessions(prisma, new Date())
       .then((deleted) => logger.info({ deleted }, "expired sessions cleaned"))
       .catch((error: unknown) => logger.error({ err: error }, "session cleanup failed"));
+    deleteExpiredPreviewTokens(prisma, new Date())
+      .then((deleted) => logger.info({ deleted }, "expired preview tokens cleaned"))
+      .catch((error: unknown) => logger.error({ err: error }, "preview token cleanup failed"));
   }, CLEANUP_INTERVAL_MS);
   cleanup.unref();
 

@@ -23,6 +23,7 @@ export default defineConfig({
         DATABASE_URL: "mysql://root:istt-dev@127.0.0.1:3307/istt_e2e",
         PORT: "4000",
         ADMIN_ORIGIN: "http://localhost:5173",
+        PUBLIC_SITE_ORIGIN: "http://localhost:3100",
         ADMIN_GATEWAY_SECRET: GATEWAY_SECRET,
         COOKIE_SECURE: "false",
         MEDIA_DIR: "/tmp/istt-e2e-media",

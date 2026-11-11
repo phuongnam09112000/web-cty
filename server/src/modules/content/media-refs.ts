@@ -38,3 +38,46 @@ export async function assertMediaExist(db: PrismaClient, content: PageContent): 
     throw new AppError(400, "VALIDATION_ERROR", "Dữ liệu không hợp lệ", fields);
   }
 }
+
+export type ResolvedMedia = {
+  url: string;
+  width: number | null;
+  height: number | null;
+  alt: unknown;
+  sourcePath: string | null;
+};
+
+export type ResolvedContent = unknown;
+
+export async function resolveMedia(db: PrismaClient, content: unknown): Promise<ResolvedContent> {
+  const ids = [...new Set(findMediaRefs(content).values())];
+  const rows =
+    ids.length === 0
+      ? []
+      : await db.media.findMany({ where: { id: { in: ids.map((id) => BigInt(id)) } } });
+  const byId = new Map<number, ResolvedMedia>(
+    rows.map((row) => [
+      Number(row.id),
+      {
+        url: `/media/${row.fileName}`,
+        width: row.width,
+        height: row.height,
+        alt: row.alt,
+        sourcePath: row.sourcePath,
+      },
+    ]),
+  );
+  const walk = (value: unknown): unknown => {
+    if (Array.isArray(value)) return value.map(walk);
+    if (value !== null && typeof value === "object") {
+      const entries = Object.entries(value);
+      const first = entries[0];
+      if (entries.length === 1 && first?.[0] === "mediaId" && typeof first[1] === "number") {
+        return byId.get(first[1]) ?? null;
+      }
+      return Object.fromEntries(entries.map(([k, v]) => [k, walk(v)]));
+    }
+    return value;
+  };
+  return walk(content);
+}
