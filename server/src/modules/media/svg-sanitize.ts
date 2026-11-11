@@ -4,23 +4,19 @@ import { JSDOM } from "jsdom";
 const window = new JSDOM("").window;
 const purifier = DOMPurify(window);
 
-const URL_PATTERN = /url\(\s*(['"]?)\s*([^)'"]*?)\s*\1\s*\)/gi;
-const IMPORT_PATTERN = /@import[^;{}]*;?/gi;
-const RISKY_PATTERN = /\\|image-set\s*\(|(?<![\w-])src\s*\(/i;
+const COMMENT_PATTERN = /\/\*[\s\S]*?\*\//g;
+const URL_OPEN_PATTERN = /url\(/gi;
+const RISKY_PATTERN = /\\|@import|image-set\s*\(|(?<![\w-])src\s*\(/i;
 
 function hasExternalUrl(value: string): boolean {
-  if (/@import/i.test(value) || RISKY_PATTERN.test(value)) return true;
-  for (const match of value.matchAll(URL_PATTERN)) {
-    if (!(match[2] ?? "").startsWith("#")) return true;
+  const text = value.replace(COMMENT_PATTERN, "");
+  if (RISKY_PATTERN.test(text)) return true;
+  for (const match of text.matchAll(URL_OPEN_PATTERN)) {
+    const rest = text.slice(match.index + match[0].length);
+    const target = rest.replace(/^[\s'"]+/, "");
+    if (!target.startsWith("#")) return true;
   }
   return false;
-}
-
-function cleanStyleText(text: string): string | null {
-  if (RISKY_PATTERN.test(text)) return null;
-  return text
-    .replace(IMPORT_PATTERN, "")
-    .replace(URL_PATTERN, (whole, _quote: string, target: string) => (target.startsWith("#") ? whole : "url(#)"));
 }
 
 purifier.addHook("afterSanitizeAttributes", (node) => {
@@ -44,9 +40,7 @@ export function sanitizeSvg(input: string): string {
   const root = body.querySelector("svg");
   if (!root) return "";
   for (const style of Array.from(root.querySelectorAll<Element>("style"))) {
-    const cleaned = cleanStyleText(style.textContent ?? "");
-    if (cleaned === null) style.remove();
-    else style.textContent = cleaned;
+    if (hasExternalUrl(style.textContent ?? "")) style.remove();
   }
   return new window.XMLSerializer().serializeToString(root);
 }

@@ -64,10 +64,44 @@ const tooLarge = () =>
   new AppError(413, "PAYLOAD_TOO_LARGE", "Ảnh vượt quá 5 MB", { file: "Ảnh vượt quá 5 MB" });
 
 const SVG_SCAN_BYTES = 64 * 1024;
-const SVG_PROLOG = /^(?:\s|\uFEFF|<\?[\s\S]*?\?>|<!--[\s\S]*?-->|<!DOCTYPE[^>[]*(?:\[[\s\S]*?\])?\s*>)*<svg[\s>/]/i;
+const SVG_ROOT = /<svg[\s>/]/iy;
+
+function skipDoctype(text: string, start: number): number {
+  let bracket = false;
+  for (let i = start; i < text.length; i++) {
+    const char = text[i];
+    if (char === "[") bracket = true;
+    else if (char === "]") bracket = false;
+    else if (char === ">" && !bracket) return i + 1;
+  }
+  return -1;
+}
 
 function looksLikeSvg(buffer: Buffer): boolean {
-  return SVG_PROLOG.test(buffer.subarray(0, SVG_SCAN_BYTES).toString("utf8"));
+  const text = buffer.subarray(0, SVG_SCAN_BYTES).toString("utf8");
+  let pos = 0;
+  while (pos < text.length) {
+    const char = text[pos];
+    if (char === "\uFEFF" || /\s/.test(char ?? "")) {
+      pos++;
+    } else if (text.startsWith("<?", pos)) {
+      const end = text.indexOf("?>", pos + 2);
+      if (end === -1) return false;
+      pos = end + 2;
+    } else if (text.startsWith("<!--", pos)) {
+      const end = text.indexOf("-->", pos + 4);
+      if (end === -1) return false;
+      pos = end + 3;
+    } else if (text.slice(pos, pos + 9).toUpperCase() === "<!DOCTYPE") {
+      const end = skipDoctype(text, pos + 9);
+      if (end === -1) return false;
+      pos = end;
+    } else {
+      break;
+    }
+  }
+  SVG_ROOT.lastIndex = pos;
+  return SVG_ROOT.test(text);
 }
 
 async function detect(buffer: Buffer): Promise<{ mime: string; ext: string; data: Buffer }> {

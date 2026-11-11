@@ -96,4 +96,32 @@ describe("sanitizeSvg", () => {
     const out = sanitizeSvg('<?xml version="1.0" encoding="UTF-8"?>' + wrap('<path d="M0 0"/>'));
     expect(out).toContain("<path");
   });
+
+  it.each([
+    ['<style>path{fill:url("https://x.test/a)b")}</style>'],
+    ['<style>path{fill:url("https://x.test/it\'s")}</style>'],
+    ['<style>@font-face{font-family:f;src:url("https://x.test/f(1).woff")}</style>'],
+    ["<style>path{fill:URL( 'https://x.test/a' )}</style>"],
+    ["<style>path{fill:u/**/rl(https://x.test/a)}</style>"],
+  ])("fails closed on quoted url() in style element %s", (style) => {
+    const out = sanitizeSvg(wrap(`${style}<path d="M0 0"/>`));
+    expect(out).not.toContain("x.test");
+    expect(out).toContain("<path");
+  });
+
+  it.each([
+    ["fill", `url("https://x.test/a)b")`],
+    ["style", `fill:url("https://x.test/it's")`],
+    ["style", `fill:url(&quot;https://x.test/a&quot;)`],
+  ])("fails closed on quoted url() in %s attribute", (name, value) => {
+    const escaped = value.replace(/&(?!quot;)/g, "&amp;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+    const out = sanitizeSvg(wrap(`<path d="M0 0" ${name}="${escaped}"/>`));
+    expect(out).not.toContain("x.test");
+    expect(out).toContain("<path");
+  });
+
+  it("keeps quoted local url references", () => {
+    const out = sanitizeSvg(wrap('<style>path{fill:url("#g")}</style><path d="M0 0" fill="url( \'#g\' )"/>'));
+    expect(out).toContain('url("#g")');
+  });
 });

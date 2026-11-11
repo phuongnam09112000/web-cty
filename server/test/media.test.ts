@@ -166,6 +166,15 @@ describe("POST /media", () => {
     expect(res.body.mimeType).toBe("image/svg+xml");
   });
 
+  it("rejects a long run of comments without svg quickly", async () => {
+    const agent = await editor();
+    const body = Buffer.from("<!---->".repeat(Math.floor((64 * 1024) / 7)) + "<x>");
+    const started = Date.now();
+    const res = await upload(agent, body, "slow.svg");
+    expect(res.status).toBe(415);
+    expect(Date.now() - started).toBeLessThan(1000);
+  });
+
   it("rejects XML that is not SVG with 415", async () => {
     const agent = await editor();
     const res = await upload(agent, Buffer.from('<?xml version="1.0"?><html><body/></html>'), "x.svg");

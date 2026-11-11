@@ -34,13 +34,7 @@ describe("repository SVG files", () => {
   });
 
   it.each(files.map((file) => [file.slice(root.length + 1), file]))("stores %s as well-formed svg", async (_name, file) => {
-    const dto = await storeMedia(prisma, config, { buffer: readFileSync(file), originalName: "x.svg" }, null).catch(
-      (error: { status?: number }) => error,
-    );
-    if (!("fileName" in dto)) {
-      expect(dto.status).not.toBe(415);
-      return;
-    }
+    const dto = await storeMedia(prisma, config, { buffer: readFileSync(file), originalName: "x.svg" }, null);
     const stored = readFileSync(join(config.mediaDir, dto.fileName), "utf8");
     const doc = new JSDOM(stored, { contentType: "image/svg+xml" }).window.document;
     expect(doc.getElementsByTagName("parsererror").length).toBe(0);
