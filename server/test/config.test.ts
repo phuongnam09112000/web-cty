@@ -5,6 +5,7 @@ const valid = {
   DATABASE_URL: "mysql://u:p@127.0.0.1:3307/db",
   ADMIN_ORIGIN: "http://localhost:5173",
   ADMIN_GATEWAY_SECRET: "x".repeat(32),
+  MEDIA_DIR: "/tmp/media",
 };
 
 describe("loadConfig", () => {

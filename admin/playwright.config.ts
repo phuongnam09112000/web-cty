@@ -25,6 +25,7 @@ export default defineConfig({
         ADMIN_ORIGIN: "http://localhost:5173",
         ADMIN_GATEWAY_SECRET: GATEWAY_SECRET,
         COOKIE_SECURE: "false",
+        MEDIA_DIR: "/tmp/istt-e2e-media",
         NODE_ENV: "development",
       },
     },

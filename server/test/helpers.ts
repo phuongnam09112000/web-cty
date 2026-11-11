@@ -1,3 +1,6 @@
+import { mkdtempSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import type { Express } from "express";
 import argon2 from "argon2";
 import pino from "pino";
@@ -45,6 +48,7 @@ export function makeTestConfig(): Config {
     adminOrigin: TEST_ADMIN_ORIGIN,
     adminGatewaySecret: TEST_GATEWAY_SECRET,
     cookieSecure: false,
+    mediaDir: mkdtempSync(join(tmpdir(), "istt-media-")),
     nodeEnv: "test",
   };
 }

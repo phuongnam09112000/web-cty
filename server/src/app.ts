@@ -9,6 +9,7 @@ import type { Logger } from "./logger.js";
 import { auditRouter } from "./modules/audit/audit.routes.js";
 import { requireAuth } from "./modules/auth/auth.middleware.js";
 import { authRouter, loginRouter } from "./modules/auth/auth.routes.js";
+import { mediaRouter } from "./modules/media/media.routes.js";
 import { permissionsRouter } from "./modules/permissions/permissions.routes.js";
 import { rolesRouter } from "./modules/roles/roles.routes.js";
 import { usersRouter } from "./modules/users/users.routes.js";
@@ -65,12 +66,17 @@ export function createApp(deps: AppDeps): express.Express {
   adminRouter.use(rolesRouter(deps));
   adminRouter.use(permissionsRouter());
   adminRouter.use(auditRouter(deps));
+  adminRouter.use(mediaRouter(deps));
   adminRouter.use(() => {
     throw notFound();
   });
 
   app.use("/api/public", express.json(), publicRouter);
   app.use("/api/admin", adminGateway(config), originCheck(config), express.json(), adminRouter);
+
+  if (config.nodeEnv !== "production") {
+    app.use("/media", express.static(config.mediaDir, { immutable: true, maxAge: "1y", fallthrough: false }));
+  }
 
   app.use(() => {
     throw notFound();

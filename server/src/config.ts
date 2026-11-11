@@ -6,6 +6,7 @@ export type Config = {
   adminOrigin: string;
   adminGatewaySecret: string;
   cookieSecure: boolean;
+  mediaDir: string;
   nodeEnv: "development" | "test" | "production";
 };
 
@@ -26,6 +27,7 @@ const envSchema = z.object({
   ADMIN_ORIGIN: httpUrl,
   ADMIN_GATEWAY_SECRET: z.string().min(32),
   COOKIE_SECURE: z.string().optional(),
+  MEDIA_DIR: z.string().min(1),
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
 });
 
@@ -42,6 +44,7 @@ export function loadConfig(env: NodeJS.ProcessEnv): Config {
     adminOrigin: data.ADMIN_ORIGIN,
     adminGatewaySecret: data.ADMIN_GATEWAY_SECRET,
     cookieSecure: data.COOKIE_SECURE === "true",
+    mediaDir: data.MEDIA_DIR,
     nodeEnv: data.NODE_ENV,
   };
 }

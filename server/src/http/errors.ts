@@ -10,6 +10,8 @@ export type ErrorCode =
   | "PASSWORD_CHANGE_REQUIRED"
   | "NOT_FOUND"
   | "CONFLICT"
+  | "PAYLOAD_TOO_LARGE"
+  | "UNSUPPORTED_MEDIA_TYPE"
   | "INTERNAL_ERROR";
 
 export class AppError extends Error {
