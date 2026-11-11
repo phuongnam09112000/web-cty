@@ -1,0 +1,695 @@
+{
+  "home-hero": {
+    "eyebrow": {
+      "vi": "Công ty Cổ phần Công nghệ ISTT",
+      "en": "ISTT Technology JSC"
+    },
+    "title": {
+      "vi": "Kiến tạo giải pháp công nghệ cho tương lai",
+      "en": "Building technology solutions for the future"
+    },
+    "slides": [
+      {
+        "image": {
+          "mediaId": 1
+        },
+        "tagline": {
+          "vi": "Chuyển đổi số toàn diện",
+          "en": "End-to-end digital transformation"
+        }
+      },
+      {
+        "image": {
+          "mediaId": 2
+        },
+        "tagline": {
+          "vi": "An ninh và quốc phòng",
+          "en": "Security and defense"
+        }
+      }
+    ],
+    "primaryCta": {
+      "label": {
+        "vi": "Khám phá giải pháp",
+        "en": "Explore solutions"
+      },
+      "href": "/services"
+    },
+    "secondaryCta": {
+      "label": {
+        "vi": "Liên hệ",
+        "en": "Contact us"
+      },
+      "href": "/contact"
+    }
+  },
+  "solution-banner": {
+    "image": {
+      "mediaId": 1
+    },
+    "eyebrow": {
+      "vi": "Giải pháp",
+      "en": "Solutions"
+    },
+    "title": {
+      "vi": "Giải pháp ICT",
+      "en": "ICT Solutions"
+    },
+    "subtitle": {
+      "vi": "Hạ tầng và dịch vụ công nghệ thông tin",
+      "en": "Information technology infrastructure and services"
+    },
+    "buttonLabel": {
+      "vi": "Tìm hiểu thêm",
+      "en": "Learn more"
+    }
+  },
+  "about-banner": {
+    "image": {
+      "mediaId": 1
+    },
+    "title": {
+      "vi": "Về ISTT",
+      "en": "About ISTT"
+    },
+    "subtitle": {
+      "vi": "Đối tác công nghệ tin cậy",
+      "en": "A trusted technology partner"
+    },
+    "eyebrow": {
+      "vi": "Giới thiệu",
+      "en": "About"
+    },
+    "headingLevel": 1
+  },
+  "home-about": {
+    "image": {
+      "mediaId": 1
+    },
+    "foundedLabel": {
+      "vi": "Thành lập",
+      "en": "Founded"
+    },
+    "foundedYear": "2008",
+    "eyebrow": {
+      "vi": "Về chúng tôi",
+      "en": "About us"
+    },
+    "heading": {
+      "lead": {
+        "vi": "Hơn 15 năm",
+        "en": "Over 15 years"
+      },
+      "emphasis": {
+        "vi": "đồng hành cùng khách hàng",
+        "en": "alongside our customers"
+      }
+    },
+    "lead": {
+      "vi": "ISTT cung cấp giải pháp và dịch vụ công nghệ thông tin cho cơ quan nhà nước và doanh nghiệp.",
+      "en": "ISTT provides IT solutions and services to government agencies and enterprises."
+    },
+    "stats": [
+      {
+        "value": "150+",
+        "label": {
+          "vi": "Dự án",
+          "en": "Projects"
+        }
+      },
+      {
+        "value": "200+",
+        "label": {
+          "vi": "Chuyên gia",
+          "en": "Experts"
+        }
+      }
+    ],
+    "cta": {
+      "label": {
+        "vi": "Xem thêm",
+        "en": "Read more"
+      },
+      "href": "/about"
+    }
+  },
+  "business-areas": {
+    "eyebrow": {
+      "vi": "Lĩnh vực",
+      "en": "Business areas"
+    },
+    "heading": {
+      "lead": {
+        "vi": "Lĩnh vực",
+        "en": "Our"
+      },
+      "emphasis": {
+        "vi": "hoạt động",
+        "en": "business areas"
+      }
+    },
+    "buttonLabel": {
+      "vi": "Chi tiết",
+      "en": "Details"
+    },
+    "areas": [
+      {
+        "title": {
+          "vi": "An ninh và quốc phòng",
+          "en": "Secure and defense"
+        },
+        "description": {
+          "vi": "Giải pháp bảo mật cho hệ thống trọng yếu.",
+          "en": "Security solutions for critical systems."
+        },
+        "href": "/secure-defense",
+        "image": {
+          "mediaId": 1
+        },
+        "imagePosition": "center top"
+      },
+      {
+        "title": {
+          "vi": "Chuyển đổi số",
+          "en": "Digital transformation"
+        },
+        "description": {
+          "vi": "Số hóa quy trình và dữ liệu.",
+          "en": ""
+        },
+        "href": "/digital-transformation",
+        "image": {
+          "mediaId": 2
+        },
+        "imagePosition": ""
+      }
+    ]
+  },
+  "home-services": {
+    "eyebrow": {
+      "vi": "Dịch vụ",
+      "en": "Services"
+    },
+    "heading": {
+      "lead": {
+        "vi": "Dịch vụ",
+        "en": "Our"
+      },
+      "emphasis": {
+        "vi": "của chúng tôi",
+        "en": "services"
+      }
+    },
+    "allLink": {
+      "label": {
+        "vi": "Tất cả dịch vụ",
+        "en": "All services"
+      },
+      "href": "/services"
+    },
+    "items": [
+      {
+        "title": {
+          "vi": "Tích hợp hệ thống",
+          "en": "System integration"
+        },
+        "description": {
+          "vi": "Kết nối hạ tầng và ứng dụng.",
+          "en": "Connecting infrastructure and applications."
+        },
+        "href": "/integration",
+        "image": {
+          "mediaId": 1
+        }
+      }
+    ]
+  },
+  "home-values": {
+    "eyebrow": {
+      "vi": "Giá trị",
+      "en": "Values"
+    },
+    "heading": {
+      "lead": {
+        "vi": "Giá trị",
+        "en": "Our"
+      },
+      "emphasis": {
+        "vi": "cốt lõi",
+        "en": "core values"
+      }
+    },
+    "philosophy": {
+      "vi": "Lấy khách hàng làm trung tâm, chất lượng làm nền tảng.",
+      "en": "Customers at the center, quality as the foundation."
+    },
+    "items": [
+      {
+        "name": {
+          "vi": "Chính trực",
+          "en": "Integrity"
+        },
+        "description": {
+          "vi": "Minh bạch trong mọi cam kết.",
+          "en": "Transparent in every commitment."
+        }
+      },
+      {
+        "name": {
+          "vi": "Sáng tạo",
+          "en": "Innovation"
+        },
+        "description": {
+          "vi": "Không ngừng đổi mới.",
+          "en": ""
+        }
+      }
+    ]
+  },
+  "partners": {
+    "eyebrow": {
+      "vi": "Đối tác",
+      "en": "Partners"
+    },
+    "heading": {
+      "vi": "Đối tác chiến lược",
+      "en": "Strategic partners"
+    },
+    "intro": {
+      "vi": "Chúng tôi hợp tác với các hãng công nghệ hàng đầu.",
+      "en": "We work with leading technology vendors."
+    },
+    "initialCount": 8,
+    "items": [
+      {
+        "name": "Cisco",
+        "logo": {
+          "mediaId": 1
+        }
+      },
+      {
+        "name": "Dell",
+        "logo": {
+          "mediaId": 2
+        }
+      }
+    ]
+  },
+  "customers": {
+    "eyebrow": {
+      "vi": "Khách hàng",
+      "en": "Customers"
+    },
+    "heading": {
+      "vi": "Khách hàng tiêu biểu",
+      "en": "Key customers"
+    },
+    "intro": {
+      "vi": "Được tin tưởng bởi nhiều tổ chức lớn.",
+      "en": "Trusted by many leading organizations."
+    },
+    "items": [
+      {
+        "name": {
+          "vi": "Bộ Công an",
+          "en": "Ministry of Public Security"
+        },
+        "logo": {
+          "mediaId": 1
+        }
+      },
+      {
+        "name": {
+          "vi": "Ngân hàng Vietcombank",
+          "en": ""
+        },
+        "logo": {
+          "mediaId": 2
+        }
+      }
+    ]
+  },
+  "home-contact": {
+    "eyebrow": {
+      "vi": "Liên hệ",
+      "en": "Contact"
+    },
+    "heading": {
+      "lead": {
+        "vi": "Hãy kết nối",
+        "en": "Let's"
+      },
+      "emphasis": {
+        "vi": "với chúng tôi",
+        "en": "get in touch"
+      }
+    },
+    "cta": {
+      "label": {
+        "vi": "Gửi yêu cầu",
+        "en": "Send a request"
+      },
+      "href": "/contact"
+    }
+  },
+  "overview": {
+    "eyebrow": {
+      "vi": "Tổng quan",
+      "en": "Overview"
+    },
+    "heading": {
+      "lead": {
+        "vi": "Tổng quan",
+        "en": "Company"
+      },
+      "emphasis": {
+        "vi": "về công ty",
+        "en": "overview"
+      }
+    },
+    "images": [
+      {
+        "mediaId": 1
+      },
+      {
+        "mediaId": 2
+      }
+    ],
+    "paragraphs": [
+      {
+        "vi": "ISTT được thành lập năm 2008.",
+        "en": "ISTT was founded in 2008."
+      },
+      {
+        "vi": "Chúng tôi phục vụ khách hàng trên toàn quốc.",
+        "en": ""
+      }
+    ],
+    "yearBadge": {
+      "vi": "Từ 2008",
+      "en": "Since 2008"
+    }
+  },
+  "mission": {
+    "image": {
+      "mediaId": 1
+    },
+    "eyebrow": {
+      "vi": "Sứ mệnh",
+      "en": "Mission"
+    },
+    "heading": {
+      "lead": {
+        "vi": "Sứ mệnh",
+        "en": "Our"
+      },
+      "emphasis": {
+        "vi": "của chúng tôi",
+        "en": "mission"
+      }
+    },
+    "points": [
+      {
+        "vi": "Mang công nghệ đến mọi tổ chức.",
+        "en": "Bring technology to every organization."
+      },
+      {
+        "vi": "Bảo vệ an toàn thông tin quốc gia.",
+        "en": ""
+      }
+    ]
+  },
+  "vision": {
+    "image": {
+      "mediaId": 1
+    },
+    "eyebrow": {
+      "vi": "Tầm nhìn",
+      "en": "Vision"
+    },
+    "heading": {
+      "lead": {
+        "vi": "Tầm nhìn",
+        "en": "Our"
+      },
+      "emphasis": {
+        "vi": "dài hạn",
+        "en": "vision"
+      }
+    },
+    "body": {
+      "vi": "Trở thành công ty công nghệ hàng đầu khu vực.",
+      "en": "To become a leading regional technology company."
+    }
+  },
+  "core-values": {
+    "eyebrow": {
+      "vi": "Giá trị",
+      "en": "Values"
+    },
+    "heading": {
+      "lead": {
+        "vi": "Giá trị",
+        "en": "Core"
+      },
+      "emphasis": {
+        "vi": "cốt lõi",
+        "en": "values"
+      }
+    },
+    "items": [
+      {
+        "icon": {
+          "mediaId": 1
+        },
+        "title": {
+          "vi": "Chính trực",
+          "en": "Integrity"
+        },
+        "description": {
+          "vi": "Trung thực và minh bạch.",
+          "en": "Honest and transparent."
+        }
+      },
+      {
+        "icon": {
+          "mediaId": 2
+        },
+        "title": {
+          "vi": "Tận tâm",
+          "en": "Dedication"
+        },
+        "description": {
+          "vi": "Đặt khách hàng lên hàng đầu.",
+          "en": ""
+        }
+      }
+    ]
+  },
+  "core-values-system": {
+    "eyebrow": {
+      "vi": "Hệ thống",
+      "en": "System"
+    },
+    "title": {
+      "vi": "Hệ thống giá trị",
+      "en": "Value system"
+    },
+    "items": [
+      {
+        "title": {
+          "vi": "Con người",
+          "en": "People"
+        },
+        "bullets": [
+          {
+            "vi": "Đào tạo liên tục",
+            "en": "Continuous training"
+          },
+          {
+            "vi": "Môi trường cởi mở",
+            "en": ""
+          }
+        ],
+        "image": {
+          "mediaId": 1
+        },
+        "icon": {
+          "mediaId": 2
+        }
+      },
+      {
+        "title": {
+          "vi": "Quy trình",
+          "en": "Process"
+        },
+        "bullets": [
+          {
+            "vi": "Chuẩn hóa",
+            "en": "Standardized"
+          }
+        ],
+        "image": {
+          "mediaId": 3
+        },
+        "icon": null
+      }
+    ]
+  },
+  "services-list": {
+    "pageTitle": {
+      "vi": "Dịch vụ",
+      "en": "Services"
+    },
+    "sectionTitle": {
+      "vi": "Dịch vụ công nghệ",
+      "en": "Technology services"
+    },
+    "text": {
+      "vi": "Danh mục dịch vụ đa dạng đáp ứng mọi nhu cầu.",
+      "en": "A broad portfolio of services for every need."
+    },
+    "image": {
+      "mediaId": 1
+    }
+  },
+  "our-services": {
+    "eyebrow": {
+      "vi": "Dịch vụ",
+      "en": "Services"
+    },
+    "heading": {
+      "lead": {
+        "vi": "Dịch vụ",
+        "en": "Our"
+      },
+      "emphasis": {
+        "vi": "của ISTT",
+        "en": "services"
+      }
+    },
+    "buttonLabel": {
+      "vi": "Xem chi tiết",
+      "en": "View details"
+    },
+    "items": [
+      {
+        "title": {
+          "vi": "Phát triển phần mềm",
+          "en": "Software development"
+        },
+        "description": {
+          "vi": "Xây dựng phần mềm theo yêu cầu.",
+          "en": "Custom software development."
+        },
+        "icon": {
+          "mediaId": 1
+        },
+        "href": "/software",
+        "categories": [
+          {
+            "name": {
+              "vi": "Ứng dụng web",
+              "en": "Web applications"
+            },
+            "bullets": [
+              {
+                "vi": "Cổng thông tin",
+                "en": "Portals"
+              },
+              {
+                "vi": "Thương mại điện tử",
+                "en": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "opportunity": {
+    "image": {
+      "mediaId": 1
+    },
+    "subtitle": {
+      "vi": "Cơ hội nghề nghiệp",
+      "en": "Career opportunities"
+    },
+    "title": {
+      "vi": "Gia nhập đội ngũ ISTT",
+      "en": "Join the ISTT team"
+    },
+    "description": {
+      "vi": "Chúng tôi luôn tìm kiếm những tài năng mới.",
+      "en": "We are always looking for new talent."
+    },
+    "stats": [
+      {
+        "value": "200+",
+        "label": {
+          "vi": "Nhân sự",
+          "en": "Employees"
+        }
+      }
+    ]
+  },
+  "office-map": {
+    "offices": [
+      {
+        "name": {
+          "vi": "Trụ sở chính Hà Nội",
+          "en": "Hanoi headquarters"
+        },
+        "shortName": {
+          "vi": "Hà Nội",
+          "en": "Hanoi"
+        }
+      },
+      {
+        "name": {
+          "vi": "Văn phòng TP. Hồ Chí Minh",
+          "en": "Ho Chi Minh City office"
+        },
+        "shortName": {
+          "vi": "TP.HCM",
+          "en": "HCMC"
+        }
+      }
+    ]
+  },
+  "contact-form": {
+    "variant": "page",
+    "eyebrow": {
+      "vi": "Liên hệ",
+      "en": "Contact"
+    },
+    "heading": {
+      "lead": {
+        "vi": "Liên hệ",
+        "en": "Get in"
+      },
+      "emphasis": {
+        "vi": "với chúng tôi",
+        "en": "touch"
+      }
+    },
+    "tagline": {
+      "vi": "Chúng tôi sẽ phản hồi trong 24 giờ.",
+      "en": "We will reply within 24 hours."
+    },
+    "formEyebrow": {
+      "vi": "Gửi tin nhắn",
+      "en": "Send a message"
+    },
+    "formHeading": {
+      "lead": {
+        "vi": "Bạn cần",
+        "en": "How can"
+      },
+      "emphasis": {
+        "vi": "hỗ trợ gì?",
+        "en": "we help?"
+      }
+    }
+  }
+}
