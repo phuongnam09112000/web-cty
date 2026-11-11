@@ -75,7 +75,7 @@ export function createApp(deps: AppDeps): express.Express {
   app.use("/api/admin", adminGateway(config), originCheck(config), express.json(), adminRouter);
 
   if (config.nodeEnv !== "production") {
-    app.use("/media", express.static(config.mediaDir, { immutable: true, maxAge: "1y", fallthrough: false }));
+    app.use("/media", express.static(config.mediaDir, { immutable: true, maxAge: "1y" }));
   }
 
   app.use(() => {

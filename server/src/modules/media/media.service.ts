@@ -63,20 +63,23 @@ const unsupported = () =>
 const tooLarge = () =>
   new AppError(413, "PAYLOAD_TOO_LARGE", "Ảnh vượt quá 5 MB", { file: "Ảnh vượt quá 5 MB" });
 
+const SVG_SCAN_BYTES = 64 * 1024;
+const SVG_PROLOG = /^(?:\s|\uFEFF|<\?[\s\S]*?\?>|<!--[\s\S]*?-->|<!DOCTYPE[^>[]*(?:\[[\s\S]*?\])?\s*>)*<svg[\s>/]/i;
+
 function looksLikeSvg(buffer: Buffer): boolean {
-  return /<svg[\s>/]/i.test(buffer.subarray(0, 2048).toString("utf8"));
+  return SVG_PROLOG.test(buffer.subarray(0, SVG_SCAN_BYTES).toString("utf8"));
 }
 
 async function detect(buffer: Buffer): Promise<{ mime: string; ext: string; data: Buffer }> {
   const type = await fileTypeFromBuffer(buffer);
-  if (type) {
+  if (type && type.mime !== "application/xml") {
     const known = RASTER_TYPES[type.mime];
     if (!known) throw unsupported();
     return { ...known, data: buffer };
   }
   if (looksLikeSvg(buffer)) {
     const clean = sanitizeSvg(buffer.toString("utf8"));
-    if (!/<svg[\s>/]/i.test(clean)) throw unsupported();
+    if (!clean) throw unsupported();
     return { mime: "image/svg+xml", ext: "svg", data: Buffer.from(clean, "utf8") };
   }
   throw unsupported();

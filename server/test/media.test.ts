@@ -158,6 +158,20 @@ describe("POST /media", () => {
     expect(stored).toContain("<path");
   });
 
+  it("accepts SVG that starts with an XML declaration and comment", async () => {
+    const agent = await editor();
+    const svg = '<?xml version="1.0" encoding="UTF-8"?>\n<!-- ' + "x".repeat(3000) + ' -->\n<!DOCTYPE svg>\n<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><path d="M0 0"/></svg>';
+    const res = await upload(agent, Buffer.from(svg), "decl.svg");
+    expect(res.status).toBe(201);
+    expect(res.body.mimeType).toBe("image/svg+xml");
+  });
+
+  it("rejects XML that is not SVG with 415", async () => {
+    const agent = await editor();
+    const res = await upload(agent, Buffer.from('<?xml version="1.0"?><html><body/></html>'), "x.svg");
+    expect(res.status).toBe(415);
+  });
+
   it("requires media.manage", async () => {
     const agent = await viewer();
     const res = await upload(agent, makePng(2, 2));
@@ -272,6 +286,15 @@ describe("GET /media/:id/usage", () => {
 });
 
 describe("static serving", () => {
+  it.each(["/media/missing.png", "/media/", "/media/.x.tmp", "/media/..%2fetc%2fpasswd", "/media/%2e%2e/etc/passwd"])(
+    "returns 404 for %s",
+    async (url) => {
+      const res = await (await import("supertest")).default(app).get(url);
+      expect(res.status).toBe(404);
+      expect(res.body.error.code).toBe("NOT_FOUND");
+    },
+  );
+
   it("serves stored files at /media outside production", async () => {
     const agent = await editor();
     const created = await upload(agent, makePng(2, 2));
