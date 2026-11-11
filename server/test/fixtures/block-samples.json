@@ -146,6 +146,10 @@
       "emphasis": {
         "vi": "hoạt động",
         "en": "business areas"
+      },
+      "trail": {
+        "vi": "chính",
+        "en": "main"
       }
     },
     "buttonLabel": {

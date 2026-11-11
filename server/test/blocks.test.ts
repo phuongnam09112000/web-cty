@@ -35,6 +35,16 @@ describe("block schemas", () => {
     }
   });
 
+  it("accepts a block heading with and without trail", () => {
+    const withTrail = block("abcdef", "business-areas");
+    const data = withTrail.data as { heading: { trail?: unknown } };
+    expect(data.heading.trail).toBeDefined();
+    expect(blockSchema.safeParse(withTrail).success).toBe(true);
+    const without = JSON.parse(JSON.stringify(withTrail)) as typeof withTrail;
+    delete (without.data as { heading: { trail?: unknown } }).heading.trail;
+    expect(blockSchema.safeParse(without).success).toBe(true);
+  });
+
   it.each([1, 3])("rejects office-map with %i offices", (count) => {
     const office = (samples["office-map"].offices as unknown[])[0];
     const data = { offices: Array.from({ length: count }, () => office) };

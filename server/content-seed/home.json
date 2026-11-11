@@ -154,8 +154,12 @@
               "en": "Powering tomorrow's"
             },
             "emphasis": {
-              "vi": "tương lai ngay hôm nay",
-              "en": "infrastructure today"
+              "vi": "tương lai",
+              "en": "infrastructure"
+            },
+            "trail": {
+              "vi": "ngay hôm nay",
+              "en": "today"
             }
           },
           "buttonLabel": {

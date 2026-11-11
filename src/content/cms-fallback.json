@@ -239,12 +239,16 @@
           },
           "heading": {
             "emphasis": {
-              "en": "infrastructure today",
-              "vi": "tương lai ngay hôm nay"
+              "en": "infrastructure",
+              "vi": "tương lai"
             },
             "lead": {
               "en": "Powering tomorrow's",
               "vi": "Kiến tạo hạ tầng"
+            },
+            "trail": {
+              "en": "today",
+              "vi": "ngay hôm nay"
             }
           }
         },

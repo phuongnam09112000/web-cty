@@ -21,6 +21,7 @@ const emphasisText = z.strictObject({
 export const heading = z.strictObject({
   lead: localizedText,
   emphasis: emphasisText,
+  trail: emphasisText.optional(),
 });
 
 export const mediaRef = z.strictObject({

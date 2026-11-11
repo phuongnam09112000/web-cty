@@ -31,6 +31,20 @@ describe("countUntranslated", () => {
 });
 
 describe("heading", () => {
+  it("accepts a heading with and without trail", () => {
+    const base = { lead: { vi: "Kiến tạo", en: "Powering" }, emphasis: { vi: "tương lai", en: "tomorrow" } };
+    expect(heading.safeParse(base).success).toBe(true);
+    expect(heading.safeParse({ ...base, trail: { vi: "ngay hôm nay", en: "today" } }).success).toBe(true);
+    expect(heading.safeParse({ ...base, trail: { vi: "", en: "" } }).success).toBe(true);
+    expect(heading.safeParse({ ...base, trail: { vi: "x" } }).success).toBe(false);
+  });
+
+  it("does not count an empty trail as untranslated", () => {
+    const base = { lead: { vi: "A", en: "A" }, emphasis: { vi: "B", en: "B" } };
+    expect(countUntranslated({ ...base, trail: { vi: "", en: "" } })).toBe(0);
+    expect(countUntranslated({ ...base, trail: { vi: "đuôi", en: "" } })).toBe(1);
+  });
+
   it("accepts an empty emphasis vi", () => {
     const value = { lead: { vi: "Giá trị", en: "" }, emphasis: { vi: "", en: "" } };
     expect(heading.safeParse(value).success).toBe(true);

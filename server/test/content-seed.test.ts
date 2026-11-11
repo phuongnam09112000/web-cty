@@ -7,6 +7,7 @@ import { normalizePath } from "../src/modules/content/public.routes.js";
 const SEED_DIR = resolve(import.meta.dirname, "../content-seed");
 const PUBLIC_DIR = resolve(import.meta.dirname, "../../public");
 const VN_FILE = resolve(import.meta.dirname, "../../src/locales/vn/translation.json");
+const EN_FILE = resolve(import.meta.dirname, "../../src/locales/en/translation.json");
 
 const EXPECTED_PATHS = [
   "/",
@@ -100,16 +101,54 @@ describe("content seed", () => {
     }
   });
 
-  it("never leaves an English translation key as the Vietnamese text when a Vietnamese translation exists", () => {
+  it("uses only text that the current translation files produce for the same English text", () => {
     const vn = JSON.parse(readFileSync(VN_FILE, "utf8")) as Record<string, string>;
-    const texts: { vi: string; en: string }[] = [];
-    for (const seed of seeds) collectLocalized(seed.content, texts);
-    expect(texts.length).toBeGreaterThan(0);
-    for (const { vi, en } of texts) {
-      const translated = Object.prototype.hasOwnProperty.call(vn, en) ? vn[en] : undefined;
-      if (translated !== undefined && translated !== en) {
-        expect(vi, `"${en}" has a Vietnamese translation`).not.toBe(en);
+    const en = JSON.parse(readFileSync(EN_FILE, "utf8")) as Record<string, string>;
+    const own = (o: Record<string, string>, k: string) => (Object.prototype.hasOwnProperty.call(o, k) ? o[k] : undefined);
+    const candidates = new Map<string, Set<string>>();
+    for (const key of new Set([...Object.keys(en), ...Object.keys(vn)])) {
+      const english = own(en, key) ?? key;
+      const vietnamese = own(vn, key) ?? english;
+      const set = candidates.get(english) ?? new Set<string>();
+      set.add(vietnamese);
+      candidates.set(english, set);
+    }
+    const allowed = new Set([
+      "ISTT Solutions",
+      "VNPT",
+      "Viettel",
+      "Mobifone",
+      "Gtel",
+      "MB",
+      "Agribank",
+      "EVN",
+      "STP (SS7), DSR (Diameter), SBC (SIP), MNP, SMSC-FDA, DNS, SMS GW, USSD GW.",
+      "",
+    ]);
+    const joinedSeoTitles = [
+      { vi: "Hãy cùng Trao đổi", en: "Let's Connect" },
+      { vi: "Dịch vụ Chuyên nghiệp", en: "Professional Services" },
+    ];
+    const problems: string[] = [];
+    let checked = 0;
+    for (const seed of seeds) {
+      const content = seed.content as { seo: { title: unknown }; blocks: { data: Record<string, unknown> }[] };
+      const texts: { vi: string; en: string }[] = [];
+      collectLocalized(content.seo, texts);
+      for (const block of content.blocks) {
+        for (const [field, value] of Object.entries(block.data)) {
+          if (field === "heading" || field === "formHeading") continue;
+          collectLocalized(value, texts);
+        }
+      }
+      for (const { vi, en: english } of texts) {
+        if (allowed.has(english) && allowed.has(vi)) continue;
+        if (joinedSeoTitles.some((t) => t.vi === vi && t.en === english)) continue;
+        checked += 1;
+        if (!candidates.get(english)?.has(vi)) problems.push(`${seed.file}: ${JSON.stringify({ vi, en: english })}`);
       }
     }
+    expect(checked).toBeGreaterThan(100);
+    expect(problems).toEqual([]);
   });
 });
