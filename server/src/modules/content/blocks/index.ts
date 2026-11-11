@@ -46,7 +46,7 @@ export const BLOCK_TYPES = [
 
 export type BlockType = (typeof BLOCK_TYPES)[number];
 
-export const BLOCK_SCHEMAS: Record<BlockType, z.ZodType> = {
+export const BLOCK_SCHEMAS = {
   "home-hero": homeHeroSchema,
   "solution-banner": solutionBannerSchema,
   "about-banner": aboutBannerSchema,
@@ -54,36 +54,54 @@ export const BLOCK_SCHEMAS: Record<BlockType, z.ZodType> = {
   "business-areas": businessAreasSchema,
   "home-services": homeServicesSchema,
   "home-values": homeValuesSchema,
-  partners: partnersSchema,
-  customers: customersSchema,
+  "partners": partnersSchema,
+  "customers": customersSchema,
   "home-contact": homeContactSchema,
-  overview: overviewSchema,
-  mission: missionSchema,
-  vision: visionSchema,
+  "overview": overviewSchema,
+  "mission": missionSchema,
+  "vision": visionSchema,
   "core-values": coreValuesSchema,
   "core-values-system": coreValuesSystemSchema,
   "services-list": servicesListSchema,
   "our-services": ourServicesSchema,
-  opportunity: opportunitySchema,
+  "opportunity": opportunitySchema,
   "office-map": officeMapSchema,
   "contact-form": contactFormSchema,
-};
+} as const satisfies Record<BlockType, z.ZodType>;
 
 const blockId = z.string().regex(/^[a-z0-9]{6,32}$/);
 
-const variants = BLOCK_TYPES.map((type) =>
-  z.strictObject({
+function variant<T extends BlockType>(type: T) {
+  return z.strictObject({
     id: blockId,
     type: z.literal(type),
     hidden: z.boolean(),
     data: BLOCK_SCHEMAS[type],
-  }),
-) as unknown as [
-  z.ZodObject<{ id: z.ZodString; type: z.ZodLiteral<BlockType>; hidden: z.ZodBoolean; data: z.ZodType }>,
-  ...z.ZodObject<{ id: z.ZodString; type: z.ZodLiteral<BlockType>; hidden: z.ZodBoolean; data: z.ZodType }>[],
-];
+  });
+}
 
-export const blockSchema = z.discriminatedUnion("type", variants);
+export const blockSchema = z.discriminatedUnion("type", [
+  variant("home-hero"),
+  variant("solution-banner"),
+  variant("about-banner"),
+  variant("home-about"),
+  variant("business-areas"),
+  variant("home-services"),
+  variant("home-values"),
+  variant("partners"),
+  variant("customers"),
+  variant("home-contact"),
+  variant("overview"),
+  variant("mission"),
+  variant("vision"),
+  variant("core-values"),
+  variant("core-values-system"),
+  variant("services-list"),
+  variant("our-services"),
+  variant("opportunity"),
+  variant("office-map"),
+  variant("contact-form"),
+] as const);
 
 export const pageContentSchema = z
   .strictObject({

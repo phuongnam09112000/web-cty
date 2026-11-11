@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { countUntranslated, href, localizedText, pick } from "../src/modules/content/localized.js";
+import { countUntranslated, heading, href, localizedText, pick } from "../src/modules/content/localized.js";
 
 describe("pick", () => {
   it("falls back to vi when en is empty", () => {
@@ -27,6 +27,14 @@ describe("countUntranslated", () => {
       other: { vi: "", en: "" },
     };
     expect(countUntranslated(value)).toBe(2);
+  });
+});
+
+describe("heading", () => {
+  it("accepts an empty emphasis vi", () => {
+    const value = { lead: { vi: "Giá trị", en: "" }, emphasis: { vi: "", en: "" } };
+    expect(heading.safeParse(value).success).toBe(true);
+    expect(countUntranslated({ lead: { vi: "Giá trị", en: "Values" }, emphasis: { vi: "", en: "" } })).toBe(0);
   });
 });
 

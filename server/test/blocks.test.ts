@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
-import { describe, expect, it } from "vitest";
-import { BLOCK_SCHEMAS, BLOCK_TYPES, blockSchema, pageContentSchema } from "../src/modules/content/blocks/index.js";
+import { describe, expect, expectTypeOf, it } from "vitest";
+import { BLOCK_SCHEMAS, BLOCK_TYPES, blockSchema, pageContentSchema, type Block } from "../src/modules/content/blocks/index.js";
 
 const samples = JSON.parse(
   readFileSync(new URL("./fixtures/block-samples.json", import.meta.url), "utf8"),
@@ -67,5 +67,29 @@ describe("pageContentSchema", () => {
   it("accepts 40 blocks", () => {
     const blocks = Array.from({ length: 40 }, (_, index) => block(`blk${String(index).padStart(3, "0")}`));
     expect(pageContentSchema.safeParse({ seo, blocks }).success).toBe(true);
+  });
+});
+
+describe("block types", () => {
+  it("narrows data by type", () => {
+    function firstSlideTagline(value: Block): string | null {
+      switch (value.type) {
+        case "home-hero":
+          return value.data.slides[0].tagline.vi;
+        case "office-map":
+          return value.data.offices[0].shortName.vi;
+        default:
+          return null;
+      }
+    }
+    expectTypeOf<Extract<Block, { type: "partners" }>["data"]["initialCount"]>().toEqualTypeOf<number>();
+    const parsed = blockSchema.parse(block("abcdef", "home-hero"));
+    expect(firstSlideTagline(parsed)).toBe("Chuyển đổi số toàn diện");
+  });
+
+  it("rejects an unknown key in block data", () => {
+    const data = { ...samples.vision, extra: 1 };
+    expect(BLOCK_SCHEMAS.vision.safeParse(data).success).toBe(false);
+    expect(blockSchema.safeParse({ ...block("abcdef"), data }).success).toBe(false);
   });
 });
