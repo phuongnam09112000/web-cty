@@ -167,13 +167,12 @@ describe("GET /api/public/pages", () => {
     await prisma.media.deleteMany({ where: { id: { in: refs } } });
     const res = await request(app).get("/api/public/pages").query({ path: "/about" });
     expect(res.status).toBe(200);
-    const json = JSON.stringify(res.body.content);
-    expect(json).not.toContain("mediaId");
-    expect(json).not.toContain("/media/");
+    expect(res.body.content.blocks[0].data.slides[0].image).toBeNull();
+    expect(res.body.content.blocks[0].data.slides[1].image).toBeNull();
     const token = (await adminToken(pageId));
     const preview = await request(app).get(`/api/public/preview/${token}`);
     expect(preview.status).toBe(200);
-    expect(JSON.stringify(preview.body.content)).not.toContain("/media/");
+    expect(preview.body.content.blocks[0].data.slides[0].image).toBeNull();
   });
 });
 

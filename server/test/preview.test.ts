@@ -132,7 +132,9 @@ describe("request logging", () => {
     const agent = await loginAs(logged, "log@istt.vn");
     const created = await agent.post(`/api/admin/pages/${id}/preview`);
     const token = tokenOf(created.body.url);
-    expect((await request(logged).get(`/api/public/preview/${token}`)).status).toBe(200);
+    for (const prefix of ["/api/public/preview/", "/API/PUBLIC/PREVIEW/", "/Api/Public/Preview/"]) {
+      expect((await request(logged).get(`${prefix}${token}`)).status).toBe(200);
+    }
     await new Promise((resolve) => setTimeout(resolve, 20));
     const output = lines.join("");
     expect(output).not.toContain(token);

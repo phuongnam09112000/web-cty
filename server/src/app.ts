@@ -23,7 +23,7 @@ export type AppDeps = {
   clock: () => Date;
 };
 
-const PREVIEW_URL = /^(\/api\/public\/preview\/)[^/?#]*/;
+const PREVIEW_URL = /^(\/api\/public\/preview\/)[^/?#]*/i;
 
 function redactUrl(originalUrl: string): string {
   return (originalUrl.split("?")[0] ?? "").replace(PREVIEW_URL, "$1:token");
