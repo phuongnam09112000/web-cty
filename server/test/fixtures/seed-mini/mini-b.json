@@ -1,0 +1,25 @@
+{
+  "path": "/mini-b",
+  "name": "Trang B",
+  "content": {
+    "seo": {
+      "title": { "vi": "Trang B", "en": "" },
+      "description": { "vi": "Mô tả", "en": "" },
+      "image": { "src": "/img/a.png" }
+    },
+    "blocks": [
+      {
+        "id": "banner2",
+        "type": "solution-banner",
+        "hidden": false,
+        "data": {
+          "image": { "src": "/img/b.png" },
+          "eyebrow": { "vi": "Giải pháp", "en": "Solutions" },
+          "title": { "vi": "Trang B", "en": "" },
+          "subtitle": { "vi": "Phụ đề", "en": "" },
+          "buttonLabel": { "vi": "Xem thêm", "en": "More" }
+        }
+      }
+    ]
+  }
+}

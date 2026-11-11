@@ -1,0 +1,25 @@
+{
+  "path": "/mini-a",
+  "name": "Trang A",
+  "content": {
+    "seo": {
+      "title": { "vi": "Trang A", "en": "" },
+      "description": { "vi": "Mô tả", "en": "" },
+      "image": { "src": "/img/a.png" }
+    },
+    "blocks": [
+      {
+        "id": "banner1",
+        "type": "solution-banner",
+        "hidden": false,
+        "data": {
+          "image": { "src": "/img/a.png" },
+          "eyebrow": { "vi": "Giải pháp", "en": "Solutions" },
+          "title": { "vi": "Trang A", "en": "" },
+          "subtitle": { "vi": "Phụ đề", "en": "" },
+          "buttonLabel": { "vi": "Xem thêm", "en": "More" }
+        }
+      }
+    ]
+  }
+}

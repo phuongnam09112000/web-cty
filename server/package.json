@@ -17,6 +17,7 @@
     "db:generate": "prisma generate",
     "postinstall": "prisma generate",
     "create-admin": "tsx src/cli/create-admin.ts",
+    "content:import": "tsx src/cli/content-import.ts",
     "e2e:seed": "tsx test/e2e-seed.ts"
   },
   "dependencies": {
