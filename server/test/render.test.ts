@@ -1,6 +1,9 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, rmSync, writeFileSync } from "node:fs";
+import pino from "pino";
 import request from "supertest";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
+import { createApp } from "../src/app.js";
+import { verifyWebsiteIndex } from "../src/modules/content/render.service.js";
 import { createUser, loginAs, makeTestApp, resetDb, TEST_INDEX_HTML } from "./helpers.js";
 
 const { app, prisma, config } = makeTestApp();
@@ -134,5 +137,42 @@ describe("GET /api/public/render", () => {
     expect(after).toContain("<title>Mới</title>");
     expect(after).toContain("changed");
     expect(readFileSync(config.websiteIndexPath, "utf8")).toContain("changed");
+  });
+
+  it("falls back to the plain template without caching when the lookup fails", async () => {
+    await publishedPage("/a", seoOf("Tiêu đề"));
+    const real = prisma.page.findUnique.bind(prisma.page);
+    let failing = true;
+    const stub = new Proxy(prisma.page, {
+      get(target, prop) {
+        if (prop === "findUnique") return (args: never) => (failing ? Promise.reject(new Error("db down")) : real(args));
+        return Reflect.get(target, prop) as unknown;
+      },
+    });
+    const flaky = new Proxy(prisma, { get: (target, prop) => (prop === "page" ? stub : (Reflect.get(target, prop) as unknown)) });
+    const flakyApp = createApp({ prisma: flaky, config, logger: pino({ level: "silent" }), clock: () => new Date() });
+    const first = await request(flakyApp).get("/api/public/render").query({ path: "/a" });
+    expect(first.status).toBe(200);
+    expect(first.text).toBe(TEST_INDEX_HTML);
+    failing = false;
+    expect((await request(flakyApp).get("/api/public/render").query({ path: "/a" })).text).toContain("<title>Tiêu đề</title>");
+  });
+
+  it("errors without caching when the template is missing, then recovers", async () => {
+    const fresh = createApp({ prisma, config, logger: pino({ level: "silent" }), clock: () => new Date() });
+    const ask = () => request(fresh).get("/api/public/render").query({ path: "/a" });
+    rmSync(config.websiteIndexPath);
+    expect((await ask()).status).toBe(500);
+    writeFileSync(config.websiteIndexPath, TEST_INDEX_HTML);
+    const res = await ask();
+    expect(res.status).toBe(200);
+    expect(res.text).toBe(TEST_INDEX_HTML);
+  });
+});
+
+describe("verifyWebsiteIndex", () => {
+  it("accepts a readable file and rejects a missing one", async () => {
+    await expect(verifyWebsiteIndex(config.websiteIndexPath)).resolves.toBeUndefined();
+    await expect(verifyWebsiteIndex("/nonexistent/index.html")).rejects.toThrow(/WEBSITE_INDEX_PATH/);
   });
 });

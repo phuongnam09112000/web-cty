@@ -5,6 +5,7 @@ import { createPrisma } from "./db.js";
 import { createLogger } from "./logger.js";
 import { deleteExpiredSessions } from "./modules/auth/session.service.js";
 import { deleteExpiredPreviewTokens } from "./modules/content/preview.service.js";
+import { verifyWebsiteIndex } from "./modules/content/render.service.js";
 import { syncPermissions } from "./modules/permissions/sync.js";
 
 const CLEANUP_INTERVAL_MS = 3600_000;
@@ -12,6 +13,7 @@ const CLEANUP_INTERVAL_MS = 3600_000;
 async function main(config: Config): Promise<void> {
   const logger = createLogger("info");
   const prisma = createPrisma(config.databaseUrl);
+  await verifyWebsiteIndex(config.websiteIndexPath);
   await syncPermissions(prisma);
   const app = createApp({ prisma, config, logger, clock: () => new Date() });
 

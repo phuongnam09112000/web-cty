@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import type { PrismaClient } from "../../db.js";
+import type { Logger } from "../../logger.js";
 import { pick, type LocalizedText } from "./localized.js";
 import { resolveMedia } from "./media-refs.js";
 
@@ -13,7 +14,16 @@ export type Renderer = {
 export type RendererDeps = {
   prisma: PrismaClient;
   config: { websiteIndexPath: string; publicSiteOrigin: string };
+  logger: Logger;
 };
+
+export async function verifyWebsiteIndex(path: string): Promise<void> {
+  try {
+    await readFile(path, "utf8");
+  } catch {
+    throw new Error(`WEBSITE_INDEX_PATH is not readable: ${path}`);
+  }
+}
 
 const CACHE_MAX = 500;
 const ESCAPES: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
@@ -105,7 +115,7 @@ function inject(template: string, seo: Seo, url: string, lang: RenderLang, origi
 }
 
 export function createRenderer(deps: RendererDeps): Renderer {
-  const { prisma, config } = deps;
+  const { prisma, config, logger } = deps;
   let template: Promise<string> | null = null;
   let generation = 0;
   const cache = new Map<string, string>();
@@ -121,14 +131,19 @@ export function createRenderer(deps: RendererDeps): Renderer {
     return template;
   };
 
-  const build = async (path: string, lang: RenderLang): Promise<string> => {
+  const build = async (path: string, lang: RenderLang): Promise<{ html: string; cacheable: boolean }> => {
     const base = await loadTemplate();
-    const page = await prisma.page.findUnique({ where: { path }, include: { publishedVersion: true } });
-    if (!page?.publishedVersion) return base;
-    const seo = extractSeo(await resolveMedia(prisma, page.publishedVersion.content), lang);
-    if (seo === null) return base;
-    const url = `${config.publicSiteOrigin}${path}${lang === "en" ? "?lang=en" : ""}`;
-    return inject(base, seo, url, lang, config.publicSiteOrigin);
+    try {
+      const page = await prisma.page.findUnique({ where: { path }, include: { publishedVersion: true } });
+      if (!page?.publishedVersion) return { html: base, cacheable: true };
+      const seo = extractSeo(await resolveMedia(prisma, page.publishedVersion.content), lang);
+      if (seo === null) return { html: base, cacheable: true };
+      const url = `${config.publicSiteOrigin}${path}${lang === "en" ? "?lang=en" : ""}`;
+      return { html: inject(base, seo, url, lang, config.publicSiteOrigin), cacheable: true };
+    } catch (err) {
+      logger.error({ err, path }, "render lookup failed");
+      return { html: base, cacheable: false };
+    }
   };
 
   return {
@@ -137,8 +152,8 @@ export function createRenderer(deps: RendererDeps): Renderer {
       const hit = cache.get(key);
       if (hit !== undefined) return hit;
       const started = generation;
-      const html = await build(path, lang);
-      if (started === generation) {
+      const { html, cacheable } = await build(path, lang);
+      if (cacheable && started === generation) {
         if (cache.size >= CACHE_MAX) {
           const oldest = cache.keys().next();
           if (!oldest.done) cache.delete(oldest.value);

@@ -34,7 +34,7 @@ const notFound = () => new AppError(404, "NOT_FOUND", "Không tìm thấy");
 
 export function createApp(deps: AppDeps, extraHooks: PagesHooks = { onPublished: () => undefined }): express.Express {
   const { prisma, config, logger } = deps;
-  const renderer = createRenderer({ prisma, config });
+  const renderer = createRenderer({ prisma, config, logger });
   const hooks: PagesHooks = {
     onPublished: (path) => {
       renderer.invalidate();
