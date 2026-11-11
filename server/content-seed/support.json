@@ -1,0 +1,131 @@
+{
+  "path": "/support",
+  "name": "Hỗ trợ kỹ thuật",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Hỗ trợ Kỹ thuật",
+        "en": "Technical Support"
+      },
+      "description": {
+        "vi": "Dịch vụ hỗ trợ kỹ thuật 24/7 được thiết kế để đảm bảo độ tin cậy và thời gian hoạt động của hệ thống. Với đội ngũ hỗ trợ giàu kinh nghiệm và hiện diện chiến lược tại Việt Nam, chúng tôi cung cấp các giải pháp nhanh chóng và nhất quán.",
+        "en": "We offers 24/7 technical support services designed to ensure system reliability and uptime. With a skilled support team and strategic on-site presence across Vietnam, we provide rapid issue resolution and consistent service quality."
+      },
+      "image": {
+        "src": "/img/banners/support.svg"
+      }
+    },
+    "blocks": [
+      {
+        "id": "aboutbanner01",
+        "type": "about-banner",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/banners/support.svg"
+          },
+          "title": {
+            "vi": "Dịch vụ Chuyên nghiệp",
+            "en": "Professional Services"
+          },
+          "subtitle": {
+            "vi": "",
+            "en": ""
+          },
+          "eyebrow": {
+            "vi": "",
+            "en": ""
+          },
+          "headingLevel": 2
+        }
+      },
+      {
+        "id": "serviceslist01",
+        "type": "services-list",
+        "hidden": false,
+        "data": {
+          "pageTitle": {
+            "vi": "Hỗ trợ Kỹ thuật",
+            "en": "Technical Support"
+          },
+          "sectionTitle": {
+            "vi": "Mô tả chi tiết",
+            "en": "Description"
+          },
+          "text": {
+            "vi": "Dịch vụ hỗ trợ kỹ thuật 24/7 được thiết kế để đảm bảo độ tin cậy và thời gian hoạt động của hệ thống. Với đội ngũ hỗ trợ giàu kinh nghiệm và hiện diện chiến lược tại Việt Nam, chúng tôi cung cấp các giải pháp nhanh chóng và nhất quán.",
+            "en": "We offers 24/7 technical support services designed to ensure system reliability and uptime. With a skilled support team and strategic on-site presence across Vietnam, we provide rapid issue resolution and consistent service quality."
+          },
+          "image": {
+            "src": "/img/background/support.jpg"
+          }
+        }
+      },
+      {
+        "id": "corevaluessys01",
+        "type": "core-values-system",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "GIẢI PHÁP",
+            "en": "OUR SOLUTIONS"
+          },
+          "title": {
+            "vi": "Dịch vụ cốt lõi",
+            "en": "Core Offerings"
+          },
+          "items": [
+            {
+              "title": {
+                "vi": "Hỗ trợ 24/7",
+                "en": "24/7 Multi-Tier Support"
+              },
+              "bullets": [
+                {
+                  "vi": "Hỗ trợ trực tuyến và tại chỗ toàn diện.",
+                  "en": "Comprehensive assistance available online and on-site."
+                }
+              ],
+              "image": {
+                "src": "/img/background/support_2.jpg"
+              },
+              "icon": null
+            },
+            {
+              "title": {
+                "vi": "Đội ngũ kỹ thuật",
+                "en": "On-Site Engineering Teams"
+              },
+              "bullets": [
+                {
+                  "vi": "Có mặt tại Hà Nội, TP.HCM và Đà Nẵng để phản hồi nhanh.",
+                  "en": "Strategically located in Hanoi, Ho Chi Minh City, and Da Nang for immediate response."
+                }
+              ],
+              "image": {
+                "src": "/img/background/support_2.jpg"
+              },
+              "icon": null
+            },
+            {
+              "title": {
+                "vi": "Hiệu suất Dựa trên SLA",
+                "en": "SLA-Driven Performance"
+              },
+              "bullets": [
+                {
+                  "vi": "Tuân thủ nghiêm ngặt các thỏa thuận mức dịch vụ để đảm bảo độ tin cậy.",
+                  "en": "Adherence to strict service level agreements to ensure reliability and customer satisfaction."
+                }
+              ],
+              "image": {
+                "src": "/img/background/support_2.jpg"
+              },
+              "icon": null
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

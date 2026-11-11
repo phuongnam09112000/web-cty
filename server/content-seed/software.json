@@ -1,0 +1,131 @@
+{
+  "path": "/software",
+  "name": "Phát triển phần mềm",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Phát triển Phần mềm",
+        "en": "Software Development"
+      },
+      "description": {
+        "vi": "Chuyên phát triển và tích hợp các giải pháp phần mềm tùy chỉnh phù hợp với nhu cầu đa dạng của khách hàng. Bằng cách tận dụng công nghệ tiên tiến, chúng tôi giúp doanh nghiệp nâng cao hiệu suất, giảm thiểu rủi ro và cắt giảm chi phí.",
+        "en": "Specializes in developing and integrating custom software solutions that align with diverse client requirements. By leveraging advanced technologies, we help businesses achieve greater efficiency, minimize risks, and reduce costs."
+      },
+      "image": {
+        "src": "/img/banners/software.svg"
+      }
+    },
+    "blocks": [
+      {
+        "id": "aboutbanner01",
+        "type": "about-banner",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/banners/software.svg"
+          },
+          "title": {
+            "vi": "Dịch vụ Chuyên nghiệp",
+            "en": "Professional Services"
+          },
+          "subtitle": {
+            "vi": "",
+            "en": ""
+          },
+          "eyebrow": {
+            "vi": "",
+            "en": ""
+          },
+          "headingLevel": 2
+        }
+      },
+      {
+        "id": "serviceslist01",
+        "type": "services-list",
+        "hidden": false,
+        "data": {
+          "pageTitle": {
+            "vi": "Phát triển Phần mềm",
+            "en": "Software Development"
+          },
+          "sectionTitle": {
+            "vi": "Mô tả chi tiết",
+            "en": "Description"
+          },
+          "text": {
+            "vi": "Chuyên phát triển và tích hợp các giải pháp phần mềm tùy chỉnh phù hợp với nhu cầu đa dạng của khách hàng. Bằng cách tận dụng công nghệ tiên tiến, chúng tôi giúp doanh nghiệp nâng cao hiệu suất, giảm thiểu rủi ro và cắt giảm chi phí.",
+            "en": "Specializes in developing and integrating custom software solutions that align with diverse client requirements. By leveraging advanced technologies, we help businesses achieve greater efficiency, minimize risks, and reduce costs."
+          },
+          "image": {
+            "src": "/img/background/software.jpg"
+          }
+        }
+      },
+      {
+        "id": "corevaluessys01",
+        "type": "core-values-system",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "GIẢI PHÁP",
+            "en": "OUR SOLUTIONS"
+          },
+          "title": {
+            "vi": "Dịch vụ cốt lõi",
+            "en": "Core Offerings"
+          },
+          "items": [
+            {
+              "title": {
+                "vi": "Phát triển Phần mềm Tùy chỉnh",
+                "en": "Custom Software Development"
+              },
+              "bullets": [
+                {
+                  "vi": "Các giải pháp phần mềm được thiết kế riêng để đáp ứng nhu cầu hoạt động cụ thể.",
+                  "en": "Tailored software solutions designed to meet specific operational needs."
+                }
+              ],
+              "image": {
+                "src": "/img/background/software_2.png"
+              },
+              "icon": null
+            },
+            {
+              "title": {
+                "vi": "Tích hợp Hệ thống Đa Nhà cung cấp",
+                "en": "Multi-Vendor System Integration"
+              },
+              "bullets": [
+                {
+                  "vi": "Đảm bảo khả năng tương thích và hiệu quả giữa các nền tảng và công nghệ.",
+                  "en": "Ensuring seamless interoperability across platforms and technologies."
+                }
+              ],
+              "image": {
+                "src": "/img/background/software_2.png"
+              },
+              "icon": null
+            },
+            {
+              "title": {
+                "vi": "Quản lý Rủi ro",
+                "en": "Risk Management"
+              },
+              "bullets": [
+                {
+                  "vi": "Phát hiện và giảm thiểu các thách thức trong quá trình triển khai.",
+                  "en": "Expertise in detecting and mitigating potential challenges during implementation."
+                }
+              ],
+              "image": {
+                "src": "/img/background/software_2.png"
+              },
+              "icon": null
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

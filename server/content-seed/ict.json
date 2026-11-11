@@ -1,0 +1,188 @@
+{
+  "path": "/information-communication-technology",
+  "name": "Giải pháp ICT",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Công nghệ Thông tin và Viễn thông",
+        "en": "Information Communication Technology - ICT"
+      },
+      "description": {
+        "vi": "Cung cấp các giải pháp ICT tiên tiến, hỗ trợ doanh nghiệp và tổ chức tối ưu hóa hạ tầng công nghệ, nâng cao hiệu quả vận hành và đảm bảo an ninh cao.",
+        "en": "Delivers advanced ICT solutions, assisting businesses and organizations in optimizing their technology infrastructure, improving operational efficiency, and ensuring high security."
+      },
+      "image": {
+        "src": "/img/banners/ict.svg"
+      }
+    },
+    "blocks": [
+      {
+        "id": "solutionbanner01",
+        "type": "solution-banner",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/banners/ict.svg"
+          },
+          "eyebrow": {
+            "vi": "ISTT Solutions",
+            "en": "ISTT Solutions"
+          },
+          "title": {
+            "vi": "Giải pháp cao cấp",
+            "en": "Premium Solutions"
+          },
+          "subtitle": {
+            "vi": "Thiết kế các giải pháp công nghệ cao cấp – linh hoạt, mạnh mẽ và sẵn sàng cho tương lai số.",
+            "en": "We design high-end technology solutions that are flexible, robust, and ready for the digital future."
+          },
+          "buttonLabel": {
+            "vi": "Đăng ký tư vấn",
+            "en": "Book a consultation"
+          }
+        }
+      },
+      {
+        "id": "serviceslist01",
+        "type": "services-list",
+        "hidden": false,
+        "data": {
+          "pageTitle": {
+            "vi": "Công nghệ Thông tin và Viễn thông",
+            "en": "Information Communication Technology - ICT"
+          },
+          "sectionTitle": {
+            "vi": "Mô tả chi tiết",
+            "en": "Description"
+          },
+          "text": {
+            "vi": "Cung cấp các giải pháp ICT tiên tiến, hỗ trợ doanh nghiệp và tổ chức tối ưu hóa hạ tầng công nghệ, nâng cao hiệu quả vận hành và đảm bảo an ninh cao.",
+            "en": "Delivers advanced ICT solutions, assisting businesses and organizations in optimizing their technology infrastructure, improving operational efficiency, and ensuring high security."
+          },
+          "image": {
+            "src": "/img/background/ict.jpg"
+          }
+        }
+      },
+      {
+        "id": "corevaluessys01",
+        "type": "core-values-system",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "GIẢI PHÁP",
+            "en": "OUR SOLUTIONS"
+          },
+          "title": {
+            "vi": "Dịch vụ cốt lõi",
+            "en": "Core Offerings"
+          },
+          "items": [
+            {
+              "title": {
+                "vi": "Hệ thống mạng viễn thông",
+                "en": "Telecommunication Network Systems"
+              },
+              "bullets": [
+                {
+                  "vi": "Cung cấp các giải pháp mạng lõi từ 3G/4G lên 5G, chuyên về các hệ thống báo hiệu, ví dụ như STP/DRA-DEA/SBC/SCP.",
+                  "en": "Providing core network solutions from 3G/4G to 5G, specialized in signaling systems, e.g. STP/DRA-DEA/SBC/SCP."
+                },
+                {
+                  "vi": "Cung cấp các giải pháp Packet Core & IMS-VoLTE toàn diện.",
+                  "en": "Providing comprehensive PacketCore & IMS-VoLTE solutions."
+                },
+                {
+                  "vi": "Cung cấp các giải pháp Đảm bảo chất lượng cho mạng và dịch vụ.",
+                  "en": "Providing Assurance solutions for network and services."
+                }
+              ],
+              "image": {
+                "src": "/img/background/ict_2.jpg"
+              },
+              "icon": {
+                "src": "/img/icons/telecommunication.png"
+              }
+            },
+            {
+              "title": {
+                "vi": "Điện toán đám mây viễn thông & Tự động hóa mạng lưới",
+                "en": "Telco Cloud & Network Automation"
+              },
+              "bullets": [
+                {
+                  "vi": "Tối ưu hóa hiệu quả quản lý hạ tầng, nâng cao khả năng mở rộng và linh hoạt trong vận hành mạng, đồng thời tăng cường chất lượng dịch vụ viễn thông.",
+                  "en": "Optimize infrastructure management efficiency, enhance scalability and flexibility in network operations, while improving telecommunications service quality."
+                }
+              ],
+              "image": {
+                "src": "/img/background/ict_cloud.jpg"
+              },
+              "icon": {
+                "src": "/img/icons/artificial-intelligence.png"
+              }
+            },
+            {
+              "title": {
+                "vi": "Hệ thống truyền dẫn quang",
+                "en": "Optical Transmission Systems"
+              },
+              "bullets": [
+                {
+                  "vi": "Cung cấp các giải pháp truyền dẫn quang và dịch vụ quản lý cho các nhà cung cấp dịch vụ viễn thông.",
+                  "en": "Providing optical transmission solutions and managed services for communication service provider."
+                }
+              ],
+              "image": {
+                "src": "/img/background/ict_optical.jpg"
+              },
+              "icon": {
+                "src": "/img/icons/technology.png"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "contactform01",
+        "type": "contact-form",
+        "hidden": false,
+        "data": {
+          "variant": "inline",
+          "eyebrow": {
+            "vi": "Liên hệ với chúng tôi",
+            "en": "Get in touch"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Hãy cùng",
+              "en": "Let's"
+            },
+            "emphasis": {
+              "vi": "Trao đổi",
+              "en": "Connect"
+            }
+          },
+          "tagline": {
+            "vi": "Vui lòng liên hệ để tìm hiểu các trường hợp khách hàng tiêu biểu và thảo luận thêm về cơ hội hợp tác...",
+            "en": "Fill in the form and our team will get back to you within one business day."
+          },
+          "formEyebrow": {
+            "vi": "Gửi yêu cầu",
+            "en": "Send a request"
+          },
+          "formHeading": {
+            "lead": {
+              "vi": "Miễn phí",
+              "en": "Consultation"
+            },
+            "emphasis": {
+              "vi": "Tư vấn",
+              "en": "Complimentary"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

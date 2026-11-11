@@ -1,0 +1,266 @@
+{
+  "path": "/services",
+  "name": "Dịch vụ",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Dịch vụ Chuyên nghiệp",
+        "en": "Professional Services"
+      },
+      "description": {
+        "vi": "ISTT là một công ty hàng đầu trong lĩnh vực Tích hợp Hệ thống (SI), giúp các doanh nghiệp và tổ chức kết nối các nền tảng công nghệ khác nhau thành một hệ thống thống nhất, tối ưu hóa hiệu quả hoạt động, bảo mật và khả năng mở rộng.",
+        "en": "ISTT is a leading company in the field of System Integration (SI), helping businesses and organizations connect different technology platforms into a unified system, optimizing operational efficiency, security, and scalability."
+      },
+      "image": {
+        "src": "/img/background/services-2.png"
+      }
+    },
+    "blocks": [
+      {
+        "id": "ourservices01",
+        "type": "our-services",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "Chúng tôi cung cấp",
+            "en": "We provide"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Dịch vụ",
+              "en": "Professional"
+            },
+            "emphasis": {
+              "vi": "Chuyên nghiệp",
+              "en": "Services"
+            }
+          },
+          "buttonLabel": {
+            "vi": "Đặt lịch tư vấn",
+            "en": "Book a consultation"
+          },
+          "items": [
+            {
+              "title": {
+                "vi": "Tích hợp Hệ thống",
+                "en": "System Integration"
+              },
+              "description": {
+                "vi": "ISTT là một công ty hàng đầu trong lĩnh vực Tích hợp Hệ thống (SI), giúp các doanh nghiệp và tổ chức kết nối các nền tảng công nghệ khác nhau thành một hệ thống thống nhất, tối ưu hóa hiệu quả hoạt động, bảo mật và khả năng mở rộng.",
+                "en": "ISTT is a leading company in the field of System Integration (SI), helping businesses and organizations connect different technology platforms into a unified system, optimizing operational efficiency, security, and scalability."
+              },
+              "icon": {
+                "src": "/img/icons/sys.png"
+              },
+              "href": "/integration",
+              "categories": [
+                {
+                  "name": {
+                    "vi": "Giải pháp Viễn thông",
+                    "en": "Telecom Solutions"
+                  },
+                  "bullets": [
+                    {
+                      "vi": "Trung tâm giải pháp viễn thông hàng đầu cho các nhà cung cấp dịch vụ viễn thông cấp 1 tại Việt Nam.",
+                      "en": "Powerhouse of telco solutions for major tier-1 communication service providers in Vietnam."
+                    },
+                    {
+                      "vi": "Cung cấp các giải pháp chuyên biệt, được tùy chỉnh để đáp ứng nhu cầu của ngành An ninh & Quốc phòng.",
+                      "en": "Provide niche solutions that tailored to meet the needs of Secure & Defense industries."
+                    },
+                    {
+                      "vi": "Hỗ trợ doanh nghiệp trong Chuyển đổi số, tận dụng công nghệ để tối ưu hóa hoạt động và nâng cao năng lực cạnh tranh.",
+                      "en": "Supports businesses in Digital Transformation, leveraging technology to optimize operations and enhance competitiveness."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": {
+                "vi": "Phát triển Phần mềm",
+                "en": "Software Development"
+              },
+              "description": {
+                "vi": "Chuyên phát triển và tích hợp các giải pháp phần mềm tùy chỉnh phù hợp với nhu cầu đa dạng của khách hàng. Bằng cách tận dụng công nghệ tiên tiến, chúng tôi giúp doanh nghiệp nâng cao hiệu suất, giảm thiểu rủi ro và cắt giảm chi phí.",
+                "en": "Specializes in developing and integrating custom software solutions that align with diverse client requirements. By leveraging advanced technologies, we help businesses achieve greater efficiency, minimize risks, and reduce costs."
+              },
+              "icon": {
+                "src": "/img/icons/sw.png"
+              },
+              "href": "/software",
+              "categories": [
+                {
+                  "name": {
+                    "vi": "Phát triển Phần mềm Tùy chỉnh",
+                    "en": "Custom Software Development"
+                  },
+                  "bullets": [
+                    {
+                      "vi": "Các giải pháp phần mềm được thiết kế riêng để đáp ứng nhu cầu hoạt động cụ thể.",
+                      "en": "Tailored software solutions designed to meet specific operational needs."
+                    }
+                  ]
+                },
+                {
+                  "name": {
+                    "vi": "Tích hợp Hệ thống Đa Nhà cung cấp",
+                    "en": "Multi-Vendor System Integration"
+                  },
+                  "bullets": [
+                    {
+                      "vi": "Đảm bảo khả năng tương thích và hiệu quả giữa các nền tảng và công nghệ.",
+                      "en": "Ensuring seamless interoperability across platforms and technologies."
+                    }
+                  ]
+                },
+                {
+                  "name": {
+                    "vi": "Quản lý Rủi ro",
+                    "en": "Risk Management"
+                  },
+                  "bullets": [
+                    {
+                      "vi": "Phát hiện và giảm thiểu các thách thức trong quá trình triển khai.",
+                      "en": "Expertise in detecting and mitigating potential challenges during implementation."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": {
+                "vi": "Hỗ trợ Kỹ thuật",
+                "en": "Technical Support"
+              },
+              "description": {
+                "vi": "Dịch vụ hỗ trợ kỹ thuật 24/7 được thiết kế để đảm bảo độ tin cậy và thời gian hoạt động của hệ thống. Với đội ngũ hỗ trợ giàu kinh nghiệm và hiện diện chiến lược tại Việt Nam, chúng tôi cung cấp các giải pháp nhanh chóng và nhất quán.",
+                "en": "We offers 24/7 technical support services designed to ensure system reliability and uptime. With a skilled support team and strategic on-site presence across Vietnam, we provide rapid issue resolution and consistent service quality."
+              },
+              "icon": {
+                "src": "/img/icons/technical-support.png"
+              },
+              "href": "/support",
+              "categories": [
+                {
+                  "name": {
+                    "vi": "Hỗ trợ 24/7",
+                    "en": "24/7 Multi-Tier Support"
+                  },
+                  "bullets": [
+                    {
+                      "vi": "Hỗ trợ trực tuyến và tại chỗ toàn diện.",
+                      "en": "Comprehensive assistance available online and on-site."
+                    }
+                  ]
+                },
+                {
+                  "name": {
+                    "vi": "Đội ngũ kỹ thuật",
+                    "en": "On-Site Engineering Teams"
+                  },
+                  "bullets": [
+                    {
+                      "vi": "Có mặt tại Hà Nội, TP.HCM và Đà Nẵng để phản hồi nhanh.",
+                      "en": "Strategically located in Hanoi, Ho Chi Minh City, and Da Nang for immediate response."
+                    }
+                  ]
+                },
+                {
+                  "name": {
+                    "vi": "Hiệu suất Dựa trên SLA",
+                    "en": "SLA-Driven Performance"
+                  },
+                  "bullets": [
+                    {
+                      "vi": "Tuân thủ nghiêm ngặt các thỏa thuận mức dịch vụ để đảm bảo độ tin cậy.",
+                      "en": "Adherence to strict service level agreements to ensure reliability and customer satisfaction."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "opportunity01",
+        "type": "opportunity",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/background/services-2.png"
+          },
+          "subtitle": {
+            "vi": "Dịch vụ linh hoạt",
+            "en": "Flexible Services"
+          },
+          "title": {
+            "vi": "Tùy chỉnh dịch vụ theo yêu cầu",
+            "en": "Customized services"
+          },
+          "description": {
+            "vi": "ISTT tập trung đầu tư vào nghiên cứu và tìm kiếm các dịch vụ công nghệ tiên tiến, phù hợp với nhu cầu thực tiễn tại Việt Nam, đồng thời đáp ứng các tiêu chuẩn quốc tế. Các dịch vụ do ISTT cung cấp đã được triển khai tại nhiều Bộ, Ban Ngành và nhiều doanh nghiệp, tổ chức lớn trong và ngoài nước, mang lại hiệu quả cao cho khách hàng.",
+            "en": "ISTT focuses its investment on researching and seeking advanced technology services that are suitable for the practical needs of Vietnam, while also meeting international standards. The services provided by ISTT have been deployed in numerous Ministries, Departments, and large enterprises and organizations both domestically and internationally, delivering high efficiency for customers."
+          },
+          "stats": [
+            {
+              "value": "20+",
+              "label": {
+                "vi": "Năm kinh nghiệm",
+                "en": "Years Active"
+              }
+            },
+            {
+              "value": "20+",
+              "label": {
+                "vi": "Đối tác",
+                "en": "Partners"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "contactform01",
+        "type": "contact-form",
+        "hidden": false,
+        "data": {
+          "variant": "inline",
+          "eyebrow": {
+            "vi": "Liên hệ với chúng tôi",
+            "en": "Get in touch"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Hãy cùng",
+              "en": "Let's"
+            },
+            "emphasis": {
+              "vi": "Trao đổi",
+              "en": "Connect"
+            }
+          },
+          "tagline": {
+            "vi": "Vui lòng liên hệ để tìm hiểu các trường hợp khách hàng tiêu biểu và thảo luận thêm về cơ hội hợp tác...",
+            "en": "Fill in the form and our team will get back to you within one business day."
+          },
+          "formEyebrow": {
+            "vi": "Gửi yêu cầu",
+            "en": "Send a request"
+          },
+          "formHeading": {
+            "lead": {
+              "vi": "Miễn phí",
+              "en": "Consultation"
+            },
+            "emphasis": {
+              "vi": "Tư vấn",
+              "en": "Complimentary"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

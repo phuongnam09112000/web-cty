@@ -1,0 +1,134 @@
+{
+  "path": "/integration",
+  "name": "Tích hợp hệ thống",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Tích hợp Hệ thống",
+        "en": "System Integration"
+      },
+      "description": {
+        "vi": "ISTT là nhà cung cấp hàng đầu trong lĩnh vực Tích hợp Hệ thống (SI), giúp các doanh nghiệp và tổ chức kết nối các nền tảng công nghệ khác nhau thành một hệ thống thống nhất, tối ưu hóa hiệu quả vận hành, bảo mật và khả năng mở rộng.",
+        "en": "ISTT is a leading provider in the field of System Integration (SI), helping businesses and organizations connect different technology platforms into a unified system, optimizing operational efficiency, security, and scalability."
+      },
+      "image": {
+        "src": "/img/banners/integration.svg"
+      }
+    },
+    "blocks": [
+      {
+        "id": "solutionbanner01",
+        "type": "solution-banner",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/banners/integration.svg"
+          },
+          "eyebrow": {
+            "vi": "ISTT Solutions",
+            "en": "ISTT Solutions"
+          },
+          "title": {
+            "vi": "Giải pháp cao cấp",
+            "en": "Premium Solutions"
+          },
+          "subtitle": {
+            "vi": "Thiết kế các giải pháp công nghệ cao cấp – linh hoạt, mạnh mẽ và sẵn sàng cho tương lai số.",
+            "en": "We design high-end technology solutions that are flexible, robust, and ready for the digital future."
+          },
+          "buttonLabel": {
+            "vi": "Đăng ký tư vấn",
+            "en": "Book a consultation"
+          }
+        }
+      },
+      {
+        "id": "serviceslist01",
+        "type": "services-list",
+        "hidden": false,
+        "data": {
+          "pageTitle": {
+            "vi": "Tích hợp Hệ thống",
+            "en": "System Integration"
+          },
+          "sectionTitle": {
+            "vi": "Mô tả chi tiết",
+            "en": "Description"
+          },
+          "text": {
+            "vi": "ISTT là nhà cung cấp hàng đầu trong lĩnh vực Tích hợp Hệ thống (SI), giúp các doanh nghiệp và tổ chức kết nối các nền tảng công nghệ khác nhau thành một hệ thống thống nhất, tối ưu hóa hiệu quả vận hành, bảo mật và khả năng mở rộng.",
+            "en": "ISTT is a leading provider in the field of System Integration (SI), helping businesses and organizations connect different technology platforms into a unified system, optimizing operational efficiency, security, and scalability."
+          },
+          "image": {
+            "src": "/img/background/sy.jpg"
+          }
+        }
+      },
+      {
+        "id": "corevaluessys01",
+        "type": "core-values-system",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "GIẢI PHÁP",
+            "en": "OUR SOLUTIONS"
+          },
+          "title": {
+            "vi": "Dịch vụ cốt lõi",
+            "en": "Core Offerings"
+          },
+          "items": [
+            {
+              "title": {
+                "vi": "Giải pháp Viễn thông",
+                "en": "Telecom Solutions"
+              },
+              "bullets": [
+                {
+                  "vi": "STP (SS7), DSR (Diameter), SBC (SIP), MNP, SMSC-FDA, DNS, SMS GW, USSD GW.",
+                  "en": "STP (SS7), DSR (Diameter), SBC (SIP), MNP, SMSC-FDA, DNS, SMS GW, USSD GW."
+                }
+              ],
+              "image": {
+                "src": "/img/background/sy_2.jpg"
+              },
+              "icon": null
+            },
+            {
+              "title": {
+                "vi": "Giải pháp Chuyển vùng & Kết nối",
+                "en": "Roaming & Interconnect Solutions"
+              },
+              "bullets": [
+                {
+                  "vi": "Tích hợp liền mạch mạng toàn cầu và nội địa",
+                  "en": "Seamless global and local network integration."
+                }
+              ],
+              "image": {
+                "src": "/img/background/sy_2.jpg"
+              },
+              "icon": null
+            },
+            {
+              "title": {
+                "vi": "Tối ưu cơ sở hạ tầng viễn thông",
+                "en": "Optimized Telecom Infrastructure"
+              },
+              "bullets": [
+                {
+                  "vi": "Giải pháp mạng bảo mật, hiệu suất cao.",
+                  "en": "Secure, high-performance networking solutions"
+                }
+              ],
+              "image": {
+                "src": "/img/background/sy_2.jpg"
+              },
+              "icon": null
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

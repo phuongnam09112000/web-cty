@@ -1,0 +1,3001 @@
+{
+  "/": {
+    "blocks": [
+      {
+        "data": {
+          "eyebrow": {
+            "en": "Information Services & Technology Transfer Company Limited",
+            "vi": "Công ty TNHH Kinh doanh Dịch vụ Thông tin và Chuyển giao Công nghệ"
+          },
+          "primaryCta": {
+            "href": "#solutions",
+            "label": {
+              "en": "Explore our solutions",
+              "vi": "Khám phá giải pháp"
+            }
+          },
+          "secondaryCta": {
+            "href": "/contact",
+            "label": {
+              "en": "Contact us",
+              "vi": "Liên hệ với chúng tôi"
+            }
+          },
+          "slides": [
+            {
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 986,
+                "sourcePath": "/img/background/home_banner.jpeg",
+                "url": "/img/background/home_banner.jpeg",
+                "width": 1480
+              },
+              "tagline": {
+                "en": "The Path of Technology – Turning Dreams into Reality",
+                "vi": "Con đường công nghệ - Biến giấc mơ thành hiện thực"
+              }
+            },
+            {
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1920,
+                "sourcePath": "/img/background/home_banner_2.jpeg",
+                "url": "/img/background/home_banner_2.jpeg",
+                "width": 2560
+              },
+              "tagline": {
+                "en": "Contributing to elevating Vietnam's IT, Telecommunications, Secure & Defense industry to a new level.",
+                "vi": "Góp phần đưa nền CNTT, Viễn Thông, An Ninh & Quốc phòng của Việt Nam lên một tầm cao mới."
+              }
+            },
+            {
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1707,
+                "sourcePath": "/img/background/home_banner_3.jpeg",
+                "url": "/img/background/home_banner_3.jpeg",
+                "width": 2560
+              },
+              "tagline": {
+                "en": "Establishing relationships with leading global partners in the IT, Telecommunications, Secure & Defense sectors.",
+                "vi": "Thiết lập quan hệ với các đối tác hàng đầu trên thế giới trong lĩnh vực CNTT, Viễn Thông, An Ninh & Quốc phòng"
+              }
+            },
+            {
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1435,
+                "sourcePath": "/img/background/home_banner_4.jpg",
+                "url": "/img/background/home_banner_4.jpg",
+                "width": 2560
+              },
+              "tagline": {
+                "en": "Always ready to update with the latest advanced knowledge from around the world.",
+                "vi": "Luôn sẵn sàng cập nhật kiến thức tiên tiến trên thế giới"
+              }
+            }
+          ],
+          "title": {
+            "en": "Integrated ICT, telecom and security solutions for Vietnam since 2001",
+            "vi": "Giải pháp tích hợp CNTT, viễn thông và an ninh cho Việt Nam từ năm 2001"
+          }
+        },
+        "hidden": false,
+        "id": "homehero01",
+        "type": "home-hero"
+      },
+      {
+        "data": {
+          "cta": {
+            "href": "/about",
+            "label": {
+              "en": "More about ISTT",
+              "vi": "Tìm hiểu thêm về ISTT"
+            }
+          },
+          "eyebrow": {
+            "en": "About us",
+            "vi": "VỀ CHÚNG TÔI"
+          },
+          "foundedLabel": {
+            "en": "Founded",
+            "vi": "Thành lập"
+          },
+          "foundedYear": "2001",
+          "heading": {
+            "emphasis": {
+              "en": "Technology Transfer",
+              "vi": "Chuyển giao Công nghệ"
+            },
+            "lead": {
+              "en": "Information Services &",
+              "vi": "Dịch vụ Thông tin &"
+            }
+          },
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 1365,
+            "sourcePath": "/img/background/istt.jpg",
+            "url": "/img/background/istt.jpg",
+            "width": 2048
+          },
+          "lead": {
+            "en": "Founded in 2001, ISTT has grown into a leading provider of integrated ICT and telecommunication solutions in Vietnam. With a customer-centric approach, we connect global partners and deliver cutting-edge technology to empower businesses and communities throughout the country and region.",
+            "vi": "Được thành lập vào năm 2001, ISTT đã phát triển thành một nhà cung cấp hàng đầu về giải pháp tích hợp CNTT và viễn thông tại Việt Nam. Với cách tiếp cận lấy khách hàng làm trung tâm, chúng tôi kết nối các đối tác toàn cầu và mang đến công nghệ tiên tiến để thúc đẩy doanh nghiệp và cộng đồng phát triển."
+          },
+          "stats": [
+            {
+              "label": {
+                "en": "Years Active",
+                "vi": "Năm kinh nghiệm"
+              },
+              "value": "20+"
+            },
+            {
+              "label": {
+                "en": "Partners",
+                "vi": "Đối tác"
+              },
+              "value": "20+"
+            }
+          ]
+        },
+        "hidden": false,
+        "id": "homeabout01",
+        "type": "home-about"
+      },
+      {
+        "data": {
+          "areas": [
+            {
+              "description": {
+                "en": "Advanced telecom and IT solutions for optimal network performance.",
+                "vi": "Giải pháp viễn thông và CNTT tiên tiến giúp tối ưu hiệu suất mạng."
+              },
+              "href": "/information-communication-technology",
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1280,
+                "sourcePath": "/img/background/ict_2.jpg",
+                "url": "/img/background/ict_2.jpg",
+                "width": 1920
+              },
+              "imagePosition": "",
+              "title": {
+                "en": "Information Communication Technology (ICT)",
+                "vi": "Công nghệ Thông tin & Truyền thông (ICT)"
+              }
+            },
+            {
+              "description": {
+                "en": "Cutting-edge defense & security technology to safeguard critical infrastructures.",
+                "vi": "Công nghệ quốc phòng và bảo mật hiện đại bảo vệ các cơ sở hạ tầng trọng yếu."
+              },
+              "href": "/secure-defense",
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1280,
+                "sourcePath": "/img/background/defense_solution.jpg",
+                "url": "/img/background/defense_solution.jpg",
+                "width": 1920
+              },
+              "imagePosition": "65% center",
+              "title": {
+                "en": "Secure & Defense",
+                "vi": "An ninh & Quốc phòng"
+              }
+            },
+            {
+              "description": {
+                "en": "Enabling businesses to embrace AI, Big Data and Cloud solutions for future-ready operations.",
+                "vi": "Hỗ trợ doanh nghiệp ứng dụng AI, Big Data và Cloud để sẵn sàng cho tương lai."
+              },
+              "href": "/digital-transformation",
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1494,
+                "sourcePath": "/img/background/digital_smartcity.jpg",
+                "url": "/img/background/digital_smartcity.jpg",
+                "width": 2240
+              },
+              "imagePosition": "",
+              "title": {
+                "en": "Digital Transformation",
+                "vi": "Chuyển đổi số"
+              }
+            }
+          ],
+          "buttonLabel": {
+            "en": "Show More",
+            "vi": "Xem thêm"
+          },
+          "eyebrow": {
+            "en": "SOLUTIONS",
+            "vi": "GIẢI PHÁP"
+          },
+          "heading": {
+            "emphasis": {
+              "en": "infrastructure today",
+              "vi": "tương lai ngay hôm nay"
+            },
+            "lead": {
+              "en": "Powering tomorrow's",
+              "vi": "Kiến tạo hạ tầng"
+            }
+          }
+        },
+        "hidden": false,
+        "id": "businessareas01",
+        "type": "business-areas"
+      },
+      {
+        "data": {
+          "allLink": {
+            "href": "/services",
+            "label": {
+              "en": "View all services",
+              "vi": "Xem tất cả dịch vụ"
+            }
+          },
+          "eyebrow": {
+            "en": "We provide",
+            "vi": "Chúng tôi cung cấp"
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Services",
+              "vi": "Chuyên nghiệp"
+            },
+            "lead": {
+              "en": "Professional",
+              "vi": "Dịch vụ"
+            }
+          },
+          "items": [
+            {
+              "description": {
+                "en": "ISTT is a leading company in the field of System Integration (SI), helping businesses and organizations connect different technology platforms into a unified system, optimizing operational efficiency, security, and scalability.",
+                "vi": "ISTT là một công ty hàng đầu trong lĩnh vực Tích hợp Hệ thống (SI), giúp các doanh nghiệp và tổ chức kết nối các nền tảng công nghệ khác nhau thành một hệ thống thống nhất, tối ưu hóa hiệu quả hoạt động, bảo mật và khả năng mở rộng."
+              },
+              "href": "/integration",
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1277,
+                "sourcePath": "/img/background/sy.jpg",
+                "url": "/img/background/sy.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "System Integration",
+                "vi": "Tích hợp Hệ thống"
+              }
+            },
+            {
+              "description": {
+                "en": "Specializes in developing and integrating custom software solutions that align with diverse client requirements. By leveraging advanced technologies, we help businesses achieve greater efficiency, minimize risks, and reduce costs.",
+                "vi": "Chuyên phát triển và tích hợp các giải pháp phần mềm tùy chỉnh phù hợp với nhu cầu đa dạng của khách hàng. Bằng cách tận dụng công nghệ tiên tiến, chúng tôi giúp doanh nghiệp nâng cao hiệu suất, giảm thiểu rủi ro và cắt giảm chi phí."
+              },
+              "href": "/software",
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1280,
+                "sourcePath": "/img/background/software.jpg",
+                "url": "/img/background/software.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "Software Development",
+                "vi": "Phát triển Phần mềm"
+              }
+            },
+            {
+              "description": {
+                "en": "We offers 24/7 technical support services designed to ensure system reliability and uptime. With a skilled support team and strategic on-site presence across Vietnam, we provide rapid issue resolution and consistent service quality.",
+                "vi": "Dịch vụ hỗ trợ kỹ thuật 24/7 được thiết kế để đảm bảo độ tin cậy và thời gian hoạt động của hệ thống. Với đội ngũ hỗ trợ giàu kinh nghiệm và hiện diện chiến lược tại Việt Nam, chúng tôi cung cấp các giải pháp nhanh chóng và nhất quán."
+              },
+              "href": "/support",
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1280,
+                "sourcePath": "/img/background/support.jpg",
+                "url": "/img/background/support.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "Technical Support",
+                "vi": "Hỗ trợ Kỹ thuật"
+              }
+            }
+          ]
+        },
+        "hidden": false,
+        "id": "homeservices01",
+        "type": "home-services"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "Who We Are",
+            "vi": "Chúng tôi là ai"
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Values",
+              "vi": "Cốt lõi"
+            },
+            "lead": {
+              "en": "Our Core",
+              "vi": "Giá trị"
+            }
+          },
+          "items": [
+            {
+              "description": {
+                "en": "Our unwavering commitment to excellence.",
+                "vi": "Luôn giữ vững cam kết về sự xuất sắc"
+              },
+              "name": {
+                "en": "Commitment",
+                "vi": "Cam kết"
+              }
+            },
+            {
+              "description": {
+                "en": "Delivering the highest quality in everything we do.",
+                "vi": "Đem đến chất lượng cao nhất trong mọi việc chúng tôi làm."
+              },
+              "name": {
+                "en": "Quality",
+                "vi": "Chất lượng"
+              }
+            },
+            {
+              "description": {
+                "en": "Working together to achieve greatness.",
+                "vi": "Chung sức để chinh phục những đỉnh cao."
+              },
+              "name": {
+                "en": "Collaboration",
+                "vi": "Hợp tác"
+              }
+            }
+          ],
+          "philosophy": {
+            "en": "Guided by our philosophy, “United Efforts - Shared Success”, we build lasting partnerships and drive progress across industries.",
+            "vi": "Lấy triết lý “Đồng Lòng – Thành Công Chung” làm kim chỉ nam, chúng tôi kiến tạo quan hệ đối tác lâu dài và thúc đẩy sự phát triển trong nhiều lĩnh vực."
+          }
+        },
+        "hidden": false,
+        "id": "homevalues01",
+        "type": "home-values"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "Ecosystem",
+            "vi": "Đồng hành"
+          },
+          "heading": {
+            "en": "Our Partners",
+            "vi": "Đối Tác"
+          },
+          "initialCount": 8,
+          "intro": {
+            "en": "United in vision, stronger in execution.",
+            "vi": "Chung tầm nhìn - Vững bước hành động."
+          },
+          "items": [
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 550,
+                "sourcePath": "/img/partner/oracle.png",
+                "url": "/img/partner/oracle.png",
+                "width": 2138
+              },
+              "name": "Oracle"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 189,
+                "sourcePath": "/img/partner/ceragon.png",
+                "url": "/img/partner/ceragon.png",
+                "width": 189
+              },
+              "name": "Ceragon"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 189,
+                "sourcePath": "/img/partner/paloalto.png",
+                "url": "/img/partner/paloalto.png",
+                "width": 252
+              },
+              "name": "Palo Alto"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 189,
+                "sourcePath": "/img/partner/cisco.png",
+                "url": "/img/partner/cisco.png",
+                "width": 378
+              },
+              "name": "Cisco"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 190,
+                "sourcePath": "/img/partner/dell.png",
+                "url": "/img/partner/dell.png",
+                "width": 190
+              },
+              "name": "Dell"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 417,
+                "sourcePath": "/img/partner/elbit.png",
+                "url": "/img/partner/elbit.png",
+                "width": 1200
+              },
+              "name": "Elbit Systems"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 189,
+                "sourcePath": "/img/partner/f5.png",
+                "url": "/img/partner/f5.png",
+                "width": 206
+              },
+              "name": "F5"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 190,
+                "sourcePath": "/img/partner/hpe.png",
+                "url": "/img/partner/hpe.png",
+                "width": 253
+              },
+              "name": "HPE"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 311,
+                "sourcePath": "/img/partner/everbridge.svg",
+                "url": "/img/partner/everbridge.svg",
+                "width": 1568
+              },
+              "name": "Everbridge"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 189,
+                "sourcePath": "/img/partner/allot.png",
+                "url": "/img/partner/allot.png",
+                "width": 297
+              },
+              "name": "Allot"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 189,
+                "sourcePath": "/img/partner/aaronia.png",
+                "url": "/img/partner/aaronia.png",
+                "width": 270
+              },
+              "name": "AAronia"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 263,
+                "sourcePath": "/img/partner/corsight.png",
+                "url": "/img/partner/corsight.png",
+                "width": 981
+              },
+              "name": "Corsight"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 283,
+                "sourcePath": "/img/partner/cynapse.png",
+                "url": "/img/partner/cynapse.png",
+                "width": 1464
+              },
+              "name": "Cynapse AI"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 156,
+                "sourcePath": "/img/partner/bosch.png",
+                "url": "/img/partner/bosch.png",
+                "width": 312
+              },
+              "name": "Bosch"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 578,
+                "sourcePath": "/img/partner/nokia.svg",
+                "url": "/img/partner/nokia.svg",
+                "width": 2500
+              },
+              "name": "Nokia"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 28,
+                "sourcePath": "/img/partner/hcltech.svg",
+                "url": "/img/partner/hcltech.svg",
+                "width": 153
+              },
+              "name": "HCLTech"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 93,
+                "sourcePath": "/img/partner/dsit_solutions.jpeg",
+                "url": "/img/partner/dsit_solutions.jpeg",
+                "width": 200
+              },
+              "name": "DSIT Solutions"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1511,
+                "sourcePath": "/img/partner/mavenir.png",
+                "url": "/img/partner/mavenir.png",
+                "width": 4352
+              },
+              "name": "Mavenir"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 375,
+                "sourcePath": "/img/partner/fortinet.png",
+                "url": "/img/partner/fortinet.png",
+                "width": 750
+              },
+              "name": "Fortinet"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 199,
+                "sourcePath": "/img/partner/microsoft.png",
+                "url": "/img/partner/microsoft.png",
+                "width": 768
+              },
+              "name": "Microsoft"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 207,
+                "sourcePath": "/img/partner/arista.png",
+                "url": "/img/partner/arista.png",
+                "width": 872
+              },
+              "name": "Arista"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 310,
+                "sourcePath": "/img/partner/infinera.jpeg",
+                "url": "/img/partner/infinera.jpeg",
+                "width": 1241
+              },
+              "name": "Infinera"
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1152,
+                "sourcePath": "/img/partner/dopikai.png",
+                "url": "/img/partner/dopikai.png",
+                "width": 4096
+              },
+              "name": "DopikAI"
+            }
+          ]
+        },
+        "hidden": false,
+        "id": "partners01",
+        "type": "partners"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "Trust",
+            "vi": "Niềm tin"
+          },
+          "heading": {
+            "en": "Our Customers",
+            "vi": "Khách Hàng"
+          },
+          "intro": {
+            "en": "Trusted by leading businesses.",
+            "vi": "Được tin dùng bởi các doanh nghiệp hàng đầu."
+          },
+          "items": [
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 225,
+                "sourcePath": "/img/customer/bqp.png",
+                "url": "/img/customer/bqp.png",
+                "width": 220
+              },
+              "name": {
+                "en": "Ministry of National Defence",
+                "vi": "Bộ Quốc phòng"
+              }
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 189,
+                "sourcePath": "/img/customer/bca.png",
+                "url": "/img/customer/bca.png",
+                "width": 231
+              },
+              "name": {
+                "en": "Ministry of Public Security",
+                "vi": "Bộ Công An"
+              }
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 224,
+                "sourcePath": "/img/customer/bgd.png",
+                "url": "/img/customer/bgd.png",
+                "width": 247
+              },
+              "name": {
+                "en": "Ministry of Education and Training",
+                "vi": "Bộ Giáo dục và Đào tạo"
+              }
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 452,
+                "sourcePath": "/img/customer/vnpt.png",
+                "url": "/img/customer/vnpt.png",
+                "width": 487
+              },
+              "name": {
+                "en": "VNPT",
+                "vi": "VNPT"
+              }
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 399,
+                "sourcePath": "/img/customer/viettel.png",
+                "url": "/img/customer/viettel.png",
+                "width": 2000
+              },
+              "name": {
+                "en": "Viettel",
+                "vi": "Viettel"
+              }
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 114,
+                "sourcePath": "/img/customer/mobifone.png",
+                "url": "/img/customer/mobifone.png",
+                "width": 720
+              },
+              "name": {
+                "en": "Mobifone",
+                "vi": "Mobifone"
+              }
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 106,
+                "sourcePath": "/img/customer/gtel.svg",
+                "url": "/img/customer/gtel.svg",
+                "width": 284
+              },
+              "name": {
+                "en": "Gtel",
+                "vi": "Gtel"
+              }
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 598,
+                "sourcePath": "/img/customer/mb.png",
+                "url": "/img/customer/mb.png",
+                "width": 1331
+              },
+              "name": {
+                "en": "MB",
+                "vi": "MB"
+              }
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 946,
+                "sourcePath": "/img/customer/agribank.png",
+                "url": "/img/customer/agribank.png",
+                "width": 1200
+              },
+              "name": {
+                "en": "Agribank",
+                "vi": "Agribank"
+              }
+            },
+            {
+              "logo": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 146,
+                "sourcePath": "/img/customer/evn.png",
+                "url": "/img/customer/evn.png",
+                "width": 299
+              },
+              "name": {
+                "en": "EVN",
+                "vi": "EVN"
+              }
+            }
+          ]
+        },
+        "hidden": false,
+        "id": "customers01",
+        "type": "customers"
+      },
+      {
+        "data": {
+          "cta": {
+            "href": "/contact",
+            "label": {
+              "en": "Contact us",
+              "vi": "Liên hệ với chúng tôi"
+            }
+          },
+          "eyebrow": {
+            "en": "Get in touch",
+            "vi": "Liên hệ với chúng tôi"
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Connect",
+              "vi": "Trao đổi"
+            },
+            "lead": {
+              "en": "Let's",
+              "vi": "Hãy cùng"
+            }
+          }
+        },
+        "hidden": false,
+        "id": "homecontact01",
+        "type": "home-contact"
+      }
+    ],
+    "seo": {
+      "description": {
+        "en": "The Path of Technology – Turning Dreams into Reality",
+        "vi": "Con đường công nghệ - Biến giấc mơ thành hiện thực"
+      },
+      "image": {
+        "alt": {
+          "en": "",
+          "vi": ""
+        },
+        "height": 986,
+        "sourcePath": "/img/background/home_banner.jpeg",
+        "url": "/img/background/home_banner.jpeg",
+        "width": 1480
+      },
+      "title": {
+        "en": "Integrated ICT, telecom and security solutions for Vietnam since 2001",
+        "vi": "Giải pháp tích hợp CNTT, viễn thông và an ninh cho Việt Nam từ năm 2001"
+      }
+    }
+  },
+  "/about": {
+    "blocks": [
+      {
+        "data": {
+          "eyebrow": {
+            "en": "",
+            "vi": ""
+          },
+          "headingLevel": 1,
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 1335,
+            "sourcePath": "/img/background/about_banner.jpeg",
+            "url": "/img/background/about_banner.jpeg",
+            "width": 2000
+          },
+          "subtitle": {
+            "en": "",
+            "vi": ""
+          },
+          "title": {
+            "en": "About us",
+            "vi": "VỀ CHÚNG TÔI"
+          }
+        },
+        "hidden": false,
+        "id": "aboutbanner01",
+        "type": "about-banner"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "About us",
+            "vi": "Về chúng tôi"
+          },
+          "heading": {
+            "emphasis": {
+              "en": "to ISTT",
+              "vi": "về ISTT"
+            },
+            "lead": {
+              "en": "Introduction",
+              "vi": "Giới thiệu"
+            }
+          },
+          "images": [
+            {
+              "alt": {
+                "en": "",
+                "vi": ""
+              },
+              "height": 1067,
+              "sourcePath": "/img/background/istt_about.jpg",
+              "url": "/img/background/istt_about.jpg",
+              "width": 1600
+            },
+            {
+              "alt": {
+                "en": "",
+                "vi": ""
+              },
+              "height": 854,
+              "sourcePath": "/img/background/istt_about_2.jpg",
+              "url": "/img/background/istt_about_2.jpg",
+              "width": 1280
+            },
+            {
+              "alt": {
+                "en": "",
+                "vi": ""
+              },
+              "height": 854,
+              "sourcePath": "/img/background/istt_about_3.jpg",
+              "url": "/img/background/istt_about_3.jpg",
+              "width": 1280
+            }
+          ],
+          "paragraphs": [
+            {
+              "en": "Established in 2001, ISTT has been at the forefront of Vietnam's ICT and telecommunication industries for over two decades.",
+              "vi": "Được thành lập từ năm 2001, ISTT đã và đang tiên phong trong lĩnh vực CNTT-TT và viễn thông tại Việt Nam suốt hơn hai thập kỷ."
+            },
+            {
+              "en": "As a trusted partner for innovative solutions, we specialize in Telecommunication, Secure & Defense, and Digital Transformation.",
+              "vi": "Là đối tác tin cậy trong các giải pháp đổi mới, chúng tôi chuyên sâu về Viễn thông, An ninh Quốc phòng và Chuyển đổi số."
+            },
+            {
+              "en": "In collaboration with leading global technology corporations, ISTT proactively develops advanced solutions tailored to the practical needs of each business — aiming to optimize efficiency, enhance value, and accompany clients throughout their digital transformation journey.",
+              "vi": "Hợp tác cùng các tập đoàn công nghệ hàng đầu thế giới, ISTT chủ động phát triển các giải pháp tiên tiến, phù hợp với nhu cầu thực tiễn của từng doanh nghiệp — tối ưu hiệu quả, gia tăng giá trị và đồng hành trong hành trình chuyển đổi số."
+            },
+            {
+              "en": "Guided by our philosophy, \"United Efforts - Shared Success\", we build lasting partnerships and drive progress across industries.",
+              "vi": "Với triết lý \"Nỗ lực chung — Thành công chung\", chúng tôi xây dựng quan hệ đối tác bền vững và thúc đẩy sự phát triển xuyên suốt các ngành."
+            }
+          ],
+          "yearBadge": {
+            "en": "EST. 2001 — HANOI, VIETNAM",
+            "vi": "THÀNH LẬP 2001 — HÀ NỘI, VIỆT NAM"
+          }
+        },
+        "hidden": false,
+        "id": "overview01",
+        "type": "overview"
+      },
+      {
+        "data": {
+          "body": {
+            "en": "To become a leading systems integrator in ICT, Defense, and Security, providing specialized, innovative technology solutions that empower our clients and communities.",
+            "vi": "Trở thành nhà tích hợp hệ thống hàng đầu trong lĩnh vực CNTT-TT, Quốc phòng và An ninh, cung cấp các giải pháp công nghệ chuyên biệt và sáng tạo, góp phần nâng cao năng lực cho khách hàng và cộng đồng."
+          },
+          "eyebrow": {
+            "en": "Strategic Direction",
+            "vi": "Định hướng chiến lược"
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Vision",
+              "vi": "của chúng tôi"
+            },
+            "lead": {
+              "en": "Our",
+              "vi": "Tầm nhìn"
+            }
+          },
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 1266,
+            "sourcePath": "/img/background/vision.jpg",
+            "url": "/img/background/vision.jpg",
+            "width": 1920
+          }
+        },
+        "hidden": false,
+        "id": "vision01",
+        "type": "vision"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "What We Stand For",
+            "vi": "Cam kết của chúng tôi"
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Mission",
+              "vi": "của chúng tôi"
+            },
+            "lead": {
+              "en": "Our",
+              "vi": "Sứ mệnh"
+            }
+          },
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 1440,
+            "sourcePath": "/img/background/mission.jpg",
+            "url": "/img/background/mission.jpg",
+            "width": 2560
+          },
+          "points": [
+            {
+              "en": "Connect global partners and customers with state-of-the-art solutions.",
+              "vi": "Kết nối đối tác và khách hàng toàn cầu với các giải pháp công nghệ tiên tiến."
+            },
+            {
+              "en": "Deliver optimized, high-quality, and forward-thinking technologies.",
+              "vi": "Cung cấp công nghệ được tối ưu hóa, chất lượng cao và hướng tới tương lai."
+            },
+            {
+              "en": "Build trust and strong relationships to ensure long-term success.",
+              "vi": "Xây dựng niềm tin và mối quan hệ bền vững để đảm bảo thành công lâu dài."
+            }
+          ]
+        },
+        "hidden": false,
+        "id": "mission01",
+        "type": "mission"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "Who We Are",
+            "vi": "Chúng tôi là ai"
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Values",
+              "vi": "Cốt lõi"
+            },
+            "lead": {
+              "en": "Our Core",
+              "vi": "Giá trị"
+            }
+          },
+          "items": [
+            {
+              "description": {
+                "en": "Focusing on meeting the needs of customers and partners with transparency.",
+                "vi": "Tập trung vào việc đáp ứng nhu cầu của khách hàng và đối tác với sự minh bạch"
+              },
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 126,
+                "sourcePath": "/img/icons/commitment.png",
+                "url": "/img/icons/commitment.png",
+                "width": 126
+              },
+              "title": {
+                "en": "Commitment",
+                "vi": "Cam kết"
+              }
+            },
+            {
+              "description": {
+                "en": "Striving for the highest standards in every solution we provide.",
+                "vi": "Đặt ra tiêu chuẩn cao nhất trong mọi giải pháp mà chúng tôi cung cấp."
+              },
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 126,
+                "sourcePath": "/img/icons/quanlity.png",
+                "url": "/img/icons/quanlity.png",
+                "width": 126
+              },
+              "title": {
+                "en": "Quality",
+                "vi": "Chất lượng"
+              }
+            },
+            {
+              "description": {
+                "en": "Fostering teamwork and mutual growth with partners and clients.",
+                "vi": "Thúc đẩy làm việc nhóm và sự phát triển chung với đối tác và khách hàng."
+              },
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 126,
+                "sourcePath": "/img/icons/colab.png",
+                "url": "/img/icons/colab.png",
+                "width": 126
+              },
+              "title": {
+                "en": "Collaboration",
+                "vi": "Hợp tác"
+              }
+            }
+          ]
+        },
+        "hidden": false,
+        "id": "corevalues01",
+        "type": "core-values"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "Get in touch",
+            "vi": "Liên hệ với chúng tôi"
+          },
+          "formEyebrow": {
+            "en": "Send a request",
+            "vi": "Gửi yêu cầu"
+          },
+          "formHeading": {
+            "emphasis": {
+              "en": "Complimentary",
+              "vi": "Tư vấn"
+            },
+            "lead": {
+              "en": "Consultation",
+              "vi": "Miễn phí"
+            }
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Connect",
+              "vi": "Trao đổi"
+            },
+            "lead": {
+              "en": "Let's",
+              "vi": "Hãy cùng"
+            }
+          },
+          "tagline": {
+            "en": "Fill in the form and our team will get back to you within one business day.",
+            "vi": "Vui lòng liên hệ để tìm hiểu các trường hợp khách hàng tiêu biểu và thảo luận thêm về cơ hội hợp tác..."
+          },
+          "variant": "inline"
+        },
+        "hidden": false,
+        "id": "contactform01",
+        "type": "contact-form"
+      }
+    ],
+    "seo": {
+      "description": {
+        "en": "Established in 2001, ISTT has been at the forefront of Vietnam's ICT and telecommunication industries for over two decades.",
+        "vi": "Được thành lập từ năm 2001, ISTT đã và đang tiên phong trong lĩnh vực CNTT-TT và viễn thông tại Việt Nam suốt hơn hai thập kỷ."
+      },
+      "image": {
+        "alt": {
+          "en": "",
+          "vi": ""
+        },
+        "height": 1335,
+        "sourcePath": "/img/background/about_banner.jpeg",
+        "url": "/img/background/about_banner.jpeg",
+        "width": 2000
+      },
+      "title": {
+        "en": "About us",
+        "vi": "VỀ CHÚNG TÔI"
+      }
+    }
+  },
+  "/contact": {
+    "blocks": [
+      {
+        "data": {
+          "offices": [
+            {
+              "name": {
+                "en": "Hanoi Office",
+                "vi": "Chi nhánh Hà Nội"
+              },
+              "shortName": {
+                "en": "Hanoi",
+                "vi": "Hà Nội"
+              }
+            },
+            {
+              "name": {
+                "en": "Ho Chi Minh City Office",
+                "vi": "Chi nhánh Hồ Chí Minh"
+              },
+              "shortName": {
+                "en": "Ho Chi Minh City",
+                "vi": "Hồ Chí Minh"
+              }
+            }
+          ]
+        },
+        "hidden": false,
+        "id": "officemap01",
+        "type": "office-map"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "Get in touch",
+            "vi": "Liên hệ với chúng tôi"
+          },
+          "formEyebrow": {
+            "en": "Send a request",
+            "vi": "Gửi yêu cầu"
+          },
+          "formHeading": {
+            "emphasis": {
+              "en": "Complimentary",
+              "vi": "Tư vấn"
+            },
+            "lead": {
+              "en": "Consultation",
+              "vi": "Miễn phí"
+            }
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Connect",
+              "vi": "Trao đổi"
+            },
+            "lead": {
+              "en": "Let's",
+              "vi": "Hãy cùng"
+            }
+          },
+          "tagline": {
+            "en": "Fill in the form and our team will get back to you within one business day.",
+            "vi": "Vui lòng liên hệ để tìm hiểu các trường hợp khách hàng tiêu biểu và thảo luận thêm về cơ hội hợp tác..."
+          },
+          "variant": "page"
+        },
+        "hidden": false,
+        "id": "contactform01",
+        "type": "contact-form"
+      }
+    ],
+    "seo": {
+      "description": {
+        "en": "Fill in the form and our team will get back to you within one business day.",
+        "vi": "Vui lòng liên hệ để tìm hiểu các trường hợp khách hàng tiêu biểu và thảo luận thêm về cơ hội hợp tác..."
+      },
+      "image": null,
+      "title": {
+        "en": "Let's Connect",
+        "vi": "Hãy cùng Trao đổi"
+      }
+    }
+  },
+  "/digital-transformation": {
+    "blocks": [
+      {
+        "data": {
+          "buttonLabel": {
+            "en": "Book a consultation",
+            "vi": "Đăng ký tư vấn"
+          },
+          "eyebrow": {
+            "en": "ISTT Solutions",
+            "vi": "ISTT Solutions"
+          },
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 680,
+            "sourcePath": "/img/banners/digital.svg",
+            "url": "/img/banners/digital.svg",
+            "width": 1600
+          },
+          "subtitle": {
+            "en": "We design high-end technology solutions that are flexible, robust, and ready for the digital future.",
+            "vi": "Thiết kế các giải pháp công nghệ cao cấp – linh hoạt, mạnh mẽ và sẵn sàng cho tương lai số."
+          },
+          "title": {
+            "en": "Premium Solutions",
+            "vi": "Giải pháp cao cấp"
+          }
+        },
+        "hidden": false,
+        "id": "solutionbanner01",
+        "type": "solution-banner"
+      },
+      {
+        "data": {
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 922,
+            "sourcePath": "/img/background/digital.jpg",
+            "url": "/img/background/digital.jpg",
+            "width": 1536
+          },
+          "pageTitle": {
+            "en": "Digital Transformation",
+            "vi": "Chuyển đổi số"
+          },
+          "sectionTitle": {
+            "en": "Description",
+            "vi": "Mô tả chi tiết"
+          },
+          "text": {
+            "en": "Supports businesses in Digital Transformation, leveraging technology to optimize operations and enhance competitiveness.",
+            "vi": "Hỗ trợ doanh nghiệp trong Chuyển đổi số, tận dụng công nghệ để tối ưu hóa hoạt động và nâng cao năng lực cạnh tranh."
+          }
+        },
+        "hidden": false,
+        "id": "serviceslist01",
+        "type": "services-list"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "OUR SOLUTIONS",
+            "vi": "GIẢI PHÁP"
+          },
+          "items": [
+            {
+              "bullets": [
+                {
+                  "en": "Integrating telecommunications cloud computing, AI automation, OSS & BSS to enhance operational efficiency, helping organizations improve service quality.",
+                  "vi": "Tích hợp Điện toán đám mây viễn thông, Tự động hóa bằng AI, OSS & BSS để nâng cao hiệu quả hoạt động, giúp các đơn vị nâng cao chất lượng dịch vụ."
+                }
+              ],
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 107,
+                "sourcePath": "/img/icons/automation.png",
+                "url": "/img/icons/automation.png",
+                "width": 107
+              },
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1492,
+                "sourcePath": "/img/background/digital_automation.jpg",
+                "url": "/img/background/digital_automation.jpg",
+                "width": 2240
+              },
+              "title": {
+                "en": "Automation & Digital Infrastructure",
+                "vi": "Tự động hóa & Hạ tầng số"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Implementing advanced data analytics and AI-driven solutions for business optimization.",
+                  "vi": "Triển khai phân tích dữ liệu nâng cao và giải pháp AI để tối ưu hóa doanh nghiệp."
+                }
+              ],
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 90,
+                "sourcePath": "/img/icons/artificial-intelligence-2.png",
+                "url": "/img/icons/artificial-intelligence-2.png",
+                "width": 90
+              },
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1382,
+                "sourcePath": "/img/background/digital_iot.jpg",
+                "url": "/img/background/digital_iot.jpg",
+                "width": 2560
+              },
+              "title": {
+                "en": "AI, Big Data, and IoT Applications",
+                "vi": "Ứng dụng AI, Big Data và IoT"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Developing 5G Core SA, O-RAN, and cutting-edge digital platforms.",
+                  "vi": "Phát triển 5G Core SA, O-RAN và các nền tảng số tiên tiến."
+                }
+              ],
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 90,
+                "sourcePath": "/img/icons/development.png",
+                "url": "/img/icons/development.png",
+                "width": 90
+              },
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1493,
+                "sourcePath": "/img/background/digital_generation.jpg",
+                "url": "/img/background/digital_generation.jpg",
+                "width": 2240
+              },
+              "title": {
+                "en": "Next-Generation Digital Platforms",
+                "vi": "Nền tảng số thế hệ mới"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Advanced solutions for public sector modernization and enhanced governance efficiency.",
+                  "vi": "Giải pháp đột phá để hiện đại hóa khu vực công và nâng cao hiệu quả."
+                }
+              ],
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 90,
+                "sourcePath": "/img/icons/transformation.png",
+                "url": "/img/icons/transformation.png",
+                "width": 90
+              },
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1400,
+                "sourcePath": "/img/background/digital_transformation.jpg",
+                "url": "/img/background/digital_transformation.jpg",
+                "width": 2240
+              },
+              "title": {
+                "en": "Digital Transformation for Governments",
+                "vi": "Chuyển đổi số cho Chính phủ"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Utilizing Big Data for smart city development and efficient urban management.",
+                  "vi": "Tận dụng Big Data để phát triển thành phố thông minh và quản lý đô thị hiệu quả."
+                }
+              ],
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 90,
+                "sourcePath": "/img/icons/smart-city.png",
+                "url": "/img/icons/smart-city.png",
+                "width": 90
+              },
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1494,
+                "sourcePath": "/img/background/digital_smartcity.jpg",
+                "url": "/img/background/digital_smartcity.jpg",
+                "width": 2240
+              },
+              "title": {
+                "en": "Data Management & Smart City",
+                "vi": "Quản lý dữ liệu & Thành phố thông minh"
+              }
+            }
+          ],
+          "title": {
+            "en": "Core Offerings",
+            "vi": "Dịch vụ cốt lõi"
+          }
+        },
+        "hidden": false,
+        "id": "corevaluessys01",
+        "type": "core-values-system"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "Get in touch",
+            "vi": "Liên hệ với chúng tôi"
+          },
+          "formEyebrow": {
+            "en": "Send a request",
+            "vi": "Gửi yêu cầu"
+          },
+          "formHeading": {
+            "emphasis": {
+              "en": "Complimentary",
+              "vi": "Tư vấn"
+            },
+            "lead": {
+              "en": "Consultation",
+              "vi": "Miễn phí"
+            }
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Connect",
+              "vi": "Trao đổi"
+            },
+            "lead": {
+              "en": "Let's",
+              "vi": "Hãy cùng"
+            }
+          },
+          "tagline": {
+            "en": "Fill in the form and our team will get back to you within one business day.",
+            "vi": "Vui lòng liên hệ để tìm hiểu các trường hợp khách hàng tiêu biểu và thảo luận thêm về cơ hội hợp tác..."
+          },
+          "variant": "inline"
+        },
+        "hidden": false,
+        "id": "contactform01",
+        "type": "contact-form"
+      }
+    ],
+    "seo": {
+      "description": {
+        "en": "Supports businesses in Digital Transformation, leveraging technology to optimize operations and enhance competitiveness.",
+        "vi": "Hỗ trợ doanh nghiệp trong Chuyển đổi số, tận dụng công nghệ để tối ưu hóa hoạt động và nâng cao năng lực cạnh tranh."
+      },
+      "image": {
+        "alt": {
+          "en": "",
+          "vi": ""
+        },
+        "height": 680,
+        "sourcePath": "/img/banners/digital.svg",
+        "url": "/img/banners/digital.svg",
+        "width": 1600
+      },
+      "title": {
+        "en": "Digital Transformation",
+        "vi": "Chuyển đổi số"
+      }
+    }
+  },
+  "/information-communication-technology": {
+    "blocks": [
+      {
+        "data": {
+          "buttonLabel": {
+            "en": "Book a consultation",
+            "vi": "Đăng ký tư vấn"
+          },
+          "eyebrow": {
+            "en": "ISTT Solutions",
+            "vi": "ISTT Solutions"
+          },
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 680,
+            "sourcePath": "/img/banners/ict.svg",
+            "url": "/img/banners/ict.svg",
+            "width": 1600
+          },
+          "subtitle": {
+            "en": "We design high-end technology solutions that are flexible, robust, and ready for the digital future.",
+            "vi": "Thiết kế các giải pháp công nghệ cao cấp – linh hoạt, mạnh mẽ và sẵn sàng cho tương lai số."
+          },
+          "title": {
+            "en": "Premium Solutions",
+            "vi": "Giải pháp cao cấp"
+          }
+        },
+        "hidden": false,
+        "id": "solutionbanner01",
+        "type": "solution-banner"
+      },
+      {
+        "data": {
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 1282,
+            "sourcePath": "/img/background/ict.jpg",
+            "url": "/img/background/ict.jpg",
+            "width": 1920
+          },
+          "pageTitle": {
+            "en": "Information Communication Technology - ICT",
+            "vi": "Công nghệ Thông tin và Viễn thông"
+          },
+          "sectionTitle": {
+            "en": "Description",
+            "vi": "Mô tả chi tiết"
+          },
+          "text": {
+            "en": "Delivers advanced ICT solutions, assisting businesses and organizations in optimizing their technology infrastructure, improving operational efficiency, and ensuring high security.",
+            "vi": "Cung cấp các giải pháp ICT tiên tiến, hỗ trợ doanh nghiệp và tổ chức tối ưu hóa hạ tầng công nghệ, nâng cao hiệu quả vận hành và đảm bảo an ninh cao."
+          }
+        },
+        "hidden": false,
+        "id": "serviceslist01",
+        "type": "services-list"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "OUR SOLUTIONS",
+            "vi": "GIẢI PHÁP"
+          },
+          "items": [
+            {
+              "bullets": [
+                {
+                  "en": "Providing core network solutions from 3G/4G to 5G, specialized in signaling systems, e.g. STP/DRA-DEA/SBC/SCP.",
+                  "vi": "Cung cấp các giải pháp mạng lõi từ 3G/4G lên 5G, chuyên về các hệ thống báo hiệu, ví dụ như STP/DRA-DEA/SBC/SCP."
+                },
+                {
+                  "en": "Providing comprehensive PacketCore & IMS-VoLTE solutions.",
+                  "vi": "Cung cấp các giải pháp Packet Core & IMS-VoLTE toàn diện."
+                },
+                {
+                  "en": "Providing Assurance solutions for network and services.",
+                  "vi": "Cung cấp các giải pháp Đảm bảo chất lượng cho mạng và dịch vụ."
+                }
+              ],
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 107,
+                "sourcePath": "/img/icons/telecommunication.png",
+                "url": "/img/icons/telecommunication.png",
+                "width": 107
+              },
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1280,
+                "sourcePath": "/img/background/ict_2.jpg",
+                "url": "/img/background/ict_2.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "Telecommunication Network Systems",
+                "vi": "Hệ thống mạng viễn thông"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Optimize infrastructure management efficiency, enhance scalability and flexibility in network operations, while improving telecommunications service quality.",
+                  "vi": "Tối ưu hóa hiệu quả quản lý hạ tầng, nâng cao khả năng mở rộng và linh hoạt trong vận hành mạng, đồng thời tăng cường chất lượng dịch vụ viễn thông."
+                }
+              ],
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 90,
+                "sourcePath": "/img/icons/artificial-intelligence.png",
+                "url": "/img/icons/artificial-intelligence.png",
+                "width": 90
+              },
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1280,
+                "sourcePath": "/img/background/ict_cloud.jpg",
+                "url": "/img/background/ict_cloud.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "Telco Cloud & Network Automation",
+                "vi": "Điện toán đám mây viễn thông & Tự động hóa mạng lưới"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Providing optical transmission solutions and managed services for communication service provider.",
+                  "vi": "Cung cấp các giải pháp truyền dẫn quang và dịch vụ quản lý cho các nhà cung cấp dịch vụ viễn thông."
+                }
+              ],
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 90,
+                "sourcePath": "/img/icons/technology.png",
+                "url": "/img/icons/technology.png",
+                "width": 90
+              },
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1280,
+                "sourcePath": "/img/background/ict_optical.jpg",
+                "url": "/img/background/ict_optical.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "Optical Transmission Systems",
+                "vi": "Hệ thống truyền dẫn quang"
+              }
+            }
+          ],
+          "title": {
+            "en": "Core Offerings",
+            "vi": "Dịch vụ cốt lõi"
+          }
+        },
+        "hidden": false,
+        "id": "corevaluessys01",
+        "type": "core-values-system"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "Get in touch",
+            "vi": "Liên hệ với chúng tôi"
+          },
+          "formEyebrow": {
+            "en": "Send a request",
+            "vi": "Gửi yêu cầu"
+          },
+          "formHeading": {
+            "emphasis": {
+              "en": "Complimentary",
+              "vi": "Tư vấn"
+            },
+            "lead": {
+              "en": "Consultation",
+              "vi": "Miễn phí"
+            }
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Connect",
+              "vi": "Trao đổi"
+            },
+            "lead": {
+              "en": "Let's",
+              "vi": "Hãy cùng"
+            }
+          },
+          "tagline": {
+            "en": "Fill in the form and our team will get back to you within one business day.",
+            "vi": "Vui lòng liên hệ để tìm hiểu các trường hợp khách hàng tiêu biểu và thảo luận thêm về cơ hội hợp tác..."
+          },
+          "variant": "inline"
+        },
+        "hidden": false,
+        "id": "contactform01",
+        "type": "contact-form"
+      }
+    ],
+    "seo": {
+      "description": {
+        "en": "Delivers advanced ICT solutions, assisting businesses and organizations in optimizing their technology infrastructure, improving operational efficiency, and ensuring high security.",
+        "vi": "Cung cấp các giải pháp ICT tiên tiến, hỗ trợ doanh nghiệp và tổ chức tối ưu hóa hạ tầng công nghệ, nâng cao hiệu quả vận hành và đảm bảo an ninh cao."
+      },
+      "image": {
+        "alt": {
+          "en": "",
+          "vi": ""
+        },
+        "height": 680,
+        "sourcePath": "/img/banners/ict.svg",
+        "url": "/img/banners/ict.svg",
+        "width": 1600
+      },
+      "title": {
+        "en": "Information Communication Technology - ICT",
+        "vi": "Công nghệ Thông tin và Viễn thông"
+      }
+    }
+  },
+  "/integration": {
+    "blocks": [
+      {
+        "data": {
+          "buttonLabel": {
+            "en": "Book a consultation",
+            "vi": "Đăng ký tư vấn"
+          },
+          "eyebrow": {
+            "en": "ISTT Solutions",
+            "vi": "ISTT Solutions"
+          },
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 680,
+            "sourcePath": "/img/banners/integration.svg",
+            "url": "/img/banners/integration.svg",
+            "width": 1600
+          },
+          "subtitle": {
+            "en": "We design high-end technology solutions that are flexible, robust, and ready for the digital future.",
+            "vi": "Thiết kế các giải pháp công nghệ cao cấp – linh hoạt, mạnh mẽ và sẵn sàng cho tương lai số."
+          },
+          "title": {
+            "en": "Premium Solutions",
+            "vi": "Giải pháp cao cấp"
+          }
+        },
+        "hidden": false,
+        "id": "solutionbanner01",
+        "type": "solution-banner"
+      },
+      {
+        "data": {
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 1277,
+            "sourcePath": "/img/background/sy.jpg",
+            "url": "/img/background/sy.jpg",
+            "width": 1920
+          },
+          "pageTitle": {
+            "en": "System Integration",
+            "vi": "Tích hợp Hệ thống"
+          },
+          "sectionTitle": {
+            "en": "Description",
+            "vi": "Mô tả chi tiết"
+          },
+          "text": {
+            "en": "ISTT is a leading provider in the field of System Integration (SI), helping businesses and organizations connect different technology platforms into a unified system, optimizing operational efficiency, security, and scalability.",
+            "vi": "ISTT là nhà cung cấp hàng đầu trong lĩnh vực Tích hợp Hệ thống (SI), giúp các doanh nghiệp và tổ chức kết nối các nền tảng công nghệ khác nhau thành một hệ thống thống nhất, tối ưu hóa hiệu quả vận hành, bảo mật và khả năng mở rộng."
+          }
+        },
+        "hidden": false,
+        "id": "serviceslist01",
+        "type": "services-list"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "OUR SOLUTIONS",
+            "vi": "GIẢI PHÁP"
+          },
+          "items": [
+            {
+              "bullets": [
+                {
+                  "en": "STP (SS7), DSR (Diameter), SBC (SIP), MNP, SMSC-FDA, DNS, SMS GW, USSD GW.",
+                  "vi": "STP (SS7), DSR (Diameter), SBC (SIP), MNP, SMSC-FDA, DNS, SMS GW, USSD GW."
+                }
+              ],
+              "icon": null,
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1282,
+                "sourcePath": "/img/background/sy_2.jpg",
+                "url": "/img/background/sy_2.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "Telecom Solutions",
+                "vi": "Giải pháp Viễn thông"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Seamless global and local network integration.",
+                  "vi": "Tích hợp liền mạch mạng toàn cầu và nội địa"
+                }
+              ],
+              "icon": null,
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1282,
+                "sourcePath": "/img/background/sy_2.jpg",
+                "url": "/img/background/sy_2.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "Roaming & Interconnect Solutions",
+                "vi": "Giải pháp Chuyển vùng & Kết nối"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Secure, high-performance networking solutions",
+                  "vi": "Giải pháp mạng bảo mật, hiệu suất cao."
+                }
+              ],
+              "icon": null,
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1282,
+                "sourcePath": "/img/background/sy_2.jpg",
+                "url": "/img/background/sy_2.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "Optimized Telecom Infrastructure",
+                "vi": "Tối ưu cơ sở hạ tầng viễn thông"
+              }
+            }
+          ],
+          "title": {
+            "en": "Core Offerings",
+            "vi": "Dịch vụ cốt lõi"
+          }
+        },
+        "hidden": false,
+        "id": "corevaluessys01",
+        "type": "core-values-system"
+      }
+    ],
+    "seo": {
+      "description": {
+        "en": "ISTT is a leading provider in the field of System Integration (SI), helping businesses and organizations connect different technology platforms into a unified system, optimizing operational efficiency, security, and scalability.",
+        "vi": "ISTT là nhà cung cấp hàng đầu trong lĩnh vực Tích hợp Hệ thống (SI), giúp các doanh nghiệp và tổ chức kết nối các nền tảng công nghệ khác nhau thành một hệ thống thống nhất, tối ưu hóa hiệu quả vận hành, bảo mật và khả năng mở rộng."
+      },
+      "image": {
+        "alt": {
+          "en": "",
+          "vi": ""
+        },
+        "height": 680,
+        "sourcePath": "/img/banners/integration.svg",
+        "url": "/img/banners/integration.svg",
+        "width": 1600
+      },
+      "title": {
+        "en": "System Integration",
+        "vi": "Tích hợp Hệ thống"
+      }
+    }
+  },
+  "/secure-defense": {
+    "blocks": [
+      {
+        "data": {
+          "buttonLabel": {
+            "en": "Book a consultation",
+            "vi": "Đăng ký tư vấn"
+          },
+          "eyebrow": {
+            "en": "ISTT Solutions",
+            "vi": "ISTT Solutions"
+          },
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 680,
+            "sourcePath": "/img/banners/secure.svg",
+            "url": "/img/banners/secure.svg",
+            "width": 1600
+          },
+          "subtitle": {
+            "en": "We design high-end technology solutions that are flexible, robust, and ready for the digital future.",
+            "vi": "Thiết kế các giải pháp công nghệ cao cấp – linh hoạt, mạnh mẽ và sẵn sàng cho tương lai số."
+          },
+          "title": {
+            "en": "Premium Solutions",
+            "vi": "Giải pháp cao cấp"
+          }
+        },
+        "hidden": false,
+        "id": "solutionbanner01",
+        "type": "solution-banner"
+      },
+      {
+        "data": {
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 560,
+            "sourcePath": "/img/background/secure.jpg",
+            "url": "/img/background/secure.jpg",
+            "width": 965
+          },
+          "pageTitle": {
+            "en": "Secure & Defense",
+            "vi": "An ninh & Quốc phòng"
+          },
+          "sectionTitle": {
+            "en": "Description",
+            "vi": "Mô tả chi tiết"
+          },
+          "text": {
+            "en": "ISTT offers security and defense solutions, safeguarding systems against sophisticated threats.",
+            "vi": "ISTT cung cấp các giải pháp an ninh và quốc phòng, bảo vệ hệ thống trước các mối đe dọa tinh vi."
+          }
+        },
+        "hidden": false,
+        "id": "serviceslist01",
+        "type": "services-list"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "OUR SOLUTIONS",
+            "vi": "GIẢI PHÁP"
+          },
+          "items": [
+            {
+              "bullets": [
+                {
+                  "en": "Signaling Firewall (SS7, Diameter, SIP, GTP) protects telecommunication systems from cyber threats.",
+                  "vi": "Tường lửa tín hiệu (SS7, Diameter, SIP, GTP) bảo vệ hệ thống viễn thông khỏi các mối đe dọa mạng."
+                }
+              ],
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 107,
+                "sourcePath": "/img/icons/critical.png",
+                "url": "/img/icons/critical.png",
+                "width": 107
+              },
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1494,
+                "sourcePath": "/img/background/secure_telecom.jpg",
+                "url": "/img/background/secure_telecom.jpg",
+                "width": 2240
+              },
+              "title": {
+                "en": "Telecommunication Security",
+                "vi": "An ninh viễn thông"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "DDoS Protection, DNS Filtering, and Anti-Spoofing solutions to secure network infrastructure.",
+                  "vi": "Giải pháp bảo vệ DDoS, lọc DNS và chống giả mạo để bảo vệ hạ tầng mạng."
+                }
+              ],
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 90,
+                "sourcePath": "/img/icons/prevention.png",
+                "url": "/img/icons/prevention.png",
+                "width": 90
+              },
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1141,
+                "sourcePath": "/img/background/secure_threat.jpg",
+                "url": "/img/background/secure_threat.jpg",
+                "width": 1141
+              },
+              "title": {
+                "en": "Threat Prevention Systems",
+                "vi": "Hệ thống phòng chống mối đe dọa"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Lawful Interception Systems & carrier-grade URL Filtering solutions for government and enterprise compliance.",
+                  "vi": "Hệ thống giám sát hợp pháp và giải pháp lọc URL chất lượng cao nhằm đáp ứng yêu cầu tuân thủ của chính phủ và doanh nghiệp"
+                }
+              ],
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 90,
+                "sourcePath": "/img/icons/regulatory-compliance.png",
+                "url": "/img/icons/regulatory-compliance.png",
+                "width": 90
+              },
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1281,
+                "sourcePath": "/img/background/secure_regulatory.jpg",
+                "url": "/img/background/secure_regulatory.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "Regulatory Compliance & Monitoring",
+                "vi": "Tuân thủ quy định & giám sát"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "We provide specialized solutions, such as Anti-Drone Systems, Private Tactical Networks, Border Control Systems (Virtual Wall), EW... to enhance national and organizational security.",
+                  "vi": "Chúng tôi cung cấp các giải pháp chuyên dụng như hệ thống chống máy bay không người lái (Anti-Drone), mạng chiến thuật riêng biệt, hệ thống kiểm soát biên giới (tường ảo), và các công nghệ tác chiến điện tử (EW), nhằm hỗ trợ tăng cường an ninh cho quốc gia và tổ chức."
+                }
+              ],
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 90,
+                "sourcePath": "/img/icons/cybersecurity.png",
+                "url": "/img/icons/cybersecurity.png",
+                "width": 90
+              },
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1280,
+                "sourcePath": "/img/background/defense_solution.jpg",
+                "url": "/img/background/defense_solution.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "Defense Solutions",
+                "vi": "Giải pháp quốc phòng"
+              }
+            }
+          ],
+          "title": {
+            "en": "Core Offerings",
+            "vi": "Dịch vụ cốt lõi"
+          }
+        },
+        "hidden": false,
+        "id": "corevaluessys01",
+        "type": "core-values-system"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "Get in touch",
+            "vi": "Liên hệ với chúng tôi"
+          },
+          "formEyebrow": {
+            "en": "Send a request",
+            "vi": "Gửi yêu cầu"
+          },
+          "formHeading": {
+            "emphasis": {
+              "en": "Complimentary",
+              "vi": "Tư vấn"
+            },
+            "lead": {
+              "en": "Consultation",
+              "vi": "Miễn phí"
+            }
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Connect",
+              "vi": "Trao đổi"
+            },
+            "lead": {
+              "en": "Let's",
+              "vi": "Hãy cùng"
+            }
+          },
+          "tagline": {
+            "en": "Fill in the form and our team will get back to you within one business day.",
+            "vi": "Vui lòng liên hệ để tìm hiểu các trường hợp khách hàng tiêu biểu và thảo luận thêm về cơ hội hợp tác..."
+          },
+          "variant": "inline"
+        },
+        "hidden": false,
+        "id": "contactform01",
+        "type": "contact-form"
+      }
+    ],
+    "seo": {
+      "description": {
+        "en": "ISTT offers security and defense solutions, safeguarding systems against sophisticated threats.",
+        "vi": "ISTT cung cấp các giải pháp an ninh và quốc phòng, bảo vệ hệ thống trước các mối đe dọa tinh vi."
+      },
+      "image": {
+        "alt": {
+          "en": "",
+          "vi": ""
+        },
+        "height": 680,
+        "sourcePath": "/img/banners/secure.svg",
+        "url": "/img/banners/secure.svg",
+        "width": 1600
+      },
+      "title": {
+        "en": "Secure & Defense",
+        "vi": "An ninh & Quốc phòng"
+      }
+    }
+  },
+  "/services": {
+    "blocks": [
+      {
+        "data": {
+          "buttonLabel": {
+            "en": "Book a consultation",
+            "vi": "Đặt lịch tư vấn"
+          },
+          "eyebrow": {
+            "en": "We provide",
+            "vi": "Chúng tôi cung cấp"
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Services",
+              "vi": "Chuyên nghiệp"
+            },
+            "lead": {
+              "en": "Professional",
+              "vi": "Dịch vụ"
+            }
+          },
+          "items": [
+            {
+              "categories": [
+                {
+                  "bullets": [
+                    {
+                      "en": "Powerhouse of telco solutions for major tier-1 communication service providers in Vietnam.",
+                      "vi": "Trung tâm giải pháp viễn thông hàng đầu cho các nhà cung cấp dịch vụ viễn thông cấp 1 tại Việt Nam."
+                    },
+                    {
+                      "en": "Provide niche solutions that tailored to meet the needs of Secure & Defense industries.",
+                      "vi": "Cung cấp các giải pháp chuyên biệt, được tùy chỉnh để đáp ứng nhu cầu của ngành An ninh & Quốc phòng."
+                    },
+                    {
+                      "en": "Supports businesses in Digital Transformation, leveraging technology to optimize operations and enhance competitiveness.",
+                      "vi": "Hỗ trợ doanh nghiệp trong Chuyển đổi số, tận dụng công nghệ để tối ưu hóa hoạt động và nâng cao năng lực cạnh tranh."
+                    }
+                  ],
+                  "name": {
+                    "en": "Telecom Solutions",
+                    "vi": "Giải pháp Viễn thông"
+                  }
+                }
+              ],
+              "description": {
+                "en": "ISTT is a leading company in the field of System Integration (SI), helping businesses and organizations connect different technology platforms into a unified system, optimizing operational efficiency, security, and scalability.",
+                "vi": "ISTT là một công ty hàng đầu trong lĩnh vực Tích hợp Hệ thống (SI), giúp các doanh nghiệp và tổ chức kết nối các nền tảng công nghệ khác nhau thành một hệ thống thống nhất, tối ưu hóa hiệu quả hoạt động, bảo mật và khả năng mở rộng."
+              },
+              "href": "/integration",
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 144,
+                "sourcePath": "/img/icons/sys.png",
+                "url": "/img/icons/sys.png",
+                "width": 144
+              },
+              "title": {
+                "en": "System Integration",
+                "vi": "Tích hợp Hệ thống"
+              }
+            },
+            {
+              "categories": [
+                {
+                  "bullets": [
+                    {
+                      "en": "Tailored software solutions designed to meet specific operational needs.",
+                      "vi": "Các giải pháp phần mềm được thiết kế riêng để đáp ứng nhu cầu hoạt động cụ thể."
+                    }
+                  ],
+                  "name": {
+                    "en": "Custom Software Development",
+                    "vi": "Phát triển Phần mềm Tùy chỉnh"
+                  }
+                },
+                {
+                  "bullets": [
+                    {
+                      "en": "Ensuring seamless interoperability across platforms and technologies.",
+                      "vi": "Đảm bảo khả năng tương thích và hiệu quả giữa các nền tảng và công nghệ."
+                    }
+                  ],
+                  "name": {
+                    "en": "Multi-Vendor System Integration",
+                    "vi": "Tích hợp Hệ thống Đa Nhà cung cấp"
+                  }
+                },
+                {
+                  "bullets": [
+                    {
+                      "en": "Expertise in detecting and mitigating potential challenges during implementation.",
+                      "vi": "Phát hiện và giảm thiểu các thách thức trong quá trình triển khai."
+                    }
+                  ],
+                  "name": {
+                    "en": "Risk Management",
+                    "vi": "Quản lý Rủi ro"
+                  }
+                }
+              ],
+              "description": {
+                "en": "Specializes in developing and integrating custom software solutions that align with diverse client requirements. By leveraging advanced technologies, we help businesses achieve greater efficiency, minimize risks, and reduce costs.",
+                "vi": "Chuyên phát triển và tích hợp các giải pháp phần mềm tùy chỉnh phù hợp với nhu cầu đa dạng của khách hàng. Bằng cách tận dụng công nghệ tiên tiến, chúng tôi giúp doanh nghiệp nâng cao hiệu suất, giảm thiểu rủi ro và cắt giảm chi phí."
+              },
+              "href": "/software",
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 144,
+                "sourcePath": "/img/icons/sw.png",
+                "url": "/img/icons/sw.png",
+                "width": 144
+              },
+              "title": {
+                "en": "Software Development",
+                "vi": "Phát triển Phần mềm"
+              }
+            },
+            {
+              "categories": [
+                {
+                  "bullets": [
+                    {
+                      "en": "Comprehensive assistance available online and on-site.",
+                      "vi": "Hỗ trợ trực tuyến và tại chỗ toàn diện."
+                    }
+                  ],
+                  "name": {
+                    "en": "24/7 Multi-Tier Support",
+                    "vi": "Hỗ trợ 24/7"
+                  }
+                },
+                {
+                  "bullets": [
+                    {
+                      "en": "Strategically located in Hanoi, Ho Chi Minh City, and Da Nang for immediate response.",
+                      "vi": "Có mặt tại Hà Nội, TP.HCM và Đà Nẵng để phản hồi nhanh."
+                    }
+                  ],
+                  "name": {
+                    "en": "On-Site Engineering Teams",
+                    "vi": "Đội ngũ kỹ thuật"
+                  }
+                },
+                {
+                  "bullets": [
+                    {
+                      "en": "Adherence to strict service level agreements to ensure reliability and customer satisfaction.",
+                      "vi": "Tuân thủ nghiêm ngặt các thỏa thuận mức dịch vụ để đảm bảo độ tin cậy."
+                    }
+                  ],
+                  "name": {
+                    "en": "SLA-Driven Performance",
+                    "vi": "Hiệu suất Dựa trên SLA"
+                  }
+                }
+              ],
+              "description": {
+                "en": "We offers 24/7 technical support services designed to ensure system reliability and uptime. With a skilled support team and strategic on-site presence across Vietnam, we provide rapid issue resolution and consistent service quality.",
+                "vi": "Dịch vụ hỗ trợ kỹ thuật 24/7 được thiết kế để đảm bảo độ tin cậy và thời gian hoạt động của hệ thống. Với đội ngũ hỗ trợ giàu kinh nghiệm và hiện diện chiến lược tại Việt Nam, chúng tôi cung cấp các giải pháp nhanh chóng và nhất quán."
+              },
+              "href": "/support",
+              "icon": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 144,
+                "sourcePath": "/img/icons/technical-support.png",
+                "url": "/img/icons/technical-support.png",
+                "width": 144
+              },
+              "title": {
+                "en": "Technical Support",
+                "vi": "Hỗ trợ Kỹ thuật"
+              }
+            }
+          ]
+        },
+        "hidden": false,
+        "id": "ourservices01",
+        "type": "our-services"
+      },
+      {
+        "data": {
+          "description": {
+            "en": "ISTT focuses its investment on researching and seeking advanced technology services that are suitable for the practical needs of Vietnam, while also meeting international standards. The services provided by ISTT have been deployed in numerous Ministries, Departments, and large enterprises and organizations both domestically and internationally, delivering high efficiency for customers.",
+            "vi": "ISTT tập trung đầu tư vào nghiên cứu và tìm kiếm các dịch vụ công nghệ tiên tiến, phù hợp với nhu cầu thực tiễn tại Việt Nam, đồng thời đáp ứng các tiêu chuẩn quốc tế. Các dịch vụ do ISTT cung cấp đã được triển khai tại nhiều Bộ, Ban Ngành và nhiều doanh nghiệp, tổ chức lớn trong và ngoài nước, mang lại hiệu quả cao cho khách hàng."
+          },
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 632,
+            "sourcePath": "/img/background/services-2.png",
+            "url": "/img/background/services-2.png",
+            "width": 819
+          },
+          "stats": [
+            {
+              "label": {
+                "en": "Years Active",
+                "vi": "Năm kinh nghiệm"
+              },
+              "value": "20+"
+            },
+            {
+              "label": {
+                "en": "Partners",
+                "vi": "Đối tác"
+              },
+              "value": "20+"
+            }
+          ],
+          "subtitle": {
+            "en": "Flexible Services",
+            "vi": "Dịch vụ linh hoạt"
+          },
+          "title": {
+            "en": "Customized services",
+            "vi": "Tùy chỉnh dịch vụ theo yêu cầu"
+          }
+        },
+        "hidden": false,
+        "id": "opportunity01",
+        "type": "opportunity"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "Get in touch",
+            "vi": "Liên hệ với chúng tôi"
+          },
+          "formEyebrow": {
+            "en": "Send a request",
+            "vi": "Gửi yêu cầu"
+          },
+          "formHeading": {
+            "emphasis": {
+              "en": "Complimentary",
+              "vi": "Tư vấn"
+            },
+            "lead": {
+              "en": "Consultation",
+              "vi": "Miễn phí"
+            }
+          },
+          "heading": {
+            "emphasis": {
+              "en": "Connect",
+              "vi": "Trao đổi"
+            },
+            "lead": {
+              "en": "Let's",
+              "vi": "Hãy cùng"
+            }
+          },
+          "tagline": {
+            "en": "Fill in the form and our team will get back to you within one business day.",
+            "vi": "Vui lòng liên hệ để tìm hiểu các trường hợp khách hàng tiêu biểu và thảo luận thêm về cơ hội hợp tác..."
+          },
+          "variant": "inline"
+        },
+        "hidden": false,
+        "id": "contactform01",
+        "type": "contact-form"
+      }
+    ],
+    "seo": {
+      "description": {
+        "en": "ISTT is a leading company in the field of System Integration (SI), helping businesses and organizations connect different technology platforms into a unified system, optimizing operational efficiency, security, and scalability.",
+        "vi": "ISTT là một công ty hàng đầu trong lĩnh vực Tích hợp Hệ thống (SI), giúp các doanh nghiệp và tổ chức kết nối các nền tảng công nghệ khác nhau thành một hệ thống thống nhất, tối ưu hóa hiệu quả hoạt động, bảo mật và khả năng mở rộng."
+      },
+      "image": {
+        "alt": {
+          "en": "",
+          "vi": ""
+        },
+        "height": 632,
+        "sourcePath": "/img/background/services-2.png",
+        "url": "/img/background/services-2.png",
+        "width": 819
+      },
+      "title": {
+        "en": "Professional Services",
+        "vi": "Dịch vụ Chuyên nghiệp"
+      }
+    }
+  },
+  "/software": {
+    "blocks": [
+      {
+        "data": {
+          "eyebrow": {
+            "en": "",
+            "vi": ""
+          },
+          "headingLevel": 2,
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 680,
+            "sourcePath": "/img/banners/software.svg",
+            "url": "/img/banners/software.svg",
+            "width": 1600
+          },
+          "subtitle": {
+            "en": "",
+            "vi": ""
+          },
+          "title": {
+            "en": "Professional Services",
+            "vi": "Dịch vụ Chuyên nghiệp"
+          }
+        },
+        "hidden": false,
+        "id": "aboutbanner01",
+        "type": "about-banner"
+      },
+      {
+        "data": {
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 1280,
+            "sourcePath": "/img/background/software.jpg",
+            "url": "/img/background/software.jpg",
+            "width": 1920
+          },
+          "pageTitle": {
+            "en": "Software Development",
+            "vi": "Phát triển Phần mềm"
+          },
+          "sectionTitle": {
+            "en": "Description",
+            "vi": "Mô tả chi tiết"
+          },
+          "text": {
+            "en": "Specializes in developing and integrating custom software solutions that align with diverse client requirements. By leveraging advanced technologies, we help businesses achieve greater efficiency, minimize risks, and reduce costs.",
+            "vi": "Chuyên phát triển và tích hợp các giải pháp phần mềm tùy chỉnh phù hợp với nhu cầu đa dạng của khách hàng. Bằng cách tận dụng công nghệ tiên tiến, chúng tôi giúp doanh nghiệp nâng cao hiệu suất, giảm thiểu rủi ro và cắt giảm chi phí."
+          }
+        },
+        "hidden": false,
+        "id": "serviceslist01",
+        "type": "services-list"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "OUR SOLUTIONS",
+            "vi": "GIẢI PHÁP"
+          },
+          "items": [
+            {
+              "bullets": [
+                {
+                  "en": "Tailored software solutions designed to meet specific operational needs.",
+                  "vi": "Các giải pháp phần mềm được thiết kế riêng để đáp ứng nhu cầu hoạt động cụ thể."
+                }
+              ],
+              "icon": null,
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1076,
+                "sourcePath": "/img/background/software_2.png",
+                "url": "/img/background/software_2.png",
+                "width": 1920
+              },
+              "title": {
+                "en": "Custom Software Development",
+                "vi": "Phát triển Phần mềm Tùy chỉnh"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Ensuring seamless interoperability across platforms and technologies.",
+                  "vi": "Đảm bảo khả năng tương thích và hiệu quả giữa các nền tảng và công nghệ."
+                }
+              ],
+              "icon": null,
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1076,
+                "sourcePath": "/img/background/software_2.png",
+                "url": "/img/background/software_2.png",
+                "width": 1920
+              },
+              "title": {
+                "en": "Multi-Vendor System Integration",
+                "vi": "Tích hợp Hệ thống Đa Nhà cung cấp"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Expertise in detecting and mitigating potential challenges during implementation.",
+                  "vi": "Phát hiện và giảm thiểu các thách thức trong quá trình triển khai."
+                }
+              ],
+              "icon": null,
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1076,
+                "sourcePath": "/img/background/software_2.png",
+                "url": "/img/background/software_2.png",
+                "width": 1920
+              },
+              "title": {
+                "en": "Risk Management",
+                "vi": "Quản lý Rủi ro"
+              }
+            }
+          ],
+          "title": {
+            "en": "Core Offerings",
+            "vi": "Dịch vụ cốt lõi"
+          }
+        },
+        "hidden": false,
+        "id": "corevaluessys01",
+        "type": "core-values-system"
+      }
+    ],
+    "seo": {
+      "description": {
+        "en": "Specializes in developing and integrating custom software solutions that align with diverse client requirements. By leveraging advanced technologies, we help businesses achieve greater efficiency, minimize risks, and reduce costs.",
+        "vi": "Chuyên phát triển và tích hợp các giải pháp phần mềm tùy chỉnh phù hợp với nhu cầu đa dạng của khách hàng. Bằng cách tận dụng công nghệ tiên tiến, chúng tôi giúp doanh nghiệp nâng cao hiệu suất, giảm thiểu rủi ro và cắt giảm chi phí."
+      },
+      "image": {
+        "alt": {
+          "en": "",
+          "vi": ""
+        },
+        "height": 680,
+        "sourcePath": "/img/banners/software.svg",
+        "url": "/img/banners/software.svg",
+        "width": 1600
+      },
+      "title": {
+        "en": "Software Development",
+        "vi": "Phát triển Phần mềm"
+      }
+    }
+  },
+  "/support": {
+    "blocks": [
+      {
+        "data": {
+          "eyebrow": {
+            "en": "",
+            "vi": ""
+          },
+          "headingLevel": 2,
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 680,
+            "sourcePath": "/img/banners/support.svg",
+            "url": "/img/banners/support.svg",
+            "width": 1600
+          },
+          "subtitle": {
+            "en": "",
+            "vi": ""
+          },
+          "title": {
+            "en": "Professional Services",
+            "vi": "Dịch vụ Chuyên nghiệp"
+          }
+        },
+        "hidden": false,
+        "id": "aboutbanner01",
+        "type": "about-banner"
+      },
+      {
+        "data": {
+          "image": {
+            "alt": {
+              "en": "",
+              "vi": ""
+            },
+            "height": 1280,
+            "sourcePath": "/img/background/support.jpg",
+            "url": "/img/background/support.jpg",
+            "width": 1920
+          },
+          "pageTitle": {
+            "en": "Technical Support",
+            "vi": "Hỗ trợ Kỹ thuật"
+          },
+          "sectionTitle": {
+            "en": "Description",
+            "vi": "Mô tả chi tiết"
+          },
+          "text": {
+            "en": "We offers 24/7 technical support services designed to ensure system reliability and uptime. With a skilled support team and strategic on-site presence across Vietnam, we provide rapid issue resolution and consistent service quality.",
+            "vi": "Dịch vụ hỗ trợ kỹ thuật 24/7 được thiết kế để đảm bảo độ tin cậy và thời gian hoạt động của hệ thống. Với đội ngũ hỗ trợ giàu kinh nghiệm và hiện diện chiến lược tại Việt Nam, chúng tôi cung cấp các giải pháp nhanh chóng và nhất quán."
+          }
+        },
+        "hidden": false,
+        "id": "serviceslist01",
+        "type": "services-list"
+      },
+      {
+        "data": {
+          "eyebrow": {
+            "en": "OUR SOLUTIONS",
+            "vi": "GIẢI PHÁP"
+          },
+          "items": [
+            {
+              "bullets": [
+                {
+                  "en": "Comprehensive assistance available online and on-site.",
+                  "vi": "Hỗ trợ trực tuyến và tại chỗ toàn diện."
+                }
+              ],
+              "icon": null,
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1593,
+                "sourcePath": "/img/background/support_2.jpg",
+                "url": "/img/background/support_2.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "24/7 Multi-Tier Support",
+                "vi": "Hỗ trợ 24/7"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Strategically located in Hanoi, Ho Chi Minh City, and Da Nang for immediate response.",
+                  "vi": "Có mặt tại Hà Nội, TP.HCM và Đà Nẵng để phản hồi nhanh."
+                }
+              ],
+              "icon": null,
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1593,
+                "sourcePath": "/img/background/support_2.jpg",
+                "url": "/img/background/support_2.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "On-Site Engineering Teams",
+                "vi": "Đội ngũ kỹ thuật"
+              }
+            },
+            {
+              "bullets": [
+                {
+                  "en": "Adherence to strict service level agreements to ensure reliability and customer satisfaction.",
+                  "vi": "Tuân thủ nghiêm ngặt các thỏa thuận mức dịch vụ để đảm bảo độ tin cậy."
+                }
+              ],
+              "icon": null,
+              "image": {
+                "alt": {
+                  "en": "",
+                  "vi": ""
+                },
+                "height": 1593,
+                "sourcePath": "/img/background/support_2.jpg",
+                "url": "/img/background/support_2.jpg",
+                "width": 1920
+              },
+              "title": {
+                "en": "SLA-Driven Performance",
+                "vi": "Hiệu suất Dựa trên SLA"
+              }
+            }
+          ],
+          "title": {
+            "en": "Core Offerings",
+            "vi": "Dịch vụ cốt lõi"
+          }
+        },
+        "hidden": false,
+        "id": "corevaluessys01",
+        "type": "core-values-system"
+      }
+    ],
+    "seo": {
+      "description": {
+        "en": "We offers 24/7 technical support services designed to ensure system reliability and uptime. With a skilled support team and strategic on-site presence across Vietnam, we provide rapid issue resolution and consistent service quality.",
+        "vi": "Dịch vụ hỗ trợ kỹ thuật 24/7 được thiết kế để đảm bảo độ tin cậy và thời gian hoạt động của hệ thống. Với đội ngũ hỗ trợ giàu kinh nghiệm và hiện diện chiến lược tại Việt Nam, chúng tôi cung cấp các giải pháp nhanh chóng và nhất quán."
+      },
+      "image": {
+        "alt": {
+          "en": "",
+          "vi": ""
+        },
+        "height": 680,
+        "sourcePath": "/img/banners/support.svg",
+        "url": "/img/banners/support.svg",
+        "width": 1600
+      },
+      "title": {
+        "en": "Technical Support",
+        "vi": "Hỗ trợ Kỹ thuật"
+      }
+    }
+  }
+}

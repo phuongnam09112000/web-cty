@@ -1,0 +1,266 @@
+{
+  "path": "/about",
+  "name": "Giới thiệu",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "VỀ CHÚNG TÔI",
+        "en": "About us"
+      },
+      "description": {
+        "vi": "Được thành lập từ năm 2001, ISTT đã và đang tiên phong trong lĩnh vực CNTT-TT và viễn thông tại Việt Nam suốt hơn hai thập kỷ.",
+        "en": "Established in 2001, ISTT has been at the forefront of Vietnam's ICT and telecommunication industries for over two decades."
+      },
+      "image": {
+        "src": "/img/background/about_banner.jpeg"
+      }
+    },
+    "blocks": [
+      {
+        "id": "aboutbanner01",
+        "type": "about-banner",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/background/about_banner.jpeg"
+          },
+          "title": {
+            "vi": "VỀ CHÚNG TÔI",
+            "en": "About us"
+          },
+          "subtitle": {
+            "vi": "",
+            "en": ""
+          },
+          "eyebrow": {
+            "vi": "",
+            "en": ""
+          },
+          "headingLevel": 1
+        }
+      },
+      {
+        "id": "overview01",
+        "type": "overview",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "Về chúng tôi",
+            "en": "About us"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Giới thiệu",
+              "en": "Introduction"
+            },
+            "emphasis": {
+              "vi": "về ISTT",
+              "en": "to ISTT"
+            }
+          },
+          "images": [
+            {
+              "src": "/img/background/istt_about.jpg"
+            },
+            {
+              "src": "/img/background/istt_about_2.jpg"
+            },
+            {
+              "src": "/img/background/istt_about_3.jpg"
+            }
+          ],
+          "paragraphs": [
+            {
+              "vi": "Được thành lập từ năm 2001, ISTT đã và đang tiên phong trong lĩnh vực CNTT-TT và viễn thông tại Việt Nam suốt hơn hai thập kỷ.",
+              "en": "Established in 2001, ISTT has been at the forefront of Vietnam's ICT and telecommunication industries for over two decades."
+            },
+            {
+              "vi": "Là đối tác tin cậy trong các giải pháp đổi mới, chúng tôi chuyên sâu về Viễn thông, An ninh Quốc phòng và Chuyển đổi số.",
+              "en": "As a trusted partner for innovative solutions, we specialize in Telecommunication, Secure & Defense, and Digital Transformation."
+            },
+            {
+              "vi": "Hợp tác cùng các tập đoàn công nghệ hàng đầu thế giới, ISTT chủ động phát triển các giải pháp tiên tiến, phù hợp với nhu cầu thực tiễn của từng doanh nghiệp — tối ưu hiệu quả, gia tăng giá trị và đồng hành trong hành trình chuyển đổi số.",
+              "en": "In collaboration with leading global technology corporations, ISTT proactively develops advanced solutions tailored to the practical needs of each business — aiming to optimize efficiency, enhance value, and accompany clients throughout their digital transformation journey."
+            },
+            {
+              "vi": "Với triết lý \"Nỗ lực chung — Thành công chung\", chúng tôi xây dựng quan hệ đối tác bền vững và thúc đẩy sự phát triển xuyên suốt các ngành.",
+              "en": "Guided by our philosophy, \"United Efforts - Shared Success\", we build lasting partnerships and drive progress across industries."
+            }
+          ],
+          "yearBadge": {
+            "vi": "THÀNH LẬP 2001 — HÀ NỘI, VIỆT NAM",
+            "en": "EST. 2001 — HANOI, VIETNAM"
+          }
+        }
+      },
+      {
+        "id": "vision01",
+        "type": "vision",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/background/vision.jpg"
+          },
+          "eyebrow": {
+            "vi": "Định hướng chiến lược",
+            "en": "Strategic Direction"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Tầm nhìn",
+              "en": "Our"
+            },
+            "emphasis": {
+              "vi": "của chúng tôi",
+              "en": "Vision"
+            }
+          },
+          "body": {
+            "vi": "Trở thành nhà tích hợp hệ thống hàng đầu trong lĩnh vực CNTT-TT, Quốc phòng và An ninh, cung cấp các giải pháp công nghệ chuyên biệt và sáng tạo, góp phần nâng cao năng lực cho khách hàng và cộng đồng.",
+            "en": "To become a leading systems integrator in ICT, Defense, and Security, providing specialized, innovative technology solutions that empower our clients and communities."
+          }
+        }
+      },
+      {
+        "id": "mission01",
+        "type": "mission",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/background/mission.jpg"
+          },
+          "eyebrow": {
+            "vi": "Cam kết của chúng tôi",
+            "en": "What We Stand For"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Sứ mệnh",
+              "en": "Our"
+            },
+            "emphasis": {
+              "vi": "của chúng tôi",
+              "en": "Mission"
+            }
+          },
+          "points": [
+            {
+              "vi": "Kết nối đối tác và khách hàng toàn cầu với các giải pháp công nghệ tiên tiến.",
+              "en": "Connect global partners and customers with state-of-the-art solutions."
+            },
+            {
+              "vi": "Cung cấp công nghệ được tối ưu hóa, chất lượng cao và hướng tới tương lai.",
+              "en": "Deliver optimized, high-quality, and forward-thinking technologies."
+            },
+            {
+              "vi": "Xây dựng niềm tin và mối quan hệ bền vững để đảm bảo thành công lâu dài.",
+              "en": "Build trust and strong relationships to ensure long-term success."
+            }
+          ]
+        }
+      },
+      {
+        "id": "corevalues01",
+        "type": "core-values",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "Chúng tôi là ai",
+            "en": "Who We Are"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Giá trị",
+              "en": "Our Core"
+            },
+            "emphasis": {
+              "vi": "Cốt lõi",
+              "en": "Values"
+            }
+          },
+          "items": [
+            {
+              "icon": {
+                "src": "/img/icons/commitment.png"
+              },
+              "title": {
+                "vi": "Cam kết",
+                "en": "Commitment"
+              },
+              "description": {
+                "vi": "Tập trung vào việc đáp ứng nhu cầu của khách hàng và đối tác với sự minh bạch",
+                "en": "Focusing on meeting the needs of customers and partners with transparency."
+              }
+            },
+            {
+              "icon": {
+                "src": "/img/icons/quanlity.png"
+              },
+              "title": {
+                "vi": "Chất lượng",
+                "en": "Quality"
+              },
+              "description": {
+                "vi": "Đặt ra tiêu chuẩn cao nhất trong mọi giải pháp mà chúng tôi cung cấp.",
+                "en": "Striving for the highest standards in every solution we provide."
+              }
+            },
+            {
+              "icon": {
+                "src": "/img/icons/colab.png"
+              },
+              "title": {
+                "vi": "Hợp tác",
+                "en": "Collaboration"
+              },
+              "description": {
+                "vi": "Thúc đẩy làm việc nhóm và sự phát triển chung với đối tác và khách hàng.",
+                "en": "Fostering teamwork and mutual growth with partners and clients."
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "contactform01",
+        "type": "contact-form",
+        "hidden": false,
+        "data": {
+          "variant": "inline",
+          "eyebrow": {
+            "vi": "Liên hệ với chúng tôi",
+            "en": "Get in touch"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Hãy cùng",
+              "en": "Let's"
+            },
+            "emphasis": {
+              "vi": "Trao đổi",
+              "en": "Connect"
+            }
+          },
+          "tagline": {
+            "vi": "Vui lòng liên hệ để tìm hiểu các trường hợp khách hàng tiêu biểu và thảo luận thêm về cơ hội hợp tác...",
+            "en": "Fill in the form and our team will get back to you within one business day."
+          },
+          "formEyebrow": {
+            "vi": "Gửi yêu cầu",
+            "en": "Send a request"
+          },
+          "formHeading": {
+            "lead": {
+              "vi": "Miễn phí",
+              "en": "Consultation"
+            },
+            "emphasis": {
+              "vi": "Tư vấn",
+              "en": "Complimentary"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

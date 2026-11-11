@@ -1,0 +1,644 @@
+{
+  "path": "/",
+  "name": "Trang chủ",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Giải pháp tích hợp CNTT, viễn thông và an ninh cho Việt Nam từ năm 2001",
+        "en": "Integrated ICT, telecom and security solutions for Vietnam since 2001"
+      },
+      "description": {
+        "vi": "Con đường công nghệ - Biến giấc mơ thành hiện thực",
+        "en": "The Path of Technology – Turning Dreams into Reality"
+      },
+      "image": {
+        "src": "/img/background/home_banner.jpeg"
+      }
+    },
+    "blocks": [
+      {
+        "id": "homehero01",
+        "type": "home-hero",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "Công ty TNHH Kinh doanh Dịch vụ Thông tin và Chuyển giao Công nghệ",
+            "en": "Information Services & Technology Transfer Company Limited"
+          },
+          "title": {
+            "vi": "Giải pháp tích hợp CNTT, viễn thông và an ninh cho Việt Nam từ năm 2001",
+            "en": "Integrated ICT, telecom and security solutions for Vietnam since 2001"
+          },
+          "slides": [
+            {
+              "image": {
+                "src": "/img/background/home_banner.jpeg"
+              },
+              "tagline": {
+                "vi": "Con đường công nghệ - Biến giấc mơ thành hiện thực",
+                "en": "The Path of Technology – Turning Dreams into Reality"
+              }
+            },
+            {
+              "image": {
+                "src": "/img/background/home_banner_2.jpeg"
+              },
+              "tagline": {
+                "vi": "Góp phần đưa nền CNTT, Viễn Thông, An Ninh & Quốc phòng của Việt Nam lên một tầm cao mới.",
+                "en": "Contributing to elevating Vietnam's IT, Telecommunications, Secure & Defense industry to a new level."
+              }
+            },
+            {
+              "image": {
+                "src": "/img/background/home_banner_3.jpeg"
+              },
+              "tagline": {
+                "vi": "Thiết lập quan hệ với các đối tác hàng đầu trên thế giới trong lĩnh vực CNTT, Viễn Thông, An Ninh & Quốc phòng",
+                "en": "Establishing relationships with leading global partners in the IT, Telecommunications, Secure & Defense sectors."
+              }
+            },
+            {
+              "image": {
+                "src": "/img/background/home_banner_4.jpg"
+              },
+              "tagline": {
+                "vi": "Luôn sẵn sàng cập nhật kiến thức tiên tiến trên thế giới",
+                "en": "Always ready to update with the latest advanced knowledge from around the world."
+              }
+            }
+          ],
+          "primaryCta": {
+            "label": {
+              "vi": "Khám phá giải pháp",
+              "en": "Explore our solutions"
+            },
+            "href": "#solutions"
+          },
+          "secondaryCta": {
+            "label": {
+              "vi": "Liên hệ với chúng tôi",
+              "en": "Contact us"
+            },
+            "href": "/contact"
+          }
+        }
+      },
+      {
+        "id": "homeabout01",
+        "type": "home-about",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/background/istt.jpg"
+          },
+          "foundedLabel": {
+            "vi": "Thành lập",
+            "en": "Founded"
+          },
+          "foundedYear": "2001",
+          "eyebrow": {
+            "vi": "VỀ CHÚNG TÔI",
+            "en": "About us"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Dịch vụ Thông tin &",
+              "en": "Information Services &"
+            },
+            "emphasis": {
+              "vi": "Chuyển giao Công nghệ",
+              "en": "Technology Transfer"
+            }
+          },
+          "lead": {
+            "vi": "Được thành lập vào năm 2001, ISTT đã phát triển thành một nhà cung cấp hàng đầu về giải pháp tích hợp CNTT và viễn thông tại Việt Nam. Với cách tiếp cận lấy khách hàng làm trung tâm, chúng tôi kết nối các đối tác toàn cầu và mang đến công nghệ tiên tiến để thúc đẩy doanh nghiệp và cộng đồng phát triển.",
+            "en": "Founded in 2001, ISTT has grown into a leading provider of integrated ICT and telecommunication solutions in Vietnam. With a customer-centric approach, we connect global partners and deliver cutting-edge technology to empower businesses and communities throughout the country and region."
+          },
+          "stats": [
+            {
+              "value": "20+",
+              "label": {
+                "vi": "Năm kinh nghiệm",
+                "en": "Years Active"
+              }
+            },
+            {
+              "value": "20+",
+              "label": {
+                "vi": "Đối tác",
+                "en": "Partners"
+              }
+            }
+          ],
+          "cta": {
+            "label": {
+              "vi": "Tìm hiểu thêm về ISTT",
+              "en": "More about ISTT"
+            },
+            "href": "/about"
+          }
+        }
+      },
+      {
+        "id": "businessareas01",
+        "type": "business-areas",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "GIẢI PHÁP",
+            "en": "SOLUTIONS"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Kiến tạo hạ tầng",
+              "en": "Powering tomorrow's"
+            },
+            "emphasis": {
+              "vi": "tương lai ngay hôm nay",
+              "en": "infrastructure today"
+            }
+          },
+          "buttonLabel": {
+            "vi": "Xem thêm",
+            "en": "Show More"
+          },
+          "areas": [
+            {
+              "title": {
+                "vi": "Công nghệ Thông tin & Truyền thông (ICT)",
+                "en": "Information Communication Technology (ICT)"
+              },
+              "description": {
+                "vi": "Giải pháp viễn thông và CNTT tiên tiến giúp tối ưu hiệu suất mạng.",
+                "en": "Advanced telecom and IT solutions for optimal network performance."
+              },
+              "href": "/information-communication-technology",
+              "image": {
+                "src": "/img/background/ict_2.jpg"
+              },
+              "imagePosition": ""
+            },
+            {
+              "title": {
+                "vi": "An ninh & Quốc phòng",
+                "en": "Secure & Defense"
+              },
+              "description": {
+                "vi": "Công nghệ quốc phòng và bảo mật hiện đại bảo vệ các cơ sở hạ tầng trọng yếu.",
+                "en": "Cutting-edge defense & security technology to safeguard critical infrastructures."
+              },
+              "href": "/secure-defense",
+              "image": {
+                "src": "/img/background/defense_solution.jpg"
+              },
+              "imagePosition": "65% center"
+            },
+            {
+              "title": {
+                "vi": "Chuyển đổi số",
+                "en": "Digital Transformation"
+              },
+              "description": {
+                "vi": "Hỗ trợ doanh nghiệp ứng dụng AI, Big Data và Cloud để sẵn sàng cho tương lai.",
+                "en": "Enabling businesses to embrace AI, Big Data and Cloud solutions for future-ready operations."
+              },
+              "href": "/digital-transformation",
+              "image": {
+                "src": "/img/background/digital_smartcity.jpg"
+              },
+              "imagePosition": ""
+            }
+          ]
+        }
+      },
+      {
+        "id": "homeservices01",
+        "type": "home-services",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "Chúng tôi cung cấp",
+            "en": "We provide"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Dịch vụ",
+              "en": "Professional"
+            },
+            "emphasis": {
+              "vi": "Chuyên nghiệp",
+              "en": "Services"
+            }
+          },
+          "allLink": {
+            "label": {
+              "vi": "Xem tất cả dịch vụ",
+              "en": "View all services"
+            },
+            "href": "/services"
+          },
+          "items": [
+            {
+              "title": {
+                "vi": "Tích hợp Hệ thống",
+                "en": "System Integration"
+              },
+              "description": {
+                "vi": "ISTT là một công ty hàng đầu trong lĩnh vực Tích hợp Hệ thống (SI), giúp các doanh nghiệp và tổ chức kết nối các nền tảng công nghệ khác nhau thành một hệ thống thống nhất, tối ưu hóa hiệu quả hoạt động, bảo mật và khả năng mở rộng.",
+                "en": "ISTT is a leading company in the field of System Integration (SI), helping businesses and organizations connect different technology platforms into a unified system, optimizing operational efficiency, security, and scalability."
+              },
+              "href": "/integration",
+              "image": {
+                "src": "/img/background/sy.jpg"
+              }
+            },
+            {
+              "title": {
+                "vi": "Phát triển Phần mềm",
+                "en": "Software Development"
+              },
+              "description": {
+                "vi": "Chuyên phát triển và tích hợp các giải pháp phần mềm tùy chỉnh phù hợp với nhu cầu đa dạng của khách hàng. Bằng cách tận dụng công nghệ tiên tiến, chúng tôi giúp doanh nghiệp nâng cao hiệu suất, giảm thiểu rủi ro và cắt giảm chi phí.",
+                "en": "Specializes in developing and integrating custom software solutions that align with diverse client requirements. By leveraging advanced technologies, we help businesses achieve greater efficiency, minimize risks, and reduce costs."
+              },
+              "href": "/software",
+              "image": {
+                "src": "/img/background/software.jpg"
+              }
+            },
+            {
+              "title": {
+                "vi": "Hỗ trợ Kỹ thuật",
+                "en": "Technical Support"
+              },
+              "description": {
+                "vi": "Dịch vụ hỗ trợ kỹ thuật 24/7 được thiết kế để đảm bảo độ tin cậy và thời gian hoạt động của hệ thống. Với đội ngũ hỗ trợ giàu kinh nghiệm và hiện diện chiến lược tại Việt Nam, chúng tôi cung cấp các giải pháp nhanh chóng và nhất quán.",
+                "en": "We offers 24/7 technical support services designed to ensure system reliability and uptime. With a skilled support team and strategic on-site presence across Vietnam, we provide rapid issue resolution and consistent service quality."
+              },
+              "href": "/support",
+              "image": {
+                "src": "/img/background/support.jpg"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "homevalues01",
+        "type": "home-values",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "Chúng tôi là ai",
+            "en": "Who We Are"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Giá trị",
+              "en": "Our Core"
+            },
+            "emphasis": {
+              "vi": "Cốt lõi",
+              "en": "Values"
+            }
+          },
+          "philosophy": {
+            "vi": "Lấy triết lý “Đồng Lòng – Thành Công Chung” làm kim chỉ nam, chúng tôi kiến tạo quan hệ đối tác lâu dài và thúc đẩy sự phát triển trong nhiều lĩnh vực.",
+            "en": "Guided by our philosophy, “United Efforts - Shared Success”, we build lasting partnerships and drive progress across industries."
+          },
+          "items": [
+            {
+              "name": {
+                "vi": "Cam kết",
+                "en": "Commitment"
+              },
+              "description": {
+                "vi": "Luôn giữ vững cam kết về sự xuất sắc",
+                "en": "Our unwavering commitment to excellence."
+              }
+            },
+            {
+              "name": {
+                "vi": "Chất lượng",
+                "en": "Quality"
+              },
+              "description": {
+                "vi": "Đem đến chất lượng cao nhất trong mọi việc chúng tôi làm.",
+                "en": "Delivering the highest quality in everything we do."
+              }
+            },
+            {
+              "name": {
+                "vi": "Hợp tác",
+                "en": "Collaboration"
+              },
+              "description": {
+                "vi": "Chung sức để chinh phục những đỉnh cao.",
+                "en": "Working together to achieve greatness."
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "partners01",
+        "type": "partners",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "Đồng hành",
+            "en": "Ecosystem"
+          },
+          "heading": {
+            "vi": "Đối Tác",
+            "en": "Our Partners"
+          },
+          "intro": {
+            "vi": "Chung tầm nhìn - Vững bước hành động.",
+            "en": "United in vision, stronger in execution."
+          },
+          "initialCount": 8,
+          "items": [
+            {
+              "name": "Oracle",
+              "logo": {
+                "src": "/img/partner/oracle.png"
+              }
+            },
+            {
+              "name": "Ceragon",
+              "logo": {
+                "src": "/img/partner/ceragon.png"
+              }
+            },
+            {
+              "name": "Palo Alto",
+              "logo": {
+                "src": "/img/partner/paloalto.png"
+              }
+            },
+            {
+              "name": "Cisco",
+              "logo": {
+                "src": "/img/partner/cisco.png"
+              }
+            },
+            {
+              "name": "Dell",
+              "logo": {
+                "src": "/img/partner/dell.png"
+              }
+            },
+            {
+              "name": "Elbit Systems",
+              "logo": {
+                "src": "/img/partner/elbit.png"
+              }
+            },
+            {
+              "name": "F5",
+              "logo": {
+                "src": "/img/partner/f5.png"
+              }
+            },
+            {
+              "name": "HPE",
+              "logo": {
+                "src": "/img/partner/hpe.png"
+              }
+            },
+            {
+              "name": "Everbridge",
+              "logo": {
+                "src": "/img/partner/everbridge.svg"
+              }
+            },
+            {
+              "name": "Allot",
+              "logo": {
+                "src": "/img/partner/allot.png"
+              }
+            },
+            {
+              "name": "AAronia",
+              "logo": {
+                "src": "/img/partner/aaronia.png"
+              }
+            },
+            {
+              "name": "Corsight",
+              "logo": {
+                "src": "/img/partner/corsight.png"
+              }
+            },
+            {
+              "name": "Cynapse AI",
+              "logo": {
+                "src": "/img/partner/cynapse.png"
+              }
+            },
+            {
+              "name": "Bosch",
+              "logo": {
+                "src": "/img/partner/bosch.png"
+              }
+            },
+            {
+              "name": "Nokia",
+              "logo": {
+                "src": "/img/partner/nokia.svg"
+              }
+            },
+            {
+              "name": "HCLTech",
+              "logo": {
+                "src": "/img/partner/hcltech.svg"
+              }
+            },
+            {
+              "name": "DSIT Solutions",
+              "logo": {
+                "src": "/img/partner/dsit_solutions.jpeg"
+              }
+            },
+            {
+              "name": "Mavenir",
+              "logo": {
+                "src": "/img/partner/mavenir.png"
+              }
+            },
+            {
+              "name": "Fortinet",
+              "logo": {
+                "src": "/img/partner/fortinet.png"
+              }
+            },
+            {
+              "name": "Microsoft",
+              "logo": {
+                "src": "/img/partner/microsoft.png"
+              }
+            },
+            {
+              "name": "Arista",
+              "logo": {
+                "src": "/img/partner/arista.png"
+              }
+            },
+            {
+              "name": "Infinera",
+              "logo": {
+                "src": "/img/partner/infinera.jpeg"
+              }
+            },
+            {
+              "name": "DopikAI",
+              "logo": {
+                "src": "/img/partner/dopikai.png"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "customers01",
+        "type": "customers",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "Niềm tin",
+            "en": "Trust"
+          },
+          "heading": {
+            "vi": "Khách Hàng",
+            "en": "Our Customers"
+          },
+          "intro": {
+            "vi": "Được tin dùng bởi các doanh nghiệp hàng đầu.",
+            "en": "Trusted by leading businesses."
+          },
+          "items": [
+            {
+              "name": {
+                "vi": "Bộ Quốc phòng",
+                "en": "Ministry of National Defence"
+              },
+              "logo": {
+                "src": "/img/customer/bqp.png"
+              }
+            },
+            {
+              "name": {
+                "vi": "Bộ Công An",
+                "en": "Ministry of Public Security"
+              },
+              "logo": {
+                "src": "/img/customer/bca.png"
+              }
+            },
+            {
+              "name": {
+                "vi": "Bộ Giáo dục và Đào tạo",
+                "en": "Ministry of Education and Training"
+              },
+              "logo": {
+                "src": "/img/customer/bgd.png"
+              }
+            },
+            {
+              "name": {
+                "vi": "VNPT",
+                "en": "VNPT"
+              },
+              "logo": {
+                "src": "/img/customer/vnpt.png"
+              }
+            },
+            {
+              "name": {
+                "vi": "Viettel",
+                "en": "Viettel"
+              },
+              "logo": {
+                "src": "/img/customer/viettel.png"
+              }
+            },
+            {
+              "name": {
+                "vi": "Mobifone",
+                "en": "Mobifone"
+              },
+              "logo": {
+                "src": "/img/customer/mobifone.png"
+              }
+            },
+            {
+              "name": {
+                "vi": "Gtel",
+                "en": "Gtel"
+              },
+              "logo": {
+                "src": "/img/customer/gtel.svg"
+              }
+            },
+            {
+              "name": {
+                "vi": "MB",
+                "en": "MB"
+              },
+              "logo": {
+                "src": "/img/customer/mb.png"
+              }
+            },
+            {
+              "name": {
+                "vi": "Agribank",
+                "en": "Agribank"
+              },
+              "logo": {
+                "src": "/img/customer/agribank.png"
+              }
+            },
+            {
+              "name": {
+                "vi": "EVN",
+                "en": "EVN"
+              },
+              "logo": {
+                "src": "/img/customer/evn.png"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "homecontact01",
+        "type": "home-contact",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "Liên hệ với chúng tôi",
+            "en": "Get in touch"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Hãy cùng",
+              "en": "Let's"
+            },
+            "emphasis": {
+              "vi": "Trao đổi",
+              "en": "Connect"
+            }
+          },
+          "cta": {
+            "label": {
+              "vi": "Liên hệ với chúng tôi",
+              "en": "Contact us"
+            },
+            "href": "/contact"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "path": "/digital-transformation",
+  "name": "Chuyển đổi số",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Chuyển đổi số",
+        "en": "Digital Transformation"
+      },
+      "description": {
+        "vi": "Hỗ trợ doanh nghiệp trong Chuyển đổi số, tận dụng công nghệ để tối ưu hóa hoạt động và nâng cao năng lực cạnh tranh.",
+        "en": "Supports businesses in Digital Transformation, leveraging technology to optimize operations and enhance competitiveness."
+      },
+      "image": {
+        "src": "/img/banners/digital.svg"
+      }
+    },
+    "blocks": [
+      {
+        "id": "solutionbanner01",
+        "type": "solution-banner",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/banners/digital.svg"
+          },
+          "eyebrow": {
+            "vi": "ISTT Solutions",
+            "en": "ISTT Solutions"
+          },
+          "title": {
+            "vi": "Giải pháp cao cấp",
+            "en": "Premium Solutions"
+          },
+          "subtitle": {
+            "vi": "Thiết kế các giải pháp công nghệ cao cấp – linh hoạt, mạnh mẽ và sẵn sàng cho tương lai số.",
+            "en": "We design high-end technology solutions that are flexible, robust, and ready for the digital future."
+          },
+          "buttonLabel": {
+            "vi": "Đăng ký tư vấn",
+            "en": "Book a consultation"
+          }
+        }
+      },
+      {
+        "id": "serviceslist01",
+        "type": "services-list",
+        "hidden": false,
+        "data": {
+          "pageTitle": {
+            "vi": "Chuyển đổi số",
+            "en": "Digital Transformation"
+          },
+          "sectionTitle": {
+            "vi": "Mô tả chi tiết",
+            "en": "Description"
+          },
+          "text": {
+            "vi": "Hỗ trợ doanh nghiệp trong Chuyển đổi số, tận dụng công nghệ để tối ưu hóa hoạt động và nâng cao năng lực cạnh tranh.",
+            "en": "Supports businesses in Digital Transformation, leveraging technology to optimize operations and enhance competitiveness."
+          },
+          "image": {
+            "src": "/img/background/digital.jpg"
+          }
+        }
+      },
+      {
+        "id": "corevaluessys01",
+        "type": "core-values-system",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "GIẢI PHÁP",
+            "en": "OUR SOLUTIONS"
+          },
+          "title": {
+            "vi": "Dịch vụ cốt lõi",
+            "en": "Core Offerings"
+          },
+          "items": [
+            {
+              "title": {
+                "vi": "Tự động hóa & Hạ tầng số",
+                "en": "Automation & Digital Infrastructure"
+              },
+              "bullets": [
+                {
+                  "vi": "Tích hợp Điện toán đám mây viễn thông, Tự động hóa bằng AI, OSS & BSS để nâng cao hiệu quả hoạt động, giúp các đơn vị nâng cao chất lượng dịch vụ.",
+                  "en": "Integrating telecommunications cloud computing, AI automation, OSS & BSS to enhance operational efficiency, helping organizations improve service quality."
+                }
+              ],
+              "image": {
+                "src": "/img/background/digital_automation.jpg"
+              },
+              "icon": {
+                "src": "/img/icons/automation.png"
+              }
+            },
+            {
+              "title": {
+                "vi": "Ứng dụng AI, Big Data và IoT",
+                "en": "AI, Big Data, and IoT Applications"
+              },
+              "bullets": [
+                {
+                  "vi": "Triển khai phân tích dữ liệu nâng cao và giải pháp AI để tối ưu hóa doanh nghiệp.",
+                  "en": "Implementing advanced data analytics and AI-driven solutions for business optimization."
+                }
+              ],
+              "image": {
+                "src": "/img/background/digital_iot.jpg"
+              },
+              "icon": {
+                "src": "/img/icons/artificial-intelligence-2.png"
+              }
+            },
+            {
+              "title": {
+                "vi": "Nền tảng số thế hệ mới",
+                "en": "Next-Generation Digital Platforms"
+              },
+              "bullets": [
+                {
+                  "vi": "Phát triển 5G Core SA, O-RAN và các nền tảng số tiên tiến.",
+                  "en": "Developing 5G Core SA, O-RAN, and cutting-edge digital platforms."
+                }
+              ],
+              "image": {
+                "src": "/img/background/digital_generation.jpg"
+              },
+              "icon": {
+                "src": "/img/icons/development.png"
+              }
+            },
+            {
+              "title": {
+                "vi": "Chuyển đổi số cho Chính phủ",
+                "en": "Digital Transformation for Governments"
+              },
+              "bullets": [
+                {
+                  "vi": "Giải pháp đột phá để hiện đại hóa khu vực công và nâng cao hiệu quả.",
+                  "en": "Advanced solutions for public sector modernization and enhanced governance efficiency."
+                }
+              ],
+              "image": {
+                "src": "/img/background/digital_transformation.jpg"
+              },
+              "icon": {
+                "src": "/img/icons/transformation.png"
+              }
+            },
+            {
+              "title": {
+                "vi": "Quản lý dữ liệu & Thành phố thông minh",
+                "en": "Data Management & Smart City"
+              },
+              "bullets": [
+                {
+                  "vi": "Tận dụng Big Data để phát triển thành phố thông minh và quản lý đô thị hiệu quả.",
+                  "en": "Utilizing Big Data for smart city development and efficient urban management."
+                }
+              ],
+              "image": {
+                "src": "/img/background/digital_smartcity.jpg"
+              },
+              "icon": {
+                "src": "/img/icons/smart-city.png"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "contactform01",
+        "type": "contact-form",
+        "hidden": false,
+        "data": {
+          "variant": "inline",
+          "eyebrow": {
+            "vi": "Liên hệ với chúng tôi",
+            "en": "Get in touch"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Hãy cùng",
+              "en": "Let's"
+            },
+            "emphasis": {
+              "vi": "Trao đổi",
+              "en": "Connect"
+            }
+          },
+          "tagline": {
+            "vi": "Vui lòng liên hệ để tìm hiểu các trường hợp khách hàng tiêu biểu và thảo luận thêm về cơ hội hợp tác...",
+            "en": "Fill in the form and our team will get back to you within one business day."
+          },
+          "formEyebrow": {
+            "vi": "Gửi yêu cầu",
+            "en": "Send a request"
+          },
+          "formHeading": {
+            "lead": {
+              "vi": "Miễn phí",
+              "en": "Consultation"
+            },
+            "emphasis": {
+              "vi": "Tư vấn",
+              "en": "Complimentary"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

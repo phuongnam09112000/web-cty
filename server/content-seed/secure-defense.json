@@ -1,0 +1,198 @@
+{
+  "path": "/secure-defense",
+  "name": "An ninh & Quốc phòng",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "An ninh & Quốc phòng",
+        "en": "Secure & Defense"
+      },
+      "description": {
+        "vi": "ISTT cung cấp các giải pháp an ninh và quốc phòng, bảo vệ hệ thống trước các mối đe dọa tinh vi.",
+        "en": "ISTT offers security and defense solutions, safeguarding systems against sophisticated threats."
+      },
+      "image": {
+        "src": "/img/banners/secure.svg"
+      }
+    },
+    "blocks": [
+      {
+        "id": "solutionbanner01",
+        "type": "solution-banner",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/banners/secure.svg"
+          },
+          "eyebrow": {
+            "vi": "ISTT Solutions",
+            "en": "ISTT Solutions"
+          },
+          "title": {
+            "vi": "Giải pháp cao cấp",
+            "en": "Premium Solutions"
+          },
+          "subtitle": {
+            "vi": "Thiết kế các giải pháp công nghệ cao cấp – linh hoạt, mạnh mẽ và sẵn sàng cho tương lai số.",
+            "en": "We design high-end technology solutions that are flexible, robust, and ready for the digital future."
+          },
+          "buttonLabel": {
+            "vi": "Đăng ký tư vấn",
+            "en": "Book a consultation"
+          }
+        }
+      },
+      {
+        "id": "serviceslist01",
+        "type": "services-list",
+        "hidden": false,
+        "data": {
+          "pageTitle": {
+            "vi": "An ninh & Quốc phòng",
+            "en": "Secure & Defense"
+          },
+          "sectionTitle": {
+            "vi": "Mô tả chi tiết",
+            "en": "Description"
+          },
+          "text": {
+            "vi": "ISTT cung cấp các giải pháp an ninh và quốc phòng, bảo vệ hệ thống trước các mối đe dọa tinh vi.",
+            "en": "ISTT offers security and defense solutions, safeguarding systems against sophisticated threats."
+          },
+          "image": {
+            "src": "/img/background/secure.jpg"
+          }
+        }
+      },
+      {
+        "id": "corevaluessys01",
+        "type": "core-values-system",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "GIẢI PHÁP",
+            "en": "OUR SOLUTIONS"
+          },
+          "title": {
+            "vi": "Dịch vụ cốt lõi",
+            "en": "Core Offerings"
+          },
+          "items": [
+            {
+              "title": {
+                "vi": "An ninh viễn thông",
+                "en": "Telecommunication Security"
+              },
+              "bullets": [
+                {
+                  "vi": "Tường lửa tín hiệu (SS7, Diameter, SIP, GTP) bảo vệ hệ thống viễn thông khỏi các mối đe dọa mạng.",
+                  "en": "Signaling Firewall (SS7, Diameter, SIP, GTP) protects telecommunication systems from cyber threats."
+                }
+              ],
+              "image": {
+                "src": "/img/background/secure_telecom.jpg"
+              },
+              "icon": {
+                "src": "/img/icons/critical.png"
+              }
+            },
+            {
+              "title": {
+                "vi": "Hệ thống phòng chống mối đe dọa",
+                "en": "Threat Prevention Systems"
+              },
+              "bullets": [
+                {
+                  "vi": "Giải pháp bảo vệ DDoS, lọc DNS và chống giả mạo để bảo vệ hạ tầng mạng.",
+                  "en": "DDoS Protection, DNS Filtering, and Anti-Spoofing solutions to secure network infrastructure."
+                }
+              ],
+              "image": {
+                "src": "/img/background/secure_threat.jpg"
+              },
+              "icon": {
+                "src": "/img/icons/prevention.png"
+              }
+            },
+            {
+              "title": {
+                "vi": "Tuân thủ quy định & giám sát",
+                "en": "Regulatory Compliance & Monitoring"
+              },
+              "bullets": [
+                {
+                  "vi": "Hệ thống giám sát hợp pháp và giải pháp lọc URL chất lượng cao nhằm đáp ứng yêu cầu tuân thủ của chính phủ và doanh nghiệp",
+                  "en": "Lawful Interception Systems & carrier-grade URL Filtering solutions for government and enterprise compliance."
+                }
+              ],
+              "image": {
+                "src": "/img/background/secure_regulatory.jpg"
+              },
+              "icon": {
+                "src": "/img/icons/regulatory-compliance.png"
+              }
+            },
+            {
+              "title": {
+                "vi": "Giải pháp quốc phòng",
+                "en": "Defense Solutions"
+              },
+              "bullets": [
+                {
+                  "vi": "Chúng tôi cung cấp các giải pháp chuyên dụng như hệ thống chống máy bay không người lái (Anti-Drone), mạng chiến thuật riêng biệt, hệ thống kiểm soát biên giới (tường ảo), và các công nghệ tác chiến điện tử (EW), nhằm hỗ trợ tăng cường an ninh cho quốc gia và tổ chức.",
+                  "en": "We provide specialized solutions, such as Anti-Drone Systems, Private Tactical Networks, Border Control Systems (Virtual Wall), EW... to enhance national and organizational security."
+                }
+              ],
+              "image": {
+                "src": "/img/background/defense_solution.jpg"
+              },
+              "icon": {
+                "src": "/img/icons/cybersecurity.png"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "contactform01",
+        "type": "contact-form",
+        "hidden": false,
+        "data": {
+          "variant": "inline",
+          "eyebrow": {
+            "vi": "Liên hệ với chúng tôi",
+            "en": "Get in touch"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Hãy cùng",
+              "en": "Let's"
+            },
+            "emphasis": {
+              "vi": "Trao đổi",
+              "en": "Connect"
+            }
+          },
+          "tagline": {
+            "vi": "Vui lòng liên hệ để tìm hiểu các trường hợp khách hàng tiêu biểu và thảo luận thêm về cơ hội hợp tác...",
+            "en": "Fill in the form and our team will get back to you within one business day."
+          },
+          "formEyebrow": {
+            "vi": "Gửi yêu cầu",
+            "en": "Send a request"
+          },
+          "formHeading": {
+            "lead": {
+              "vi": "Miễn phí",
+              "en": "Consultation"
+            },
+            "emphasis": {
+              "vi": "Tư vấn",
+              "en": "Complimentary"
+            }
+          }
+        }
+      }
+    ]
+  }
+}
