@@ -124,4 +124,19 @@ describe("sanitizeSvg", () => {
     const out = sanitizeSvg(wrap('<style>path{fill:url("#g")}</style><path d="M0 0" fill="url( \'#g\' )"/>'));
     expect(out).toContain('url("#g")');
   });
+
+  it.each([
+    ['<style>text{font-family:"/*"}path{fill:url(https://x.test/a)}text{font-family:"*/"}</style>'],
+    ['<style>@font-face{font-family:"/*";src:url(https://x.test/f.woff)}text{font-family:"*/"}</style>'],
+  ])("is not fooled by comment markers inside strings in style element %s", (style) => {
+    const out = sanitizeSvg(wrap(`${style}<path d="M0 0"/>`));
+    expect(out).not.toContain("x.test");
+    expect(out).toContain("<path");
+  });
+
+  it("is not fooled by comment markers inside strings in style attribute", () => {
+    const out = sanitizeSvg(wrap('<path d="M0 0" style=\'font-family:"/*";fill:url(https://x.test/a);font-family:"*/"\'/>'));
+    expect(out).not.toContain("x.test");
+    expect(out).toContain("<path");
+  });
 });

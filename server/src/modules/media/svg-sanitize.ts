@@ -8,8 +8,7 @@ const COMMENT_PATTERN = /\/\*[\s\S]*?\*\//g;
 const URL_OPEN_PATTERN = /url\(/gi;
 const RISKY_PATTERN = /\\|@import|image-set\s*\(|(?<![\w-])src\s*\(/i;
 
-function hasExternalUrl(value: string): boolean {
-  const text = value.replace(COMMENT_PATTERN, "");
+function checkExternal(text: string): boolean {
   if (RISKY_PATTERN.test(text)) return true;
   for (const match of text.matchAll(URL_OPEN_PATTERN)) {
     const rest = text.slice(match.index + match[0].length);
@@ -17,6 +16,10 @@ function hasExternalUrl(value: string): boolean {
     if (!target.startsWith("#")) return true;
   }
   return false;
+}
+
+function hasExternalUrl(value: string): boolean {
+  return checkExternal(value) || checkExternal(value.replace(COMMENT_PATTERN, ""));
 }
 
 purifier.addHook("afterSanitizeAttributes", (node) => {
