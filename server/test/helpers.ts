@@ -1,4 +1,4 @@
-import { mkdtempSync } from "node:fs";
+import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { Express } from "express";
@@ -41,7 +41,28 @@ export function createFakeClock(start: Date = new Date("2026-01-01T00:00:00.000Z
 export const TEST_GATEWAY_SECRET = "test-gateway-secret-0123456789abcdef";
 export const TEST_ADMIN_ORIGIN = "http://admin.test";
 
+export const TEST_INDEX_HTML = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Old & description" />
+    <meta property="og:title" content="Old title" />
+    <meta property="og:url" content="https://old.test/" />
+    <meta property="og:url" content="https://old.test/" />
+    <meta property="og:locale" content="en_EN" />
+    <meta property="og:image" content="https://old.test/x.png" />
+    <title>Old title</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+`;
+
 export function makeTestConfig(): Config {
+  const dir = mkdtempSync(join(tmpdir(), "istt-site-"));
+  const websiteIndexPath = join(dir, "index.html");
+  writeFileSync(websiteIndexPath, TEST_INDEX_HTML);
   return {
     databaseUrl: process.env.DATABASE_URL as string,
     port: 0,
@@ -50,6 +71,7 @@ export function makeTestConfig(): Config {
     adminGatewaySecret: TEST_GATEWAY_SECRET,
     cookieSecure: false,
     mediaDir: mkdtempSync(join(tmpdir(), "istt-media-")),
+    websiteIndexPath,
     nodeEnv: "test",
   };
 }

@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { defineConfig, devices } from "@playwright/test";
 
 export const GATEWAY_SECRET = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
@@ -27,6 +28,7 @@ export default defineConfig({
         ADMIN_GATEWAY_SECRET: GATEWAY_SECRET,
         COOKIE_SECURE: "false",
         MEDIA_DIR: "/tmp/istt-e2e-media",
+        WEBSITE_INDEX_PATH: fileURLToPath(new URL("../public/index.html", import.meta.url)),
         NODE_ENV: "development",
       },
     },

@@ -3,6 +3,7 @@ import type { AppDeps } from "../../app.js";
 import { AppError } from "../../http/errors.js";
 import { resolveMedia } from "./media-refs.js";
 import { findPreviewDraft } from "./preview.service.js";
+import type { Renderer } from "./render.service.js";
 
 const PATH_MAX = 191;
 
@@ -19,7 +20,7 @@ export function normalizePath(input: string): string | null {
   return path;
 }
 
-export function createPublicContentRouter(deps: AppDeps): express.Router {
+export function createPublicContentRouter(deps: AppDeps, renderer: Renderer): express.Router {
   const { prisma } = deps;
   const router = express.Router();
 
@@ -44,6 +45,15 @@ export function createPublicContentRouter(deps: AppDeps): express.Router {
     if (!found) throw notFound();
     res.set("Cache-Control", "no-store");
     res.json({ path: found.path, version: null, content: await resolveMedia(prisma, found.content) });
+  });
+
+  router.get("/render", async (req, res) => {
+    const raw = req.query.path;
+    const path = typeof raw === "string" ? normalizePath(raw) : null;
+    const lang = req.query.lang === "en" ? "en" : "vi";
+    const html = path === null ? await renderer.render("", lang) : await renderer.render(path, lang);
+    res.set("Cache-Control", "no-cache");
+    res.type("text/html; charset=utf-8").send(html);
   });
 
   return router;

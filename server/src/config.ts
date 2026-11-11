@@ -8,6 +8,7 @@ export type Config = {
   adminGatewaySecret: string;
   cookieSecure: boolean;
   mediaDir: string;
+  websiteIndexPath: string;
   nodeEnv: "development" | "test" | "production";
 };
 
@@ -30,6 +31,7 @@ const envSchema = z.object({
   ADMIN_GATEWAY_SECRET: z.string().min(32),
   COOKIE_SECURE: z.string().optional(),
   MEDIA_DIR: z.string().min(1),
+  WEBSITE_INDEX_PATH: z.string().min(1),
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
 });
 
@@ -48,6 +50,7 @@ export function loadConfig(env: NodeJS.ProcessEnv): Config {
     adminGatewaySecret: data.ADMIN_GATEWAY_SECRET,
     cookieSecure: data.COOKIE_SECURE === "true",
     mediaDir: data.MEDIA_DIR,
+    websiteIndexPath: data.WEBSITE_INDEX_PATH,
     nodeEnv: data.NODE_ENV,
   };
 }

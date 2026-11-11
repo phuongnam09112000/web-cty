@@ -10,6 +10,7 @@ import { auditRouter } from "./modules/audit/audit.routes.js";
 import { requireAuth } from "./modules/auth/auth.middleware.js";
 import { authRouter, loginRouter } from "./modules/auth/auth.routes.js";
 import { createPagesRouter, type PagesHooks } from "./modules/content/pages.routes.js";
+import { createRenderer } from "./modules/content/render.service.js";
 import { createPublicContentRouter } from "./modules/content/public.routes.js";
 import { mediaRouter } from "./modules/media/media.routes.js";
 import { permissionsRouter } from "./modules/permissions/permissions.routes.js";
@@ -31,8 +32,15 @@ function redactUrl(originalUrl: string): string {
 
 const notFound = () => new AppError(404, "NOT_FOUND", "Không tìm thấy");
 
-export function createApp(deps: AppDeps, hooks: PagesHooks = { onPublished: () => undefined }): express.Express {
+export function createApp(deps: AppDeps, extraHooks: PagesHooks = { onPublished: () => undefined }): express.Express {
   const { prisma, config, logger } = deps;
+  const renderer = createRenderer({ prisma, config });
+  const hooks: PagesHooks = {
+    onPublished: (path) => {
+      renderer.invalidate();
+      return extraHooks.onPublished(path);
+    },
+  };
   const app = express();
   app.disable("x-powered-by");
   app.set("trust proxy", "loopback");
@@ -61,7 +69,7 @@ export function createApp(deps: AppDeps, hooks: PagesHooks = { onPublished: () =
       res.status(503).json({ status: "error" });
     }
   });
-  publicRouter.use(createPublicContentRouter(deps));
+  publicRouter.use(createPublicContentRouter(deps, renderer));
   publicRouter.use(() => {
     throw notFound();
   });

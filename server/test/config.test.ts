@@ -7,6 +7,7 @@ const valid = {
   PUBLIC_SITE_ORIGIN: "http://localhost:3000",
   ADMIN_GATEWAY_SECRET: "x".repeat(32),
   MEDIA_DIR: "/tmp/media",
+  WEBSITE_INDEX_PATH: "/tmp/index.html",
 };
 
 describe("loadConfig", () => {
