@@ -1,4 +1,12 @@
-export type PermissionKey = "users.view" | "users.manage" | "roles.manage" | "audit.view";
+export type PermissionKey =
+  | "users.view"
+  | "users.manage"
+  | "roles.manage"
+  | "audit.view"
+  | "content.view"
+  | "content.edit"
+  | "content.publish"
+  | "media.manage";
 
 export type Me = {
   id: number;

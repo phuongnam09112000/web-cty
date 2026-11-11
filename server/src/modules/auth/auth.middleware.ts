@@ -30,6 +30,7 @@ async function loadPermissions(
   });
   const keys = new Set(rows.map((row) => row.permission.key as PermissionKey));
   if (keys.has("users.manage")) keys.add("users.view");
+  if (keys.has("content.edit") || keys.has("content.publish")) keys.add("content.view");
   return keys;
 }
 

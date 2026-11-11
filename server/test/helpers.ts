@@ -10,6 +10,9 @@ import { EDITOR_ROLE_NAME, SYSTEM_ROLE_NAME } from "../src/modules/permissions/c
 import { syncPermissions } from "../src/modules/permissions/sync.js";
 
 export async function resetDb(prisma: PrismaClient): Promise<void> {
+  await prisma.previewToken.deleteMany();
+  await prisma.page.deleteMany();
+  await prisma.media.deleteMany();
   await prisma.auditLog.deleteMany();
   await prisma.session.deleteMany();
   await prisma.user.deleteMany();

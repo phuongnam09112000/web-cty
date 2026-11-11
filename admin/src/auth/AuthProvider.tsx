@@ -19,7 +19,11 @@ export function hasPermission(user: Me | null, key: PermissionKey): boolean {
   if (!user) return false;
   if (user.role.isSystem) return true;
   if (user.permissions.includes(key)) return true;
-  return key === "users.view" && user.permissions.includes("users.manage");
+  if (key === "users.view") return user.permissions.includes("users.manage");
+  if (key === "content.view") {
+    return user.permissions.includes("content.edit") || user.permissions.includes("content.publish");
+  }
+  return false;
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {

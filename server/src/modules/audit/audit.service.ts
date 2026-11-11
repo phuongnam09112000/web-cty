@@ -16,6 +16,12 @@ export const AUDIT_ACTIONS = [
   "role.update",
   "role.delete",
   "role.permissions_update",
+  "content.draft_save",
+  "content.publish",
+  "content.restore",
+  "media.upload",
+  "media.update",
+  "media.delete",
 ] as const;
 
 export type AuditAction = (typeof AUDIT_ACTIONS)[number];

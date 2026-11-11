@@ -37,9 +37,11 @@ describe("syncPermissions", () => {
     await syncPermissions(prisma);
     const rows = await prisma.permission.findMany({ orderBy: { key: "asc" } });
     expect(rows.map(({ key, module, label }) => ({ key, module, label }))).toEqual(
-      [...PERMISSIONS].sort((a, b) => a.key.localeCompare(b.key)),
+      PERMISSIONS.map(({ key, module, label }) => ({ key, module, label })).sort((a, b) =>
+        a.key.localeCompare(b.key),
+      ),
     );
-    expect(rows).toHaveLength(4);
+    expect(rows).toHaveLength(8);
   });
 
   it("restores a changed label", async () => {
@@ -62,13 +64,38 @@ describe("syncPermissions", () => {
     await syncPermissions(prisma);
     expect(await prisma.permission.findUnique({ where: { key: "legacy.old" } })).toBeNull();
     expect(await prisma.rolePermission.count({ where: { permissionId: legacy.id } })).toBe(0);
-    expect(await prisma.permission.count()).toBe(4);
+    expect(await prisma.permission.count()).toBe(8);
   });
 
   it("is idempotent", async () => {
     await syncPermissions(prisma);
     await syncPermissions(prisma);
-    expect(await prisma.permission.count()).toBe(4);
+    expect(await prisma.permission.count()).toBe(8);
+  });
+});
+
+describe("default role grants", () => {
+  const CONTENT_KEYS = ["content.edit", "content.publish", "content.view", "media.manage"];
+
+  async function editorKeys() {
+    const rows = await prisma.rolePermission.findMany({
+      where: { role: { name: EDITOR_ROLE_NAME } },
+      include: { permission: true },
+    });
+    return rows.map((row) => row.permission.key).sort();
+  }
+
+  it("grants the four content permissions to the editor role on a fresh database", async () => {
+    await syncPermissions(prisma);
+    expect(await editorKeys()).toEqual(CONTENT_KEYS);
+  });
+
+  it("does not grant again a permission that already exists", async () => {
+    await syncPermissions(prisma);
+    const permission = await prisma.permission.findUniqueOrThrow({ where: { key: "content.edit" } });
+    await prisma.rolePermission.deleteMany({ where: { permissionId: permission.id } });
+    await syncPermissions(prisma);
+    expect(await editorKeys()).toEqual(["content.publish", "content.view", "media.manage"]);
   });
 });
 
@@ -77,6 +104,6 @@ describe("resetDb", () => {
     await prisma.role.create({ data: { name: "Tạm" } });
     await resetDb(prisma);
     expect(await prisma.role.count()).toBe(2);
-    expect(await prisma.permission.count()).toBe(4);
+    expect(await prisma.permission.count()).toBe(8);
   });
 });

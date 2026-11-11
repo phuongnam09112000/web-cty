@@ -92,3 +92,75 @@ model AuditLog {
   @@index([createdAt])
   @@map("audit_logs")
 }
+
+model Page {
+  id                 BigInt         @id @default(autoincrement()) @db.UnsignedBigInt
+  path               String         @unique @db.VarChar(191)
+  name               String         @db.VarChar(191)
+  publishedVersionId BigInt?        @unique @map("published_version_id") @db.UnsignedBigInt
+  createdAt          DateTime       @default(now()) @map("created_at") @db.DateTime(3)
+  updatedAt          DateTime       @updatedAt @map("updated_at") @db.DateTime(3)
+  draft              PageDraft?
+  versions           PageVersion[]  @relation("PageVersions")
+  publishedVersion   PageVersion?   @relation("PublishedVersion", fields: [publishedVersionId], references: [id], onDelete: SetNull)
+  previewTokens      PreviewToken[]
+
+  @@map("pages")
+}
+
+model PageDraft {
+  pageId          BigInt   @id @map("page_id") @db.UnsignedBigInt
+  content         Json
+  revision        Int      @default(1)
+  updatedByUserId BigInt?  @map("updated_by_user_id") @db.UnsignedBigInt
+  updatedAt       DateTime @default(now()) @updatedAt @map("updated_at") @db.DateTime(3)
+  page            Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@map("page_drafts")
+}
+
+model PageVersion {
+  id                BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  pageId            BigInt   @map("page_id") @db.UnsignedBigInt
+  number            Int
+  content           Json
+  note              String?  @db.VarChar(500)
+  publishedByUserId BigInt?  @map("published_by_user_id") @db.UnsignedBigInt
+  publishedAt       DateTime @default(now()) @map("published_at") @db.DateTime(3)
+  page              Page     @relation("PageVersions", fields: [pageId], references: [id], onDelete: Cascade)
+  publishedFor      Page?    @relation("PublishedVersion")
+
+  @@unique([pageId, number])
+  @@map("page_versions")
+}
+
+model Media {
+  id               BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  fileName         String   @unique @map("file_name") @db.VarChar(191)
+  originalName     String   @map("original_name") @db.VarChar(255)
+  mimeType         String   @map("mime_type") @db.VarChar(50)
+  sizeBytes        Int      @map("size_bytes")
+  width            Int?
+  height           Int?
+  alt              Json
+  sha256           String   @unique @db.Char(64)
+  sourcePath       String?  @map("source_path") @db.VarChar(255)
+  uploadedByUserId BigInt?  @map("uploaded_by_user_id") @db.UnsignedBigInt
+  createdAt        DateTime @default(now()) @map("created_at") @db.DateTime(3)
+
+  @@map("media")
+}
+
+model PreviewToken {
+  id              BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  tokenHash       String   @unique @map("token_hash") @db.Char(64)
+  pageId          BigInt   @map("page_id") @db.UnsignedBigInt
+  expiresAt       DateTime @map("expires_at") @db.DateTime(3)
+  createdByUserId BigInt?  @map("created_by_user_id") @db.UnsignedBigInt
+  createdAt       DateTime @default(now()) @map("created_at") @db.DateTime(3)
+  page            Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@index([pageId])
+  @@index([expiresAt])
+  @@map("preview_tokens")
+}

@@ -21,6 +21,12 @@ const ACTION_LABELS: Record<string, string> = {
   "role.update": "Cập nhật vai trò",
   "role.delete": "Xóa vai trò",
   "role.permissions_update": "Cập nhật quyền vai trò",
+  "content.draft_save": "Lưu nháp trang",
+  "content.publish": "Xuất bản trang",
+  "content.restore": "Khôi phục phiên bản",
+  "media.upload": "Tải ảnh lên",
+  "media.update": "Cập nhật ảnh",
+  "media.delete": "Xóa ảnh",
 };
 
 export function AuditLogsPage() {

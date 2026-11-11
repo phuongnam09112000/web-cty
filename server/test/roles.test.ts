@@ -64,8 +64,23 @@ describe("GET /roles", () => {
     const editor = res.body.find((r: { name: string }) => r.name === EDITOR_ROLE_NAME);
     expect(admin).toMatchObject({ isSystem: true, userCount: 1 });
     expect(typeof admin.id).toBe("number");
-    expect(admin.permissions).toEqual(["users.view", "users.manage", "roles.manage", "audit.view"]);
-    expect(editor).toMatchObject({ isSystem: false, userCount: 0, permissions: [] });
+    expect(admin.permissions).toEqual([
+      "users.view",
+      "users.manage",
+      "roles.manage",
+      "audit.view",
+      "content.view",
+      "content.edit",
+      "content.publish",
+      "media.manage",
+    ]);
+    expect(editor).toMatchObject({ isSystem: false, userCount: 0 });
+    expect([...editor.permissions].sort()).toEqual([
+      "content.edit",
+      "content.publish",
+      "content.view",
+      "media.manage",
+    ]);
   });
 });
 
@@ -214,7 +229,7 @@ describe("system role", () => {
       expect(res.body.error.code).toBe("CONFLICT");
     }
     const got = await agent.get(`/api/admin/roles/${id}`);
-    expect(got.body.permissions).toHaveLength(4);
+    expect(got.body.permissions).toHaveLength(8);
     expect(got.body.name).toBe(SYSTEM_ROLE_NAME);
   });
 });
@@ -250,6 +265,8 @@ describe("GET /permissions", () => {
       "Người dùng",
       "Vai trò",
       "Nhật ký",
+      "Nội dung",
+      "Thư viện ảnh",
     ]);
     expect(res.body.modules[0].permissions.map((p: { key: string }) => p.key)).toEqual([
       "users.view",

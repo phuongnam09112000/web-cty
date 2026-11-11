@@ -156,7 +156,23 @@ describe("me", () => {
       role: { id: Number(user.roleId), name: SYSTEM_ROLE_NAME, isSystem: true },
       permissions: expect.arrayContaining(["users.view", "users.manage", "roles.manage", "audit.view"]),
     });
-    expect(res.body.permissions).toHaveLength(4);
+    expect(res.body.permissions).toHaveLength(8);
+  });
+
+  it("treats content.edit and content.publish as including content.view", async () => {
+    const role = await prisma.role.create({ data: { name: "Chỉ xuất bản" } });
+    const publish = await prisma.permission.findUniqueOrThrow({ where: { key: "content.publish" } });
+    await prisma.rolePermission.create({ data: { roleId: role.id, permissionId: publish.id } });
+    await createUser(prisma, { email: "pub@istt.vn", roleName: role.name });
+    const agent = await loginAs(app, "pub@istt.vn");
+    const res = await agent.get("/api/admin/auth/me");
+    expect(res.body.permissions.sort()).toEqual(["content.publish", "content.view"]);
+
+    const edit = await prisma.permission.findUniqueOrThrow({ where: { key: "content.edit" } });
+    await prisma.rolePermission.deleteMany({ where: { roleId: role.id } });
+    await prisma.rolePermission.create({ data: { roleId: role.id, permissionId: edit.id } });
+    const res2 = await agent.get("/api/admin/auth/me");
+    expect(res2.body.permissions.sort()).toEqual(["content.edit", "content.view"]);
   });
 
   it("expires after 8 hours of inactivity", async () => {
@@ -196,7 +212,12 @@ describe("me", () => {
     await createUser(prisma, { email: "ed@istt.vn", roleName: "Biên tập viên" });
     const agent = await loginAs(app, "ed@istt.vn");
     const res = await agent.get("/api/admin/auth/me");
-    expect(res.body.permissions).toEqual([]);
+    expect([...res.body.permissions].sort()).toEqual([
+      "content.edit",
+      "content.publish",
+      "content.view",
+      "media.manage",
+    ]);
     expect(res.body.role.isSystem).toBe(false);
   });
 });
