@@ -113,3 +113,29 @@ describe("deleteExpiredPreviewTokens", () => {
     expect(await prisma.previewToken.count()).toBe(1);
   });
 });
+
+describe("request logging", () => {
+  it("never logs the preview token", async () => {
+    const { Writable } = await import("node:stream");
+    const { default: pino } = await import("pino");
+    const { createApp } = await import("../src/app.js");
+    const lines: string[] = [];
+    const sink = new Writable({
+      write(chunk: Buffer, _enc, cb) {
+        lines.push(chunk.toString());
+        cb();
+      },
+    });
+    const logged = createApp({ prisma, config, logger: pino({ level: "info" }, sink), clock });
+    const id = await makePage("/a", "A");
+    await createUser(prisma, { email: "log@istt.vn" });
+    const agent = await loginAs(logged, "log@istt.vn");
+    const created = await agent.post(`/api/admin/pages/${id}/preview`);
+    const token = tokenOf(created.body.url);
+    expect((await request(logged).get(`/api/public/preview/${token}`)).status).toBe(200);
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    const output = lines.join("");
+    expect(output).not.toContain(token);
+    expect(output).toContain("/api/public/preview/:token");
+  });
+});

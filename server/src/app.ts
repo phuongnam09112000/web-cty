@@ -23,6 +23,12 @@ export type AppDeps = {
   clock: () => Date;
 };
 
+const PREVIEW_URL = /^(\/api\/public\/preview\/)[^/?#]*/;
+
+function redactUrl(originalUrl: string): string {
+  return (originalUrl.split("?")[0] ?? "").replace(PREVIEW_URL, "$1:token");
+}
+
 const notFound = () => new AppError(404, "NOT_FOUND", "Không tìm thấy");
 
 export function createApp(deps: AppDeps, hooks: PagesHooks = { onPublished: () => undefined }): express.Express {
@@ -38,7 +44,7 @@ export function createApp(deps: AppDeps, hooks: PagesHooks = { onPublished: () =
       logger.info({
         requestId: req.id,
         method: req.method,
-        url: req.originalUrl.split("?")[0],
+        url: redactUrl(req.originalUrl),
         status: res.statusCode,
         durationMs: Number(process.hrtime.bigint() - start) / 1e6,
       });

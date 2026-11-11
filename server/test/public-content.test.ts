@@ -158,4 +158,28 @@ describe("GET /api/public/pages", () => {
     const res = await request(app).get("/api/public/pages?path=/about");
     expect(res.status).toBe(200);
   });
+
+  it("returns null for an image whose media row was deleted", async () => {
+    const content = await heroContent("X");
+    const pageId = await makePage("/about", content);
+    await publish(pageId);
+    const refs = [...JSON.stringify(content).matchAll(/"mediaId":(\d+)/g)].map((m) => BigInt(m[1] as string));
+    await prisma.media.deleteMany({ where: { id: { in: refs } } });
+    const res = await request(app).get("/api/public/pages").query({ path: "/about" });
+    expect(res.status).toBe(200);
+    const json = JSON.stringify(res.body.content);
+    expect(json).not.toContain("mediaId");
+    expect(json).not.toContain("/media/");
+    const token = (await adminToken(pageId));
+    const preview = await request(app).get(`/api/public/preview/${token}`);
+    expect(preview.status).toBe(200);
+    expect(JSON.stringify(preview.body.content)).not.toContain("/media/");
+  });
 });
+
+async function adminToken(pageId: bigint): Promise<string> {
+  await createUser(prisma, { email: "t@istt.vn" });
+  const agent = await loginAs(app, "t@istt.vn");
+  const res = await agent.post(`/api/admin/pages/${pageId}/preview`);
+  return new URL(res.body.url).searchParams.get("preview") as string;
+}
