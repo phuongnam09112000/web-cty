@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { SolutionBannerProps } from "./types";
 import { pick } from "../../cms/pick";
 import type { Lang, SolutionBannerData } from "../../cms/types";
 import {
@@ -11,19 +10,17 @@ import {
   Button,
 } from "./styles";
 
-type Props = Partial<SolutionBannerProps> & { data?: SolutionBannerData; lang?: Lang };
+type Props = { data: SolutionBannerData; lang: Lang };
 
-const SolutionBanner = ({ data, lang = "vi", ...legacy }: Props) => {
-  const backgroundImage = data ? data.image?.url ?? "" : legacy.backgroundImage ?? "";
-  const title = data ? pick(data.title, lang) : legacy.title;
-  const subtitle = data ? pick(data.subtitle, lang) : legacy.subtitle;
-  const buttonText = data ? pick(data.buttonLabel, lang) : legacy.buttonText;
-  const eyebrow = data ? pick(data.eyebrow, lang) : "ISTT Solutions";
-  const onButtonClick = data
-    ? () => {
-        document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    : legacy.onButtonClick;
+const SolutionBanner = ({ data, lang }: Props) => {
+  const backgroundImage = data.image?.url ?? "";
+  const title = pick(data.title, lang);
+  const subtitle = pick(data.subtitle, lang);
+  const buttonText = pick(data.buttonLabel, lang);
+  const eyebrow = pick(data.eyebrow, lang);
+  const onButtonClick = () => {
+    document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {

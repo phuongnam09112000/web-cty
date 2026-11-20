@@ -25,27 +25,23 @@ import {
   AccentBlock,
   YearBadge,
 } from "./styles";
-import { useTranslation } from "react-i18next";
 import { pick } from "../../cms/pick";
 import { HEADING_SEPARATOR_NBSP, renderHeading } from "../../cms/headingParts";
 import type { Lang, OverviewData } from "../../cms/types";
 
 interface IntroItemType {
   icon: React.ReactNode;
-  textKey: string;
 }
 
 interface TMAAboutProps {
-  images?: string[];
-  data?: OverviewData;
-  lang?: Lang;
+  data: OverviewData;
+  lang: Lang;
 }
 
-const OverviewSection = ({ images: legacyImages = [], data, lang = "vi" }: TMAAboutProps) => {
+const OverviewSection = ({ data, lang }: TMAAboutProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile,  setIsMobile]  = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
 
   useEffect(() => {
     const checkIsMobile = () => setIsMobile(window.innerWidth <= 767);
@@ -68,26 +64,20 @@ const OverviewSection = ({ images: legacyImages = [], data, lang = "vi" }: TMAAb
     return () => observer.disconnect();
   }, []);
 
-  const images = data
-    ? data.images.flatMap((image) => (image ? [{ src: image.url, alt: pick(image.alt, lang) }] : []))
-    : legacyImages.map((src) => ({ src, alt: "" }));
+  const images = data.images.flatMap((image) => (image ? [{ src: image.url, alt: pick(image.alt, lang) }] : []));
 
   const introItems: IntroItemType[] = [
     {
       icon: <SolutionOutlined style={{ fontSize: isMobile ? "16px" : "18px", color: "#0e5d95" }} />,
-      textKey: "overview.item.1",
     },
     {
       icon: <CodeOutlined style={{ fontSize: isMobile ? "16px" : "18px", color: "#0e5d95" }} />,
-      textKey: "overview.item.2",
     },
     {
       icon: <TeamOutlined style={{ fontSize: isMobile ? "16px" : "18px", color: "#0e5d95" }} />,
-      textKey: "overview.item.3",
     },
     {
       icon: <GlobalOutlined style={{ fontSize: isMobile ? "16px" : "18px", color: "#0e5d95" }} />,
-      textKey: "overview.item.4",
     },
   ];
 
@@ -99,21 +89,21 @@ const OverviewSection = ({ images: legacyImages = [], data, lang = "vi" }: TMAAb
 
         {/* LEFT: Text */}
         <TextColumn xs={24} md={12} lg={11} isVisible={isVisible}>
-          <Eyebrow>{data ? pick(data.eyebrow, lang) : t("overview.eyebrow")}</Eyebrow>
+          <Eyebrow>{pick(data.eyebrow, lang)}</Eyebrow>
 
           <IntroTitle level={2}>
-            {data ? renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP }) : <>{t("overview.heading.part1")}&nbsp;<em>{t("overview.heading.em")}</em></>}
+            {renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP })}
           </IntroTitle>
 
           <TimelineWrapper>
-            {(data ? data.paragraphs.map((_, index) => introItems[index % introItems.length]) : introItems).map((item, index) => (
+            {data.paragraphs.map((_, index) => introItems[index % introItems.length]).map((item, index) => (
               <IntroItem key={index} isVisible={isVisible} delay={0.15 + index * 0.1}>
                 <ItemHeader>
                   <IconWrapper>
                     <StyledIcon>{item.icon}</StyledIcon>
                   </IconWrapper>
                 </ItemHeader>
-                <IntroText>{data ? pick(data.paragraphs[index], lang) : t(item.textKey)}</IntroText>
+                <IntroText>{pick(data.paragraphs[index], lang)}</IntroText>
               </IntroItem>
             ))}
           </TimelineWrapper>
@@ -144,7 +134,7 @@ const OverviewSection = ({ images: legacyImages = [], data, lang = "vi" }: TMAAb
                 )}
               </ImageWrapper>
             ))}
-            <YearBadge>{data ? pick(data.yearBadge, lang) : t("overview.year_badge")}</YearBadge>
+            <YearBadge>{pick(data.yearBadge, lang)}</YearBadge>
           </ImagesContainer>
         </Col>
 

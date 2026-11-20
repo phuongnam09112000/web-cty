@@ -1,5 +1,8 @@
 import React, { useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import LazySectionComponent from "../../pages/Lazy";
+import { renderHeading, HEADING_SEPARATOR_SPACE } from "../../cms/headingParts";
+import { pick } from "../../cms/pick";
+import type { BlockProps } from "../../cms/BlockRenderer";
 import useNearViewport from "../../common/utils/useNearViewport";
 import { Eyebrow, SectionHeading as Heading, SectionInner as Inner } from "../../styles/section";
 
@@ -18,34 +21,8 @@ import {
   PanelCaption,
   PanelImage,
   Section,
+  SolutionsAnchor,
 } from "./styles";
-import type { BusinessArea } from "./types";
-
-// Photographs are the ones each area's own page already uses
-const areas: BusinessArea[] = [
-  {
-    id: "ict",
-    titleKey: "solutions.card.ict.title",
-    descriptionKey: "solutions.card.ict.description",
-    link: "/information-communication-technology",
-    image: "/img/background/ict_2.jpg",
-  },
-  {
-    id: "secure",
-    titleKey: "solutions.card.secure.title",
-    descriptionKey: "solutions.card.secure.description",
-    link: "/secure-defense",
-    image: "/img/background/defense_solution.jpg",
-    imagePosition: "65% center",
-  },
-  {
-    id: "digital",
-    titleKey: "solutions.card.digital.title",
-    descriptionKey: "solutions.card.digital.description",
-    link: "/digital-transformation",
-    image: "/img/background/digital_smartcity.jpg",
-  },
-];
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -53,8 +30,8 @@ const pad = (n: number) => String(n).padStart(2, "0");
  * large photograph that follows the hovered / focused row. Tablet and mobile:
  * stacked rows, each with its own photograph. Every title, description and
  * link stays visible without hover. */
-export const SolutionCards: React.FC = () => {
-  const { t } = useTranslation();
+export const SolutionCards = ({ data, lang }: BlockProps<"business-areas">) => {
+  const areas = data.areas;
   const [active, setActive] = useState(0);
   // Photographs are only rendered once the section is close to the viewport,
   // so they never compete with the hero image for bandwidth on page load.
@@ -62,50 +39,49 @@ export const SolutionCards: React.FC = () => {
   const near = useNearViewport(sectionRef);
 
   return (
+    <SolutionsAnchor id="solutions" tabIndex={-1}>
+      <LazySectionComponent>
     <Section ref={sectionRef} aria-labelledby="business-areas-title">
       <Inner>
         <Header>
-          <Eyebrow>{t("solutions.eyebrow")}</Eyebrow>
-          <Heading
-            id="business-areas-title"
-            dangerouslySetInnerHTML={{
-              __html: t("solutions.subtitle", { interpolation: { escapeValue: false } }),
-            }}
-          />
+          <Eyebrow>{pick(data.eyebrow, lang)}</Eyebrow>
+          <Heading id="business-areas-title">
+            {renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_SPACE })}
+          </Heading>
         </Header>
 
         <Layout>
           <List>
             {areas.map((area, index) => (
-              <li key={area.id}>
+              <li key={index}>
                 <AreaLink
-                  to={area.link}
+                  to={area.href}
                   $active={index === active}
-                  aria-labelledby={`area-${area.id}-title area-${area.id}-cta`}
-                  aria-describedby={`area-${area.id}-desc`}
+                  aria-labelledby={`area-${index}-title area-${index}-cta`}
+                  aria-describedby={`area-${index}-desc`}
                   onMouseEnter={() => setActive(index)}
                   onFocus={() => setActive(index)}
                 >
                   {/* Stacked layouts only; hidden on desktop */}
                   <AreaImage>
-                    {near && (
+                    {near && area.image && (
                       <img
-                        src={area.image}
-                        alt=""
+                        src={area.image.url}
+                        alt={pick(area.image.alt, lang)}
                         loading="lazy"
                         decoding="async"
-                        style={{ objectPosition: area.imagePosition }}
+                        style={{ objectPosition: area.imagePosition || undefined }}
                       />
                     )}
                   </AreaImage>
                   <AreaBody>
                     <Index aria-hidden="true">{pad(index + 1)}</Index>
-                    <AreaTitle id={`area-${area.id}-title`}>{t(area.titleKey)}</AreaTitle>
-                    <AreaDescription id={`area-${area.id}-desc`}>
-                      {t(area.descriptionKey)}
+                    <AreaTitle id={`area-${index}-title`}>{pick(area.title, lang)}</AreaTitle>
+                    <AreaDescription id={`area-${index}-desc`}>
+                      {pick(area.description, lang)}
                     </AreaDescription>
-                    <AreaCta id={`area-${area.id}-cta`}>
-                      {t("solutions.card.button")} <span aria-hidden="true">→</span>
+                    <AreaCta id={`area-${index}-cta`}>
+                      {pick(data.buttonLabel, lang)} <span aria-hidden="true">→</span>
                     </AreaCta>
                   </AreaBody>
                 </AreaLink>
@@ -114,25 +90,27 @@ export const SolutionCards: React.FC = () => {
           </List>
 
           <Panel aria-hidden="true">
-            {near && areas.map((area, index) => (
+            {near && areas.map((area, index) => area.image && (
               <PanelImage
-                key={area.id}
-                src={area.image}
-                alt=""
+                key={index}
+                src={area.image.url}
+                alt={pick(area.image.alt, lang)}
                 loading="lazy"
                 decoding="async"
                 $active={index === active}
-                style={{ objectPosition: area.imagePosition }}
+                style={{ objectPosition: area.imagePosition || undefined }}
               />
             ))}
             <PanelCaption>
               <span>{pad(active + 1)} / {pad(areas.length)}</span>
-              <strong>{t(areas[active].titleKey)}</strong>
+              <strong>{areas[active] ? pick(areas[active].title, lang) : ""}</strong>
             </PanelCaption>
           </Panel>
         </Layout>
       </Inner>
     </Section>
+      </LazySectionComponent>
+    </SolutionsAnchor>
   );
 };
 

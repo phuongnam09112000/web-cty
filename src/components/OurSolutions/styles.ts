@@ -235,3 +235,12 @@ export const PanelCaption = styled.div`
     color: #fff;
   }
 `;
+
+export const SolutionsAnchor = styled.div`
+  scroll-margin-top: ${({ theme }) => theme.layout.headerHeight};
+  &:focus { outline: none !important; }
+
+  ${({ theme }) => theme.media.down("md")} {
+    scroll-margin-top: ${({ theme }) => theme.layout.headerHeightMobile};
+  }
+`;

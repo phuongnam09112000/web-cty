@@ -54,9 +54,9 @@ const LocationIcon = () => (
   </svg>
 );
 
-type ContactFormProps = { data?: ContactFormData; lang?: Lang };
+type ContactFormProps = { data: ContactFormData; lang: Lang };
 
-const ContactForm = ({ data, lang = "vi" }: ContactFormProps) => {
+const ContactForm = ({ data, lang }: ContactFormProps) => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState<FormDataProps>({
     fullname: "", phone: "", email: "", message: "",
@@ -121,12 +121,12 @@ const ContactForm = ({ data, lang = "vi" }: ContactFormProps) => {
 
         {/* Left: info panel */}
         <InfoPanel>
-          <InfoEyebrow className={vis}>{data ? pick(data.eyebrow, lang) : t("contact.eyebrow")}</InfoEyebrow>
+          <InfoEyebrow className={vis}>{pick(data.eyebrow, lang)}</InfoEyebrow>
           <InfoHeading className={vis}>
-            {data ? renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP }) : <>{t("contact.heading.part1")}&nbsp;<em>{t("contact.heading.em")}</em></>}
+            {renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP })}
           </InfoHeading>
           <InfoDivider className={vis} />
-          <InfoTagline className={vis}>{data ? pick(data.tagline, lang) : t("contact.tagline")}</InfoTagline>
+          <InfoTagline className={vis}>{pick(data.tagline, lang)}</InfoTagline>
 
           <InfoItems className={vis}>
             <InfoItem>
@@ -155,9 +155,9 @@ const ContactForm = ({ data, lang = "vi" }: ContactFormProps) => {
 
         {/* Right: form card */}
         <FormContainer className={vis}>
-          <FormTitle className={vis}>{data ? pick(data.formEyebrow, lang) : t("contact.form.eyebrow")}</FormTitle>
+          <FormTitle className={vis}>{pick(data.formEyebrow, lang)}</FormTitle>
           <FormHeading className={vis}>
-            {data ? renderHeading(data.formHeading, lang, { separator: HEADING_SEPARATOR_NBSP, emphasisFirst: true }) : <><em>{t("contact.form.heading.em")}</em>&nbsp;{t("contact.form.heading.part2")}</>}
+            {renderHeading(data.formHeading, lang, { separator: HEADING_SEPARATOR_NBSP, emphasisFirst: true })}
           </FormHeading>
           <FormDivider className={vis} />
 

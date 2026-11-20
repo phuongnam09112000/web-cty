@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import type { Media } from "../../cms/types";
 import { logoMetrics } from "./logoMetrics";
 
 /* A logo trimmed to its visible content and sized for equal visual weight:
@@ -20,7 +21,7 @@ const Frame = styled.span`
 `;
 
 interface LogoProps {
-  src: string;
+  image: Media;
   alt: string;
   /** Target visible area in px² at scale 1 */
   area: number;
@@ -32,8 +33,8 @@ interface LogoProps {
   decorative?: boolean;
 }
 
-const Logo = ({ src, alt, area, maxWidth, maxHeight, load, decorative }: LogoProps) => {
-  const metrics = logoMetrics[src] ?? { crop: [0, 0, 1, 1], ratio: 2 };
+const Logo = ({ image, alt, area, maxWidth, maxHeight, load, decorative }: LogoProps) => {
+  const metrics = logoMetrics[image?.sourcePath ?? ""] ?? { crop: [0, 0, 1, 1], ratio: 2 };
   const [left, top, right, bottom] = metrics.crop;
   const { ratio } = metrics;
 
@@ -51,9 +52,9 @@ const Logo = ({ src, alt, area, maxWidth, maxHeight, load, decorative }: LogoPro
       style={{ "--w": width.toFixed(1), "--h": height.toFixed(1) } as React.CSSProperties}
       {...(decorative ? { "aria-hidden": true } : { role: "img", "aria-label": alt })}
     >
-      {load && (
+      {load && image && (
         <img
-          src={src}
+          src={image.url}
           alt=""
           loading="lazy"
           decoding="async"

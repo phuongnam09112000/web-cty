@@ -11,9 +11,9 @@ import { BannerContainer, BannerImage, ButtonContainer, LocationButton, MapIfram
 const GOOGLE_MAPS_EMBED_URL_1 = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.5885779171026!2d105.78849788860236!3d21.009122938534922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab5612da8b23%3A0xd37b3360e78c5c1a!2sVimeco%20CT4%20Tower!5e0!3m2!1svi!2s!4v1745293152941!5m2!1svi!2s";
 const GOOGLE_MAPS_EMBED_URL_2 = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d979.9278210074586!2d106.70557115618804!3d10.756720053765763!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f97b9555815%3A0xd42396a461ec1afe!2sTSA%20BUILDING!5e0!3m2!1svi!2s!4v1745293043415!5m2!1svi!2s";
 
-type MapBannerProps = { data?: OfficeMapData; lang?: Lang };
+type MapBannerProps = { data: OfficeMapData; lang: Lang };
 
-const MapBanner = ({ data, lang = 'vi' }: MapBannerProps) => {
+const MapBanner = ({ data, lang }: MapBannerProps) => {
   const { t } = useTranslation();
   const [currentMapUrl, setCurrentMapUrl] = useState(GOOGLE_MAPS_EMBED_URL_1);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -33,20 +33,6 @@ const MapBanner = ({ data, lang = 'vi' }: MapBannerProps) => {
     };
   }, []);
   
-  // Location data
-  const locationData = {
-    location1: {
-      name: "Hanoi Office",
-      address: "V2A & V3A, 2nd Floor, CT4-Vimeco Complex Building, H1 Lot, Yen Hoa Ward, Ha Noi City, Viet Nam",
-      mapUrl: GOOGLE_MAPS_EMBED_URL_1
-    },
-    location2: {
-      name: "Ho Chi Minh City Office",
-      address: "4th Floor, TSA Building, 258 Ton Dan Street, Khanh Hoi Ward, Ho Chi Minh City, Viet Nam",
-      mapUrl: GOOGLE_MAPS_EMBED_URL_2
-    }
-  };
-
   const handleModalClose = () => {
     setIsModalVisible(false);
   };
@@ -83,7 +69,7 @@ const MapBanner = ({ data, lang = 'vi' }: MapBannerProps) => {
             onClick={showLocation1}
             icon={<EnvironmentOutlined />}
           >
-            {data?.offices[0] ? (isMobile ? pick(data.offices[0].shortName, lang) : pick(data.offices[0].name, lang)) : isMobile ? t("Hanoi") : t(locationData.location1.name)}
+            {data.offices[0] ? (isMobile ? pick(data.offices[0].shortName, lang) : pick(data.offices[0].name, lang)) : ""}
           </LocationButton>
           
           <LocationButton 
@@ -91,7 +77,7 @@ const MapBanner = ({ data, lang = 'vi' }: MapBannerProps) => {
             onClick={showLocation2}
             icon={<EnvironmentOutlined />}
           >
-            {data?.offices[1] ? (isMobile ? pick(data.offices[1].shortName, lang) : pick(data.offices[1].name, lang)) : isMobile ? t("Ho Chi Minh City") : t(locationData.location2.name)}
+            {data.offices[1] ? (isMobile ? pick(data.offices[1].shortName, lang) : pick(data.offices[1].name, lang)) : ""}
           </LocationButton>
         </ButtonContainer>
       </BannerContainer>

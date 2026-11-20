@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { renderHeading, HEADING_SEPARATOR_SPACE } from "../../cms/headingParts";
+import { pick } from "../../cms/pick";
+import type { BlockProps } from "../../cms/BlockRenderer";
 import { ArrowLink, Eyebrow, SectionHeading, SectionInner } from "../../styles/section";
 import {
   AboutSection,
@@ -12,12 +15,6 @@ import {
   Stat,
   Stats,
 } from "./styles";
-
-// Existing figures shown on the homepage
-const stats = [
-  { number: "20+", label: "Years Active" },
-  { number: "20+", label: "Partners" },
-];
 
 // True once the page's load event has fired, i.e. after the hero image
 const usePageLoaded = () => {
@@ -32,7 +29,7 @@ const usePageLoaded = () => {
 };
 
 /* Company overview: ISTT's office photograph beside the introduction. */
-const Section: React.FC = () => {
+const Section = ({ data, lang }: BlockProps<"home-about">) => {
   const { t } = useTranslation();
   // The section sits right below the hero, so the photo waits for the hero
   // image instead of downloading alongside it; the frame keeps its size.
@@ -44,43 +41,39 @@ const Section: React.FC = () => {
         <Layout>
           <Figure>
             <Photo>
-              {pageLoaded && (
+              {pageLoaded && data.image && (
                 <img
-                  src="/img/background/istt.jpg"
-                  alt={t("home.about.photo")}
+                  src={data.image.url}
+                  alt={pick(data.image.alt, lang) || t("home.about.photo")}
                   loading="lazy"
                   decoding="async"
-                  width={2048}
-                  height={1365}
+                  width={data.image.width}
+                  height={data.image.height}
                 />
               )}
             </Photo>
             <Badge>
-              <span>{t("home.about.founded")}</span>
-              <strong>2001</strong>
+              <span>{pick(data.foundedLabel, lang)}</span>
+              <strong>{data.foundedYear}</strong>
             </Badge>
           </Figure>
 
           <Content>
-            <Eyebrow>{t("About us")}</Eyebrow>
+            <Eyebrow>{pick(data.eyebrow, lang)}</Eyebrow>
             <SectionHeading id="about-title">
-              {t("Information Services")} &amp; <em>{t("Technology Transfer")}</em>
+              {renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_SPACE })}
             </SectionHeading>
-            <Lead>
-              {t(
-                "Founded in 2001, ISTT has grown into a leading provider of integrated ICT and telecommunication solutions in Vietnam. With a customer-centric approach, we connect global partners and deliver cutting-edge technology to empower businesses and communities throughout the country and region."
-              )}
-            </Lead>
+            <Lead>{pick(data.lead, lang)}</Lead>
             <Stats>
-              {stats.map((s) => (
-                <Stat key={s.label}>
-                  <dt>{t(s.label)}</dt>
-                  <dd>{s.number}</dd>
+              {data.stats.map((s, index) => (
+                <Stat key={index}>
+                  <dt>{pick(s.label, lang)}</dt>
+                  <dd>{s.value}</dd>
                 </Stat>
               ))}
             </Stats>
-            <ArrowLink to="/about">
-              {t("home.about.cta")} <span aria-hidden="true">→</span>
+            <ArrowLink to={data.cta.href}>
+              {pick(data.cta.label, lang)} <span aria-hidden="true">→</span>
             </ArrowLink>
           </Content>
         </Layout>

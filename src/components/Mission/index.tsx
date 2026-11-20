@@ -20,19 +20,13 @@ import {
   TitleDivider,
 } from "./styles";
 
-type Props = { data?: MissionData; lang?: Lang };
+type Props = { data: MissionData; lang: Lang };
 
-const Mission = ({ data, lang = "vi" }: Props) => {
+const Mission = ({ data, lang }: Props) => {
   const { t } = useTranslation();
   const [isVisible,   setIsVisible]   = useState(false);
   const [textVisible, setTextVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  const missionPoints = [
-    "mission.point.1",
-    "mission.point.2",
-    "mission.point.3",
-  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -52,22 +46,22 @@ const Mission = ({ data, lang = "vi" }: Props) => {
   return (
     <Container ref={sectionRef} visible={isVisible}>
       <ImageContainer visible={isVisible}>
-        <BackgroundImage src={data ? data.image?.url ?? "" : "/img/background/mission.jpg"} alt={(data && pick(data.image?.alt, lang)) || t("mission.image.alt")} />
+        <BackgroundImage src={data.image?.url ?? ""} alt={pick(data.image?.alt, lang) || t("mission.image.alt")} />
       </ImageContainer>
       <ImageAccentLine visible={isVisible} />
 
       <TextContainerWrapper>
         <TextContainer visible={isVisible} textVisible={textVisible}>
-          <Eyebrow visible={textVisible}>{data ? pick(data.eyebrow, lang) : t("mission.eyebrow")}</Eyebrow>
+          <Eyebrow visible={textVisible}>{pick(data.eyebrow, lang)}</Eyebrow>
 
           <SectionTitle level={2} visible={textVisible}>
-            {data ? renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP }) : <>{t("mission.heading.part1")}&nbsp;<em>{t("mission.heading.em")}</em></>}
+            {renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP })}
           </SectionTitle>
 
           <TitleDivider visible={textVisible} />
 
           <MissionList>
-            {(data ? data.points.map((point) => pick(point, lang)) : missionPoints.map((key) => t(key))).map((text, index) => (
+            {data.points.map((point) => pick(point, lang)).map((text, index) => (
               <MissionItem
                 key={index}
                 visible={textVisible}

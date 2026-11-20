@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Row, Col } from "antd";
-import { useTranslation } from "react-i18next";
 import {
   ContentWrapper,
   Description,
@@ -15,21 +14,14 @@ import {
   StatNumber,
   StatLabel,
 } from "./styles";
-import { OpportunityProps } from "./types";
 import { pick } from "../../cms/pick";
 import type { Lang, OpportunityData } from "../../cms/types";
 
-const stats = [
-  { number: "20+",  label: "Years Active" },
-  { number: "20+", label: "Partners" },
-];
+type Props = { data: OpportunityData; lang: Lang };
 
-type Props = Partial<OpportunityProps> & { data?: OpportunityData; lang?: Lang };
-
-const Opportunity = ({ data, lang = "vi", subtitle = "", title = "", imageSrc = "" }: Props) => {
+const Opportunity = ({ data, lang }: Props) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -56,8 +48,8 @@ const Opportunity = ({ data, lang = "vi", subtitle = "", title = "", imageSrc = 
           <Col xs={24} md={10}>
             <ImageWrapper className={vis}>
               <img
-                src={data ? data.image?.url ?? "" : imageSrc}
-                alt={data ? (data.image && pick(data.image.alt, lang)) || "ISTT Services" : "ISTT Services"}
+                src={data.image?.url ?? ""}
+                alt={(data.image && pick(data.image.alt, lang)) || "ISTT Services"}
               />
             </ImageWrapper>
           </Col>
@@ -65,30 +57,23 @@ const Opportunity = ({ data, lang = "vi", subtitle = "", title = "", imageSrc = 
           {/* Content */}
           <Col xs={24} md={14}>
             <ContentWrapper>
-              <Subtitle className={vis}>{data ? pick(data.subtitle, lang) : t(subtitle)}</Subtitle>
+              <Subtitle className={vis}>{pick(data.subtitle, lang)}</Subtitle>
 
               <Title className={vis}>
-                {data ? pick(data.title, lang) : t(title)}
+                {pick(data.title, lang)}
               </Title>
 
               <TitleDivider className={vis} />
 
               <Description className={vis}>
-                {data
-                  ? pick(data.description, lang)
-                  : t(
-                      "ISTT focuses its investment on researching and seeking advanced technology services that are suitable for the practical needs of Vietnam, while also meeting international standards. The services provided by ISTT have been deployed in numerous Ministries, Departments, and large enterprises and organizations both domestically and internationally, delivering high efficiency for customers."
-                    )}
+                {pick(data.description, lang)}
               </Description>
 
               <StatStrip className={vis}>
-                {(data
-                  ? data.stats.map((s) => ({ number: s.value, label: pick(s.label, lang) }))
-                  : stats.map((s) => ({ number: s.number, label: t(s.label) }))
-                ).map((s, i) => (
-                  <StatItem key={data ? i : s.label}>
-                    <StatNumber>{s.number}</StatNumber>
-                    <StatLabel>{s.label}</StatLabel>
+                {data.stats.map((s, i) => (
+                  <StatItem key={i}>
+                    <StatNumber>{s.value}</StatNumber>
+                    <StatLabel>{pick(s.label, lang)}</StatLabel>
                   </StatItem>
                 ))}
               </StatStrip>

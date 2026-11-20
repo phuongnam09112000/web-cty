@@ -1,5 +1,4 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { Fade } from "react-awesome-reveal";
 import {
   Container,
@@ -17,7 +16,6 @@ import {
   ValueDescription,
   ArrowIcon,
 } from "./styles";
-import { valuesData } from "./data";
 import { pick } from "../../cms/pick";
 import { HEADING_SEPARATOR_NBSP, renderHeading } from "../../cms/headingParts";
 import type { Lang, CoreValuesData } from "../../cms/types";
@@ -35,32 +33,24 @@ const ArrowSvg = () => (
   </svg>
 );
 
-type Props = { data?: CoreValuesData; lang?: Lang };
+type Props = { data: CoreValuesData; lang: Lang };
 
-const CoreValues = ({ data, lang = "vi" }: Props) => {
-  const { t } = useTranslation();
-  const values = data
-    ? data.items.map((item) => ({
-        iconSrc: item.icon?.url ?? "",
-        iconAlt: pick(item.icon?.alt, lang),
-        title: pick(item.title, lang),
-        description: pick(item.description, lang),
-      }))
-    : valuesData.map((value) => ({
-        iconSrc: value.iconSrc,
-        iconAlt: "",
-        title: t(value.title),
-        description: t(value.description),
-      }));
+const CoreValues = ({ data, lang }: Props) => {
+  const values = data.items.map((item) => ({
+    iconSrc: item.icon?.url ?? "",
+    iconAlt: pick(item.icon?.alt, lang),
+    title: pick(item.title, lang),
+    description: pick(item.description, lang),
+  }));
 
   return (
     <Container>
       {/* Header */}
       <Fade direction="up" triggerOnce duration={700}>
         <HeaderWrapper>
-          <Eyebrow>{data ? pick(data.eyebrow, lang) : t("corevalues.eyebrow")}</Eyebrow>
+          <Eyebrow>{pick(data.eyebrow, lang)}</Eyebrow>
           <SectionTitle level={2}>
-            {data ? renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP }) : <>{t("corevalues.heading.part1")}&nbsp;<em>{t("corevalues.heading.em")}</em></>}
+            {renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP })}
           </SectionTitle>
           <TitleUnderline />
         </HeaderWrapper>

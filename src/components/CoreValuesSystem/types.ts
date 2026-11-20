@@ -7,16 +7,6 @@ export interface SolutionItem {
   iconAlt?: string;
 }
 
-export interface CoreValuesSystemProps {
-  title: string;
-  solutions: SolutionItem[];
-  backgroundColor?: string;
-  defaultImage?: string;
-  autoPlayInterval?: number;
-  images?: string[];
-  icons?: string[];
-}
-
 export interface IconContainerProps {
   isActive: boolean;
 }

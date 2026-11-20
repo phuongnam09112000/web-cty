@@ -1,5 +1,4 @@
 import React from "react";
-import { AboutBannerProps } from "./types";
 import { pick } from "../../cms/pick";
 import type { AboutBannerData, Lang } from "../../cms/types";
 import {
@@ -11,14 +10,14 @@ import {
   Subtitle,
 } from "./styles";
 
-type Props = Partial<AboutBannerProps> & { data?: AboutBannerData; lang?: Lang };
+type Props = { data: AboutBannerData; lang: Lang };
 
-const AboutBanner = ({ data, lang = "vi", ...legacy }: Props) => {
-  const backgroundImage = data ? data.image?.url ?? "" : legacy.backgroundImage ?? "";
-  const title = data ? pick(data.title, lang) : legacy.title;
-  const subtitle = data ? pick(data.subtitle, lang) : legacy.subtitle;
-  const eyebrow = data ? pick(data.eyebrow, lang) : legacy.eyebrow;
-  const headingLevel = data ? data.headingLevel : legacy.headingLevel ?? 1;
+const AboutBanner = ({ data, lang }: Props) => {
+  const backgroundImage = data.image?.url ?? "";
+  const title = pick(data.title, lang);
+  const subtitle = pick(data.subtitle, lang);
+  const eyebrow = pick(data.eyebrow, lang);
+  const headingLevel = data.headingLevel;
   return (
     <BannerContainer backgroundImage={backgroundImage}>
       <ContentWrapper>

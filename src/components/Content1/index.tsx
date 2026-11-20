@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { MouseEvent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import SwiperCore from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -25,7 +25,9 @@ import {
   Segment,
   PauseButton,
 } from "./styles";
-import { ContentBlockProps, HeroAction } from "./types";
+import { pick } from "../../cms/pick";
+import type { Link } from "../../cms/types";
+import { HeroProps } from "./types";
 
 // Registered globally, as before, for any carousel that does not pass its own
 // `modules`.
@@ -41,26 +43,29 @@ const prefersReducedMotion = () =>
 
 const Arrow = () => <span aria-hidden="true">→</span>;
 
-const ActionButton = ({ action, variant }: { action: HeroAction; variant: "primary" | "secondary" }) =>
-  action.to ? (
-    <ActionLink to={action.to} $variant={variant}>
-      {action.label} <Arrow />
-    </ActionLink>
-  ) : (
-    <ActionAnchor href={action.href} onClick={action.onClick} $variant={variant}>
-      {action.label} <Arrow />
+const scrollToAnchor = (event: MouseEvent<HTMLAnchorElement>) => {
+  const target = document.getElementById(event.currentTarget.getAttribute("href")?.slice(1) ?? "");
+  if (!target) return;
+  event.preventDefault();
+  const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  target.focus({ preventScroll: true });
+};
+
+const ActionButton = ({ action, label, variant }: { action: Link; label: string; variant: "primary" | "secondary" }) =>
+  action.href.startsWith("#") ? (
+    <ActionAnchor href={action.href} onClick={scrollToAnchor} $variant={variant}>
+      {label} <Arrow />
     </ActionAnchor>
+  ) : (
+    <ActionLink to={action.href} $variant={variant}>
+      {label} <Arrow />
+    </ActionLink>
   );
 
-const Content1: React.FC<ContentBlockProps> = ({
-  backgroundImage,
-  eyebrow,
-  title,
-  descriptions,
-  primaryAction,
-  secondaryAction,
-  id,
-}) => {
+const HERO_ID = "home";
+
+const Content1 = ({ data, lang }: HeroProps) => {
   const { t } = useTranslation();
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -72,7 +77,9 @@ const Content1: React.FC<ContentBlockProps> = ({
   // the pause / play control lets anyone stop or restart it.
   const [playing, setPlaying] = useState(() => !prefersReducedMotion());
 
-  const total = backgroundImage.length;
+  const slides = data.slides.filter((slide) => slide.image);
+  const total = slides.length;
+  const id = HERO_ID;
 
   // Rotation is driven here rather than by Swiper's autoplay, whose
   // stop()/start() left stray or stalled timers. The timer restarts on every
@@ -103,11 +110,11 @@ const Content1: React.FC<ContentBlockProps> = ({
           }}
           onSlideChange={(swiper: SwiperType) => setActiveSlideIndex(swiper.activeIndex)}
         >
-          {backgroundImage.map((image, index) => (
+          {slides.map((slide, index) => (
             <SwiperSlide key={index}>
               {(index === 0 || firstSlideDone) && (
                 <SlideImage
-                  src={image}
+                  src={slide.image?.url}
                   alt=""
                   loading="eager"
                   $active={index === activeSlideIndex}
@@ -123,12 +130,12 @@ const Content1: React.FC<ContentBlockProps> = ({
 
       <Inner>
         <Content>
-          <Eyebrow>{eyebrow}</Eyebrow>
-          <Title id={`${id}-title`}>{title}</Title>
-          <Tagline key={activeSlideIndex}>{descriptions[activeSlideIndex]}</Tagline>
+          <Eyebrow>{pick(data.eyebrow, lang)}</Eyebrow>
+          <Title id={`${id}-title`}>{pick(data.title, lang)}</Title>
+          <Tagline key={activeSlideIndex}>{slides[activeSlideIndex] ? pick(slides[activeSlideIndex].tagline, lang) : ""}</Tagline>
           <Actions>
-            <ActionButton action={primaryAction} variant="primary" />
-            <ActionButton action={secondaryAction} variant="secondary" />
+            <ActionButton action={data.primaryCta} label={pick(data.primaryCta.label, lang)} variant="primary" />
+            <ActionButton action={data.secondaryCta} label={pick(data.secondaryCta.label, lang)} variant="secondary" />
           </Actions>
         </Content>
       </Inner>
@@ -139,7 +146,7 @@ const Content1: React.FC<ContentBlockProps> = ({
             <strong>{pad(activeSlideIndex + 1)}</strong> / {pad(total)}
           </Counter>
           <Segments>
-            {backgroundImage.map((_, index) => (
+            {slides.map((_, index) => (
               <Segment
                 key={index}
                 type="button"

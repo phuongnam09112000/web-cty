@@ -10,12 +10,27 @@ import MapBanner from "../components/Contact";
 import Mission from "../components/Mission";
 import OverviewSection from "../components/OverviewSection";
 import Vision from "../components/Vision";
+import Content1 from "../components/Content1";
+import Content2 from "../components/Content2";
+import OurSolutions from "../components/OurSolutions";
+import HomeServices from "../components/HomeServices";
+import HomeValues from "../components/HomeValues";
+import Partners, { Customers } from "../components/Partner";
+import HomeContact from "../components/HomeContact";
 import ContactFormBlock from "./blocks/ContactFormBlock";
 import type { BlockDataMap, BlockType, CmsBlock, Lang } from "./types";
 
 export type BlockProps<K extends BlockType> = { data: BlockDataMap[K]; lang: Lang };
 
 export const BLOCK_COMPONENTS: { [K in BlockType]?: ComponentType<BlockProps<K>> } = {
+  "home-hero": Content1,
+  "home-about": Content2,
+  "business-areas": OurSolutions,
+  "home-services": HomeServices,
+  "home-values": HomeValues,
+  partners: Partners,
+  customers: Customers,
+  "home-contact": HomeContact,
   "about-banner": AboutBanner,
   overview: OverviewSection,
   vision: Vision,

@@ -59,9 +59,9 @@ const PhoneIcon = () => (
 );
 
 /* ─── Component ──────────────────────────────── */
-type ContactFormProps = { data?: ContactFormData; lang?: Lang };
+type ContactFormProps = { data: ContactFormData; lang: Lang };
 
-const ContactForm = ({ data, lang = "vi" }: ContactFormProps) => {
+const ContactForm = ({ data, lang }: ContactFormProps) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -102,12 +102,12 @@ const ContactForm = ({ data, lang = "vi" }: ContactFormProps) => {
           {/* ── Left dark panel ── */}
           <LeftPanel>
             <PanelTop>
-              <PanelEyebrow>{data ? pick(data.eyebrow, lang) : t("contact.eyebrow")}</PanelEyebrow>
+              <PanelEyebrow>{pick(data.eyebrow, lang)}</PanelEyebrow>
               <PanelTitle as="h1">
-                {data ? renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP }) : <>{t("contact.heading.part1")}&nbsp;<em>{t("contact.heading.em")}</em></>}
+                {renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP })}
               </PanelTitle>
               <PanelDivider />
-              <PanelDesc>{data ? pick(data.tagline, lang) : t("contact.tagline")}</PanelDesc>
+              <PanelDesc>{pick(data.tagline, lang)}</PanelDesc>
             </PanelTop>
 
             <PanelBottom>
@@ -139,9 +139,9 @@ const ContactForm = ({ data, lang = "vi" }: ContactFormProps) => {
 
           {/* ── Right form panel ── */}
           <RightPanel>
-            <FormEyebrow>{data ? pick(data.formEyebrow, lang) : t("contact.form.eyebrow")}</FormEyebrow>
+            <FormEyebrow>{pick(data.formEyebrow, lang)}</FormEyebrow>
             <FormHeading as="h2">
-              {data ? renderHeading(data.formHeading, lang, { separator: HEADING_SEPARATOR_NBSP, emphasisFirst: true }) : <><em>{t("contact.form.heading.em")}</em>&nbsp;{t("contact.form.heading.part2")}</>}
+              {renderHeading(data.formHeading, lang, { separator: HEADING_SEPARATOR_NBSP, emphasisFirst: true })}
             </FormHeading>
             <FormDivider />
 

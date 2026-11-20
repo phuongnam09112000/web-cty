@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useTranslation, Trans } from 'react-i18next';
-import { ServiceData } from '../../pages/Services';
+import { useTranslation } from 'react-i18next';
 import { pick } from '../../cms/pick';
 import { HEADING_SEPARATOR_SPACE, renderHeading } from '../../cms/headingParts';
 import type { Lang, OurServicesData } from '../../cms/types';
@@ -28,18 +27,13 @@ import {
   CardLink,
 } from './styles';
 
-interface CardsSectionProps  { services: ServiceData[]; }
-interface OurServicesProps extends CardsSectionProps {
-  onButtonClick?: () => void;
-}
-
-type Props = Partial<OurServicesProps> & { data?: OurServicesData; lang?: Lang };
+type Props = { data: OurServicesData; lang: Lang };
 
 const scrollToContactForm = () => {
   document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 };
 
-const OurServices = ({ data, lang = 'vi', services = [], onButtonClick }: Props) => {
+const OurServices = ({ data, lang }: Props) => {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [windowWidth,   setWindowWidth]   = useState(window.innerWidth);
   const { t } = useTranslation();
@@ -56,23 +50,16 @@ const OurServices = ({ data, lang = 'vi', services = [], onButtonClick }: Props)
 
   /* ── Header ── */
   const HeaderSection: React.FC = () => {
-    const { t } = useTranslation();
     return (
       <HeaderContainer>
         <WaveBackground className="visible" />
         <HeaderContent>
-          <Subtitle className="visible">{data ? pick(data.eyebrow, lang) : t('ourservices.eyebrow')}</Subtitle>
+          <Subtitle className="visible">{pick(data.eyebrow, lang)}</Subtitle>
           <Title className="visible">
-            {data ? (
-              renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_SPACE })
-            ) : (
-              <Trans i18nKey="ourservices.title">
-                Dịch vụ <em>Chuyên nghiệp</em>
-              </Trans>
-            )}
+            {renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_SPACE })}
           </Title>
-          <Button onClick={data ? scrollToContactForm : onButtonClick} className="visible">
-            <span>{data ? pick(data.buttonLabel, lang) : t('ourservices.cta')}</span>
+          <Button onClick={scrollToContactForm} className="visible">
+            <span>{pick(data.buttonLabel, lang)}</span>
           </Button>
         </HeaderContent>
       </HeaderContainer>
@@ -80,9 +67,8 @@ const OurServices = ({ data, lang = 'vi', services = [], onButtonClick }: Props)
   };
 
   /* ── Cards ── */
-  const CardsSection: React.FC<CardsSectionProps> = ({ services }) => {
-    if (data) {
-      return (
+  const CardsSection: React.FC = () => {
+    return (
         <CardsContainerWrapper>
           <CardsContainer>
             {data.items.map((item, index) => {
@@ -131,62 +117,12 @@ const OurServices = ({ data, lang = 'vi', services = [], onButtonClick }: Props)
           </CardsContainer>
         </CardsContainerWrapper>
       );
-    }
-    return (
-      <CardsContainerWrapper>
-        <CardsContainer>
-          {services.map((service, index) => (
-            <CardWrapper key={index} className={`visible-${index + 1}`}>
-              {/* Front face */}
-              <CardContent>
-                <ImageContainer>
-                  <CardIcon src={service.icon} alt={t(service.title)} />
-                </ImageContainer>
-                <CardTitle as="h2">{t(service.title)}</CardTitle>
-                <CardDescription>{t(service.description)}</CardDescription>
-                {service.path && (
-                  <CardLink to={service.path}>
-                    {t('Learn more')} <span aria-hidden="true">→</span>
-                  </CardLink>
-                )}
-              </CardContent>
-
-              {/* Hover overlay */}
-              {service.full_des && Object.keys(service.full_des).length > 0 && (
-                <DetailsOverlay>
-                  <CardTitle>{t(service.title)}</CardTitle>
-                  <DetailsList>
-                    {Object.entries(service.full_des).map(([category, items], catIndex) => (
-                      <DetailCategory key={catIndex}>
-                        <CategoryTitle>{t(category)}</CategoryTitle>
-                        {Array.isArray(items) &&
-                          items.map((item, itemIdx) => (
-                            <DetailItem key={itemIdx}>{t(item)}</DetailItem>
-                          ))}
-                      </DetailCategory>
-                    ))}
-                  </DetailsList>
-                  {service.path && (
-                    <CardLink to={service.path} $onDark tabIndex={-1}>
-                      {t('Learn more')} <span aria-hidden="true">→</span>
-                    </CardLink>
-                  )}
-                  {(isTouchDevice || windowWidth <= 1024) && (
-                    <TouchIndicator>i</TouchIndicator>
-                  )}
-                </DetailsOverlay>
-              )}
-            </CardWrapper>
-          ))}
-        </CardsContainer>
-      </CardsContainerWrapper>
-    );
   };
 
   return (
     <>
       <HeaderSection />
-      <CardsSection services={services} />
+      <CardsSection />
     </>
   );
 };

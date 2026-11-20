@@ -22,23 +22,9 @@ import {
 import { pick } from "../../cms/pick";
 import type { Lang, ServicesListData } from "../../cms/types";
 
-interface ServicesPageProps {
-  pageTitle: string;
-  sectionTitle: string;
-  serviceText: string;
-  imagePath: string;
-}
+type Props = { data: ServicesListData; lang: Lang };
 
-type Props = Partial<ServicesPageProps> & { data?: ServicesListData; lang?: Lang };
-
-const ServicesPage = ({
-  data,
-  lang = "vi",
-  pageTitle = "",
-  sectionTitle = "",
-  serviceText = "",
-  imagePath = "",
-}: Props) => {
+const ServicesPage = ({ data, lang }: Props) => {
   const { t } = useTranslation();
   const [isVisible,   setIsVisible]   = useState(false);
   const [textVisible, setTextVisible] = useState(false);
@@ -65,7 +51,7 @@ const ServicesPage = ({
       <TitleBlock>
         <TitleEyebrow visible={isVisible}>{t("servicespage.eyebrow")}</TitleEyebrow>
         <PageTitle level={1} visible={isVisible}>
-          {data ? pick(data.pageTitle, lang) : t(pageTitle)}
+          {pick(data.pageTitle, lang)}
         </PageTitle>
         <PageTitleDivider visible={isVisible} />
       </TitleBlock>
@@ -75,8 +61,8 @@ const ServicesPage = ({
         {/* Right: image */}
         <ImageContainer visible={isVisible}>
           <BackgroundImage
-            src={data ? data.image?.url ?? "" : imagePath}
-            alt={data ? (data.image && pick(data.image.alt, lang)) || t("servicespage.image.alt") : t("servicespage.image.alt")}
+            src={data.image?.url ?? ""}
+            alt={(data.image && pick(data.image.alt, lang)) || t("servicespage.image.alt")}
           />
         </ImageContainer>
         <ImageAccent visible={isVisible} />
@@ -89,13 +75,13 @@ const ServicesPage = ({
             </CardEyebrow>
 
             <SectionTitle level={2} visible={textVisible}>
-              {data ? pick(data.sectionTitle, lang) : t(sectionTitle)}
+              {pick(data.sectionTitle, lang)}
             </SectionTitle>
 
             <CardDivider visible={textVisible} />
 
             <ServiceText visible={textVisible}>
-              {data ? pick(data.text, lang) : t(serviceText)}
+              {pick(data.text, lang)}
             </ServiceText>
 
             <CornerBracket />
