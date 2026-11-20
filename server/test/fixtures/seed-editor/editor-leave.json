@@ -1,0 +1,105 @@
+{
+  "path": "/editor-leave",
+  "name": "Sửa rời trang",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Sửa rời trang",
+        "en": "Sửa rời trang EN"
+      },
+      "description": {
+        "vi": "Mô tả Sửa rời trang",
+        "en": ""
+      },
+      "image": {
+        "src": "/img/a.png"
+      }
+    },
+    "blocks": [
+      {
+        "id": "leaveban1",
+        "type": "solution-banner",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/a.png"
+          },
+          "eyebrow": {
+            "vi": "Giải pháp",
+            "en": "Solutions"
+          },
+          "title": {
+            "vi": "Tiêu đề banner Sửa rời trang",
+            "en": "Banner title Sửa rời trang"
+          },
+          "subtitle": {
+            "vi": "Phụ đề",
+            "en": ""
+          },
+          "buttonLabel": {
+            "vi": "Xem thêm",
+            "en": "More"
+          }
+        }
+      },
+      {
+        "id": "leavevis2",
+        "type": "vision",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/b.png"
+          },
+          "eyebrow": {
+            "vi": "Tầm nhìn",
+            "en": "Vision"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Tầm nhìn Sửa rời trang",
+              "en": "Vision Sửa rời trang"
+            },
+            "emphasis": {
+              "vi": "",
+              "en": ""
+            }
+          },
+          "body": {
+            "vi": "Nội dung tầm nhìn",
+            "en": "Vision body"
+          }
+        }
+      },
+      {
+        "id": "leavemis3",
+        "type": "mission",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/a.png"
+          },
+          "eyebrow": {
+            "vi": "Sứ mệnh",
+            "en": "Mission"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Sứ mệnh Sửa rời trang",
+              "en": "Mission Sửa rời trang"
+            },
+            "emphasis": {
+              "vi": "",
+              "en": ""
+            }
+          },
+          "points": [
+            {
+              "vi": "Điểm một",
+              "en": "Point one"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

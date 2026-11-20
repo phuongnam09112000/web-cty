@@ -5,6 +5,8 @@ import { AccountPage } from "./pages/account/AccountPage";
 import { AuditLogsPage } from "./pages/audit-logs/AuditLogsPage";
 import { ChangePasswordPage } from "./pages/change-password/ChangePasswordPage";
 import { DashboardPage } from "./pages/dashboard/DashboardPage";
+import { PageEditorPage } from "./pages/content/PageEditorPage";
+import { PagesPage } from "./pages/content/PagesPage";
 import { ForbiddenPage } from "./pages/forbidden/ForbiddenPage";
 import { LoginPage } from "./pages/login/LoginPage";
 import { RoleDetailPage } from "./pages/roles/RoleDetailPage";
@@ -41,6 +43,22 @@ export function App() {
             element={
               <RequirePermission anyOf={["roles.manage"]}>
                 <RoleDetailPage />
+              </RequirePermission>
+            }
+          />
+          <Route
+            path="pages"
+            element={
+              <RequirePermission anyOf={["content.view"]}>
+                <PagesPage />
+              </RequirePermission>
+            }
+          />
+          <Route
+            path="pages/:id"
+            element={
+              <RequirePermission anyOf={["content.view"]}>
+                <PageEditorPage />
               </RequirePermission>
             }
           />

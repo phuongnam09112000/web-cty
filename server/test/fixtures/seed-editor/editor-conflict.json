@@ -1,0 +1,105 @@
+{
+  "path": "/editor-conflict",
+  "name": "Sửa xung đột",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Sửa xung đột",
+        "en": "Sửa xung đột EN"
+      },
+      "description": {
+        "vi": "Mô tả Sửa xung đột",
+        "en": ""
+      },
+      "image": {
+        "src": "/img/a.png"
+      }
+    },
+    "blocks": [
+      {
+        "id": "conflictban1",
+        "type": "solution-banner",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/a.png"
+          },
+          "eyebrow": {
+            "vi": "Giải pháp",
+            "en": "Solutions"
+          },
+          "title": {
+            "vi": "Tiêu đề banner Sửa xung đột",
+            "en": "Banner title Sửa xung đột"
+          },
+          "subtitle": {
+            "vi": "Phụ đề",
+            "en": ""
+          },
+          "buttonLabel": {
+            "vi": "Xem thêm",
+            "en": "More"
+          }
+        }
+      },
+      {
+        "id": "conflictvis2",
+        "type": "vision",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/b.png"
+          },
+          "eyebrow": {
+            "vi": "Tầm nhìn",
+            "en": "Vision"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Tầm nhìn Sửa xung đột",
+              "en": "Vision Sửa xung đột"
+            },
+            "emphasis": {
+              "vi": "",
+              "en": ""
+            }
+          },
+          "body": {
+            "vi": "Nội dung tầm nhìn",
+            "en": "Vision body"
+          }
+        }
+      },
+      {
+        "id": "conflictmis3",
+        "type": "mission",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/a.png"
+          },
+          "eyebrow": {
+            "vi": "Sứ mệnh",
+            "en": "Mission"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Sứ mệnh Sửa xung đột",
+              "en": "Mission Sửa xung đột"
+            },
+            "emphasis": {
+              "vi": "",
+              "en": ""
+            }
+          },
+          "points": [
+            {
+              "vi": "Điểm một",
+              "en": "Point one"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

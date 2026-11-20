@@ -7,6 +7,7 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     proxy: {
+      "/media": { target: "http://127.0.0.1:4000" },
       "/api": {
         target: "http://127.0.0.1:4000",
         headers: { "X-Admin-Gateway": process.env.ADMIN_GATEWAY_SECRET ?? "" },

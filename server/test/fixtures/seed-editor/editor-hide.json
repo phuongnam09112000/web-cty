@@ -1,0 +1,105 @@
+{
+  "path": "/editor-hide",
+  "name": "Sửa ẩn",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Sửa ẩn",
+        "en": "Sửa ẩn EN"
+      },
+      "description": {
+        "vi": "Mô tả Sửa ẩn",
+        "en": ""
+      },
+      "image": {
+        "src": "/img/a.png"
+      }
+    },
+    "blocks": [
+      {
+        "id": "hideban1",
+        "type": "solution-banner",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/a.png"
+          },
+          "eyebrow": {
+            "vi": "Giải pháp",
+            "en": "Solutions"
+          },
+          "title": {
+            "vi": "Tiêu đề banner Sửa ẩn",
+            "en": "Banner title Sửa ẩn"
+          },
+          "subtitle": {
+            "vi": "Phụ đề",
+            "en": ""
+          },
+          "buttonLabel": {
+            "vi": "Xem thêm",
+            "en": "More"
+          }
+        }
+      },
+      {
+        "id": "hidevis2",
+        "type": "vision",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/b.png"
+          },
+          "eyebrow": {
+            "vi": "Tầm nhìn",
+            "en": "Vision"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Tầm nhìn Sửa ẩn",
+              "en": "Vision Sửa ẩn"
+            },
+            "emphasis": {
+              "vi": "",
+              "en": ""
+            }
+          },
+          "body": {
+            "vi": "Nội dung tầm nhìn",
+            "en": "Vision body"
+          }
+        }
+      },
+      {
+        "id": "hidemis3",
+        "type": "mission",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/a.png"
+          },
+          "eyebrow": {
+            "vi": "Sứ mệnh",
+            "en": "Mission"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Sứ mệnh Sửa ẩn",
+              "en": "Mission Sửa ẩn"
+            },
+            "emphasis": {
+              "vi": "",
+              "en": ""
+            }
+          },
+          "points": [
+            {
+              "vi": "Điểm một",
+              "en": "Point one"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

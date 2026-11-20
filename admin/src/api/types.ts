@@ -1,3 +1,5 @@
+import type { BlockType } from "../content/blockForms";
+
 export type PermissionKey =
   | "users.view"
   | "users.manage"
@@ -58,4 +60,53 @@ export type AuditLogDto = {
   metadata: Record<string, unknown> | null;
   ip: string | null;
   createdAt: string;
+};
+
+export type Localized = { vi: string; en: string };
+
+export type MediaDto = {
+  id: number;
+  fileName: string;
+  originalName: string;
+  mimeType: string;
+  sizeBytes: number;
+  width: number | null;
+  height: number | null;
+  alt: Localized;
+  url: string;
+  sourcePath: string | null;
+  createdAt: string;
+};
+
+export type UserRef = { id: number; email: string; fullName: string };
+
+export type PageListItem = {
+  id: number;
+  path: string;
+  name: string;
+  hasUnpublishedChanges: boolean;
+  untranslatedCount: number;
+  publishedVersion: { number: number; publishedAt: string; publishedBy: UserRef | null } | null;
+  draftUpdatedAt: string | null;
+  draftUpdatedBy: UserRef | null;
+};
+
+export type ContentBlock = {
+  id: string;
+  type: BlockType;
+  hidden: boolean;
+  data: Record<string, unknown>;
+};
+
+export type PageContent = {
+  seo: { title: Localized; description: Localized; image: { mediaId: number } | null };
+  blocks: ContentBlock[];
+};
+
+export type PageDetail = {
+  id: number;
+  path: string;
+  name: string;
+  draft: { content: PageContent; revision: number; updatedAt: string };
+  published: { number: number; content: PageContent } | null;
 };
