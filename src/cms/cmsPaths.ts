@@ -9,3 +9,7 @@ const OVERRIDE_PATHS: string[] = OVERRIDE
   : [];
 
 export const CMS_PATHS: string[] = [...MIGRATED_PATHS, ...OVERRIDE_PATHS];
+
+if (process.env.NODE_ENV !== "production") {
+  (window as unknown as { __cmsOverrideActive: boolean }).__cmsOverrideActive = OVERRIDE_PATHS.length > 0;
+}

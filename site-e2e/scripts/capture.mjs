@@ -72,8 +72,9 @@ export async function captureAll({ baseUrl, outDir, paths = PATHS, log = console
             nativeSetInterval(handler, delay >= 4000 ? 2147483647 : delay, ...args);
         }, lang);
         await context.route("**/*", (route) => {
-          const host = new URL(route.request().url()).hostname;
-          return host === "localhost" || host === "127.0.0.1" ? route.continue() : route.abort();
+          const url = new URL(route.request().url());
+          if (url.pathname.startsWith("/api/public/")) return route.abort();
+          return url.hostname === "localhost" || url.hostname === "127.0.0.1" ? route.continue() : route.abort();
         });
         for (const path of paths) {
           const page = await context.newPage();

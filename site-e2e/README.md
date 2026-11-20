@@ -75,6 +75,8 @@ Nếu đã có website chạy sẵn ở cổng 3100, Playwright dùng lại. Hã
 
    Nếu cổng 3100 chưa có website, script tự khởi động (không có `REACT_APP_CMS_PATHS_OVERRIDE`). Dùng pixelmatch với `threshold 0.1`; một ảnh đạt khi số điểm ảnh khác không quá 0,1%. Ảnh khác biệt của các ảnh không đạt được ghi vào `.diff/`.
 
-3. `tests/visual.spec.ts` đọc `src/cms/cmsPaths.ts` và chạy bước 2 cho mọi đường dẫn đã chuyển (danh sách rỗng thì bỏ qua). Cần có `.baseline/` trước.
+   Khi chụp, `/api/public/**` bị chặn nên các trang CMS luôn hiển thị từ bản đóng gói sẵn `src/content/cms-fallback.json` (bằng nội dung đã xuất bản khi nhập), nhờ đó kết quả không phụ thuộc API hay `localStorage`. Script từ chối dùng website đang chạy với `REACT_APP_CMS_PATHS_OVERRIDE` (đọc cờ `window.__cmsOverrideActive`); khi tự khởi động website, script xóa biến này. Dùng `--port` để đổi cổng.
+
+3. `tests/visual.spec.ts` đọc mảng `MIGRATED_PATHS` trong `src/cms/cmsPaths.ts` (nháy đơn hoặc nháy kép) và chạy bước 2 trên cổng 3102 cho mọi đường dẫn đã chuyển. Không tìm thấy hoặc không đọc được mảng thì kiểm thử lỗi; chỉ bỏ qua khi mảng thật sự rỗng. Cần có `.baseline/` trước.
 
 Các thư mục `.baseline`, `.baseline-src`, `.current`, `.diff`, `test-results` và `playwright-report` không được commit.

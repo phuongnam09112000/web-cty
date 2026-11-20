@@ -1,9 +1,12 @@
 import { useTranslation } from "react-i18next";
 import type { Lang, LocalizedText } from "./types";
 
-export function pick(text: LocalizedText, lang: Lang): string {
-  if (lang === "en" && text.en.trim() !== "") return text.en;
-  return text.vi;
+const asString = (value: unknown): string => (typeof value === "string" ? value : "");
+
+export function pick(text: LocalizedText | null | undefined, lang: Lang): string {
+  const en = asString(text?.en);
+  if (lang === "en" && en.trim() !== "") return en;
+  return asString(text?.vi);
 }
 
 export function useLang(): Lang {

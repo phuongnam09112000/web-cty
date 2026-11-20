@@ -72,3 +72,59 @@ test("pick dùng vi khi en chỉ có khoảng trắng", async ({ page }) => {
   });
   expect(result).toEqual(["Xin chào", "Hello", "Xin chào"]);
 });
+
+test("bản lưu có phiên bản khuôn cũ bị bỏ qua và xóa", async ({ page }) => {
+  await page.addInitScript((key) => {
+    if (!sessionStorage.getItem("corrupted")) {
+      const block = {
+        id: "contactform01",
+        type: "contact-form",
+        hidden: false,
+        data: {
+          variant: "page",
+          eyebrow: { vi: "a", en: "a" },
+          heading: { lead: { vi: "Nội dung cũ", en: "Old" }, emphasis: { vi: "", en: "" } },
+          tagline: { vi: "x", en: "x" },
+          formEyebrow: { vi: "x", en: "x" },
+          formHeading: { lead: { vi: "x", en: "x" }, emphasis: { vi: "x", en: "x" } },
+        },
+      };
+      const content = { seo: { title: { vi: "Cũ", en: "Old" }, description: { vi: "x", en: "x" }, image: null }, blocks: [block] };
+      localStorage.setItem(key, JSON.stringify({ schema: 0, etag: null, content }));
+      sessionStorage.setItem("corrupted", "1");
+    }
+  }, KEY);
+  await page.route("**/api/public/**", (route) => route.abort());
+  await page.goto("/contact");
+  await expect(page.getByRole("heading", { name: "Hãy cùng Trao đổi" })).toBeVisible();
+  await expect(page.getByText("Nội dung cũ")).toHaveCount(0);
+  expect(await page.evaluate((key) => localStorage.getItem(key), KEY)).toBeNull();
+});
+
+test("khối thiếu trường không làm trắng trang, các khối khác vẫn hiện", async ({ page }) => {
+  await page.addInitScript((key) => {
+    if (!sessionStorage.getItem("corrupted")) {
+      const good = {
+        id: "contactform02",
+        type: "contact-form",
+        hidden: false,
+        data: {
+          variant: "page",
+          eyebrow: { vi: "a", en: "a" },
+          heading: { lead: { vi: "Khối còn nguyên", en: "Intact" }, emphasis: { vi: "", en: "" } },
+          tagline: { vi: "x", en: "x" },
+          formEyebrow: { vi: "x", en: "x" },
+          formHeading: { lead: { vi: "x", en: "x" }, emphasis: { vi: "x", en: "x" } },
+        },
+      };
+      const broken = { id: "contactform01", type: "contact-form", hidden: false, data: { variant: "page" } };
+      const content = { seo: { title: { vi: "Thử", en: "Test" }, description: { vi: "x", en: "x" }, image: null }, blocks: [broken, good] };
+      localStorage.setItem(key, JSON.stringify({ schema: 1, etag: null, content }));
+      sessionStorage.setItem("corrupted", "1");
+    }
+  }, KEY);
+  await page.route("**/api/public/**", (route) => route.abort());
+  await page.goto("/contact");
+  await expect(page.getByRole("heading", { name: "Khối còn nguyên" })).toBeVisible();
+  await expect.poll(() => page.evaluate((key) => localStorage.getItem(key), KEY)).toBeNull();
+});

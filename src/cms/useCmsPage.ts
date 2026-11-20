@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import fallbackJson from "../content/cms-fallback.json";
-import type { CmsContent } from "./types";
+import type { CmsBlock, CmsContent } from "./types";
 
-type Stored = { etag: string | null; content: CmsContent };
+type Stored = { schema: number; etag: string | null; content: CmsContent };
+
+const SCHEMA_VERSION = 1;
 
 const fallback = fallbackJson as unknown as Record<string, CmsContent>;
 const EMPTY: CmsContent = {
@@ -14,10 +16,31 @@ const REQUEST_TIMEOUT_MS = 5000;
 
 const storageKey = (path: string) => `istt_content:${path}`;
 
-function isContent(value: unknown): value is CmsContent {
-  if (value === null || typeof value !== "object") return false;
-  const content = value as { seo?: unknown; blocks?: unknown };
-  return Array.isArray(content.blocks) && content.seo !== null && typeof content.seo === "object";
+const isObject = (value: unknown): value is Record<string, unknown> =>
+  value !== null && typeof value === "object" && !Array.isArray(value);
+
+function isBlock(value: unknown): value is CmsBlock {
+  return (
+    isObject(value) &&
+    typeof value.id === "string" &&
+    typeof value.type === "string" &&
+    typeof value.hidden === "boolean" &&
+    isObject(value.data)
+  );
+}
+
+function sanitize(value: unknown): CmsContent | null {
+  if (!isObject(value) || !Array.isArray(value.blocks)) return null;
+  const seo = isObject(value.seo) ? (value.seo as unknown as CmsContent["seo"]) : EMPTY.seo;
+  return { seo, blocks: value.blocks.filter(isBlock) };
+}
+
+export function clearStored(path: string): void {
+  try {
+    localStorage.removeItem(storageKey(path));
+  } catch {
+    return;
+  }
 }
 
 function readStored(path: string): Stored | null {
@@ -25,18 +48,15 @@ function readStored(path: string): Stored | null {
     const raw = localStorage.getItem(storageKey(path));
     if (raw === null) return null;
     const parsed: unknown = JSON.parse(raw);
-    const record = parsed as { etag?: unknown; content?: unknown } | null;
-    if (record && typeof record === "object" && isContent(record.content)) {
-      return { etag: typeof record.etag === "string" ? record.etag : null, content: record.content };
+    if (isObject(parsed) && parsed.schema === SCHEMA_VERSION) {
+      const content = sanitize(parsed.content);
+      if (content) return { schema: SCHEMA_VERSION, etag: typeof parsed.etag === "string" ? parsed.etag : null, content };
     }
-    localStorage.removeItem(storageKey(path));
   } catch {
-    try {
-      localStorage.removeItem(storageKey(path));
-    } catch {
-      return null;
-    }
+    clearStored(path);
+    return null;
   }
+  clearStored(path);
   return null;
 }
 
@@ -88,7 +108,8 @@ export function useCmsPage(path: string): { content: CmsContent; isPreview: bool
           });
           if (!response.ok) return;
           const body = (await response.json()) as { content?: unknown };
-          if (isContent(body.content)) apply(body.content, true);
+          const content = sanitize(body.content);
+          if (content) apply(content, true);
           return;
         }
         const stored = readStored(path);
@@ -100,9 +121,10 @@ export function useCmsPage(path: string): { content: CmsContent; isPreview: bool
         });
         if (response.status === 304 || !response.ok) return;
         const body = (await response.json()) as { content?: unknown };
-        if (!isContent(body.content)) return;
-        writeStored(path, { etag: response.headers.get("ETag"), content: body.content });
-        apply(body.content, false);
+        const content = sanitize(body.content);
+        if (!content) return;
+        writeStored(path, { schema: SCHEMA_VERSION, etag: response.headers.get("ETag"), content });
+        apply(content, false);
       } catch {
         return;
       }

@@ -17,6 +17,7 @@ test("xem trước: dải thông báo, tiêu đề nháp và không ghi localSto
   await expect(page.getByText("Đang xem bản nháp")).toBeVisible();
   await expect(page).toHaveTitle(new RegExp(title));
   await expect(page.getByRole("heading", { name: new RegExp(title) })).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, nofollow");
   const keys = await page.evaluate(() => Object.keys(localStorage));
   expect(keys).not.toContain("istt_content:/contact");
 });

@@ -4,13 +4,16 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import pixelmatch from "pixelmatch";
 import { PNG } from "pngjs";
+import { chromium } from "@playwright/test";
 import { LANGS, PATHS, VIEWPORTS, captureAll, shotName, waitForUrl } from "./capture.mjs";
 
+const argv0 = process.argv.slice(2);
 const root = fileURLToPath(new URL("..", import.meta.url));
 const baselineDir = join(root, ".baseline");
 const currentDir = join(root, ".current");
 const diffDir = join(root, ".diff");
-const port = 3100;
+const portIndex = argv0.indexOf("--port");
+const port = portIndex >= 0 ? Number(argv0[portIndex + 1]) : 3100;
 const baseUrl = `http://localhost:${port}`;
 const MAX_DIFF_RATIO = 0.001;
 
@@ -31,16 +34,37 @@ function pad(png, width, height) {
   return out;
 }
 
-async function startServerIfNeeded() {
+async function assertNoOverride() {
+  const browser = await chromium.launch();
   try {
-    const response = await fetch(`${baseUrl}/`);
-    if (response.ok) return () => {};
+    const page = await browser.newPage();
+    await page.route("**/api/**", (route) => route.abort());
+    await page.goto(`${baseUrl}/`, { waitUntil: "load" });
+    const active = await page.evaluate(() => window.__cmsOverrideActive === true);
+    if (active) {
+      throw new Error(
+        `Website ở cổng ${port} đang chạy với REACT_APP_CMS_PATHS_OVERRIDE; hãy tắt nó hoặc dùng --port khác để script tự khởi động website`,
+      );
+    }
+  } finally {
+    await browser.close();
+  }
+}
+
+async function startServerIfNeeded() {
+  let running = false;
+  try {
+    running = (await fetch(`${baseUrl}/`)).ok;
   } catch {
-    /* start below */
+    running = false;
+  }
+  if (running) {
+    await assertNoOverride();
+    return () => {};
   }
   const server = spawn("npx", ["react-scripts", "start"], {
     cwd: join(root, ".."),
-    env: { ...process.env, BROWSER: "none", PORT: String(port) },
+    env: { ...process.env, BROWSER: "none", PORT: String(port), REACT_APP_CMS_PATHS_OVERRIDE: "" },
     stdio: "ignore",
     detached: true,
   });
@@ -57,6 +81,7 @@ async function startServerIfNeeded() {
 }
 
 const stop = await startServerIfNeeded();
+
 let failed = 0;
 let maxRatio = 0;
 try {
