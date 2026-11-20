@@ -1,4 +1,4 @@
-const MIGRATED_PATHS: string[] = [];
+const MIGRATED_PATHS: string[] = ["/contact", "/about"];
 
 const OVERRIDE = process.env.NODE_ENV !== "production" ? process.env.REACT_APP_CMS_PATHS_OVERRIDE : undefined;
 

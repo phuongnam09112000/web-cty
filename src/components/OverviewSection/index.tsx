@@ -26,6 +26,9 @@ import {
   YearBadge,
 } from "./styles";
 import { useTranslation } from "react-i18next";
+import { pick } from "../../cms/pick";
+import { renderHeading } from "../../cms/headingParts";
+import type { Lang, OverviewData } from "../../cms/types";
 
 interface IntroItemType {
   icon: React.ReactNode;
@@ -33,10 +36,12 @@ interface IntroItemType {
 }
 
 interface TMAAboutProps {
-  images: string[];
+  images?: string[];
+  data?: OverviewData;
+  lang?: Lang;
 }
 
-const OverviewSection: React.FC<TMAAboutProps> = ({ images }) => {
+const OverviewSection = ({ images: legacyImages = [], data, lang = "vi" }: TMAAboutProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile,  setIsMobile]  = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -62,6 +67,10 @@ const OverviewSection: React.FC<TMAAboutProps> = ({ images }) => {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
+
+  const images = data
+    ? data.images.flatMap((image) => (image ? [image.url] : []))
+    : legacyImages;
 
   const introItems: IntroItemType[] = [
     {
@@ -90,21 +99,21 @@ const OverviewSection: React.FC<TMAAboutProps> = ({ images }) => {
 
         {/* LEFT: Text */}
         <TextColumn xs={24} md={12} lg={11} isVisible={isVisible}>
-          <Eyebrow>{t("overview.eyebrow")}</Eyebrow>
+          <Eyebrow>{data ? pick(data.eyebrow, lang) : t("overview.eyebrow")}</Eyebrow>
 
           <IntroTitle level={2}>
-            {t("overview.heading.part1")}&nbsp;<em>{t("overview.heading.em")}</em>
+            {data ? renderHeading(data.heading, lang) : <>{t("overview.heading.part1")}&nbsp;<em>{t("overview.heading.em")}</em></>}
           </IntroTitle>
 
           <TimelineWrapper>
-            {introItems.map((item, index) => (
+            {(data ? data.paragraphs.map((_, index) => introItems[index % introItems.length]) : introItems).map((item, index) => (
               <IntroItem key={index} isVisible={isVisible} delay={0.15 + index * 0.1}>
                 <ItemHeader>
                   <IconWrapper>
                     <StyledIcon>{item.icon}</StyledIcon>
                   </IconWrapper>
                 </ItemHeader>
-                <IntroText>{t(item.textKey)}</IntroText>
+                <IntroText>{data ? pick(data.paragraphs[index], lang) : t(item.textKey)}</IntroText>
               </IntroItem>
             ))}
           </TimelineWrapper>
@@ -135,7 +144,7 @@ const OverviewSection: React.FC<TMAAboutProps> = ({ images }) => {
                 )}
               </ImageWrapper>
             ))}
-            <YearBadge>{t("overview.year_badge")}</YearBadge>
+            <YearBadge>{data ? pick(data.yearBadge, lang) : t("overview.year_badge")}</YearBadge>
           </ImagesContainer>
         </Col>
 

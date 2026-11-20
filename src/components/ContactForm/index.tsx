@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Form, Modal } from "antd";
 import { useTranslation } from "react-i18next";
 import ContactLink from "../../common/ContactLink";
+import { pick } from "../../cms/pick";
+import { renderHeading } from "../../cms/headingParts";
+import type { Lang, ContactFormData } from "../../cms/types";
 import {
   ContactContainer,
   InnerWrapper,
@@ -56,7 +59,9 @@ const PhoneIcon = () => (
 );
 
 /* ─── Component ──────────────────────────────── */
-const ContactForm: React.FC = () => {
+type ContactFormProps = { data?: ContactFormData; lang?: Lang };
+
+const ContactForm = ({ data, lang = "vi" }: ContactFormProps) => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -91,18 +96,18 @@ const ContactForm: React.FC = () => {
 
   return (
     <>
-      <ContactContainer>
+      <ContactContainer id="contact-form">
         <InnerWrapper>
 
           {/* ── Left dark panel ── */}
           <LeftPanel>
             <PanelTop>
-              <PanelEyebrow>{t("contact.eyebrow")}</PanelEyebrow>
+              <PanelEyebrow>{data ? pick(data.eyebrow, lang) : t("contact.eyebrow")}</PanelEyebrow>
               <PanelTitle as="h1">
-                {t("contact.heading.part1")}&nbsp;<em>{t("contact.heading.em")}</em>
+                {data ? renderHeading(data.heading, lang) : <>{t("contact.heading.part1")}&nbsp;<em>{t("contact.heading.em")}</em></>}
               </PanelTitle>
               <PanelDivider />
-              <PanelDesc>{t("contact.tagline")}</PanelDesc>
+              <PanelDesc>{data ? pick(data.tagline, lang) : t("contact.tagline")}</PanelDesc>
             </PanelTop>
 
             <PanelBottom>
@@ -134,9 +139,9 @@ const ContactForm: React.FC = () => {
 
           {/* ── Right form panel ── */}
           <RightPanel>
-            <FormEyebrow>{t("contact.form.eyebrow")}</FormEyebrow>
+            <FormEyebrow>{data ? pick(data.formEyebrow, lang) : t("contact.form.eyebrow")}</FormEyebrow>
             <FormHeading as="h2">
-              <em>{t("contact.form.heading.em")}</em>&nbsp;{t("contact.form.heading.part2")}
+              {data ? renderHeading(data.formHeading, lang, { emphasisFirst: true }) : <><em>{t("contact.form.heading.em")}</em>&nbsp;{t("contact.form.heading.part2")}</>}
             </FormHeading>
             <FormDivider />
 

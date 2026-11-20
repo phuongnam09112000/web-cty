@@ -18,6 +18,10 @@ import {
   ArrowIcon,
 } from "./styles";
 import { valuesData } from "./data";
+import { pick } from "../../cms/pick";
+import { renderHeading } from "../../cms/headingParts";
+import type { Lang, CoreValuesData } from "../../cms/types";
+
 
 const ArrowSvg = () => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -31,17 +35,30 @@ const ArrowSvg = () => (
   </svg>
 );
 
-const CoreValues: React.FC = () => {
+type Props = { data?: CoreValuesData; lang?: Lang };
+
+const CoreValues = ({ data, lang = "vi" }: Props) => {
   const { t } = useTranslation();
+  const values = data
+    ? data.items.map((item) => ({
+        iconSrc: item.icon?.url ?? "",
+        title: pick(item.title, lang),
+        description: pick(item.description, lang),
+      }))
+    : valuesData.map((value) => ({
+        iconSrc: value.iconSrc,
+        title: t(value.title),
+        description: t(value.description),
+      }));
 
   return (
     <Container>
       {/* Header */}
       <Fade direction="up" triggerOnce duration={700}>
         <HeaderWrapper>
-          <Eyebrow>{t("corevalues.eyebrow")}</Eyebrow>
+          <Eyebrow>{data ? pick(data.eyebrow, lang) : t("corevalues.eyebrow")}</Eyebrow>
           <SectionTitle level={2}>
-            {t("corevalues.heading.part1")}&nbsp;<em>{t("corevalues.heading.em")}</em>
+            {data ? renderHeading(data.heading, lang) : <>{t("corevalues.heading.part1")}&nbsp;<em>{t("corevalues.heading.em")}</em></>}
           </SectionTitle>
           <TitleUnderline />
         </HeaderWrapper>
@@ -49,7 +66,7 @@ const CoreValues: React.FC = () => {
 
       {/* Cards Grid */}
       <ValuesContainer>
-        {valuesData.map((value, index) => (
+        {values.map((value, index) => (
           <Fade
             key={index}
             direction="up"
@@ -60,16 +77,16 @@ const CoreValues: React.FC = () => {
             <ValueCard>
               <CardNumber>
                 {String(index + 1).padStart(2, "0")} —{" "}
-                {String(valuesData.length).padStart(2, "0")}
+                {String(values.length).padStart(2, "0")}
               </CardNumber>
 
               <IconContainer>
-                <IconImage src={value.iconSrc} alt={t(value.title)} />
+                <IconImage src={value.iconSrc} alt={value.title} />
               </IconContainer>
 
-              <ValueTitle level={3}>{t(value.title)}</ValueTitle>
+              <ValueTitle level={3}>{value.title}</ValueTitle>
               <Divider />
-              <ValueDescription>{t(value.description)}</ValueDescription>
+              <ValueDescription>{value.description}</ValueDescription>
 
               <ArrowIcon>
                 <ArrowSvg />

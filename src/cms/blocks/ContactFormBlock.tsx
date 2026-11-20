@@ -1,11 +1,8 @@
-import { pick } from "../pick";
+import ContactForm from "../../components/ContactForm";
+import FormContact from "../../components/FormContact";
 import type { BlockProps } from "../BlockRenderer";
 
-const ContactFormBlock = ({ data, lang }: BlockProps<"contact-form">) => (
-  <section data-testid="cms-contact-form">
-    <h1>{[pick(data.heading.lead, lang), pick(data.heading.emphasis, lang)].filter(Boolean).join(" ")}</h1>
-    <p>{pick(data.tagline, lang)}</p>
-  </section>
-);
+const ContactFormBlock = ({ data, lang }: BlockProps<"contact-form">) =>
+  data.variant === "inline" ? <FormContact data={data} lang={lang} /> : <ContactForm data={data} lang={lang} />;
 
 export default ContactFormBlock;

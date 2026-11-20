@@ -1,5 +1,7 @@
 import React from "react";
 import { AboutBannerProps } from "./types";
+import { pick } from "../../cms/pick";
+import type { AboutBannerData, Lang } from "../../cms/types";
 import {
   BannerContainer,
   ContentWrapper,
@@ -9,13 +11,14 @@ import {
   Subtitle,
 } from "./styles";
 
-const AboutBanner: React.FC<AboutBannerProps> = ({
-  backgroundImage,
-  title,
-  subtitle,
-  eyebrow,
-  headingLevel = 1,
-}) => {
+type Props = Partial<AboutBannerProps> & { data?: AboutBannerData; lang?: Lang };
+
+const AboutBanner = ({ data, lang = "vi", ...legacy }: Props) => {
+  const backgroundImage = data ? data.image?.url ?? "" : legacy.backgroundImage ?? "";
+  const title = data ? pick(data.title, lang) : legacy.title;
+  const subtitle = data ? pick(data.subtitle, lang) : legacy.subtitle;
+  const eyebrow = data ? pick(data.eyebrow, lang) : legacy.eyebrow;
+  const headingLevel = data ? data.headingLevel : legacy.headingLevel ?? 1;
   return (
     <BannerContainer backgroundImage={backgroundImage}>
       <ContentWrapper>

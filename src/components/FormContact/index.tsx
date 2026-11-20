@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import ContactLink from "../../common/ContactLink";
+import { pick } from "../../cms/pick";
+import { renderHeading } from "../../cms/headingParts";
+import type { Lang, ContactFormData } from "../../cms/types";
 import {
   ContactContainer,
   ContentWrapper,
@@ -51,7 +54,9 @@ const LocationIcon = () => (
   </svg>
 );
 
-const ContactForm: React.FC = () => {
+type ContactFormProps = { data?: ContactFormData; lang?: Lang };
+
+const ContactForm = ({ data, lang = "vi" }: ContactFormProps) => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState<FormDataProps>({
     fullname: "", phone: "", email: "", message: "",
@@ -111,17 +116,17 @@ const ContactForm: React.FC = () => {
   const vis = isVisible ? "visible" : "";
 
   return (
-    <ContactContainer ref={formRef}>
+    <ContactContainer id="contact-form" ref={formRef}>
       <ContentWrapper>
 
         {/* Left: info panel */}
         <InfoPanel>
-          <InfoEyebrow className={vis}>{t("contact.eyebrow")}</InfoEyebrow>
+          <InfoEyebrow className={vis}>{data ? pick(data.eyebrow, lang) : t("contact.eyebrow")}</InfoEyebrow>
           <InfoHeading className={vis}>
-            {t("contact.heading.part1")}&nbsp;<em>{t("contact.heading.em")}</em>
+            {data ? renderHeading(data.heading, lang) : <>{t("contact.heading.part1")}&nbsp;<em>{t("contact.heading.em")}</em></>}
           </InfoHeading>
           <InfoDivider className={vis} />
-          <InfoTagline className={vis}>{t("contact.tagline")}</InfoTagline>
+          <InfoTagline className={vis}>{data ? pick(data.tagline, lang) : t("contact.tagline")}</InfoTagline>
 
           <InfoItems className={vis}>
             <InfoItem>
@@ -150,9 +155,9 @@ const ContactForm: React.FC = () => {
 
         {/* Right: form card */}
         <FormContainer className={vis}>
-          <FormTitle className={vis}>{t("contact.form.eyebrow")}</FormTitle>
+          <FormTitle className={vis}>{data ? pick(data.formEyebrow, lang) : t("contact.form.eyebrow")}</FormTitle>
           <FormHeading className={vis}>
-            <em>{t("contact.form.heading.em")}</em>&nbsp;{t("contact.form.heading.part2")}
+            {data ? renderHeading(data.formHeading, lang, { emphasisFirst: true }) : <><em>{t("contact.form.heading.em")}</em>&nbsp;{t("contact.form.heading.part2")}</>}
           </FormHeading>
           <FormDivider className={vis} />
 

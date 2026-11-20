@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { pick } from "../../cms/pick";
+import { renderHeading } from "../../cms/headingParts";
+import type { Lang, VisionData } from "../../cms/types";
 import {
   BackgroundImage,
   Container,
@@ -14,7 +17,9 @@ import {
   VisionText,
 } from "./styles";
 
-const VisionMission: React.FC = () => {
+type Props = { data?: VisionData; lang?: Lang };
+
+const VisionMission = ({ data, lang = "vi" }: Props) => {
   const { t } = useTranslation();
   const [isVisible,   setIsVisible]   = useState(false);
   const [textVisible, setTextVisible] = useState(false);
@@ -38,22 +43,22 @@ const VisionMission: React.FC = () => {
   return (
     <Container ref={sectionRef} visible={isVisible}>
       <ImageContainer visible={isVisible}>
-        <BackgroundImage src="/img/background/vision.jpg" alt={t("vision.image.alt")} />
+        <BackgroundImage src={data ? data.image?.url ?? "" : "/img/background/vision.jpg"} alt={t("vision.image.alt")} />
       </ImageContainer>
       <ImageAccentLine visible={isVisible} />
 
       <TextContainerWrapper>
         <TextContainer visible={isVisible} textVisible={textVisible}>
-          <Eyebrow visible={textVisible}>{t("vision.eyebrow")}</Eyebrow>
+          <Eyebrow visible={textVisible}>{data ? pick(data.eyebrow, lang) : t("vision.eyebrow")}</Eyebrow>
 
           <SectionTitle level={2} visible={textVisible}>
-            {t("vision.heading.part1")}&nbsp;<em>{t("vision.heading.em")}</em>
+            {data ? renderHeading(data.heading, lang) : <>{t("vision.heading.part1")}&nbsp;<em>{t("vision.heading.em")}</em></>}
           </SectionTitle>
 
           <TitleDivider visible={textVisible} />
 
           <VisionText visible={textVisible}>
-            {t("vision.body")}
+            {data ? pick(data.body, lang) : t("vision.body")}
           </VisionText>
 
           <CornerBracket />
