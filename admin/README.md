@@ -20,7 +20,7 @@ Giao diện chạy tại `http://localhost:5173`. Vite chuyển tiếp mọi yê
 | --- | --- | --- |
 | `ADMIN_GATEWAY_SECRET` | Vite dev server | Giá trị gắn vào header `X-Admin-Gateway` khi chuyển tiếp `/api`; phải trùng với cấu hình của API |
 
-Các biến của API (`DATABASE_URL`, `PORT`, `ADMIN_ORIGIN`, `COOKIE_SECURE`, ...) được mô tả trong `../server/.env.example`. Khi chạy dev, `ADMIN_ORIGIN` của API phải là `http://localhost:5173`.
+Các biến của API (`DATABASE_URL`, `PORT`, `ADMIN_ORIGIN`, `COOKIE_SECURE`, ...) được mô tả trong `../server/.env.example`. Khi chạy dev, `ADMIN_ORIGIN` của API phải là `http://localhost:5173`. API cũng cần `MEDIA_DIR`, `WEBSITE_INDEX_PATH` và `PUBLIC_SITE_ORIGIN`; ảnh trong trang quản trị được tải từ `/media/<tên file>`.
 
 ## Build
 
@@ -28,7 +28,7 @@ Các biến của API (`DATABASE_URL`, `PORT`, `ADMIN_ORIGIN`, `COOKIE_SECURE`, 
 npm run build
 ```
 
-Kết quả nằm trong `admin/dist` (tệp tĩnh). Khi triển khai, máy chủ web phục vụ thư mục này và chuyển tiếp `/api` tới API kèm header `X-Admin-Gateway`.
+Kết quả nằm trong `admin/dist` (tệp tĩnh). Khi triển khai, máy chủ web phục vụ thư mục này và chuyển tiếp `/api/admin/` tới API kèm header `X-Admin-Gateway`, đồng thời phục vụ `/media/` từ thư mục ảnh của API. Đường dẫn `/media` (không có dấu `/` cuối) là trang Thư viện ảnh của giao diện, không phải thư mục ảnh.
 
 ## Kiểm thử e2e
 

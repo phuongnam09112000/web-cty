@@ -9,15 +9,16 @@ Tài liệu này hướng dẫn triển khai thủ công API quản trị (`serv
 | Website (do CI hiện tại deploy, không đổi) | `/var/www/webct` |
 | Mã nguồn ứng dụng | `/opt/istt/web-cty` |
 | Trang quản trị (file tĩnh) | `/var/www/istt-admin` |
-| Sao lưu MySQL | `/var/backups/istt-mysql` |
+| Thư mục ảnh tải lên | `/var/lib/istt/media` |
+| Sao lưu MySQL và ảnh | `/var/backups/istt-mysql` |
 | Thông tin đăng nhập sao lưu | `/etc/istt/backup.cnf` |
 | Người dùng hệ thống chạy API | `istt` |
 | Database / tài khoản ứng dụng | `istt` / `istt_app` |
 
 Luồng truy cập:
 
-- Cổng 80: Nginx phục vụ website; chỉ `/api/public/` được chuyển tới API.
-- Cổng 8080: chỉ IP nội bộ (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `127.0.0.1`). Nginx phục vụ trang quản trị và chuyển `/api/admin/` tới API, kèm header `X-Admin-Gateway`.
+- Cổng 80: Nginx phục vụ website từ `/var/www/webct`. `/api/public/` được chuyển tới API; `/media/` phục vụ trực tiếp từ `/var/lib/istt/media`; các đường dẫn trang (không phải file thật) được chuyển tới `/api/public/render` để API chèn tiêu đề và thẻ SEO vào `index.html`. Nếu API lỗi hoặc không phản hồi, Nginx trả `index.html` gốc với mã 200.
+- Cổng 8080: chỉ IP nội bộ (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `127.0.0.1`). Nginx phục vụ trang quản trị, phục vụ `/media/` (ảnh hiển thị trong trang quản trị) và chuyển `/api/admin/` tới API, kèm header `X-Admin-Gateway`. Tải ảnh lên tối đa 6 MB.
 - API chỉ lắng nghe `127.0.0.1:4000`; MySQL chỉ lắng nghe `127.0.0.1:3306`.
 
 ## 2. Cài phần mềm
@@ -73,7 +74,11 @@ systemctl restart mysql
 useradd --system --create-home --home-dir /opt/istt --shell /usr/sbin/nologin istt
 mkdir -p /opt/istt /etc/istt /var/www/istt-admin /var/backups/istt-mysql
 chown istt:istt /opt/istt
+install -d -o istt -g istt -m 750 /var/lib/istt/media
+chmod 755 /var/lib/istt
 ```
+
+Thư mục ảnh `/var/lib/istt/media` thuộc `istt`, quyền `750`. Nginx (người dùng `www-data`) cần đọc được thư mục này để phục vụ `/media/`: thêm `www-data` vào nhóm `istt` (`usermod -aG istt www-data`) rồi `systemctl restart nginx`. Nếu không, `/media/<file>` sẽ trả `403`.
 
 ## 4. Tạo database và tài khoản MySQL
 
@@ -123,6 +128,9 @@ DATABASE_URL=mysql://istt_app:MAT_KHAU_APP@127.0.0.1:3306/istt
 ADMIN_ORIGIN=http://192.168.10.148:8080
 ADMIN_GATEWAY_SECRET=$SECRET
 COOKIE_SECURE=false
+PUBLIC_SITE_ORIGIN=https://www.istt.com.vn
+MEDIA_DIR=/var/lib/istt/media
+WEBSITE_INDEX_PATH=/var/www/webct/index.html
 ENV
 chmod 600 .env
 chown istt:istt .env
@@ -134,6 +142,10 @@ Lưu ý:
 - `ADMIN_ORIGIN` phải đúng từng ký tự với địa chỉ người dùng gõ vào trình duyệt, gồm giao thức và cổng (ví dụ `http://192.168.10.148:8080`). API từ chối các request thay đổi dữ liệu có `Origin` khác giá trị này.
 - `ADMIN_GATEWAY_SECRET` tối thiểu 32 ký tự. Giá trị này cũng được dán vào Nginx ở bước 8; lệnh ở bước 8 đọc lại giá trị này từ `.env`, không cần in ra màn hình.
 - `COOKIE_SECURE=true` chỉ khi truy cập qua HTTPS; trên HTTP nội bộ để `false`, nếu không trình duyệt sẽ không gửi cookie phiên.
+- `PUBLIC_SITE_ORIGIN` là địa chỉ công khai của website (gồm giao thức, không có `/` cuối), dùng cho thẻ canonical và Open Graph. Thay giá trị ví dụ bằng địa chỉ thật.
+- `MEDIA_DIR` là thư mục lưu ảnh tải lên, phải trùng với `alias` trong Nginx (`/var/lib/istt/media/`) và `ReadWritePaths` trong `istt-api.service`.
+- `WEBSITE_INDEX_PATH` phải trỏ tới `/var/www/webct/index.html` (bản build của website). API kiểm tra file này đọc được khi khởi động; nếu không, API thoát với mã 1. Vì vậy phải deploy website trước khi khởi động (hoặc khởi động lại) API.
+- API đọc `index.html` làm mẫu và chỉ đọc lại sau khi có trang được xuất bản. Sau mỗi lần website được deploy lại, chạy `systemctl restart istt-api` để API dùng bản `index.html` mới (tên file JS/CSS trong bản build đổi theo từng lần build).
 - Biến thiếu hoặc sai khiến API từ chối khởi động.
 
 ### 6.2. Cài gói, build, migrate
@@ -145,10 +157,13 @@ cd /opt/istt/web-cty/server
 sudo -u istt npm ci
 sudo -u istt npm run build
 sudo -u istt npm run db:migrate
+sudo -u istt npm run content:import
 sudo -u istt npm run create-admin
 ```
 
 `npm ci` tự chạy `prisma generate` (script `postinstall`). `npm run create-admin` hỏi email, họ tên, mật khẩu (tối thiểu 10 ký tự) và nhập lại mật khẩu để tạo quản trị viên đầu tiên; hệ thống không có tài khoản mặc định.
+
+`npm run content:import` nhập nội dung các trang hiện có của website (từ `server/content-seed`) và ảnh trong `public/` vào database và `MEDIA_DIR`; chỉ chạy một lần sau `db:migrate`, và `MEDIA_DIR` phải tồn tại, ghi được bởi `istt`. Nếu database đã có trang, lệnh từ chối chạy. Tùy chọn `--force` (`npm run content:import -- --force`) tạo phiên bản mới cho các trang và ghi đè bản nháp hiện có, chỉ dùng khi chủ ý nhập lại. Lệnh cũng ghi `src/content/cms-fallback.json` trong repository; trên máy chủ file này có thể bỏ qua.
 
 Nếu lệnh `sudo -u istt npm ...` báo lỗi ghi cache, chạy với `HOME=/opt/istt` (người dùng `istt` có thư mục home là `/opt/istt`).
 
@@ -163,6 +178,8 @@ sudo -u istt npm run build
 rm -rf /var/www/istt-admin/*
 cp -r dist/. /var/www/istt-admin/
 ```
+
+Website phải được deploy vào `/var/www/webct` (có `index.html`) trước khi khởi động API ở bước 9.
 
 ## 8. Cài Nginx
 
@@ -188,7 +205,8 @@ systemctl reload nginx
 
 Lưu ý:
 
-- Nếu website hiện đã có file cấu hình Nginx riêng cho cổng 80 và `/var/www/webct`, hãy gộp khối `location /api/public/` vào đó thay vì để hai khối `server` cùng lắng nghe cổng 80 (Nginx sẽ cảnh báo trùng `server_name`). File mẫu cấu hình cổng 80 ở đây dùng `try_files $uri /index.html` như website hiện tại.
+- Nếu website hiện đã có file cấu hình Nginx riêng cho cổng 80 và `/var/www/webct`, hãy gộp các khối `location` (`/api/public/`, `/media/`, `/`, `@render`, `@static_index`) và khối `map` đầu file vào đó thay vì để hai khối `server` cùng lắng nghe cổng 80 (Nginx sẽ cảnh báo trùng `server_name`). Ở cổng 80, file thật trong `/var/www/webct` (`static`, `img`, favicon, manifest, ...) được phục vụ trực tiếp; mọi đường dẫn khác được chuyển tới `/api/public/render` với thời gian chờ kết nối 2 giây và đọc 5 giây, và khi API trả lỗi 500, 502, 503, 504 thì Nginx trả `index.html` gốc.
+- Nginx cần đọc được `/var/lib/istt/media` (xem bước 3).
 - Nếu máy có firewall (`ufw`), cho phép cổng 8080 chỉ từ dải nội bộ, ví dụ `ufw allow from 192.168.0.0/16 to any port 8080 proto tcp`.
 - Khi đổi `ADMIN_GATEWAY_SECRET` trong `.env`, phải sửa cả Nginx rồi `systemctl reload nginx` và `systemctl restart istt-api`.
 
@@ -202,9 +220,9 @@ systemctl status istt-api --no-pager
 journalctl -u istt-api -n 50 --no-pager
 ```
 
-Dịch vụ chạy bằng người dùng `istt`, đọc biến môi trường từ `/opt/istt/web-cty/server/.env`, tự khởi động lại khi lỗi, và bị hạn chế quyền ghi hệ thống (`ProtectSystem=strict`, `ProtectHome=true`, `PrivateTmp=true`, `NoNewPrivileges=true`). API không ghi file nên không cần thêm đường dẫn ghi được.
+Dịch vụ chạy bằng người dùng `istt`, đọc biến môi trường từ `/opt/istt/web-cty/server/.env`, tự khởi động lại khi lỗi, và bị hạn chế quyền ghi hệ thống (`ProtectSystem=strict`, `ProtectHome=true`, `PrivateTmp=true`, `NoNewPrivileges=true`). API ghi ảnh tải lên vào `/var/lib/istt/media`, đường dẫn duy nhất được phép ghi (`ReadWritePaths=/var/lib/istt/media`); thư mục này phải tồn tại trước khi khởi động dịch vụ (bước 3).
 
-## 10. Sao lưu tự động
+## 10. Sao lưu tự động (MySQL và ảnh)
 
 Thông tin đăng nhập cho `mysqldump`:
 
@@ -234,7 +252,7 @@ echo '0 2 * * * root /usr/local/bin/istt-backup-mysql >> /var/log/istt-backup.lo
 chmod 644 /etc/cron.d/istt-backup
 ```
 
-Script giữ 14 bản mới nhất và xóa các bản cũ hơn. Các đường dẫn có thể đổi bằng biến môi trường `BACKUP_DIR`, `BACKUP_CNF`, `DB_NAME`, `KEEP` (mặc định lần lượt là `/var/backups/istt-mysql`, `/etc/istt/backup.cnf`, `istt`, `14`). Các bản sao lưu nằm cùng máy với database; nên định kỳ chép `/var/backups/istt-mysql` sang nơi khác.
+Mỗi lần chạy, script tạo hai file cùng dấu thời gian: `istt-YYYYmmdd-HHMMSS.sql.gz` (database) và `istt-media-YYYYmmdd-HHMMSS.tar.gz` (thư mục ảnh), mỗi loại giữ 14 bản mới nhất và xóa các bản cũ hơn. Nếu một bước lỗi, script xóa file `.partial` dở dang rồi thoát với mã khác 0. Các đường dẫn có thể đổi bằng biến môi trường `BACKUP_DIR`, `BACKUP_CNF`, `MEDIA_DIR`, `DB_NAME`, `KEEP` (mặc định lần lượt là `/var/backups/istt-mysql`, `/etc/istt/backup.cnf`, `/var/lib/istt/media`, `istt`, `14`). Các bản sao lưu nằm cùng máy với database; nên định kỳ chép `/var/backups/istt-mysql` sang nơi khác.
 
 ## 11. Khôi phục từ bản sao lưu
 
@@ -247,6 +265,20 @@ systemctl start istt-api
 ```
 
 Thay `istt-YYYYmmdd-HHMMSS.sql.gz` bằng tên bản cần khôi phục. Quyền của `istt_app` trên `istt.*` vẫn giữ nguyên sau khi tạo lại database. Muốn thử trước, khôi phục vào database tạm (ví dụ `istt_restore_test`) thay vì `istt`.
+
+### 11.1. Khôi phục thư mục ảnh
+
+```bash
+systemctl stop istt-api
+ls -1t /var/backups/istt-mysql/istt-media-*.tar.gz
+rm -rf /var/lib/istt/media/* /var/lib/istt/media/.[!.]*
+tar -xzf /var/backups/istt-mysql/istt-media-YYYYmmdd-HHMMSS.tar.gz -C /var/lib/istt/media
+chown -R istt:istt /var/lib/istt/media
+chmod 750 /var/lib/istt/media
+systemctl start istt-api
+```
+
+Thay `istt-media-YYYYmmdd-HHMMSS.tar.gz` bằng bản cần khôi phục; nên chọn bản có cùng dấu thời gian với bản database đã khôi phục để ảnh khớp với dữ liệu trang. Lệnh `rm` chỉ xóa nội dung, giữ nguyên thư mục.
 
 ## 12. Kiểm tra sau cài đặt
 
@@ -262,6 +294,24 @@ Kết quả mong đợi:
 1. và 2. `{"status":"ok"}`.
 3. `403`: truy cập thẳng API mà không qua Nginx bị từ chối vì thiếu `X-Admin-Gateway`.
 4. `401`: đi qua Nginx thì header được chấp nhận, chỉ thiếu phiên đăng nhập. Nếu nhận `403` thì giá trị secret trong Nginx khác `.env`.
+
+Kiểm tra website, SEO và ảnh:
+
+```bash
+curl -s http://127.0.0.1/about | grep '<title>'
+systemctl stop istt-api
+curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1/about
+curl -s http://127.0.0.1/about | grep -c '<title>'
+systemctl start istt-api
+f=$(ls /var/lib/istt/media | head -1)
+curl -sI "http://127.0.0.1/media/$f"
+```
+
+Kết quả mong đợi:
+
+- Lệnh đầu in `<title>` của trang Giới thiệu (khác tiêu đề mặc định của `index.html`).
+- Khi `istt-api` đã dừng, `/about` vẫn trả `200` và nội dung là `index.html` gốc. Nhớ chạy lại `systemctl start istt-api`.
+- `/media/<file>` trả `200`, có `Cache-Control: public, max-age=31536000, immutable` và `X-Content-Type-Options: nosniff`. Nhận `403` nghĩa là Nginx chưa đọc được thư mục ảnh (xem bước 3).
 
 Kiểm tra API vẫn kết nối được MySQL sau khi MySQL khởi động lại:
 
@@ -292,6 +342,8 @@ sudo -u istt npm run build
 rm -rf /var/www/istt-admin/*
 cp -r dist/. /var/www/istt-admin/
 ```
+
+Sau khi deploy lại website vào `/var/www/webct`, chạy `systemctl restart istt-api` để API đọc lại `index.html`. Nếu nâng cấp từ phiên bản chưa có CMS nội dung, thực hiện thêm: tạo thư mục ảnh và thêm ba biến `PUBLIC_SITE_ORIGIN`, `MEDIA_DIR`, `WEBSITE_INDEX_PATH` vào `.env` (bước 3 và 6.1), chạy `npm run content:import` một lần, và cài lại Nginx, systemd, script sao lưu (bước 8, 9, 10).
 
 Nếu `docs/deploy/nginx.conf` hoặc `istt-api.service` thay đổi, cài lại như bước 8 và 9 (nhớ thay lại secret) rồi `nginx -t && systemctl reload nginx` hoặc `systemctl daemon-reload && systemctl restart istt-api`. Nên chạy sao lưu thủ công (`/usr/local/bin/istt-backup-mysql`) trước khi migrate.
 

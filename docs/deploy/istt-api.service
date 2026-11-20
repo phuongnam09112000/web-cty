@@ -16,6 +16,7 @@ NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
 PrivateTmp=true
+ReadWritePaths=/var/lib/istt/media
 
 [Install]
 WantedBy=multi-user.target
