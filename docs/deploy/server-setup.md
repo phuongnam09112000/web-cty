@@ -163,7 +163,11 @@ sudo -u istt npm run create-admin
 
 `npm ci` tự chạy `prisma generate` (script `postinstall`). `npm run create-admin` hỏi email, họ tên, mật khẩu (tối thiểu 10 ký tự) và nhập lại mật khẩu để tạo quản trị viên đầu tiên; hệ thống không có tài khoản mặc định.
 
-`npm run content:import` nhập nội dung các trang hiện có của website (từ `server/content-seed`) và ảnh trong `public/` vào database và `MEDIA_DIR`; chỉ chạy một lần sau `db:migrate`, và `MEDIA_DIR` phải tồn tại, ghi được bởi `istt`. Nếu database đã có trang, lệnh từ chối chạy. Tùy chọn `--force` (`npm run content:import -- --force`) tạo phiên bản mới cho các trang và ghi đè bản nháp hiện có, chỉ dùng khi chủ ý nhập lại. Lệnh cũng ghi `src/content/cms-fallback.json` trong repository; trên máy chủ file này có thể bỏ qua.
+`npm run content:import` nhập nội dung các trang hiện có của website (từ `server/content-seed`) và ảnh trong `public/` vào database và `MEDIA_DIR`, rồi xuất bản luôn; chỉ chạy một lần sau `db:migrate`, và `MEDIA_DIR` phải tồn tại, ghi được bởi `istt`. Nếu database đã có trang, lệnh từ chối chạy.
+
+Cảnh báo về `--force` (`npm run content:import -- --force`): lệnh tạo phiên bản mới cho các trang, XUẤT BẢN phiên bản đó (ghi nhật ký `content.publish`), nên thay thế nội dung đang hiển thị trên website và ghi đè bản nháp của người biên tập. Chỉ dùng khi chủ ý nhập lại từ đầu. Vì lệnh chạy ngoài tiến trình API nên bộ nhớ đệm render của API không được làm mới: sau khi chạy (kể cả lần đầu khi API đang chạy) phải `systemctl restart istt-api`.
+
+Lệnh còn ghi file `../src/content/cms-fallback.json` (tính từ `server/`, tức `/opt/istt/web-cty/src/content/cms-fallback.json`) cho website. Trên máy chủ file này không cần dùng: truyền `--fallback-out /tmp/cms-fallback.json` (đường dẫn ghi được, ví dụ `npm run content:import -- --fallback-out /tmp/cms-fallback.json`), hoặc bảo đảm người dùng `istt` ghi được vào thư mục `src/content`, nếu không lệnh sẽ báo lỗi quyền ghi. Không commit file này từ máy chủ.
 
 Nếu lệnh `sudo -u istt npm ...` báo lỗi ghi cache, chạy với `HOME=/opt/istt` (người dùng `istt` có thư mục home là `/opt/istt`).
 

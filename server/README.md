@@ -20,7 +20,7 @@ Backend Express + Prisma + MySQL cho trang quản trị.
    - `PUBLIC_SITE_ORIGIN`: địa chỉ công khai của website (dùng cho canonical và Open Graph).
    - Không đưa `.env` lên git.
 4. Áp dụng migration: `npm run db:migrate`
-5. Nhập nội dung trang và ảnh hiện có của website (chỉ một lần): `npm run content:import`. Lệnh từ chối nếu đã có trang; `npm run content:import -- --force` tạo phiên bản mới và ghi đè bản nháp.
+5. Nhập nội dung trang và ảnh hiện có của website, đồng thời xuất bản (chỉ một lần): `npm run content:import`. Lệnh từ chối nếu đã có trang. `npm run content:import -- --force` tạo phiên bản mới, xuất bản và thay thế nội dung đang hiển thị, ghi đè bản nháp của người biên tập. Lệnh chạy ngoài API nên cần khởi động lại API để làm mới bộ nhớ đệm render. Lệnh ghi `../src/content/cms-fallback.json`; trên máy chủ truyền `--fallback-out <đường dẫn ghi được>` hoặc cấp quyền ghi cho `src/content`.
 6. Tạo quản trị viên đầu tiên: `npm run create-admin` (hỏi email, họ tên, mật khẩu tối thiểu 10 ký tự và nhập lại mật khẩu). Hệ thống không có tài khoản mặc định.
 7. Chạy dev: `npm run dev` (lắng nghe `127.0.0.1:4000`).
 
