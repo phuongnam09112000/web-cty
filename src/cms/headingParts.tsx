@@ -1,19 +1,30 @@
 import type { Heading, Lang } from "./types";
 import { pick } from "./pick";
 
-type Options = { emphasisFirst?: boolean; separator?: string };
+export const HEADING_SEPARATOR_NBSP = " ";
+export const HEADING_SEPARATOR_SPACE = " ";
 
-export function renderHeading(heading: Heading, lang: Lang, options: Options = {}) {
-  const separator = options.separator ?? " ";
+type Options = { separator: string; emphasisFirst?: boolean };
+
+export function renderHeading(heading: Heading, lang: Lang, options: Options) {
+  const { separator, emphasisFirst = false } = options;
   const lead = pick(heading.lead, lang);
   const emphasis = pick(heading.emphasis, lang);
   const trail = pick(heading.trail, lang);
-  if (options.emphasisFirst) {
+  const tail =
+    trail !== "" ? (
+      <>
+        {separator}
+        {trail}
+      </>
+    ) : null;
+  if (emphasisFirst) {
     return (
       <>
         <em>{emphasis}</em>
         {separator}
         {lead}
+        {tail}
       </>
     );
   }
@@ -22,12 +33,7 @@ export function renderHeading(heading: Heading, lang: Lang, options: Options = {
       {lead}
       {separator}
       <em>{emphasis}</em>
-      {trail !== "" && (
-        <>
-          {separator}
-          {trail}
-        </>
-      )}
+      {tail}
     </>
   );
 }

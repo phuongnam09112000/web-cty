@@ -27,7 +27,7 @@ import {
 } from "./styles";
 import { useTranslation } from "react-i18next";
 import { pick } from "../../cms/pick";
-import { renderHeading } from "../../cms/headingParts";
+import { HEADING_SEPARATOR_NBSP, renderHeading } from "../../cms/headingParts";
 import type { Lang, OverviewData } from "../../cms/types";
 
 interface IntroItemType {
@@ -69,8 +69,8 @@ const OverviewSection = ({ images: legacyImages = [], data, lang = "vi" }: TMAAb
   }, []);
 
   const images = data
-    ? data.images.flatMap((image) => (image ? [image.url] : []))
-    : legacyImages;
+    ? data.images.flatMap((image) => (image ? [{ src: image.url, alt: pick(image.alt, lang) }] : []))
+    : legacyImages.map((src) => ({ src, alt: "" }));
 
   const introItems: IntroItemType[] = [
     {
@@ -102,7 +102,7 @@ const OverviewSection = ({ images: legacyImages = [], data, lang = "vi" }: TMAAb
           <Eyebrow>{data ? pick(data.eyebrow, lang) : t("overview.eyebrow")}</Eyebrow>
 
           <IntroTitle level={2}>
-            {data ? renderHeading(data.heading, lang) : <>{t("overview.heading.part1")}&nbsp;<em>{t("overview.heading.em")}</em></>}
+            {data ? renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP }) : <>{t("overview.heading.part1")}&nbsp;<em>{t("overview.heading.em")}</em></>}
           </IntroTitle>
 
           <TimelineWrapper>
@@ -128,7 +128,7 @@ const OverviewSection = ({ images: legacyImages = [], data, lang = "vi" }: TMAAb
         >
           <ImagesContainer isVisible={isVisible}>
             <AccentBlock />
-            {visibleImages.map((src, index) => (
+            {visibleImages.map(({ src, alt }, index) => (
               <ImageWrapper
                 key={index}
                 index={index}
@@ -137,10 +137,10 @@ const OverviewSection = ({ images: legacyImages = [], data, lang = "vi" }: TMAAb
               >
                 {index === 1 ? (
                   <BorderImage>
-                    <Image src={src} alt={`ISTT image ${index + 1}`} />
+                    <Image src={src} alt={alt || `ISTT image ${index + 1}`} />
                   </BorderImage>
                 ) : (
-                  <Image src={src} alt={`ISTT image ${index + 1}`} />
+                  <Image src={src} alt={alt || `ISTT image ${index + 1}`} />
                 )}
               </ImageWrapper>
             ))}

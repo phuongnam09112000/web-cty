@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { pick } from "../../cms/pick";
-import { renderHeading } from "../../cms/headingParts";
+import { HEADING_SEPARATOR_NBSP, renderHeading } from "../../cms/headingParts";
 import type { Lang, VisionData } from "../../cms/types";
 import {
   BackgroundImage,
@@ -43,7 +43,7 @@ const VisionMission = ({ data, lang = "vi" }: Props) => {
   return (
     <Container ref={sectionRef} visible={isVisible}>
       <ImageContainer visible={isVisible}>
-        <BackgroundImage src={data ? data.image?.url ?? "" : "/img/background/vision.jpg"} alt={t("vision.image.alt")} />
+        <BackgroundImage src={data ? data.image?.url ?? "" : "/img/background/vision.jpg"} alt={(data && pick(data.image?.alt, lang)) || t("vision.image.alt")} />
       </ImageContainer>
       <ImageAccentLine visible={isVisible} />
 
@@ -52,7 +52,7 @@ const VisionMission = ({ data, lang = "vi" }: Props) => {
           <Eyebrow visible={textVisible}>{data ? pick(data.eyebrow, lang) : t("vision.eyebrow")}</Eyebrow>
 
           <SectionTitle level={2} visible={textVisible}>
-            {data ? renderHeading(data.heading, lang) : <>{t("vision.heading.part1")}&nbsp;<em>{t("vision.heading.em")}</em></>}
+            {data ? renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP }) : <>{t("vision.heading.part1")}&nbsp;<em>{t("vision.heading.em")}</em></>}
           </SectionTitle>
 
           <TitleDivider visible={textVisible} />

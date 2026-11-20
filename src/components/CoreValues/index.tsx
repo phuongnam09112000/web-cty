@@ -19,7 +19,7 @@ import {
 } from "./styles";
 import { valuesData } from "./data";
 import { pick } from "../../cms/pick";
-import { renderHeading } from "../../cms/headingParts";
+import { HEADING_SEPARATOR_NBSP, renderHeading } from "../../cms/headingParts";
 import type { Lang, CoreValuesData } from "../../cms/types";
 
 
@@ -42,11 +42,13 @@ const CoreValues = ({ data, lang = "vi" }: Props) => {
   const values = data
     ? data.items.map((item) => ({
         iconSrc: item.icon?.url ?? "",
+        iconAlt: pick(item.icon?.alt, lang),
         title: pick(item.title, lang),
         description: pick(item.description, lang),
       }))
     : valuesData.map((value) => ({
         iconSrc: value.iconSrc,
+        iconAlt: "",
         title: t(value.title),
         description: t(value.description),
       }));
@@ -58,7 +60,7 @@ const CoreValues = ({ data, lang = "vi" }: Props) => {
         <HeaderWrapper>
           <Eyebrow>{data ? pick(data.eyebrow, lang) : t("corevalues.eyebrow")}</Eyebrow>
           <SectionTitle level={2}>
-            {data ? renderHeading(data.heading, lang) : <>{t("corevalues.heading.part1")}&nbsp;<em>{t("corevalues.heading.em")}</em></>}
+            {data ? renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP }) : <>{t("corevalues.heading.part1")}&nbsp;<em>{t("corevalues.heading.em")}</em></>}
           </SectionTitle>
           <TitleUnderline />
         </HeaderWrapper>
@@ -81,7 +83,7 @@ const CoreValues = ({ data, lang = "vi" }: Props) => {
               </CardNumber>
 
               <IconContainer>
-                <IconImage src={value.iconSrc} alt={value.title} />
+                <IconImage src={value.iconSrc} alt={value.iconAlt || value.title} />
               </IconContainer>
 
               <ValueTitle level={3}>{value.title}</ValueTitle>

@@ -3,7 +3,7 @@ import { Form, Modal } from "antd";
 import { useTranslation } from "react-i18next";
 import ContactLink from "../../common/ContactLink";
 import { pick } from "../../cms/pick";
-import { renderHeading } from "../../cms/headingParts";
+import { HEADING_SEPARATOR_NBSP, renderHeading } from "../../cms/headingParts";
 import type { Lang, ContactFormData } from "../../cms/types";
 import {
   ContactContainer,
@@ -104,7 +104,7 @@ const ContactForm = ({ data, lang = "vi" }: ContactFormProps) => {
             <PanelTop>
               <PanelEyebrow>{data ? pick(data.eyebrow, lang) : t("contact.eyebrow")}</PanelEyebrow>
               <PanelTitle as="h1">
-                {data ? renderHeading(data.heading, lang) : <>{t("contact.heading.part1")}&nbsp;<em>{t("contact.heading.em")}</em></>}
+                {data ? renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP }) : <>{t("contact.heading.part1")}&nbsp;<em>{t("contact.heading.em")}</em></>}
               </PanelTitle>
               <PanelDivider />
               <PanelDesc>{data ? pick(data.tagline, lang) : t("contact.tagline")}</PanelDesc>
@@ -141,7 +141,7 @@ const ContactForm = ({ data, lang = "vi" }: ContactFormProps) => {
           <RightPanel>
             <FormEyebrow>{data ? pick(data.formEyebrow, lang) : t("contact.form.eyebrow")}</FormEyebrow>
             <FormHeading as="h2">
-              {data ? renderHeading(data.formHeading, lang, { emphasisFirst: true }) : <><em>{t("contact.form.heading.em")}</em>&nbsp;{t("contact.form.heading.part2")}</>}
+              {data ? renderHeading(data.formHeading, lang, { separator: HEADING_SEPARATOR_NBSP, emphasisFirst: true }) : <><em>{t("contact.form.heading.em")}</em>&nbsp;{t("contact.form.heading.part2")}</>}
             </FormHeading>
             <FormDivider />
 

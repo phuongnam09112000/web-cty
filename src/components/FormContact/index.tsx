@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import ContactLink from "../../common/ContactLink";
 import { pick } from "../../cms/pick";
-import { renderHeading } from "../../cms/headingParts";
+import { HEADING_SEPARATOR_NBSP, renderHeading } from "../../cms/headingParts";
 import type { Lang, ContactFormData } from "../../cms/types";
 import {
   ContactContainer,
@@ -123,7 +123,7 @@ const ContactForm = ({ data, lang = "vi" }: ContactFormProps) => {
         <InfoPanel>
           <InfoEyebrow className={vis}>{data ? pick(data.eyebrow, lang) : t("contact.eyebrow")}</InfoEyebrow>
           <InfoHeading className={vis}>
-            {data ? renderHeading(data.heading, lang) : <>{t("contact.heading.part1")}&nbsp;<em>{t("contact.heading.em")}</em></>}
+            {data ? renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_NBSP }) : <>{t("contact.heading.part1")}&nbsp;<em>{t("contact.heading.em")}</em></>}
           </InfoHeading>
           <InfoDivider className={vis} />
           <InfoTagline className={vis}>{data ? pick(data.tagline, lang) : t("contact.tagline")}</InfoTagline>
@@ -157,7 +157,7 @@ const ContactForm = ({ data, lang = "vi" }: ContactFormProps) => {
         <FormContainer className={vis}>
           <FormTitle className={vis}>{data ? pick(data.formEyebrow, lang) : t("contact.form.eyebrow")}</FormTitle>
           <FormHeading className={vis}>
-            {data ? renderHeading(data.formHeading, lang, { emphasisFirst: true }) : <><em>{t("contact.form.heading.em")}</em>&nbsp;{t("contact.form.heading.part2")}</>}
+            {data ? renderHeading(data.formHeading, lang, { separator: HEADING_SEPARATOR_NBSP, emphasisFirst: true }) : <><em>{t("contact.form.heading.em")}</em>&nbsp;{t("contact.form.heading.part2")}</>}
           </FormHeading>
           <FormDivider className={vis} />
 
