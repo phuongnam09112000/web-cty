@@ -70,9 +70,6 @@ const Secure = () => {
         subtitle={t("We design high-end technology solutions that are flexible, robust, and ready for the digital future.")}
         buttonText={t("Book a consultation")}
         onButtonClick={scrollToContact}
-        overlayColor="rgba(14, 93, 149, 0.5)"
-        titleColor="#ffffff"
-        subtitleColor="rgba(255, 255, 255, 0.85)"
       />
       <ServicesPage
         pageTitle={t("Secure & Defense")}

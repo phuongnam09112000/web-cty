@@ -72,9 +72,6 @@ const IctComponent = () => {
         )}
         buttonText={t("Book a consultation")}
         onButtonClick={scrollToContact}
-        overlayColor="rgba(14, 93, 149, 0.5)"
-        titleColor="#ffffff"
-        subtitleColor="rgba(255, 255, 255, 0.85)"
       />
       <ServicesPage
         pageTitle="Information Communication Technology - ICT"

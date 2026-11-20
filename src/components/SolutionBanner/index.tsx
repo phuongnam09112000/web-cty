@@ -19,7 +19,11 @@ const SolutionBanner = ({ data, lang = "vi", ...legacy }: Props) => {
   const subtitle = data ? pick(data.subtitle, lang) : legacy.subtitle;
   const buttonText = data ? pick(data.buttonLabel, lang) : legacy.buttonText;
   const eyebrow = data ? pick(data.eyebrow, lang) : "ISTT Solutions";
-  const { onButtonClick } = legacy;
+  const onButtonClick = data
+    ? () => {
+        document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    : legacy.onButtonClick;
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
