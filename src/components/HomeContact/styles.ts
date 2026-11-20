@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import CmsLink from "../../cms/CmsLink";
 import { theme } from "../../styles/theme";
 import { Eyebrow, stackedMedia, mobileMedia } from "../../styles/section";
 
@@ -31,7 +31,7 @@ export const Layout = styled.div`
   }
 `;
 
-export const ContactButton = styled(Link)`
+export const ContactButton = styled(CmsLink)`
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;

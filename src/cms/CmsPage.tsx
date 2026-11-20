@@ -1,4 +1,5 @@
 import { lazy, useEffect } from "react";
+import ScrollToTop from "../common/ScrollToTop";
 import BlockBoundary from "./BlockBoundary";
 import BlockRenderer from "./BlockRenderer";
 import PreviewBanner from "./PreviewBanner";
@@ -8,6 +9,8 @@ import { clearStored, useCmsPage } from "./useCmsPage";
 const Container = lazy(() => import("../common/Container"));
 
 type Props = { path: string };
+
+const SCROLL_TO_TOP_PATHS = ["/", "/about", "/services"];
 
 const CmsPage = ({ path }: Props) => {
   const { content, isPreview } = useCmsPage(path);
@@ -46,6 +49,7 @@ const CmsPage = ({ path }: Props) => {
     <>
       {isPreview && <PreviewBanner />}
       <Container>
+        {SCROLL_TO_TOP_PATHS.includes(path) && <ScrollToTop />}
         {content.blocks
           .filter((block) => !block.hidden)
           .map((block) => (

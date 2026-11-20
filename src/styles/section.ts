@@ -2,7 +2,7 @@
  * column, eyebrow label, section heading and arrow link. Keeping them in one
  * place keeps widths, type and link styles identical from section to section. */
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
+import CmsLink from "../cms/CmsLink";
 import { theme } from "./theme";
 
 import { type } from "./typography";
@@ -63,7 +63,7 @@ export const SectionHeading = styled.h2<{ $onDark?: boolean }>`
 `;
 
 /* Text link with a trailing arrow ("Learn more →") */
-export const ArrowLink = styled(Link)<{ $onDark?: boolean }>`
+export const ArrowLink = styled(CmsLink)<{ $onDark?: boolean }>`
   ${type.button}
   display: inline-flex;
   align-items: center;

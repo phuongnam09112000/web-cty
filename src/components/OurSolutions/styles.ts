@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import CmsLink from "../../cms/CmsLink";
 import { theme } from "../../styles/theme";
 import { sectionPadding, stackedMedia, mobileMedia } from "../../styles/section";
 
@@ -52,7 +52,7 @@ export const List = styled.ul`
 
 /* ─── One business area ──────────────────────────────────────────────────── */
 // The whole row is the link: a large target on every screen size
-export const AreaLink = styled(Link)<{ $active: boolean }>`
+export const AreaLink = styled(CmsLink)<{ $active: boolean }>`
   position: relative;
   display: block;
   padding: 28px 32px 28px 36px;

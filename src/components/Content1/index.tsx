@@ -18,7 +18,6 @@ import {
   Tagline,
   Actions,
   ActionLink,
-  ActionAnchor,
   Controls,
   Counter,
   Segments,
@@ -52,16 +51,11 @@ const scrollToAnchor = (event: MouseEvent<HTMLAnchorElement>) => {
   target.focus({ preventScroll: true });
 };
 
-const ActionButton = ({ action, label, variant }: { action: Link; label: string; variant: "primary" | "secondary" }) =>
-  action.href.startsWith("#") ? (
-    <ActionAnchor href={action.href} onClick={scrollToAnchor} $variant={variant}>
-      {label} <Arrow />
-    </ActionAnchor>
-  ) : (
-    <ActionLink to={action.href} $variant={variant}>
-      {label} <Arrow />
-    </ActionLink>
-  );
+const ActionButton = ({ action, label, variant }: { action: Link; label: string; variant: "primary" | "secondary" }) => (
+  <ActionLink to={action.href} onClick={action.href.startsWith("#") ? scrollToAnchor : undefined} $variant={variant}>
+    {label} <Arrow />
+  </ActionLink>
+);
 
 const HERO_ID = "home";
 
@@ -115,7 +109,7 @@ const Content1 = ({ data, lang }: HeroProps) => {
               {(index === 0 || firstSlideDone) && (
                 <SlideImage
                   src={slide.image?.url}
-                  alt=""
+                  alt={pick(slide.image?.alt, lang)}
                   loading="eager"
                   $active={index === activeSlideIndex}
                   onLoad={index === 0 ? onFirstSlideDone : undefined}

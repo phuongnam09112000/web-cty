@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import { Link } from "react-router-dom";
+import CmsLink from "../../cms/CmsLink";
 import { theme } from "../../styles/theme";
 
 const { colors, fonts, typeScale, homeScale, overlays, layout, breakpoints } = theme;
@@ -194,11 +194,7 @@ const actionBase = css<{ $variant: "primary" | "secondary" }>`
   ${mobile} { min-height: 48px; padding: 0 22px; font-size: 14px; }
 `;
 
-export const ActionLink = styled(Link)<{ $variant: "primary" | "secondary" }>`
-  ${actionBase}
-`;
-
-export const ActionAnchor = styled.a<{ $variant: "primary" | "secondary" }>`
+export const ActionLink = styled(CmsLink)<{ $variant: "primary" | "secondary" }>`
   ${actionBase}
 `;
 

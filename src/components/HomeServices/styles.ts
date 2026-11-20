@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import CmsLink from "../../cms/CmsLink";
 import { theme } from "../../styles/theme";
 import { sectionPadding, stackedMedia, mobileMedia } from "../../styles/section";
 
@@ -61,7 +61,7 @@ export const List = styled.ul`
 `;
 
 // The whole column is the link
-export const ServiceLink = styled(Link)`
+export const ServiceLink = styled(CmsLink)`
   display: flex;
   flex-direction: column;
   height: 100%;

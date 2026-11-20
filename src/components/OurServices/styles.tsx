@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { Link } from 'react-router-dom';
+import CmsLink from '../../cms/CmsLink';
 
 import { type } from "../../styles/typography";
 /* ─── Keyframes ─────────────────────────────── */
@@ -428,7 +428,7 @@ export const TouchIndicator = styled.div`
   @media (max-width: 1024px) { display: flex; }
 `;
 /* ─── "Learn more" link to the service's detail page ── */
-export const CardLink = styled(Link)<{ $onDark?: boolean }>`
+export const CardLink = styled(CmsLink)<{ $onDark?: boolean }>`
   display: inline-flex;
   align-items: center;
   gap: 6px;
