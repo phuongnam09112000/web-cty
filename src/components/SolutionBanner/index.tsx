@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { SolutionBannerProps } from "./types";
+import { pick } from "../../cms/pick";
+import type { Lang, SolutionBannerData } from "../../cms/types";
 import {
   BannerContainer,
   BannerEyebrow,
@@ -9,13 +11,15 @@ import {
   Button,
 } from "./styles";
 
-const SolutionBanner: React.FC<SolutionBannerProps> = ({
-  backgroundImage,
-  title,
-  subtitle,
-  buttonText,
-  onButtonClick,
-}) => {
+type Props = Partial<SolutionBannerProps> & { data?: SolutionBannerData; lang?: Lang };
+
+const SolutionBanner = ({ data, lang = "vi", ...legacy }: Props) => {
+  const backgroundImage = data ? data.image?.url ?? "" : legacy.backgroundImage ?? "";
+  const title = data ? pick(data.title, lang) : legacy.title;
+  const subtitle = data ? pick(data.subtitle, lang) : legacy.subtitle;
+  const buttonText = data ? pick(data.buttonLabel, lang) : legacy.buttonText;
+  const eyebrow = data ? pick(data.eyebrow, lang) : "ISTT Solutions";
+  const { onButtonClick } = legacy;
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -29,7 +33,7 @@ const SolutionBanner: React.FC<SolutionBannerProps> = ({
   return (
     <BannerContainer backgroundImage={backgroundImage}>
       <div className="content-wrapper">
-        <BannerEyebrow className={vis}>ISTT Solutions</BannerEyebrow>
+        <BannerEyebrow className={vis}>{eyebrow}</BannerEyebrow>
 
         <Title as="h2" className={vis}>{title}</Title>
 

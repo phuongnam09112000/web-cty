@@ -1,5 +1,10 @@
 import type { ComponentType } from "react";
 import AboutBanner from "../components/AboutBanner";
+import CoreValuesSystem from "../components/CoreValuesSystem";
+import ServicesPage from "../components/Integration";
+import Opportunity from "../components/Opportunity";
+import OurServices from "../components/OurServices";
+import SolutionBanner from "../components/SolutionBanner";
 import CoreValues from "../components/CoreValues";
 import MapBanner from "../components/Contact";
 import Mission from "../components/Mission";
@@ -18,6 +23,11 @@ export const BLOCK_COMPONENTS: { [K in BlockType]?: ComponentType<BlockProps<K>>
   "core-values": CoreValues,
   "office-map": MapBanner,
   "contact-form": ContactFormBlock,
+  "our-services": OurServices,
+  opportunity: Opportunity,
+  "services-list": ServicesPage,
+  "core-values-system": CoreValuesSystem,
+  "solution-banner": SolutionBanner,
 };
 
 const warned = new Set<string>();

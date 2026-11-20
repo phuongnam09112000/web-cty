@@ -3,6 +3,8 @@ export interface SolutionItem {
   content: string[];
   image?: string;
   icon?: string;
+  imageAlt?: string;
+  iconAlt?: string;
 }
 
 export interface CoreValuesSystemProps {

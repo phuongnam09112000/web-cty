@@ -1,5 +1,6 @@
 import React, {
   useEffect,
+  useMemo,
   useRef,
   useState,
   useCallback,
@@ -7,6 +8,8 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { CoreValuesSystemProps, SolutionItem } from "./types";
+import { pick } from "../../cms/pick";
+import type { CoreValuesSystemData, Lang } from "../../cms/types";
 import {
   Container,
   TitleBlock,
@@ -70,16 +73,40 @@ const SolutionCardItem = memo(
 );
 
 /* ─── Main ───────────────────────────────────── */
-const CoreValuesSystem: React.FC<CoreValuesSystemProps> = ({
-  title,
-  solutions,
+type Props = Partial<CoreValuesSystemProps> & { data?: CoreValuesSystemData; lang?: Lang };
+
+const identity = (key: string) => key;
+
+const CoreValuesSystem = ({
+  data,
+  lang = "vi",
+  title = "",
+  solutions: legacySolutions = [],
   backgroundColor,
   defaultImage = "/img/background/sy.jpg",
   autoPlayInterval = 5000,
   images = [],
   icons = [],
-}) => {
-  const { t } = useTranslation();
+}: Props) => {
+  const { t: translate } = useTranslation();
+  const t = data ? identity : translate;
+  const solutions = useMemo<SolutionItem[]>(
+    () =>
+      data
+        ? data.items.map((item) => {
+            const itemTitle = pick(item.title, lang);
+            return {
+              title: itemTitle,
+              content: item.bullets.map((bullet) => pick(bullet, lang)),
+              image: item.image?.url,
+              icon: item.icon?.url,
+              imageAlt: (item.image && pick(item.image.alt, lang)) || itemTitle,
+              iconAlt: (item.icon && pick(item.icon.alt, lang)) || itemTitle,
+            };
+          })
+        : legacySolutions,
+    [data, lang, legacySolutions]
+  );
   const [activeIndex, setActiveIndex] = useState(0);
   const intervalRef    = useRef<NodeJS.Timeout | null>(null);
   const pauseTimerRef  = useRef<NodeJS.Timeout | null>(null);
@@ -97,7 +124,7 @@ const CoreValuesSystem: React.FC<CoreValuesSystemProps> = ({
     (index: number) => {
       const src = solutions[index]?.icon || icons[index];
       return src ? (
-        <CustomIcon src={src} alt={solutions[index]?.title} />
+        <CustomIcon src={src} alt={solutions[index]?.iconAlt ?? solutions[index]?.title} />
       ) : null;
     },
     [solutions, icons]
@@ -140,8 +167,8 @@ const CoreValuesSystem: React.FC<CoreValuesSystemProps> = ({
     <Container backgroundColor={backgroundColor}>
       {/* ── Title ── */}
       <TitleBlock>
-        <TitleEyebrow>{t("OUR SOLUTIONS")}</TitleEyebrow>
-        <PageTitle level={2}>{t(title)}</PageTitle>
+        <TitleEyebrow>{data ? pick(data.eyebrow, lang) : t("OUR SOLUTIONS")}</TitleEyebrow>
+        <PageTitle level={2}>{data ? pick(data.title, lang) : t(title)}</PageTitle>
         <TitleDivider />
       </TitleBlock>
 
@@ -153,7 +180,7 @@ const CoreValuesSystem: React.FC<CoreValuesSystemProps> = ({
               <ImageLayer key={index} active={index === activeIndex}>
                 <img
                   src={getImage(index)}
-                  alt={t(solutions[index]?.title ?? "")}
+                  alt={solutions[index]?.imageAlt ?? t(solutions[index]?.title ?? "")}
                   loading={index === 0 ? "eager" : "lazy"}
                 />
               </ImageLayer>
@@ -164,7 +191,7 @@ const CoreValuesSystem: React.FC<CoreValuesSystemProps> = ({
                   <ProgressDotShell
                     key={index}
                     onClick={() => handleSelect(index)}
-                    aria-label={`Go to slide ${index + 1}`}
+                    aria-label={translate("Go to slide {{number}}", { number: index + 1 })}
                   >
                     <ProgressDotInner active={activeIndex === index} />
                   </ProgressDotShell>

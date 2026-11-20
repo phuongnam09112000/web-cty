@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { ServiceData } from '../../pages/Services';
+import { pick } from '../../cms/pick';
+import { HEADING_SEPARATOR_SPACE, renderHeading } from '../../cms/headingParts';
+import type { Lang, OurServicesData } from '../../cms/types';
 import {
   HeaderContainer,
   WaveBackground,
@@ -30,7 +33,13 @@ interface OurServicesProps extends CardsSectionProps {
   onButtonClick?: () => void;
 }
 
-const OurServices: React.FC<OurServicesProps> = ({ services, onButtonClick }) => {
+type Props = Partial<OurServicesProps> & { data?: OurServicesData; lang?: Lang };
+
+const scrollToContactForm = () => {
+  document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+};
+
+const OurServices = ({ data, lang = 'vi', services = [], onButtonClick }: Props) => {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [windowWidth,   setWindowWidth]   = useState(window.innerWidth);
   const { t } = useTranslation();
@@ -52,14 +61,18 @@ const OurServices: React.FC<OurServicesProps> = ({ services, onButtonClick }) =>
       <HeaderContainer>
         <WaveBackground className="visible" />
         <HeaderContent>
-          <Subtitle className="visible">{t('ourservices.eyebrow')}</Subtitle>
+          <Subtitle className="visible">{data ? pick(data.eyebrow, lang) : t('ourservices.eyebrow')}</Subtitle>
           <Title className="visible">
-            <Trans i18nKey="ourservices.title">
-              Dịch vụ <em>Chuyên nghiệp</em>
-            </Trans>
+            {data ? (
+              renderHeading(data.heading, lang, { separator: HEADING_SEPARATOR_SPACE })
+            ) : (
+              <Trans i18nKey="ourservices.title">
+                Dịch vụ <em>Chuyên nghiệp</em>
+              </Trans>
+            )}
           </Title>
-          <Button onClick={onButtonClick} className="visible">
-            <span>{t('ourservices.cta')}</span>
+          <Button onClick={data ? scrollToContactForm : onButtonClick} className="visible">
+            <span>{data ? pick(data.buttonLabel, lang) : t('ourservices.cta')}</span>
           </Button>
         </HeaderContent>
       </HeaderContainer>
@@ -68,6 +81,57 @@ const OurServices: React.FC<OurServicesProps> = ({ services, onButtonClick }) =>
 
   /* ── Cards ── */
   const CardsSection: React.FC<CardsSectionProps> = ({ services }) => {
+    if (data) {
+      return (
+        <CardsContainerWrapper>
+          <CardsContainer>
+            {data.items.map((item, index) => {
+              const title = pick(item.title, lang);
+              return (
+                <CardWrapper key={index} className={`visible-${index + 1}`}>
+                  <CardContent>
+                    <ImageContainer>
+                      <CardIcon src={item.icon?.url ?? ''} alt={(item.icon && pick(item.icon.alt, lang)) || title} />
+                    </ImageContainer>
+                    <CardTitle as="h2">{title}</CardTitle>
+                    <CardDescription>{pick(item.description, lang)}</CardDescription>
+                    {item.href && (
+                      <CardLink to={item.href}>
+                        {t('Learn more')} <span aria-hidden="true">→</span>
+                      </CardLink>
+                    )}
+                  </CardContent>
+
+                  {item.categories.length > 0 && (
+                    <DetailsOverlay>
+                      <CardTitle>{title}</CardTitle>
+                      <DetailsList>
+                        {item.categories.map((category, catIndex) => (
+                          <DetailCategory key={catIndex}>
+                            <CategoryTitle>{pick(category.name, lang)}</CategoryTitle>
+                            {category.bullets.map((bullet, itemIdx) => (
+                              <DetailItem key={itemIdx}>{pick(bullet, lang)}</DetailItem>
+                            ))}
+                          </DetailCategory>
+                        ))}
+                      </DetailsList>
+                      {item.href && (
+                        <CardLink to={item.href} $onDark tabIndex={-1}>
+                          {t('Learn more')} <span aria-hidden="true">→</span>
+                        </CardLink>
+                      )}
+                      {(isTouchDevice || windowWidth <= 1024) && (
+                        <TouchIndicator>i</TouchIndicator>
+                      )}
+                    </DetailsOverlay>
+                  )}
+                </CardWrapper>
+              );
+            })}
+          </CardsContainer>
+        </CardsContainerWrapper>
+      );
+    }
     return (
       <CardsContainerWrapper>
         <CardsContainer>

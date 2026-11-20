@@ -163,5 +163,6 @@
   "Bộ Công An": "Ministry of Public Security",
   "Ministry of education and training": "Ministry of Education and Training",
   "home.partners.viewAll": "View all {{count}} partners",
-  "home.partners.showFewer": "Show fewer partners"
+  "home.partners.showFewer": "Show fewer partners",
+  "Go to slide {{number}}": "Go to slide {{number}}"
 }

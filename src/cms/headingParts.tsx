@@ -1,6 +1,8 @@
 import type { Heading, Lang } from "./types";
 import { pick } from "./pick";
 
+export const HEADING_SEPARATOR_SPACE = " ";
+
 export const HEADING_SEPARATOR_NBSP = "\u00a0";
 
 type Options = { separator: string; emphasisFirst?: boolean };

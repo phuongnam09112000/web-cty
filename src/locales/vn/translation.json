@@ -279,5 +279,6 @@
   "Bộ Quốc phòng": "Bộ Quốc phòng",
   "Bộ Công An": "Bộ Công An",
   "home.partners.viewAll": "Xem tất cả {{count}} đối tác",
-  "home.partners.showFewer": "Thu gọn danh sách đối tác"
+  "home.partners.showFewer": "Thu gọn danh sách đối tác",
+  "Go to slide {{number}}": "Chuyển đến slide {{number}}"
 }

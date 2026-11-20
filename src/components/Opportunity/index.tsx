@@ -16,13 +16,17 @@ import {
   StatLabel,
 } from "./styles";
 import { OpportunityProps } from "./types";
+import { pick } from "../../cms/pick";
+import type { Lang, OpportunityData } from "../../cms/types";
 
 const stats = [
   { number: "20+",  label: "Years Active" },
   { number: "20+", label: "Partners" },
 ];
 
-const Opportunity: React.FC<OpportunityProps> = ({ subtitle, title, imageSrc }) => {
+type Props = Partial<OpportunityProps> & { data?: OpportunityData; lang?: Lang };
+
+const Opportunity = ({ data, lang = "vi", subtitle = "", title = "", imageSrc = "" }: Props) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
@@ -51,32 +55,40 @@ const Opportunity: React.FC<OpportunityProps> = ({ subtitle, title, imageSrc }) 
           {/* Image */}
           <Col xs={24} md={10}>
             <ImageWrapper className={vis}>
-              <img src={imageSrc} alt="ISTT Services" />
+              <img
+                src={data ? data.image?.url ?? "" : imageSrc}
+                alt={data ? (data.image && pick(data.image.alt, lang)) || "ISTT Services" : "ISTT Services"}
+              />
             </ImageWrapper>
           </Col>
 
           {/* Content */}
           <Col xs={24} md={14}>
             <ContentWrapper>
-              <Subtitle className={vis}>{t(subtitle)}</Subtitle>
+              <Subtitle className={vis}>{data ? pick(data.subtitle, lang) : t(subtitle)}</Subtitle>
 
               <Title className={vis}>
-                {t(title)}
+                {data ? pick(data.title, lang) : t(title)}
               </Title>
 
               <TitleDivider className={vis} />
 
               <Description className={vis}>
-                {t(
-                  "ISTT focuses its investment on researching and seeking advanced technology services that are suitable for the practical needs of Vietnam, while also meeting international standards. The services provided by ISTT have been deployed in numerous Ministries, Departments, and large enterprises and organizations both domestically and internationally, delivering high efficiency for customers."
-                )}
+                {data
+                  ? pick(data.description, lang)
+                  : t(
+                      "ISTT focuses its investment on researching and seeking advanced technology services that are suitable for the practical needs of Vietnam, while also meeting international standards. The services provided by ISTT have been deployed in numerous Ministries, Departments, and large enterprises and organizations both domestically and internationally, delivering high efficiency for customers."
+                    )}
               </Description>
 
               <StatStrip className={vis}>
-                {stats.map((s) => (
-                  <StatItem key={s.label}>
+                {(data
+                  ? data.stats.map((s) => ({ number: s.value, label: pick(s.label, lang) }))
+                  : stats.map((s) => ({ number: s.number, label: t(s.label) }))
+                ).map((s, i) => (
+                  <StatItem key={data ? i : s.label}>
                     <StatNumber>{s.number}</StatNumber>
-                    <StatLabel>{t(s.label)}</StatLabel>
+                    <StatLabel>{s.label}</StatLabel>
                   </StatItem>
                 ))}
               </StatStrip>
