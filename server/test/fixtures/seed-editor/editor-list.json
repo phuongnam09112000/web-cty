@@ -1,0 +1,164 @@
+{
+  "path": "/editor-list",
+  "name": "Sửa danh sách",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Tiêu đề trang",
+        "en": "Page title"
+      },
+      "description": {
+        "vi": "Mô tả trang",
+        "en": "Page description"
+      },
+      "image": {
+        "src": "/img/a.png"
+      }
+    },
+    "blocks": [
+      {
+        "id": "listval1",
+        "type": "home-values",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "Giá trị",
+            "en": "Values"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Giá trị chính",
+              "en": "Core values"
+            },
+            "emphasis": {
+              "vi": "",
+              "en": ""
+            }
+          },
+          "philosophy": {
+            "vi": "Triết lý",
+            "en": "Philosophy"
+          },
+          "items": [
+            {
+              "name": {
+                "vi": "Giá trị A",
+                "en": "Giá trị A EN"
+              },
+              "description": {
+                "vi": "Mô tả Giá trị A",
+                "en": "Desc"
+              }
+            },
+            {
+              "name": {
+                "vi": "Giá trị B",
+                "en": "Giá trị B EN"
+              },
+              "description": {
+                "vi": "Mô tả Giá trị B",
+                "en": "Desc"
+              }
+            },
+            {
+              "name": {
+                "vi": "Giá trị C",
+                "en": "Giá trị C EN"
+              },
+              "description": {
+                "vi": "Mô tả Giá trị C",
+                "en": "Desc"
+              }
+            },
+            {
+              "name": {
+                "vi": "Giá trị D",
+                "en": "Giá trị D EN"
+              },
+              "description": {
+                "vi": "Mô tả Giá trị D",
+                "en": "Desc"
+              }
+            },
+            {
+              "name": {
+                "vi": "Giá trị E",
+                "en": "Giá trị E EN"
+              },
+              "description": {
+                "vi": "Mô tả Giá trị E",
+                "en": "Desc"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "listmin2",
+        "type": "home-values",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "Giá trị",
+            "en": "Values"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Giá trị chính",
+              "en": "Core values"
+            },
+            "emphasis": {
+              "vi": "",
+              "en": ""
+            }
+          },
+          "philosophy": {
+            "vi": "Triết lý",
+            "en": "Philosophy"
+          },
+          "items": [
+            {
+              "name": {
+                "vi": "Giá trị Z",
+                "en": "Giá trị Z EN"
+              },
+              "description": {
+                "vi": "Mô tả Giá trị Z",
+                "en": "Desc"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": "listmap3",
+        "type": "office-map",
+        "hidden": false,
+        "data": {
+          "offices": [
+            {
+              "name": {
+                "vi": "Hà Nội",
+                "en": "Hanoi"
+              },
+              "shortName": {
+                "vi": "HN",
+                "en": "HN"
+              }
+            },
+            {
+              "name": {
+                "vi": "Hồ Chí Minh",
+                "en": "HCM"
+              },
+              "shortName": {
+                "vi": "HCM",
+                "en": "HCM"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

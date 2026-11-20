@@ -1,13 +1,13 @@
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Alert, Button, Modal, Space, Spin, Tabs, Tag, Typography, message } from "antd";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useBlocker, useParams } from "react-router-dom";
 import { fetchPage, saveDraft } from "../../api/content";
 import { ApiError } from "../../api/client";
 import type { PageContent, PageDetail } from "../../api/types";
 import { useAuth } from "../../auth/AuthProvider";
-import { canonicalJson, countUntranslated } from "../../content/blockForms";
+import { canonicalJson, countUntranslated, pruneErrors } from "../../content/blockForms";
 import { BlockList } from "../../content/BlockList";
 import type { Errors } from "../../content/FieldEditor";
 import { ListError } from "../ListError";
@@ -71,9 +71,12 @@ function Editor({ id }: { id: number }) {
     return () => window.removeEventListener("beforeunload", handler);
   }, [dirty]);
 
-  const setContent = useCallback((updater: (content: PageContent) => PageContent) => {
-    setDoc((prev) => (prev ? { ...prev, content: updater(prev.content) } : prev));
-  }, []);
+  const setContent = (updater: (content: PageContent) => PageContent) => {
+    if (!doc) return;
+    const next = updater(doc.content);
+    setDoc({ ...doc, content: next });
+    setErrors((current) => pruneErrors(current, doc.content, next));
+  };
 
   const save = useMutation({
     mutationFn: ({ content, revision }: { content: PageContent; revision: number }) => saveDraft(id, content, revision),

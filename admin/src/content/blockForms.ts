@@ -371,3 +371,30 @@ export function canonicalJson(value: unknown): string {
     return v;
   });
 }
+
+function walk(root: unknown, segments: string[]): unknown {
+  let current = root;
+  for (const segment of segments) {
+    if (current === null || typeof current !== "object") return undefined;
+    current = (current as Record<string, unknown>)[segment];
+  }
+  return current;
+}
+
+export function pruneErrors(errors: Record<string, string>, prev: unknown, next: unknown): Record<string, string> {
+  const kept: Record<string, string> = {};
+  for (const [key, message] of Object.entries(errors)) {
+    const segments = key.split(".");
+    let keep = true;
+    for (let i = 1; i <= segments.length && keep; i += 1) {
+      const before = walk(prev, segments.slice(0, i));
+      const after = walk(next, segments.slice(0, i));
+      if ((Array.isArray(before) || Array.isArray(after)) && (!Array.isArray(before) || !Array.isArray(after) || before.length !== after.length)) {
+        keep = false;
+      }
+    }
+    if (keep && canonicalJson(walk(prev, segments)) !== canonicalJson(walk(next, segments))) keep = false;
+    if (keep) kept[key] = message;
+  }
+  return kept;
+}

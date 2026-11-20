@@ -209,3 +209,80 @@ test("đóng tab khi chưa lưu kích hoạt cảnh báo beforeunload", async ({
   expect(dialog.type()).toBe("beforeunload");
   await dialog.accept();
 });
+
+const NAME_VI = (index: number) => `blocks.0.data.items.${index}.name.vi`;
+
+test("thêm, xóa, chuyển mục trong danh sách trong giới hạn rồi lưu và tải lại", async ({ page }) => {
+  await loginAdmin(page);
+  await openEditor(page, "Sửa danh sách");
+  const card = await expand(page, "listval1");
+  const add = card.getByRole("button", { name: "Thêm giá trị: Giá trị" });
+  await expect(add).toBeEnabled();
+  await add.click();
+  await expect(add).toBeDisabled();
+  await card.getByTestId(NAME_VI(5)).fill("Giá trị F");
+  await card.getByTestId("blocks.0.data.items.5.description.vi").fill("Mô tả F");
+  await card.getByRole("button", { name: "Chuyển Giá trị 1 xuống" }).click();
+  await expect(card.getByTestId(NAME_VI(0))).toHaveValue("Giá trị B");
+  await expect(card.getByTestId(NAME_VI(1))).toHaveValue("Giá trị A");
+  await card.getByRole("button", { name: "Xóa Giá trị 3" }).click();
+  await expect(add).toBeEnabled();
+  expect((await save(page)).status()).toBe(200);
+  await page.reload();
+  const again = await expand(page, "listval1");
+  const names = await Promise.all([0, 1, 2, 3, 4].map((i) => again.getByTestId(NAME_VI(i)).inputValue()));
+  expect(names).toEqual(["Giá trị B", "Giá trị A", "Giá trị D", "Giá trị E", "Giá trị F"]);
+  await expect(again.getByTestId(NAME_VI(5))).toHaveCount(0);
+});
+
+test("không xóa được dưới tối thiểu và văn phòng cố định hai mục không có nút thêm xóa", async ({ page }) => {
+  await loginAdmin(page);
+  await openEditor(page, "Sửa danh sách");
+  const single = await expand(page, "listmin2");
+  await expect(single.getByRole("button", { name: "Xóa Giá trị 1" })).toBeDisabled();
+  const map = await expand(page, "listmap3");
+  await expect(map.getByTestId("blocks.2.data.offices.1")).toBeVisible();
+  await expect(map.getByRole("button", { name: /^(Thêm|Xóa|Chuyển)/ })).toHaveCount(0);
+});
+
+test("lỗi 400 lồng nhau rơi đúng ô nhập và biến mất khi sửa trước khi lưu", async ({ page }) => {
+  await loginAdmin(page);
+  await openEditor(page, "Sửa lỗi lồng");
+  const card = await expand(page, "nestval1");
+  const second = card.getByTestId(NAME_VI(1));
+  await second.fill("");
+  expect((await save(page)).status()).toBe(400);
+  await expect(second).toHaveAttribute("aria-invalid", "true");
+  await expect(card.getByTestId(NAME_VI(0))).not.toHaveAttribute("aria-invalid", "true");
+  await expect(card.getByText("Có lỗi")).toBeVisible();
+  await second.fill("Đã sửa");
+  await expect(second).not.toHaveAttribute("aria-invalid", "true");
+  await expect(card.getByText("Có lỗi")).toHaveCount(0);
+});
+
+test("xóa mục khác khi có lỗi thì không còn dấu đỏ sai chỗ và khối có lỗi vẫn thu gọn được", async ({ page }) => {
+  await loginAdmin(page);
+  await openEditor(page, "Sửa lỗi lồng");
+  const card = await expand(page, "nestval1");
+  await card.getByTestId(NAME_VI(1)).fill("");
+  expect((await save(page)).status()).toBe(400);
+  await expect(card.getByTestId(NAME_VI(1))).toHaveAttribute("aria-invalid", "true");
+  await card.getByRole("button", { name: "Xóa Giá trị 1" }).click();
+  await expect(card.locator("[aria-invalid='true']")).toHaveCount(0);
+  await expect(card.getByText("Có lỗi")).toHaveCount(0);
+  await card.getByRole("button", { name: /Thu gọn/ }).click();
+  await expect(card.getByTestId(NAME_VI(0))).toHaveCount(0);
+});
+
+test("lỗi 400 ở tab SEO rơi đúng ô nhập", async ({ page }) => {
+  await loginAdmin(page);
+  await openEditor(page, "Sửa lỗi lồng");
+  await page.getByRole("tab", { name: "SEO" }).click();
+  const input = page.getByTestId("seo.title.vi");
+  await input.fill("");
+  expect((await save(page)).status()).toBe(400);
+  await expect(input).toHaveAttribute("aria-invalid", "true");
+  await expect(page.getByTestId("seo.description.vi")).not.toHaveAttribute("aria-invalid", "true");
+  await input.fill("Tiêu đề mới");
+  await expect(input).not.toHaveAttribute("aria-invalid", "true");
+});

@@ -1,0 +1,68 @@
+{
+  "path": "/editor-nested",
+  "name": "Sửa lỗi lồng",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Tiêu đề trang",
+        "en": "Page title"
+      },
+      "description": {
+        "vi": "Mô tả trang",
+        "en": "Page description"
+      },
+      "image": {
+        "src": "/img/a.png"
+      }
+    },
+    "blocks": [
+      {
+        "id": "nestval1",
+        "type": "home-values",
+        "hidden": false,
+        "data": {
+          "eyebrow": {
+            "vi": "Giá trị",
+            "en": "Values"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Giá trị chính",
+              "en": "Core values"
+            },
+            "emphasis": {
+              "vi": "",
+              "en": ""
+            }
+          },
+          "philosophy": {
+            "vi": "Triết lý",
+            "en": "Philosophy"
+          },
+          "items": [
+            {
+              "name": {
+                "vi": "Giá trị P",
+                "en": "Giá trị P EN"
+              },
+              "description": {
+                "vi": "Mô tả Giá trị P",
+                "en": "Desc"
+              }
+            },
+            {
+              "name": {
+                "vi": "Giá trị Q",
+                "en": "Giá trị Q EN"
+              },
+              "description": {
+                "vi": "Mô tả Giá trị Q",
+                "en": "Desc"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

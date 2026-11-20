@@ -11,7 +11,7 @@ import {
 import { SortableContext, arrayMove, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Button, Space, Tag, Typography } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ContentBlock } from "../api/types";
 import { BLOCK_FORMS, countUntranslated } from "./blockForms";
 import { ObjectFields, type Errors } from "./FieldEditor";
@@ -110,6 +110,17 @@ function SortableBlock(props: {
 
 export function BlockList({ blocks, onChange, onReorder, errors, readOnly }: Props) {
   const [open, setOpen] = useState<Set<string>>(new Set());
+  useEffect(() => {
+    const failing = blocks.filter((_, index) => Object.keys(errors).some((key) => key.startsWith(`blocks.${index}.`)));
+    if (failing.length === 0) return;
+    setOpen((prev) => {
+      if (failing.every((block) => prev.has(block.id))) return prev;
+      const next = new Set(prev);
+      failing.forEach((block) => next.add(block.id));
+      return next;
+    });
+  }, [errors, blocks]);
+
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
@@ -139,11 +150,11 @@ export function BlockList({ blocks, onChange, onReorder, errors, readOnly }: Pro
               index={index}
               errors={errors}
               errorCount={errorCount}
-              expanded={open.has(block.id) || errorCount > 0}
+              expanded={open.has(block.id)}
               onToggle={() =>
                 setOpen((prev) => {
                   const next = new Set(prev);
-                  if (next.has(block.id) || errorCount > 0) next.delete(block.id);
+                  if (next.has(block.id)) next.delete(block.id);
                   else next.add(block.id);
                   return next;
                 })
