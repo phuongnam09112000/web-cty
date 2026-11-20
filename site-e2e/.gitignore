@@ -1,0 +1,7 @@
+node_modules
+.baseline
+.baseline-src
+.diff
+test-results
+playwright-report
+.current

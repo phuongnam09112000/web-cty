@@ -5,6 +5,11 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import routes from "./config";
 import { Styles } from "../styles/styles";
+import CmsPage from "../cms/CmsPage";
+import { CMS_PATHS } from "../cms/cmsPaths";
+
+const cmsPathOf = (paths: string[]) =>
+  paths.map((path) => (path === "/home" ? "/" : path)).find((path) => CMS_PATHS.includes(path));
 
 // Skip link lives in its own component so that language changes re-render
 // only this link, not Router (Router creates its lazy route components
@@ -44,6 +49,17 @@ const Router = () => {
       <main id="main-content" tabIndex={-1}>
         <Switch>
           {routes.map((routeItem) => {
+            const cmsPath = cmsPathOf(routeItem.path);
+            if (cmsPath) {
+              return (
+                <Route
+                  key={routeItem.component}
+                  path={routeItem.path}
+                  exact={routeItem.exact}
+                  render={() => <CmsPage path={cmsPath} />}
+                />
+              );
+            }
             return (
               <Route
                 key={routeItem.component}

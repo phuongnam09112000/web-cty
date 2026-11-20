@@ -11,6 +11,8 @@ import translationVn from "./locales/vn/translation.json";
 const SUPPORTED_LANGUAGES = ["en", "vi"];
 const readSavedLanguage = () => {
   try {
+    const requested = new URLSearchParams(window.location.search).get("lang");
+    if (requested && SUPPORTED_LANGUAGES.includes(requested)) return requested;
     const saved = localStorage.getItem("i18nextLng");
     return saved && SUPPORTED_LANGUAGES.includes(saved) ? saved : "en";
   } catch {

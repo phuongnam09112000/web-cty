@@ -1,0 +1,16 @@
+{
+  "name": "istt-site-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "baseline": "node scripts/baseline.mjs",
+    "compare": "node scripts/compare.mjs",
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "pixelmatch": "8.0.0",
+    "pngjs": "7.0.0"
+  }
+}
