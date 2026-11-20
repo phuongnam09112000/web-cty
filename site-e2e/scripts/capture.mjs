@@ -101,9 +101,7 @@ export async function waitForUrl(url, timeoutMs = 240000) {
     try {
       const response = await fetch(url);
       if (response.ok) return;
-    } catch {
-      /* not up yet */
-    }
+    } catch {}
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
   throw new Error(`Hết thời gian chờ ${url}`);

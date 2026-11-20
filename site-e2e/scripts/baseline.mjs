@@ -36,9 +36,7 @@ const server = spawn("npx", ["react-scripts", "start"], {
 const stop = () => {
   try {
     process.kill(-server.pid);
-  } catch {
-    /* already stopped */
-  }
+  } catch {}
 };
 process.on("exit", stop);
 
