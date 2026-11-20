@@ -4,6 +4,8 @@ import { Button, Empty, Input, Modal, Space, Spin, Typography } from "antd";
 import { useMemo, useState } from "react";
 import { fetchAllMedia } from "../api/content";
 import type { MediaDto } from "../api/types";
+import { useAuth } from "../auth/AuthProvider";
+import { UploadZone } from "./UploadZone";
 
 export type MediaValue = { mediaId: number } | null;
 
@@ -47,6 +49,7 @@ function Thumb({ media, size }: { media: MediaDto | undefined; size: number }) {
 
 export function MediaPicker({ label, value, onChange, path, nullable = false, readOnly = false, error }: Props) {
   const library = useMediaLibrary();
+  const { can } = useAuth();
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const current = value ? library.byId.get(value.mediaId) : undefined;
@@ -92,6 +95,7 @@ export function MediaPicker({ label, value, onChange, path, nullable = false, re
         </div>
       ) : null}
       <Modal title="Chọn ảnh" open={open} onCancel={() => setOpen(false)} footer={null} width={720} destroyOnClose>
+        {can("media.manage") ? <UploadZone compact /> : null}
         <Input.Search
           allowClear
           placeholder="Tìm theo tên hoặc mô tả ảnh"

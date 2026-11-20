@@ -6,6 +6,7 @@ import { AuditLogsPage } from "./pages/audit-logs/AuditLogsPage";
 import { ChangePasswordPage } from "./pages/change-password/ChangePasswordPage";
 import { DashboardPage } from "./pages/dashboard/DashboardPage";
 import { PageEditorPage } from "./pages/content/PageEditorPage";
+import { MediaPage } from "./pages/media/MediaPage";
 import { PagesPage } from "./pages/content/PagesPage";
 import { ForbiddenPage } from "./pages/forbidden/ForbiddenPage";
 import { LoginPage } from "./pages/login/LoginPage";
@@ -62,6 +63,7 @@ export function App() {
               </RequirePermission>
             }
           />
+          <Route path="media" element={<MediaPage />} />
           <Route
             path="audit-logs"
             element={

@@ -1,0 +1,105 @@
+{
+  "path": "/editor-pick",
+  "name": "Sửa chọn ảnh",
+  "content": {
+    "seo": {
+      "title": {
+        "vi": "Sửa lưu",
+        "en": "Sửa lưu EN"
+      },
+      "description": {
+        "vi": "Mô tả Sửa lưu",
+        "en": ""
+      },
+      "image": {
+        "src": "/img/a.png"
+      }
+    },
+    "blocks": [
+      {
+        "id": "pickban1",
+        "type": "solution-banner",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/a.png"
+          },
+          "eyebrow": {
+            "vi": "Giải pháp",
+            "en": "Solutions"
+          },
+          "title": {
+            "vi": "Tiêu đề banner Sửa lưu",
+            "en": "Banner title Sửa lưu"
+          },
+          "subtitle": {
+            "vi": "Phụ đề",
+            "en": ""
+          },
+          "buttonLabel": {
+            "vi": "Xem thêm",
+            "en": "More"
+          }
+        }
+      },
+      {
+        "id": "pickvis2",
+        "type": "vision",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/b.png"
+          },
+          "eyebrow": {
+            "vi": "Tầm nhìn",
+            "en": "Vision"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Tầm nhìn Sửa lưu",
+              "en": "Vision Sửa lưu"
+            },
+            "emphasis": {
+              "vi": "",
+              "en": ""
+            }
+          },
+          "body": {
+            "vi": "Nội dung tầm nhìn",
+            "en": "Vision body"
+          }
+        }
+      },
+      {
+        "id": "pickmis3",
+        "type": "mission",
+        "hidden": false,
+        "data": {
+          "image": {
+            "src": "/img/a.png"
+          },
+          "eyebrow": {
+            "vi": "Sứ mệnh",
+            "en": "Mission"
+          },
+          "heading": {
+            "lead": {
+              "vi": "Sứ mệnh Sửa lưu",
+              "en": "Mission Sửa lưu"
+            },
+            "emphasis": {
+              "vi": "",
+              "en": ""
+            }
+          },
+          "points": [
+            {
+              "vi": "Điểm một",
+              "en": "Point one"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -110,3 +110,14 @@ export type PageDetail = {
   draft: { content: PageContent; revision: number; updatedAt: string };
   published: { number: number; content: PageContent } | null;
 };
+
+export type VersionListItem = {
+  number: number;
+  note: string | null;
+  publishedAt: string;
+  publishedBy: UserRef | null;
+};
+
+export type VersionDetail = VersionListItem & { content: PageContent };
+
+export type MediaUsage = { pages: { id: number; path: string; name: string }[] };

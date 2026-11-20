@@ -10,6 +10,7 @@ type Item = { key: string; label: string; anyOf?: PermissionKey[] };
 const items: Item[] = [
   { key: "/", label: "Tổng quan" },
   { key: "/pages", label: "Trang", anyOf: ["content.view"] },
+  { key: "/media", label: "Thư viện ảnh" },
   { key: "/users", label: "Người dùng", anyOf: ["users.view"] },
   { key: "/roles", label: "Vai trò & quyền", anyOf: ["roles.manage"] },
   { key: "/audit-logs", label: "Nhật ký hoạt động", anyOf: ["audit.view"] },

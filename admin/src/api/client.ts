@@ -43,11 +43,12 @@ function buildUrl(path: string, query?: Query) {
 
 export async function apiFetch<T>(path: string, init: FetchInit = {}): Promise<T> {
   const hasBody = init.body !== undefined;
+  const isForm = typeof FormData !== "undefined" && init.body instanceof FormData;
   const response = await fetch(buildUrl(path, init.query), {
     method: init.method ?? "GET",
     credentials: "same-origin",
-    headers: hasBody ? { "Content-Type": "application/json" } : undefined,
-    body: hasBody ? JSON.stringify(init.body) : undefined,
+    headers: hasBody && !isForm ? { "Content-Type": "application/json" } : undefined,
+    body: hasBody ? (isForm ? (init.body as FormData) : JSON.stringify(init.body)) : undefined,
   });
 
   if (response.status === 204) return undefined as T;

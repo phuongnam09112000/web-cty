@@ -1,16 +1,17 @@
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Alert, Button, Modal, Space, Spin, Tabs, Tag, Typography, message } from "antd";
+import { Alert, Button, Input, Modal, Space, Spin, Tabs, Tag, Typography, message } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useBlocker, useParams } from "react-router-dom";
-import { fetchPage, saveDraft } from "../../api/content";
+import { createPreview, fetchPage, publishPage, restoreVersion, saveDraft } from "../../api/content";
 import { ApiError } from "../../api/client";
-import type { PageContent, PageDetail } from "../../api/types";
+import type { PageContent, PageDetail, VersionListItem } from "../../api/types";
 import { useAuth } from "../../auth/AuthProvider";
 import { canonicalJson, countUntranslated, pruneErrors } from "../../content/blockForms";
 import { BlockList } from "../../content/BlockList";
 import type { Errors } from "../../content/FieldEditor";
 import { ListError } from "../ListError";
+import { HistoryTab } from "./HistoryTab";
 import { SeoTab } from "./SeoTab";
 
 type Doc = {
@@ -42,12 +43,18 @@ function fromDetail(detail: PageDetail): Doc {
 function Editor({ id }: { id: number }) {
   const { can } = useAuth();
   const readOnly = !can("content.edit");
+  const canPublish = can("content.publish");
   const queryClient = useQueryClient();
   const query = useQuery({ queryKey: ["page", id], queryFn: () => fetchPage(id), gcTime: 0, staleTime: 0 });
   const [doc, setDoc] = useState<Doc | null>(null);
   const [errors, setErrors] = useState<Errors>({});
   const [conflict, setConflict] = useState(false);
   const [problem, setProblem] = useState<string | null>(null);
+  const [previewing, setPreviewing] = useState(false);
+  const [publishOpen, setPublishOpen] = useState(false);
+  const [publishing, setPublishing] = useState(false);
+  const [note, setNote] = useState("");
+  const [publishProblem, setPublishProblem] = useState<string | null>(null);
 
   useEffect(() => {
     if (query.data && !doc) setDoc(fromDetail(query.data));
@@ -82,8 +89,8 @@ function Editor({ id }: { id: number }) {
     mutationFn: ({ content, revision }: { content: PageContent; revision: number }) => saveDraft(id, content, revision),
   });
 
-  const onSave = async () => {
-    if (!doc || readOnly) return;
+  const persist = async (): Promise<boolean> => {
+    if (!doc || readOnly) return false;
     const sent = doc.content;
     try {
       const result = await save.mutateAsync({ content: sent, revision: doc.revision });
@@ -97,6 +104,7 @@ function Editor({ id }: { id: number }) {
       setProblem(null);
       void queryClient.invalidateQueries({ queryKey: ["pages"] });
       void message.success("Đã lưu nháp");
+      return true;
     } catch (error) {
       if (error instanceof ApiError && error.status === 409) {
         setConflict(true);
@@ -107,7 +115,84 @@ function Editor({ id }: { id: number }) {
       } else {
         setProblem(error instanceof ApiError ? error.message : "Không thể kết nối tới máy chủ");
       }
+      return false;
     }
+  };
+
+  const onSave = () => {
+    void persist();
+  };
+
+  const onPreview = async () => {
+    const tab = window.open("", "_blank");
+    setPreviewing(true);
+    try {
+      if (dirty && !readOnly && !(await persist())) {
+        tab?.close();
+        return;
+      }
+      const { url } = await createPreview(id);
+      if (tab) tab.location.href = url;
+      else window.open(url, "_blank");
+    } catch (error) {
+      tab?.close();
+      setProblem(error instanceof ApiError ? error.message : "Không thể kết nối tới máy chủ");
+    } finally {
+      setPreviewing(false);
+    }
+  };
+
+  const openPublish = () => {
+    setNote("");
+    setPublishProblem(null);
+    setPublishOpen(true);
+  };
+
+  const onPublish = async () => {
+    setPublishing(true);
+    setPublishProblem(null);
+    try {
+      if (dirty && !(await persist())) {
+        setPublishOpen(false);
+        return;
+      }
+      const result = await publishPage(id, note.trim());
+      setDoc((prev) => (prev ? { ...prev, published: { number: result.number, canonical: prev.savedCanonical } } : prev));
+      void queryClient.invalidateQueries({ queryKey: ["pages"] });
+      void queryClient.invalidateQueries({ queryKey: ["versions", id] });
+      setPublishOpen(false);
+      void message.success(`Đã xuất bản phiên bản ${result.number}`);
+    } catch (error) {
+      setPublishProblem(error instanceof ApiError ? error.message : "Không thể kết nối tới máy chủ");
+    } finally {
+      setPublishing(false);
+    }
+  };
+
+  const onRestore = (version: VersionListItem) => {
+    Modal.confirm({
+      title: `Khôi phục phiên bản ${version.number}?`,
+      content: dirty
+        ? "Bản nháp hiện tại và các thay đổi chưa lưu sẽ được thay bằng nội dung của phiên bản này."
+        : "Bản nháp hiện tại sẽ được thay bằng nội dung của phiên bản này.",
+      okText: "Khôi phục",
+      cancelText: "Hủy",
+      onOk: async () => {
+        try {
+          await restoreVersion(id, version.number);
+          const result = await query.refetch();
+          if (!result.data) throw new Error("reload");
+          setDoc(fromDetail(result.data));
+          setErrors({});
+          setConflict(false);
+          setProblem(null);
+          void queryClient.invalidateQueries({ queryKey: ["pages"] });
+          void message.success(`Đã khôi phục phiên bản ${version.number} vào bản nháp`);
+        } catch (error) {
+          void message.error(error instanceof ApiError ? error.message : "Không khôi phục được phiên bản");
+        }
+      },
+    });
   };
 
   const reload = () => {
@@ -159,13 +244,26 @@ function Editor({ id }: { id: number }) {
           {untranslated > 0 ? <Tag color="orange">{untranslated} chỗ chưa dịch</Tag> : null}
           {dirty ? <Tag color="blue">Chưa lưu</Tag> : null}
         </Space>
-        {readOnly ? (
-          <Tag>Chỉ xem</Tag>
-        ) : (
-          <Button type="primary" disabled={!dirty} loading={save.isPending} onClick={() => void onSave()}>
-            Lưu nháp
+        <Space wrap>
+          {readOnly ? <Tag>Chỉ xem</Tag> : null}
+          <Button loading={previewing} onClick={() => void onPreview()}>
+            Xem trước
           </Button>
-        )}
+          {readOnly ? null : (
+            <Button type={canPublish ? "default" : "primary"} disabled={!dirty} loading={save.isPending} onClick={onSave}>
+              Lưu nháp
+            </Button>
+          )}
+          {canPublish ? (
+            <Button
+              type="primary"
+              disabled={!!doc.published && !dirty && doc.published.canonical === doc.savedCanonical}
+              onClick={openPublish}
+            >
+              Xuất bản
+            </Button>
+          ) : null}
+        </Space>
       </Space>
       {conflict ? (
         <Alert
@@ -214,8 +312,39 @@ function Editor({ id }: { id: number }) {
               />
             ),
           },
+          {
+            key: "history",
+            label: "Lịch sử",
+            children: <HistoryTab pageId={id} canRestore={canPublish} onRestore={onRestore} />,
+          },
         ]}
       />
+      <Modal
+        open={publishOpen}
+        title="Xuất bản trang"
+        okText="Xuất bản"
+        cancelText="Hủy"
+        confirmLoading={publishing}
+        onOk={() => void onPublish()}
+        onCancel={() => setPublishOpen(false)}
+        destroyOnClose
+      >
+        <Space direction="vertical" style={{ width: "100%" }}>
+          <Typography.Text>
+            {dirty ? "Các thay đổi chưa lưu sẽ được lưu nháp rồi xuất bản lên website." : "Bản nháp hiện tại sẽ được xuất bản lên website."}
+          </Typography.Text>
+          <label htmlFor="publish-note">Ghi chú</label>
+          <Input.TextArea
+            id="publish-note"
+            value={note}
+            maxLength={500}
+            showCount
+            rows={3}
+            onChange={(event) => setNote(event.target.value)}
+          />
+          {publishProblem ? <Alert type="error" showIcon message={publishProblem} /> : null}
+        </Space>
+      </Modal>
       <Modal
         open={blocker.state === "blocked"}
         title="Chưa lưu thay đổi"
